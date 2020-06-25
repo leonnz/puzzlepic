@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "508988666179",
+    "firebase_url": "https://puzzle-pic-5c48d.firebaseio.com",
+    "project_id": "puzzle-pic-5c48d",
+    "storage_bucket": "puzzle-pic-5c48d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508988666179:android:182253e71141bc3abebff6",
+        "android_client_info": {
+          "package_name": "com.leonlau.puzzlepic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508988666179-fa8uthuf4onkqcosjombgdup23hphpvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJuq_dVh9nQra0VsDf3R7DvdnnUQ7yXbs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508988666179-fa8uthuf4onkqcosjombgdup23hphpvu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
