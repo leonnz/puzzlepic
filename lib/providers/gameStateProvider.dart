@@ -21,6 +21,19 @@ class GameStateProvider with ChangeNotifier {
   int get getBlankSquare => _blankSquare;
   int get getGridSideSize => _gridSideSize;
 
+  // First index is the blank square, mapped to the moveable pieces allowed directions.
+  Map<int, Map<int, String>> draggableMatrix = {
+    1: {2: "left", 3: "left", 4: "up", 7: "up"},
+    2: {1: "right", 3: "left", 5: "up", 8: "up"},
+    3: {1: "right", 2: "right", 6: "up", 9: "up"},
+    4: {1: "down", 5: "left", 6: "left", 7: "up"},
+    5: {2: "down", 4: "right", 6: "left", 8: "up"},
+    6: {3: "down", 4: "right", 5: "right", 9: "up"},
+    7: {1: "down", 4: "down", 8: "left", 9: "left"},
+    8: {2: "down", 5: "down", 7: "right", 9: "left"},
+    9: {3: "down", 6: "down", 7: "right", 8: "right"},
+  };
+
   void setGameInProgress(bool gameInProgress) {
     _gameInProgess = gameInProgress;
     // notifyListeners();
@@ -147,18 +160,17 @@ class GameStateProvider with ChangeNotifier {
     // notifyListeners();
   }
 
-  bool draggable(int pieceNumber) {
-    // print('testing for draggable...on $pieceNumber');
-
-    // if (xDistance > 0.0) {
-    //   print('right');
-    // } else if (xDistance < 0.0) {
-    //   print('left');
-    // } else if (yDistance > 0.0) {
-    //   print('down');
-    // } else if (yDistance < 0.0) {
-    //   print('up');
-    // }
+  bool draggable({int pieceNumber, double xDistance, double yDistance}) {
+    String direction;
+    if (xDistance > 0.0) {
+      direction = "right";
+    } else if (xDistance < 0.0) {
+      direction = "left";
+    } else if (yDistance > 0.0) {
+      direction = "down";
+    } else if (yDistance < 0.0) {
+      direction = "up";
+    }
 
     List<int> draggableSquares = [];
 
@@ -206,9 +218,10 @@ class GameStateProvider with ChangeNotifier {
       draggableSquares.add(getBlankSquare - 1);
     }
 
-    draggableSquares.sort((a, b) => a.compareTo(b));
+    // draggableSquares.sort((a, b) => a.compareTo(b));
 
-    if (draggableSquares.contains(piecePosition)) {
+    if (draggableSquares.contains(piecePosition) &&
+        draggableMatrix[getBlankSquare][piecePosition] == direction) {
       return true;
     }
 

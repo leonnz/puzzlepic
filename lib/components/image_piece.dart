@@ -11,7 +11,7 @@ class ImagePiece extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = Provider.of<GameStateProvider>(context, listen: true);
 
-    bool dragged;
+    bool dragged = false;
     double initial = 0.0;
     double xDistance = 0.0;
     double yDistance = 0.0;
@@ -25,7 +25,10 @@ class ImagePiece extends StatelessWidget {
           onHorizontalDragUpdate: (DragUpdateDetails details) {
             xDistance = details.globalPosition.dx - initial;
             if (dragged) {
-              if (state.draggable(pieceNumber)) {
+              if (state.draggable(
+                  pieceNumber: pieceNumber,
+                  xDistance: xDistance,
+                  yDistance: 0.0)) {
                 state.setPieceLeftPosition(pieceNumber, xDistance);
               }
               dragged = false;
@@ -41,7 +44,10 @@ class ImagePiece extends StatelessWidget {
           onVerticalDragUpdate: (DragUpdateDetails details) {
             yDistance = details.globalPosition.dy - initial;
             if (dragged) {
-              if (state.draggable(pieceNumber)) {
+              if (state.draggable(
+                  pieceNumber: pieceNumber,
+                  xDistance: 0.0,
+                  yDistance: yDistance)) {
                 state.setPieceTopPosition(pieceNumber, yDistance);
               }
               dragged = false;
