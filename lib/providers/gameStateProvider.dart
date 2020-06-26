@@ -82,9 +82,42 @@ class GameStateProvider with ChangeNotifier {
     }
 
     pieceToUpdate['leftPosition'] = leftPosition;
-    pieceToUpdate['gridPosition'] = getBlankSquare;
 
-    setBlankSquare(piecePreviousPosition);
+    // Checks if the piece being dragged is a multi drag piece initial drag piece.
+    // Call the adjacent drag function.
+    // Then we need to set its grid position to the adjacent dragged piece.
+    // Otherwise this is a single piece drag so the grid position can be set to the blank square.
+    if (draggableMatrixMulti[getBlankSquare]
+        .containsKey(piecePreviousPosition)) {
+      setAdjacentPieceLeftPosition(
+          draggableMatrixMulti[getBlankSquare][piecePreviousPosition],
+          xDistance);
+
+      pieceToUpdate['gridPosition'] =
+          draggableMatrixMulti[getBlankSquare][piecePreviousPosition];
+
+      setBlankSquare(piecePreviousPosition);
+    } else {
+      pieceToUpdate['gridPosition'] = getBlankSquare;
+      setBlankSquare(piecePreviousPosition);
+    }
+
+    notifyListeners();
+  }
+
+  void setAdjacentPieceLeftPosition(int adjacentPieceToMove, double xDistance) {
+    Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
+        (imgPiece) => imgPiece['gridPosition'] == adjacentPieceToMove);
+    double leftPosition;
+
+    if (xDistance > 0.0) {
+      leftPosition = pieceToUpdate['leftPosition'] + getSinglePieceWidth;
+    } else if (xDistance < 0.0) {
+      leftPosition = pieceToUpdate['leftPosition'] - getSinglePieceWidth;
+    }
+
+    pieceToUpdate['leftPosition'] = leftPosition;
+    pieceToUpdate['gridPosition'] = getBlankSquare;
 
     notifyListeners();
   }
