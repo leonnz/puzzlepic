@@ -34,6 +34,19 @@ class GameStateProvider with ChangeNotifier {
     9: {3: "down", 6: "down", 7: "right", 8: "right"},
   };
 
+  // First index is the blank square, mapped to the moveable pieces and the adjacent pieces that need to move with it.
+  Map<int, Map<int, int>> draggableMatrixMulti = {
+    1: {3: 2, 7: 4},
+    2: {8: 5},
+    3: {1: 2, 9: 6},
+    4: {6: 5},
+    5: {},
+    6: {4: 5},
+    7: {1: 4, 9: 8},
+    8: {2: 5},
+    9: {3: 6, 7: 8}
+  };
+
   void setGameInProgress(bool gameInProgress) {
     _gameInProgess = gameInProgress;
     // notifyListeners();
@@ -73,9 +86,6 @@ class GameStateProvider with ChangeNotifier {
 
     setBlankSquare(piecePreviousPosition);
 
-    print('old position $piecePreviousPosition');
-    print('new position ${pieceToUpdate['gridPosition']}');
-
     notifyListeners();
   }
 
@@ -95,9 +105,40 @@ class GameStateProvider with ChangeNotifier {
     }
 
     pieceToUpdate['topPosition'] = topPosition;
-    pieceToUpdate['gridPosition'] = getBlankSquare;
 
-    setBlankSquare(piecePreviousPosition);
+    // Checks if the piece being dragged is a multi drag piece initial drag piece.
+    // If true then we need to set its grid position to the adjacent dragged piece.
+    // Otherwise this is a single piece drag so the grid position can be set to the blank square.
+    if (draggableMatrixMulti[getBlankSquare]
+        .containsKey(piecePreviousPosition)) {
+      pieceToUpdate['gridPosition'] =
+          draggableMatrixMulti[getBlankSquare][piecePreviousPosition];
+      setBlankSquare(piecePreviousPosition);
+    } else {
+      pieceToUpdate['gridPosition'] = getBlankSquare;
+      setBlankSquare(piecePreviousPosition);
+    }
+
+    notifyListeners();
+  }
+
+  void setAdjacentPieceTopPosition(int adjacentPIeceToMove, double yDistance) {
+    Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
+        (imgPiece) => imgPiece['gridPosition'] == adjacentPIeceToMove);
+
+    // Used to set the new blank square.
+    // int piecePreviousPosition = pieceToUpdate['gridPosition'];
+
+    double topPosition;
+
+    if (yDistance > 0.0) {
+      topPosition = pieceToUpdate['topPosition'] + getSinglePieceWidth;
+    } else if (yDistance < 0.0) {
+      topPosition = pieceToUpdate['topPosition'] - getSinglePieceWidth;
+    }
+
+    pieceToUpdate['topPosition'] = topPosition;
+    pieceToUpdate['gridPosition'] = getBlankSquare;
 
     notifyListeners();
   }
@@ -222,6 +263,15 @@ class GameStateProvider with ChangeNotifier {
 
     if (draggableSquares.contains(piecePosition) &&
         draggableMatrix[getBlankSquare][piecePosition] == direction) {
+      // If the piece should also drag an adjacent piece, then move that piece also.
+
+      if (draggableMatrixMulti[getBlankSquare].containsKey(piecePosition)) {
+        // Move the adjacent piece
+        int adjacentPieceToMove =
+            draggableMatrixMulti[getBlankSquare][piecePosition];
+        setAdjacentPieceTopPosition(adjacentPieceToMove, yDistance);
+      }
+
       return true;
     }
 
