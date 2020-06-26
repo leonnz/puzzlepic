@@ -92,7 +92,6 @@ class GameStateProvider with ChangeNotifier {
   void setPieceTopPosition(int pieceNumber, double yDistance) {
     Map<String, dynamic> pieceToUpdate = getPiecePositions
         .firstWhere((imgPiece) => imgPiece['pieceNumber'] == pieceNumber);
-
     // Used to set the new blank square.
     int piecePreviousPosition = pieceToUpdate['gridPosition'];
 
@@ -107,12 +106,18 @@ class GameStateProvider with ChangeNotifier {
     pieceToUpdate['topPosition'] = topPosition;
 
     // Checks if the piece being dragged is a multi drag piece initial drag piece.
-    // If true then we need to set its grid position to the adjacent dragged piece.
+    // Call the adjacent drag function.
+    // Then we need to set its grid position to the adjacent dragged piece.
     // Otherwise this is a single piece drag so the grid position can be set to the blank square.
     if (draggableMatrixMulti[getBlankSquare]
         .containsKey(piecePreviousPosition)) {
+      setAdjacentPieceTopPosition(
+          draggableMatrixMulti[getBlankSquare][piecePreviousPosition],
+          yDistance);
+
       pieceToUpdate['gridPosition'] =
           draggableMatrixMulti[getBlankSquare][piecePreviousPosition];
+
       setBlankSquare(piecePreviousPosition);
     } else {
       pieceToUpdate['gridPosition'] = getBlankSquare;
@@ -122,13 +127,9 @@ class GameStateProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setAdjacentPieceTopPosition(int adjacentPIeceToMove, double yDistance) {
+  void setAdjacentPieceTopPosition(int adjacentPieceToMove, double yDistance) {
     Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
-        (imgPiece) => imgPiece['gridPosition'] == adjacentPIeceToMove);
-
-    // Used to set the new blank square.
-    // int piecePreviousPosition = pieceToUpdate['gridPosition'];
-
+        (imgPiece) => imgPiece['gridPosition'] == adjacentPieceToMove);
     double topPosition;
 
     if (yDistance > 0.0) {
@@ -259,19 +260,8 @@ class GameStateProvider with ChangeNotifier {
       draggableSquares.add(getBlankSquare - 1);
     }
 
-    // draggableSquares.sort((a, b) => a.compareTo(b));
-
     if (draggableSquares.contains(piecePosition) &&
         draggableMatrix[getBlankSquare][piecePosition] == direction) {
-      // If the piece should also drag an adjacent piece, then move that piece also.
-
-      if (draggableMatrixMulti[getBlankSquare].containsKey(piecePosition)) {
-        // Move the adjacent piece
-        int adjacentPieceToMove =
-            draggableMatrixMulti[getBlankSquare][piecePosition];
-        setAdjacentPieceTopPosition(adjacentPieceToMove, yDistance);
-      }
-
       return true;
     }
 
