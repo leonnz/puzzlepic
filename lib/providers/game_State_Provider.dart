@@ -10,10 +10,7 @@ class GameStateProvider with ChangeNotifier {
   static double _singlePieceWidth = _screenWidth / _gridSideSize;
   static int _totalGridSize = 16;
 
-  //prod
   static int _blankSquare = _totalGridSize;
-  //dev
-  // static int _blankSquare = 7;
   static int _gridSideSize = sqrt(_totalGridSize).toInt();
 
   bool get getGameInProgress => _gameInProgess;
