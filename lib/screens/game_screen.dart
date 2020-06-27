@@ -35,20 +35,68 @@ class GameScreen extends StatelessWidget {
       return imagePieceList;
     }
 
-    return Container(
-      child: SafeArea(
-        child: Scaffold(
-            appBar: AppBar(
-              title: Text(image),
+    Future<bool> _backPressed() {
+      return showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text('Are you sure you want to quit?'),
+                actions: <Widget>[
+                  FlatButton(
+                    onPressed: () => Navigator.pop(context, false),
+                    child: Text('No'),
+                  ),
+                  FlatButton(
+                    onPressed: () => Navigator.pop(context, true),
+                    child: Text('Yes'),
+                  )
+                ],
+              ));
+    }
+
+    quitGame() async {
+      await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('quit?'),
+          content: Text('Are you sure?'),
+          actions: [
+            new FlatButton(
+              child: new Text("Yes"),
+              onPressed: () => Navigator.pop(context),
             ),
-            body: Container(
-              width: state.getScreenWidth,
-              height: state.getScreenWidth,
-              color: Colors.red,
-              child: Stack(
-                children: generateImagePieces(),
+          ],
+        ),
+      );
+      Navigator.pop(context);
+    }
+
+    return WillPopScope(
+      onWillPop: _backPressed,
+      child: Container(
+        child: SafeArea(
+          child: Scaffold(
+              // appBar: AppBar(
+              //   title: Text(image),
+
+              // ),
+
+              body: Column(
+            children: <Widget>[
+              Container(
+                width: state.getScreenWidth,
+                height: state.getScreenWidth,
+                color: Colors.red,
+                child: Stack(
+                  children: generateImagePieces(),
+                ),
               ),
-            )),
+              FlatButton(
+                onPressed: () => quitGame(),
+                child: Text('Quit'),
+              )
+            ],
+          )),
+        ),
       ),
     );
   }

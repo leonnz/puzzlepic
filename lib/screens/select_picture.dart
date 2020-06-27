@@ -46,6 +46,7 @@ class _SelectPictureState extends State<SelectPicture> {
         child: Scaffold(
       appBar: AppBar(
         title: Text('Select Picture'),
+        automaticallyImplyLeading: false,
       ),
       body: GridView.builder(
         itemCount: images.length,
