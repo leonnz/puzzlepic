@@ -11,9 +11,9 @@ class GameStateProvider with ChangeNotifier {
   static int _totalGridSize = 16;
 
   //prod
-  // static int _blankSquare = _totalGridSize;
+  static int _blankSquare = _totalGridSize;
   //dev
-  static int _blankSquare = 7;
+  // static int _blankSquare = 7;
   static int _gridSideSize = sqrt(_totalGridSize).toInt();
 
   bool get getGameInProgress => _gameInProgess;
@@ -162,29 +162,29 @@ class GameStateProvider with ChangeNotifier {
   Map<int, Map<int, List<int>>> draggableMatrixMulti = {
     1: {
       3: [2],
-      4: [2, 3],
+      4: [3, 2],
       9: [5],
-      13: [5, 9],
+      13: [9, 5],
     },
     2: {
       4: [3],
       10: [6],
-      14: [6, 10],
+      14: [10, 6],
     },
     3: {
       1: [2],
       11: [7],
-      15: [7, 11],
+      15: [11, 7],
     },
     4: {
       1: [2, 3],
       2: [3],
       12: [8],
-      16: [8, 12],
+      16: [12, 8],
     },
     5: {
       7: [6],
-      8: [6, 7],
+      8: [7, 6],
       13: [9],
     },
     6: {
@@ -203,7 +203,7 @@ class GameStateProvider with ChangeNotifier {
     9: {
       1: [5],
       11: [10],
-      12: [10, 11],
+      12: [11, 10],
     },
     10: {
       2: [6],
@@ -222,7 +222,7 @@ class GameStateProvider with ChangeNotifier {
       1: [5, 9],
       5: [9],
       15: [14],
-      16: [14, 15],
+      16: [15, 14],
     },
     14: {
       2: [6, 10],
@@ -289,7 +289,7 @@ class GameStateProvider with ChangeNotifier {
           xDistance);
 
       pieceToUpdate['gridPosition'] =
-          draggableMatrixMulti[getBlankSquare][piecePreviousPosition];
+          draggableMatrixMulti[getBlankSquare][piecePreviousPosition][0];
 
       setBlankSquare(piecePreviousPosition);
     } else {
@@ -302,18 +302,42 @@ class GameStateProvider with ChangeNotifier {
 
   void setAdjacentPieceLeftPosition(
       List<int> adjacentPiecesToMove, double xDistance) {
-    Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
-        (imgPiece) => imgPiece['gridPosition'] == adjacentPiecesToMove);
-    double leftPosition;
+    if (adjacentPiecesToMove.length == 1) {
+      Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
+          (imgPiece) => imgPiece['gridPosition'] == adjacentPiecesToMove[0]);
 
-    if (xDistance > 0.0) {
-      leftPosition = pieceToUpdate['leftPosition'] + getSinglePieceWidth;
-    } else if (xDistance < 0.0) {
-      leftPosition = pieceToUpdate['leftPosition'] - getSinglePieceWidth;
+      double leftPosition;
+
+      if (xDistance > 0.0) {
+        leftPosition = pieceToUpdate['leftPosition'] + getSinglePieceWidth;
+      } else if (xDistance < 0.0) {
+        leftPosition = pieceToUpdate['leftPosition'] - getSinglePieceWidth;
+      }
+
+      pieceToUpdate['leftPosition'] = leftPosition;
+      pieceToUpdate['gridPosition'] = getBlankSquare;
+    } else {
+      for (var i = 1; i >= 0; i--) {
+        Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
+            (imgPiece) => imgPiece['gridPosition'] == adjacentPiecesToMove[i]);
+
+        double leftPosition;
+
+        if (xDistance > 0.0) {
+          leftPosition = pieceToUpdate['leftPosition'] + getSinglePieceWidth;
+        } else if (xDistance < 0.0) {
+          leftPosition = pieceToUpdate['leftPosition'] - getSinglePieceWidth;
+        }
+
+        pieceToUpdate['leftPosition'] = leftPosition;
+
+        if (i == 1) {
+          pieceToUpdate['gridPosition'] = getBlankSquare;
+        } else if (i == 0) {
+          pieceToUpdate['gridPosition'] = adjacentPiecesToMove[1];
+        }
+      }
     }
-
-    pieceToUpdate['leftPosition'] = leftPosition;
-    pieceToUpdate['gridPosition'] = getBlankSquare;
 
     notifyListeners();
   }
@@ -321,6 +345,7 @@ class GameStateProvider with ChangeNotifier {
   void setPieceTopPosition(int pieceNumber, double yDistance) {
     Map<String, dynamic> pieceToUpdate = getPiecePositions
         .firstWhere((imgPiece) => imgPiece['pieceNumber'] == pieceNumber);
+
     // Used to set the new blank square.
     int piecePreviousPosition = pieceToUpdate['gridPosition'];
 
@@ -345,7 +370,7 @@ class GameStateProvider with ChangeNotifier {
           yDistance);
 
       pieceToUpdate['gridPosition'] =
-          draggableMatrixMulti[getBlankSquare][piecePreviousPosition];
+          draggableMatrixMulti[getBlankSquare][piecePreviousPosition][0];
 
       setBlankSquare(piecePreviousPosition);
     } else {
@@ -358,18 +383,40 @@ class GameStateProvider with ChangeNotifier {
 
   void setAdjacentPieceTopPosition(
       List<int> adjacentPiecesToMove, double yDistance) {
-    Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
-        (imgPiece) => imgPiece['gridPosition'] == adjacentPiecesToMove);
-    double topPosition;
+    if (adjacentPiecesToMove.length == 1) {
+      Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
+          (imgPiece) => imgPiece['gridPosition'] == adjacentPiecesToMove[0]);
+      double topPosition;
+      if (yDistance > 0.0) {
+        topPosition = pieceToUpdate['topPosition'] + getSinglePieceWidth;
+      } else if (yDistance < 0.0) {
+        topPosition = pieceToUpdate['topPosition'] - getSinglePieceWidth;
+      }
 
-    if (yDistance > 0.0) {
-      topPosition = pieceToUpdate['topPosition'] + getSinglePieceWidth;
-    } else if (yDistance < 0.0) {
-      topPosition = pieceToUpdate['topPosition'] - getSinglePieceWidth;
+      pieceToUpdate['topPosition'] = topPosition;
+      pieceToUpdate['gridPosition'] = getBlankSquare;
+    } else {
+      for (var i = 1; i >= 0; i--) {
+        Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
+            (imgPiece) => imgPiece['gridPosition'] == adjacentPiecesToMove[i]);
+
+        double topPosition;
+
+        if (yDistance > 0.0) {
+          topPosition = pieceToUpdate['topPosition'] + getSinglePieceWidth;
+        } else if (yDistance < 0.0) {
+          topPosition = pieceToUpdate['topPosition'] - getSinglePieceWidth;
+        }
+
+        pieceToUpdate['topPosition'] = topPosition;
+
+        if (i == 1) {
+          pieceToUpdate['gridPosition'] = getBlankSquare;
+        } else if (i == 0) {
+          pieceToUpdate['gridPosition'] = adjacentPiecesToMove[1];
+        }
+      }
     }
-
-    pieceToUpdate['topPosition'] = topPosition;
-    pieceToUpdate['gridPosition'] = getBlankSquare;
 
     notifyListeners();
   }
@@ -504,8 +551,6 @@ class GameStateProvider with ChangeNotifier {
     }
 
     draggableSquares.sort((a, b) => a.compareTo(b));
-    print(draggableSquares);
-    // print(getBlankSquare);
 
     if (draggableSquares.contains(piecePosition) &&
         draggableMatrix[getBlankSquare][piecePosition] == direction) {
