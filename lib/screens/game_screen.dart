@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:picturepuzzle/components/image_piece.dart';
 
-import '../providers/game_State_Provider.dart';
+import '../providers/game_state_provider.dart';
 import 'package:provider/provider.dart';
 
 class GameScreen extends StatelessWidget {

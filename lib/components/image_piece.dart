@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/game_State_Provider.dart';
+import '../providers/game_state_provider.dart';
 
 class ImagePiece extends StatelessWidget {
   const ImagePiece({Key key, this.pieceNumber}) : super(key: key);
