@@ -9,7 +9,11 @@ class GameStateProvider with ChangeNotifier {
   static double _screenWidth;
   static double _singlePieceWidth = _screenWidth / _gridSideSize;
   static int _totalGridSize = 16;
-  static int _blankSquare = _totalGridSize;
+
+  //prod
+  // static int _blankSquare = _totalGridSize;
+  //dev
+  static int _blankSquare = 7;
   static int _gridSideSize = sqrt(_totalGridSize).toInt();
 
   bool get getGameInProgress => _gameInProgess;
@@ -475,7 +479,7 @@ class GameStateProvider with ChangeNotifier {
       }
     }
 
-    // 2, 5, 8
+    // 2, 6, 10, 14
     else if (modulo == 2) {
       for (var i = 1; i < getTotalGridSize; i++) {
         if (i % getGridSideSize == 2 && i != getBlankSquare) {
@@ -483,12 +487,25 @@ class GameStateProvider with ChangeNotifier {
         }
       }
       draggableSquares.add(getBlankSquare + 1);
+      draggableSquares.add(getBlankSquare + 2);
       draggableSquares.add(getBlankSquare - 1);
+    }
+
+    // 3, 7, 11, 15
+    else if (modulo == 3) {
+      for (var i = 0; i < getTotalGridSize; i++) {
+        if (i % getGridSideSize == 3 && i != getBlankSquare) {
+          draggableSquares.add(i);
+        }
+      }
+      draggableSquares.add(getBlankSquare + 1);
+      draggableSquares.add(getBlankSquare - 1);
+      draggableSquares.add(getBlankSquare - 2);
     }
 
     draggableSquares.sort((a, b) => a.compareTo(b));
     print(draggableSquares);
-    print(getBlankSquare);
+    // print(getBlankSquare);
 
     if (draggableSquares.contains(piecePosition) &&
         draggableMatrix[getBlankSquare][piecePosition] == direction) {
