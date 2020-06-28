@@ -13,7 +13,7 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = Provider.of<GameStateProvider>(context, listen: false);
 
-    state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width);
+    state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
 
     state.setGameInProgress(true);
 
@@ -84,11 +84,29 @@ class GameScreen extends StatelessWidget {
               body: Column(
             children: <Widget>[
               Container(
-                width: state.getScreenWidth,
-                height: state.getScreenWidth,
-                color: Colors.red,
-                child: Stack(
-                  children: generateImagePieces(),
+                height: 100,
+                child: Text('Title'),
+              ),
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blue[900],
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(3),
+                    ),
+                  ),
+                  width: state.getScreenWidth + 5,
+                  height: state.getScreenWidth + 5,
+                  child: Center(
+                    child: Container(
+                      width: state.getScreenWidth,
+                      height: state.getScreenWidth,
+                      color: Colors.red,
+                      child: Stack(
+                        children: generateImagePieces(),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               FlatButton(
