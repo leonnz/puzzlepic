@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:picturepuzzle/components/category_button.dart';
 
@@ -13,18 +14,6 @@ class SelectCategory extends StatelessWidget {
       'Sports',
     ];
 
-    List<CategoryButton> generateCategoryCards() {
-      List<CategoryButton> cards = [];
-
-      categories.forEach((category) {
-        cards.add(
-          CategoryButton(categoryName: category),
-        );
-      });
-
-      return cards;
-    }
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -32,11 +21,13 @@ class SelectCategory extends StatelessWidget {
         ),
         body: Container(
           margin: EdgeInsets.all(10),
-          child: GridView(
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            children: generateCategoryCards(),
-          ),
+          child: GridView.builder(
+              gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              itemCount: categories.length,
+              itemBuilder: (context, i) {
+                return CategoryButton(categoryName: categories[i]);
+              }),
         ),
       ),
     );
