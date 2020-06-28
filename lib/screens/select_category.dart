@@ -6,6 +6,25 @@ class SelectCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> categories = [
+      'Flowers',
+      'Animals',
+      'Buildings',
+      'Sports',
+    ];
+
+    List<CategoryButton> generateCategoryCards() {
+      List<CategoryButton> cards = [];
+
+      categories.forEach((category) {
+        cards.add(
+          CategoryButton(categoryName: category),
+        );
+      });
+
+      return cards;
+    }
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -16,14 +35,7 @@ class SelectCategory extends StatelessWidget {
           child: GridView(
             gridDelegate:
                 SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            children: <Widget>[
-              CategoryButton(
-                categoryName: 'Flowers',
-              ),
-              CategoryButton(categoryName: 'Animals'),
-              CategoryButton(categoryName: 'Buildings'),
-              CategoryButton(categoryName: 'Sports')
-            ],
+            children: generateCategoryCards(),
           ),
         ),
       ),
