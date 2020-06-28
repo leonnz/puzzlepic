@@ -19,6 +19,8 @@ class GameScreen extends StatelessWidget {
 
     state.setPuzzleImage('$image');
 
+    state.setGridPositions();
+
     List<ImagePiece> generateImagePieces() {
       List<ImagePiece> imagePieceList = <ImagePiece>[];
 
@@ -31,7 +33,6 @@ class GameScreen extends StatelessWidget {
         );
         state.setInitialPuzzlePiecePosition(i);
       }
-
       return imagePieceList;
     }
 

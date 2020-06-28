@@ -13,6 +13,9 @@ class GameStateProvider with ChangeNotifier {
   static int _blankSquare = _totalGridSize;
   static int _gridSideSize = sqrt(_totalGridSize).toInt();
 
+  // Pool of positions for random position generation.
+  static List<int> _gridPositions;
+
   bool get getGameInProgress => _gameInProgess;
   String get getPuzzleImage => _puzzleImage;
   List<Map<String, dynamic>> get getPiecePositions => _piecePositions;
@@ -249,6 +252,10 @@ class GameStateProvider with ChangeNotifier {
     // notifyListeners();
   }
 
+  void setGridPositions() {
+    _gridPositions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  }
+
   double getLeftPosition(int pieceNumber) {
     return getPiecePositions.firstWhere(
         (imgPiece) => imgPiece['pieceNumber'] == pieceNumber)['leftPosition'];
@@ -421,10 +428,28 @@ class GameStateProvider with ChangeNotifier {
   void setInitialPuzzlePiecePosition(int pieceNumber) {
     Map<String, dynamic> imgPiece = new Map();
 
+    List<int> allocatedGridPositions = [];
+
+    getPiecePositions.forEach((piece) {
+      allocatedGridPositions.add(piece['gridPosition']);
+    });
+
+    int getRandomGridPosition(int min, int max) {
+      final _random = new Random();
+      int randomPositionIndex = min + _random.nextInt(max - min);
+      int randomNumber = _gridPositions[randomPositionIndex];
+
+      _gridPositions.removeAt(randomPositionIndex);
+
+      return randomNumber;
+    }
+
     imgPiece['pieceNumber'] = pieceNumber;
-    imgPiece['leftPosition'] = setStartingLeftPosition(pieceNumber);
-    imgPiece['topPosition'] = setStartingTopPosition(pieceNumber);
-    imgPiece['gridPosition'] = pieceNumber;
+    imgPiece['gridPosition'] = getRandomGridPosition(0, _gridPositions.length);
+    imgPiece['leftPosition'] =
+        setStartingLeftPosition(imgPiece['gridPosition']);
+    imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition']);
+
     _piecePositions.add(imgPiece);
   }
 
