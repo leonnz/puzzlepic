@@ -12,13 +12,15 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => GameStateProvider(),
       child: MaterialApp(
-        title: 'Picture Puzzle',
+        title: 'Puzzle Pic',
         theme: ThemeData(
-            fontFamily: 'Rabelo',
-            primarySwatch: Colors.purple,
-            buttonTheme: ButtonThemeData(
-                buttonColor: Colors.purple,
-                textTheme: ButtonTextTheme.primary)),
+          fontFamily: 'Rabelo',
+          primarySwatch: Colors.purple,
+          buttonTheme: ButtonThemeData(
+            buttonColor: Colors.purple,
+            textTheme: ButtonTextTheme.primary,
+          ),
+        ),
         initialRoute: '/',
         routes: {
           '/': (context) => Home(),
@@ -35,12 +37,8 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Picture Puzzle'),
-        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Text('test'),
             Center(
