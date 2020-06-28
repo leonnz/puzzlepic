@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatefulWidget {
-  Button({Key key, this.buttonText, this.action}) : super(key: key);
+  Button({Key key, this.buttonText, this.action, this.margin})
+      : super(key: key);
   final String buttonText;
   final Function action;
+  final double margin;
 
   @override
   _ButtonState createState() => _ButtonState();
@@ -21,7 +23,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
       vsync: this,
       duration: Duration(milliseconds: 200),
       lowerBound: 0.0,
-      upperBound: 0.1,
+      upperBound: 0.05,
     )..addListener(() {
         setState(() {});
       });
@@ -52,15 +54,16 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
       child: Transform.scale(
         scale: _scale,
         child: Container(
-          width: 200,
-          height: 70,
+          margin: EdgeInsets.all(widget.margin),
+          width: 170,
+          height: 50,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(5),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey,
-                blurRadius: 10.0,
-                offset: Offset(0.0, 10.0),
+                blurRadius: 5.0,
+                offset: Offset(0.0, 5.0),
               ),
             ],
             gradient: LinearGradient(
@@ -76,7 +79,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
               widget.buttonText,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 30.0,
+                fontSize: 25.0,
                 letterSpacing: 3,
               ),
             ),

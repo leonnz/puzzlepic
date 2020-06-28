@@ -56,20 +56,63 @@ class GameScreen extends StatelessWidget {
     }
 
     quitGame() async {
+      bool quit = false;
       await showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('quit?'),
-          content: Text('Are you sure?'),
+          title: Text('Leave this game'),
+          content: Text('Progress will be lost, are you sure?'),
           actions: [
-            new FlatButton(
-              child: new Text("Yes"),
+            FlatButton(
+              child: Text("No"),
               onPressed: () => Navigator.pop(context),
+            ),
+            FlatButton(
+              child: Text("Yes"),
+              onPressed: () {
+                quit = true;
+                Navigator.pop(context);
+              },
             ),
           ],
         ),
       );
-      Navigator.pop(context);
+      if (quit) {
+        Navigator.pop(context);
+      }
+    }
+
+    // Shows the full image.
+    showHint() {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(image),
+          content: Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Image(
+                  image: AssetImage(image),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.all(20.0),
+                      child: RaisedButton(
+                        color: Colors.red,
+                        child: Text("Close"),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
     }
 
     return WillPopScope(
@@ -110,13 +153,15 @@ class GameScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                FlatButton(
-                  onPressed: () => quitGame(),
-                  child: Text('Quit'),
+                Button(
+                  buttonText: 'Quit',
+                  margin: 20.0,
+                  action: () => quitGame(),
                 ),
                 Button(
-                  buttonText: 'Quit?',
-                  action: null,
+                  buttonText: 'Hint',
+                  margin: 0.0,
+                  action: () => showHint(),
                 ),
               ],
             ),

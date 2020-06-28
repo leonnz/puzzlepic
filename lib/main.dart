@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Picture Puzzle',
         theme: ThemeData(
+            fontFamily: 'Rabelo',
             primarySwatch: Colors.purple,
             buttonTheme: ButtonThemeData(
                 buttonColor: Colors.purple,
@@ -45,6 +46,7 @@ class Home extends StatelessWidget {
             Center(
               child: Button(
                 buttonText: 'Play!',
+                margin: 0.0,
                 action: () {
                   Navigator.push(
                     context,
