@@ -39,6 +39,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
 
   void _onTapUp(TapUpDetails details) {
     _controller.reverse();
+    widget.action();
   }
 
   @override
@@ -48,7 +49,6 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
     return GestureDetector(
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
-      onTap: widget.action,
       child: Transform.scale(
         scale: _scale,
         child: Container(
