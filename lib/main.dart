@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:picturepuzzle/providers/game_state_provider.dart';
+import 'package:picturepuzzle/screens/game_screen.dart';
 import 'package:provider/provider.dart';
 import './screens/select_category.dart';
+import './components/button.dart';
 
 void main() => runApp(MyApp());
 
@@ -41,6 +43,19 @@ class Home extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text('test'),
+            Center(
+              child: Button(
+                buttonText: 'Play!',
+                action: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SelectCategory(),
+                    ),
+                  );
+                },
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

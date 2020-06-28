@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:picturepuzzle/components/image_piece.dart';
+import '../components/button.dart';
 
 import '../providers/game_state_provider.dart';
 import 'package:provider/provider.dart';
@@ -76,45 +77,50 @@ class GameScreen extends StatelessWidget {
       child: Container(
         child: SafeArea(
           child: Scaffold(
-              // appBar: AppBar(
-              //   title: Text(image),
+            // appBar: AppBar(
+            //   title: Text(image),
 
-              // ),
+            // ),
 
-              body: Column(
-            children: <Widget>[
-              Container(
-                height: 100,
-                child: Text('Title'),
-              ),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blue[900],
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(3),
+            body: Column(
+              children: <Widget>[
+                Container(
+                  height: 100,
+                  child: Text('Title'),
+                ),
+                Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blue[900],
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(3),
+                      ),
                     ),
-                  ),
-                  width: state.getScreenWidth + 5,
-                  height: state.getScreenWidth + 5,
-                  child: Center(
-                    child: Container(
-                      width: state.getScreenWidth,
-                      height: state.getScreenWidth,
-                      color: Colors.red,
-                      child: Stack(
-                        children: generateImagePieces(),
+                    width: state.getScreenWidth + 5,
+                    height: state.getScreenWidth + 5,
+                    child: Center(
+                      child: Container(
+                        width: state.getScreenWidth,
+                        height: state.getScreenWidth,
+                        color: Colors.red,
+                        child: Stack(
+                          children: generateImagePieces(),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              FlatButton(
-                onPressed: () => quitGame(),
-                child: Text('Quit'),
-              )
-            ],
-          )),
+                FlatButton(
+                  onPressed: () => quitGame(),
+                  child: Text('Quit'),
+                ),
+                Button(
+                  buttonText: 'Quit?',
+                  action: null,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
