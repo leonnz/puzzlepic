@@ -22,8 +22,11 @@ class SelectCategory extends StatelessWidget {
         body: Container(
           margin: EdgeInsets.all(10),
           child: GridView.builder(
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
             itemCount: categories.length,
             itemBuilder: (context, i) {
               return CategoryButton(categoryName: categories[i]);

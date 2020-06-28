@@ -19,7 +19,6 @@ class CategoryButton extends StatelessWidget {
         child: Card(
           elevation: 3,
           borderOnForeground: true,
-          margin: EdgeInsets.all(10),
           child: Center(
             child: Container(
               child: Text(categoryName),
