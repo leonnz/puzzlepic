@@ -113,56 +113,58 @@ class GameScreen extends StatelessWidget {
       );
     }
 
+    String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+
     return WillPopScope(
       onWillPop: _backPressed,
-      child: Container(
-        child: SafeArea(
-          child: Scaffold(
-            // appBar: AppBar(
-            //   title: Text(image),
-
-            // ),
-
-            body: Column(
-              children: <Widget>[
-                Container(
-                  height: 100,
-                  child: Text('Title'),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          body: Column(
+            children: <Widget>[
+              Container(
+                height: 100,
+                child: Text(
+                  capitalize(state.getImageName),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40.0,
+                  ),
                 ),
-                Center(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blue[900],
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(3),
-                      ),
+              ),
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(3),
                     ),
-                    width: state.getScreenWidth + 5,
-                    height: state.getScreenWidth + 5,
-                    child: Center(
-                      child: Container(
-                        width: state.getScreenWidth,
-                        height: state.getScreenWidth,
-                        color: Colors.red,
-                        child: Stack(
-                          children: generateImagePieces(),
-                        ),
+                  ),
+                  width: state.getScreenWidth + 5,
+                  height: state.getScreenWidth + 5,
+                  child: Center(
+                    child: Container(
+                      width: state.getScreenWidth,
+                      height: state.getScreenWidth,
+                      color: Colors.red,
+                      child: Stack(
+                        children: generateImagePieces(),
                       ),
                     ),
                   ),
                 ),
-                Button(
-                  buttonText: 'Quit',
-                  margin: 20.0,
-                  action: () => quitGame(),
-                ),
-                Button(
-                  buttonText: 'Hint',
-                  margin: 0.0,
-                  action: () => showHint(),
-                ),
-              ],
-            ),
+              ),
+              Button(
+                buttonText: 'Hint',
+                margin: 40.0,
+                action: () => showHint(),
+              ),
+              Button(
+                buttonText: 'Quit',
+                margin: 20.0,
+                action: () => quitGame(),
+              ),
+            ],
           ),
         ),
       ),

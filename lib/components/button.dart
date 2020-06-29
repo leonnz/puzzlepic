@@ -23,7 +23,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
       vsync: this,
       duration: Duration(milliseconds: 200),
       lowerBound: 0.0,
-      upperBound: 0.05,
+      upperBound: 0.08,
     )..addListener(() {
         setState(() {});
       });
@@ -59,13 +59,13 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
           height: 50,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                blurRadius: 5.0,
-                offset: Offset(0.0, 5.0),
-              ),
-            ],
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.grey,
+            //     blurRadius: 5.0,
+            //     offset: Offset(0.0, 5.0),
+            //   ),
+            // ],
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
