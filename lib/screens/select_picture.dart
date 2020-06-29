@@ -52,18 +52,18 @@ class _SelectPictureState extends State<SelectPicture> {
         itemCount: images.length,
         gridDelegate:
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemBuilder: (BuildContext context, int index) {
+        itemBuilder: (BuildContext context, int i) {
           return GestureDetector(
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => GameScreen(image: images[index]),
+                builder: (context) => GameScreen(image: images[i]),
               ),
             ),
             child: Container(
               margin: EdgeInsets.all(10),
               child: Image(
-                image: AssetImage(images[index]),
+                image: AssetImage(images[i]),
               ),
             ),
           );

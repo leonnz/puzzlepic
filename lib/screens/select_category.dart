@@ -28,7 +28,7 @@ class SelectCategory extends StatelessWidget {
               mainAxisSpacing: 10,
             ),
             itemCount: categories.length,
-            itemBuilder: (context, i) {
+            itemBuilder: (BuildContext context, int i) {
               return CategoryButton(categoryName: categories[i]);
             },
           ),
