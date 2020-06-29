@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 class GameStateProvider with ChangeNotifier {
   static bool _gameInProgess = false;
   static String _puzzleImage = '';
+  static String _imageName = '';
   static List<Map<String, dynamic>> _piecePositions = [];
   static double _screenWidth;
   static double _singlePieceWidth = _screenWidth / _gridSideSize;
@@ -18,6 +19,7 @@ class GameStateProvider with ChangeNotifier {
 
   bool get getGameInProgress => _gameInProgess;
   String get getPuzzleImage => _puzzleImage;
+  String get getImageName => _imageName;
   List<Map<String, dynamic>> get getPiecePositions => _piecePositions;
   double get getScreenWidth => _screenWidth;
   double get getSinglePieceWidth => _singlePieceWidth;
@@ -250,6 +252,11 @@ class GameStateProvider with ChangeNotifier {
   void setPuzzleImage(String puzzleImage) {
     _puzzleImage = puzzleImage;
     // notifyListeners();
+  }
+
+  void setImageName(String image) {
+    _imageName =
+        image.substring(image.lastIndexOf('/') + 1, image.lastIndexOf('.jpg'));
   }
 
   void setGridPositions() {

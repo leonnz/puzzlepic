@@ -13,13 +13,10 @@ class GameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<GameStateProvider>(context);
-
     state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
-
     state.setGameInProgress(true);
-
     state.setPuzzleImage('$image');
-
+    state.setImageName('$image');
     state.setGridPositions();
 
     List<ImagePiece> generateImagePieces() {
@@ -29,6 +26,7 @@ class GameScreen extends StatelessWidget {
       for (int i = 1; i < state.getTotalGridSize; i++) {
         imagePieceList.add(
           ImagePiece(
+            imageName: state.getImageName,
             pieceNumber: i,
           ),
         );

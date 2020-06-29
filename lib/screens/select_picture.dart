@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'game_screen.dart';
-// import 'game_screen backup.dart';
 
 import 'package:flutter/material.dart';
 
@@ -28,7 +27,6 @@ class _SelectPictureState extends State<SelectPicture> {
         .where((String key) => key.contains(widget.category.toLowerCase()))
         .where((String key) => key.contains('.jpg'))
         .toList();
-    // print(imagePaths);
     setState(() {
       images = imagePaths;
     });

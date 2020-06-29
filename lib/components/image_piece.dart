@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 import '../providers/game_state_provider.dart';
 
 class ImagePiece extends StatelessWidget {
-  const ImagePiece({Key key, this.pieceNumber}) : super(key: key);
+  const ImagePiece({Key key, this.pieceNumber, this.imageName})
+      : super(key: key);
 
+  final String imageName;
   final int pieceNumber;
 
   @override
@@ -61,10 +63,15 @@ class ImagePiece extends StatelessWidget {
             height: state.getSinglePieceWidth,
             color: Colors.blue,
             child: Center(
-                child: Text(
-              '$pieceNumber',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            )),
+                child: Image(
+              image: AssetImage(
+                  'assets/images/animals/$imageName/${imageName}_$pieceNumber.png'),
+            )
+                // child: Text(
+                //   '$pieceNumber',
+                //   style: TextStyle(color: Colors.white, fontSize: 20),
+                // ),
+                ),
           ),
         ),
         left: state.getLeftPosition(pieceNumber),
