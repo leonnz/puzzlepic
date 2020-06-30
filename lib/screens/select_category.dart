@@ -8,10 +8,10 @@ class SelectCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> categories = [
-      'Flowers',
-      'Animals',
-      'Buildings',
-      'Sports',
+      'flowers',
+      // 'Animals',
+      // 'Buildings',
+      // 'Sports',
     ];
 
     return SafeArea(

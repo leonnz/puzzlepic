@@ -4,13 +4,14 @@ import '../components/button.dart';
 
 import '../providers/game_state_provider.dart';
 import 'package:provider/provider.dart';
+import '../utilities/helpers.dart';
 
 class GameScreen extends StatelessWidget {
   const GameScreen({Key key, this.image}) : super(key: key);
 
   final String image;
 
-  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+  // String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +93,7 @@ class GameScreen extends StatelessWidget {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Center(child: Text(capitalize(state.getImageName))),
+          title: Center(child: Text(Helpers.capitalize(state.getImageName))),
           content: Container(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -130,7 +131,7 @@ class GameScreen extends StatelessWidget {
               Container(
                 height: 100,
                 child: Text(
-                  capitalize(state.getImageName),
+                  Helpers.capitalize(state.getImageName),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 40.0,

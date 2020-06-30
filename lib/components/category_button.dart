@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/select_picture.dart';
+import '../utilities/helpers.dart';
 
 class CategoryButton extends StatelessWidget {
   const CategoryButton({Key key, @required this.categoryName})
@@ -19,10 +20,31 @@ class CategoryButton extends StatelessWidget {
         child: Card(
           elevation: 3,
           borderOnForeground: true,
-          child: Center(
-            child: Container(
-              child: Text(categoryName),
-            ),
+          child: Stack(
+            children: [
+              Image(
+                image: AssetImage(
+                    'assets/images/_category/${categoryName}_cat.png'),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration:
+                      BoxDecoration(color: Color.fromRGBO(255, 255, 255, 0.8)),
+                  child: Center(
+                    child: Text(
+                      Helpers.capitalize(categoryName),
+                      style: TextStyle(
+                        fontSize: 25.0,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
