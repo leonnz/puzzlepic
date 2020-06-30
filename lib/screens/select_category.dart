@@ -9,6 +9,9 @@ class SelectCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> categories = [
       'flowers',
+      'flowers',
+      'flowers',
+      'flowers',
       // 'Animals',
       // 'Buildings',
       // 'Sports',

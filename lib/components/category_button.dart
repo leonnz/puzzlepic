@@ -32,7 +32,7 @@ class CategoryButton extends StatelessWidget {
                   height: 50,
                   width: double.infinity,
                   decoration:
-                      BoxDecoration(color: Color.fromRGBO(255, 255, 255, 0.8)),
+                      BoxDecoration(color: Color.fromRGBO(255, 255, 255, 0.85)),
                   child: Center(
                     child: Text(
                       Helpers.capitalize(categoryName),
