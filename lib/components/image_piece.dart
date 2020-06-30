@@ -2,14 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/game_state_provider.dart';
 
-class ImagePiece extends StatelessWidget {
-  const ImagePiece({Key key, this.pieceNumber, this.imageName})
+class ImagePiece extends StatefulWidget {
+  const ImagePiece({Key key, this.pieceNumber, this.imageName, this.lastPiece})
       : super(key: key);
 
   final String imageName;
   final int pieceNumber;
+  final bool lastPiece;
 
   @override
+  _ImagePieceState createState() => _ImagePieceState();
+}
+
+class _ImagePieceState extends State<ImagePiece>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+  Animation _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+
+    _animation = Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_controller);
+  }
+
+  @override
+  dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     final state = Provider.of<GameStateProvider>(context, listen: true);
 
@@ -18,7 +47,13 @@ class ImagePiece extends StatelessWidget {
     double xDistance = 0.0;
     double yDistance = 0.0;
 
+    _controller.forward();
+
     return AnimatedPositioned(
+      child: FadeTransition(
+        opacity: widget.lastPiece
+            ? _animation
+            : Tween(begin: 1.0, end: 1.0).animate(_controller),
         child: GestureDetector(
           onHorizontalDragStart: (DragStartDetails details) {
             initial = details.globalPosition.dx;
@@ -28,10 +63,10 @@ class ImagePiece extends StatelessWidget {
             xDistance = details.globalPosition.dx - initial;
             if (dragged) {
               if (state.draggable(
-                  pieceNumber: pieceNumber,
+                  pieceNumber: widget.pieceNumber,
                   xDistance: xDistance,
                   yDistance: 0.0)) {
-                state.setPieceLeftPosition(pieceNumber, xDistance);
+                state.setPieceLeftPosition(widget.pieceNumber, xDistance);
               }
               dragged = false;
             }
@@ -47,10 +82,10 @@ class ImagePiece extends StatelessWidget {
             yDistance = details.globalPosition.dy - initial;
             if (dragged) {
               if (state.draggable(
-                  pieceNumber: pieceNumber,
+                  pieceNumber: widget.pieceNumber,
                   xDistance: 0.0,
                   yDistance: yDistance)) {
-                state.setPieceTopPosition(pieceNumber, yDistance);
+                state.setPieceTopPosition(widget.pieceNumber, yDistance);
               }
               dragged = false;
             }
@@ -65,17 +100,15 @@ class ImagePiece extends StatelessWidget {
             child: Center(
                 child: Image(
               image: AssetImage(
-                  'assets/images/animals/$imageName/${imageName}_$pieceNumber.png'),
-            )
-                // child: Text(
-                //   '$pieceNumber',
-                //   style: TextStyle(color: Colors.white, fontSize: 20),
-                // ),
-                ),
+                  'assets/images/animals/${widget.imageName}/${widget.imageName}_${widget.pieceNumber}.png'),
+            )),
           ),
         ),
-        left: state.getLeftPosition(pieceNumber),
-        top: state.getTopPosition(pieceNumber),
-        duration: Duration(milliseconds: 100));
+      ),
+      left: state.getLeftPosition(widget.pieceNumber),
+      top: state.getTopPosition(widget.pieceNumber),
+      duration: Duration(milliseconds: 100),
+      curve: Curves.linear,
+    );
   }
 }

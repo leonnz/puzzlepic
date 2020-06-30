@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 class GameStateProvider with ChangeNotifier {
-  static bool _gameInProgess = false;
+  static bool _puzzleComplete = false;
   static String _puzzleImage = '';
   static String _imageName = '';
   static List<Map<String, dynamic>> _piecePositions = [];
@@ -17,7 +17,7 @@ class GameStateProvider with ChangeNotifier {
   // Pool of positions for random position generation.
   static List<int> _gridPositions;
 
-  bool get getGameInProgress => _gameInProgess;
+  bool get getPuzzleComplete => _puzzleComplete;
   String get getPuzzleImage => _puzzleImage;
   String get getImageName => _imageName;
   List<Map<String, dynamic>> get getPiecePositions => _piecePositions;
@@ -244,8 +244,8 @@ class GameStateProvider with ChangeNotifier {
     },
   };
 
-  void setGameInProgress(bool gameInProgress) {
-    _gameInProgess = gameInProgress;
+  void setPuzzleComplete(bool complete) {
+    _puzzleComplete = complete;
     // notifyListeners();
   }
 
@@ -271,6 +271,17 @@ class GameStateProvider with ChangeNotifier {
   double getTopPosition(int pieceNumber) {
     return getPiecePositions.firstWhere(
         (imgPiece) => imgPiece['pieceNumber'] == pieceNumber)['topPosition'];
+  }
+
+  // Check if the piece number matches its position
+  void checkComplete() {
+    var matching = getPiecePositions
+        .map((piece) => piece['pieceNumber'] == piece['gridPosition']);
+    if (matching.contains(false)) {
+      setPuzzleComplete(false);
+    } else {
+      setPuzzleComplete(true);
+    }
   }
 
   void setPieceLeftPosition(int pieceNumber, double xDistance) {
@@ -308,6 +319,7 @@ class GameStateProvider with ChangeNotifier {
       setBlankSquare(piecePreviousPosition);
     }
 
+    checkComplete();
     notifyListeners();
   }
 
@@ -389,6 +401,7 @@ class GameStateProvider with ChangeNotifier {
       setBlankSquare(piecePreviousPosition);
     }
 
+    checkComplete();
     notifyListeners();
   }
 
@@ -452,10 +465,16 @@ class GameStateProvider with ChangeNotifier {
     }
 
     imgPiece['pieceNumber'] = pieceNumber;
-    imgPiece['gridPosition'] = getRandomGridPosition(0, _gridPositions.length);
+    imgPiece['gridPosition'] = pieceNumber;
     imgPiece['leftPosition'] =
         setStartingLeftPosition(imgPiece['gridPosition']);
     imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition']);
+
+    // imgPiece['pieceNumber'] = pieceNumber;
+    // imgPiece['gridPosition'] = getRandomGridPosition(0, _gridPositions.length);
+    // imgPiece['leftPosition'] =
+    //     setStartingLeftPosition(imgPiece['gridPosition']);
+    // imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition']);
 
     _piecePositions.add(imgPiece);
   }

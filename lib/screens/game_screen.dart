@@ -14,45 +14,50 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<GameStateProvider>(context);
+    final state = Provider.of<GameStateProvider>(context, listen: true);
     state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
-    state.setGameInProgress(true);
+
     state.setPuzzleImage('$image');
     state.setImageName('$image');
     state.setGridPositions();
 
-    List<ImagePiece> generateImagePieces() {
-      List<ImagePiece> imagePieceList = <ImagePiece>[];
+    List<ImagePiece> imagePieceList = <ImagePiece>[];
 
+    List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {
       // Always produce 1 less image piece that the grid size
-      for (int i = 1; i < state.getTotalGridSize; i++) {
+      for (int i = 1; i <= numberOfPieces; i++) {
         imagePieceList.add(
           ImagePiece(
             imageName: state.getImageName,
             pieceNumber: i,
+            lastPiece: complete ? true : false,
           ),
         );
         state.setInitialPuzzlePiecePosition(i);
+        state.setPuzzleComplete(false);
       }
+
       return imagePieceList;
     }
 
     Future<bool> _backPressed() {
       return showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                title: Text('Are you sure you want to quit?'),
-                actions: <Widget>[
-                  FlatButton(
-                    onPressed: () => Navigator.pop(context, false),
-                    child: Text('No'),
-                  ),
-                  FlatButton(
-                    onPressed: () => Navigator.pop(context, true),
-                    child: Text('Yes'),
-                  )
-                ],
-              ));
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Leave this game'),
+          content: Text('Progress will be lost, are you sure?'),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text('No'),
+            ),
+            FlatButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text('Yes'),
+            )
+          ],
+        ),
+      );
     }
 
     quitGame() async {
@@ -147,9 +152,13 @@ class GameScreen extends StatelessWidget {
                       width: state.getScreenWidth,
                       height: state.getScreenWidth,
                       color: Colors.red,
-                      child: Stack(
-                        children: generateImagePieces(),
-                      ),
+                      child: state.getPuzzleComplete
+                          ? Stack(
+                              children: generateImagePieces(16, true),
+                            )
+                          : Stack(
+                              children: generateImagePieces(15, false),
+                            ),
                     ),
                   ),
                 ),
