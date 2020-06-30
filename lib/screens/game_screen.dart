@@ -7,11 +7,10 @@ import 'package:provider/provider.dart';
 import '../utilities/helpers.dart';
 
 class GameScreen extends StatelessWidget {
-  const GameScreen({Key key, this.image}) : super(key: key);
+  const GameScreen({Key key, this.image, this.category}) : super(key: key);
 
   final String image;
-
-  // String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+  final String category;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +28,7 @@ class GameScreen extends StatelessWidget {
       for (int i = 1; i <= numberOfPieces; i++) {
         imagePieceList.add(
           ImagePiece(
+            category: category,
             imageName: state.getImageName,
             pieceNumber: i,
             lastPiece: complete ? true : false,

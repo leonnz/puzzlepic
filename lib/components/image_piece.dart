@@ -3,9 +3,15 @@ import 'package:provider/provider.dart';
 import '../providers/game_state_provider.dart';
 
 class ImagePiece extends StatefulWidget {
-  const ImagePiece({Key key, this.pieceNumber, this.imageName, this.lastPiece})
+  const ImagePiece(
+      {Key key,
+      this.pieceNumber,
+      this.category,
+      this.imageName,
+      this.lastPiece})
       : super(key: key);
 
+  final String category;
   final String imageName;
   final int pieceNumber;
   final bool lastPiece;
@@ -136,7 +142,7 @@ class _ImagePieceState extends State<ImagePiece>
             child: Center(
                 child: Image(
               image: AssetImage(
-                  'assets/images/animals/${widget.imageName}/${widget.imageName}_${widget.pieceNumber}.png'),
+                  'assets/images/${widget.category}/${widget.imageName}/${widget.imageName}_${widget.pieceNumber}.png'),
             )),
           ),
         ),

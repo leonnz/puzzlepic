@@ -41,32 +41,36 @@ class _SelectPictureState extends State<SelectPicture> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        title: Text('Select Picture'),
-        automaticallyImplyLeading: false,
-      ),
-      body: GridView.builder(
-        itemCount: images.length,
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemBuilder: (BuildContext context, int i) {
-          return GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => GameScreen(image: images[i]),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Select Picture'),
+          automaticallyImplyLeading: false,
+        ),
+        body: GridView.builder(
+          itemCount: images.length,
+          gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          itemBuilder: (BuildContext context, int i) {
+            return GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => GameScreen(
+                    category: widget.category,
+                    image: images[i],
+                  ),
+                ),
               ),
-            ),
-            child: Container(
-              margin: EdgeInsets.all(10),
-              child: Image(
-                image: AssetImage(images[i]),
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: Image(
+                  image: AssetImage(images[i]),
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
-    ));
+    );
   }
 }
