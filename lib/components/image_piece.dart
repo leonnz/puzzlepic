@@ -19,6 +19,36 @@ class _ImagePieceState extends State<ImagePiece>
   AnimationController _controller;
   Animation _animation;
 
+  Future<dynamic> showPuzzleCompleteAlert() {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Center(child: Text('Congratulations!')),
+        content: Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text('You completed the puzzle.'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.all(20.0),
+                    child: RaisedButton(
+                      color: Colors.red,
+                      child: Text("Close"),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -31,10 +61,16 @@ class _ImagePieceState extends State<ImagePiece>
       begin: 0.0,
       end: 1.0,
     ).animate(_controller);
+
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed && widget.lastPiece == true) {
+        showPuzzleCompleteAlert();
+      }
+    });
   }
 
-  @override
-  dispose() {
+  @protected
+  void dispose() {
     _controller.dispose();
     super.dispose();
   }
