@@ -27,12 +27,12 @@ class CategoryButton extends StatelessWidget {
                     'assets/images/_category/${categoryName}_cat.png'),
               ),
               Align(
-                alignment: Alignment.bottomCenter,
+                alignment: Alignment.center,
                 child: Container(
                   height: 50,
                   width: double.infinity,
                   decoration:
-                      BoxDecoration(color: Color.fromRGBO(255, 255, 255, 0.85)),
+                      BoxDecoration(color: Color.fromRGBO(255, 255, 255, 0.90)),
                   child: Center(
                     child: Text(
                       Helpers.capitalize(categoryName),
