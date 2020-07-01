@@ -25,7 +25,8 @@ class _SelectPictureState extends State<SelectPicture> {
     final imagePaths = manifestMap.keys
         .where((String key) => key.contains('images/'))
         .where((String key) => key.contains(widget.category.toLowerCase()))
-        .where((String key) => key.contains('.jpg'))
+        .where((String key) => !key.contains('_'))
+        .where((String key) => key.contains('.png'))
         .toList();
     setState(() {
       images = imagePaths;

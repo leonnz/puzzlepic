@@ -256,7 +256,7 @@ class GameStateProvider with ChangeNotifier {
 
   void setImageName(String image) {
     _imageName =
-        image.substring(image.lastIndexOf('/') + 1, image.lastIndexOf('.jpg'));
+        image.substring(image.lastIndexOf('/') + 1, image.lastIndexOf('.png'));
   }
 
   void setGridPositions() {
