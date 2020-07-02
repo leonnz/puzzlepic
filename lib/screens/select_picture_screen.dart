@@ -16,7 +16,7 @@ class SelectPicture extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Select Picture'),
-          automaticallyImplyLeading: false,
+          // automaticallyImplyLeading: false,
         ),
         body: Container(
           margin: EdgeInsets.all(10),
