@@ -68,7 +68,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.blue,
-                  Colors.blue[900],
+                  Colors.blue,
                 ]),
           ),
           child: Center(

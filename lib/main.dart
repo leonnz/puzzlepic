@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
         title: 'Puzzle Pic',
         theme: ThemeData(
           fontFamily: 'Rabelo',
-          primarySwatch: Colors.purple,
+          primarySwatch: Colors.blue,
           buttonTheme: ButtonThemeData(
-            buttonColor: Colors.purple,
+            buttonColor: Colors.blue,
             textTheme: ButtonTextTheme.primary,
           ),
         ),
@@ -38,7 +38,7 @@ class Home extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text('test'),
             Center(
