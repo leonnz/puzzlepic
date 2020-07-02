@@ -7,12 +7,12 @@ class ImagePiece extends StatefulWidget {
       {Key key,
       this.pieceNumber,
       this.category,
-      this.imageName,
+      this.assetName,
       this.lastPiece})
       : super(key: key);
 
   final String category;
-  final String imageName;
+  final String assetName;
   final int pieceNumber;
   final bool lastPiece;
 
@@ -90,7 +90,6 @@ class _ImagePieceState extends State<ImagePiece>
     double yDistance = 0.0;
 
     _controller.forward();
-
     return AnimatedPositioned(
       child: FadeTransition(
         opacity: widget.lastPiece
@@ -142,7 +141,7 @@ class _ImagePieceState extends State<ImagePiece>
             child: Center(
                 child: Image(
               image: AssetImage(
-                  'assets/images/${widget.category}/${widget.imageName}/${widget.imageName}_${widget.pieceNumber}.png'),
+                  'assets/images/${widget.category}/${widget.assetName}/${widget.assetName}_${widget.pieceNumber}.png'),
             )),
           ),
         ),

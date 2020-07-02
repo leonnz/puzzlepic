@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:picturepuzzle/components/image_piece.dart';
 import '../components/button.dart';
-
 import '../providers/game_state_provider.dart';
 import 'package:provider/provider.dart';
-import '../utilities/helpers.dart';
 
 class GameScreen extends StatelessWidget {
-  const GameScreen({Key key, this.image, this.category}) : super(key: key);
+  const GameScreen({Key key, this.assetName, this.readableName, this.category})
+      : super(key: key);
 
-  final String image;
+  final String assetName;
+  final String readableName;
   final String category;
 
   @override
@@ -17,8 +17,6 @@ class GameScreen extends StatelessWidget {
     final state = Provider.of<GameStateProvider>(context, listen: true);
     state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
 
-    state.setPuzzleImage('$image');
-    state.setImageName('$image');
     state.setGridPositions();
 
     List<ImagePiece> imagePieceList = <ImagePiece>[];
@@ -29,7 +27,7 @@ class GameScreen extends StatelessWidget {
         imagePieceList.add(
           ImagePiece(
             category: category,
-            imageName: state.getImageName,
+            assetName: assetName,
             pieceNumber: i,
             lastPiece: complete ? true : false,
           ),
@@ -93,13 +91,12 @@ class GameScreen extends StatelessWidget {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Center(child: Text(Helpers.capitalize(state.getImageName))),
           content: Container(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Image(
-                  image: AssetImage(image),
+                  image: AssetImage('assets/images/$category/$assetName.png'),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -132,7 +129,7 @@ class GameScreen extends StatelessWidget {
               Container(
                 height: 100,
                 child: Text(
-                  Helpers.capitalize(state.getImageName),
+                  readableName,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 40.0,

@@ -3,11 +3,21 @@ class Images {
     {"categoryName": "animals", "categoryImages": {}},
     {
       "categoryName": "buildings",
-      "categoryImages": {"tajmahal": "Taj Mahal"}
+      "categoryImages": [
+        {
+          "assetName": "tajmahal",
+          "readableName": "Taj Mahal",
+        }
+      ]
     },
     {
       "categoryName": "flowers",
-      "categoryImages": {"pumpkin": "Pumpkin"}
+      "categoryImages": [
+        {
+          "assetName": "pumpkin",
+          "readableName": "Pumpkin",
+        }
+      ]
     }
   ];
 }
