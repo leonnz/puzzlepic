@@ -21,24 +21,6 @@ class GameScreen extends StatelessWidget {
 
     List<ImagePiece> imagePieceList = <ImagePiece>[];
 
-    List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {
-      // Always produce 1 less image piece that the grid size
-      for (int i = 1; i <= numberOfPieces; i++) {
-        imagePieceList.add(
-          ImagePiece(
-            category: category,
-            assetName: assetName,
-            pieceNumber: i,
-            lastPiece: complete ? true : false,
-          ),
-        );
-        state.setInitialPuzzlePiecePosition(i);
-        state.setPuzzleComplete(false);
-      }
-
-      return imagePieceList;
-    }
-
     Future<bool> _backPressed() {
       return showDialog(
         context: context,
@@ -116,6 +98,55 @@ class GameScreen extends StatelessWidget {
           ),
         ),
       );
+    }
+
+    Future<dynamic> showPuzzleCompleteAlert() {
+      return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Center(child: Text('Congratulations!')),
+          content: Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('You completed the puzzle.'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.all(20.0),
+                      child: RaisedButton(
+                        color: Colors.red,
+                        child: Text("Close"),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {
+      // Always produce 1 less image piece that the grid size
+      for (int i = 1; i <= numberOfPieces; i++) {
+        imagePieceList.add(
+          ImagePiece(
+            category: category,
+            assetName: assetName,
+            pieceNumber: i,
+            lastPiece: complete ? true : false,
+            puzzleCompleteCallback: showPuzzleCompleteAlert,
+          ),
+        );
+        state.setInitialPuzzlePiecePosition(i);
+        state.setPuzzleComplete(false);
+      }
+
+      return imagePieceList;
     }
 
     return WillPopScope(
