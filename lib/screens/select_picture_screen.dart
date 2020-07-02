@@ -18,17 +18,20 @@ class SelectPicture extends StatelessWidget {
           title: Text('Select Picture'),
           automaticallyImplyLeading: false,
         ),
-        body: GridView.builder(
-          itemCount: images.length,
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          itemBuilder: (BuildContext context, int i) {
-            return ImageButton(
-              categoryName: category,
-              assetName: images[i]["assetName"],
-              readableName: images[i]["readableName"],
-            );
-          },
+        body: Container(
+          margin: EdgeInsets.all(10),
+          child: GridView.builder(
+            itemCount: images.length,
+            gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            itemBuilder: (BuildContext context, int i) {
+              return ImageButton(
+                categoryName: category,
+                assetName: images[i]["assetName"],
+                readableName: images[i]["readableName"],
+              );
+            },
+          ),
         ),
       ),
     );

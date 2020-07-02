@@ -18,13 +18,19 @@ class CategoryButton extends StatelessWidget {
           ),
         ),
         child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
           elevation: 3,
           borderOnForeground: true,
           child: Stack(
             children: [
-              Image(
-                image: AssetImage(
-                    'assets/images/_category/${categoryName}_cat.png'),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image(
+                  image: AssetImage(
+                      'assets/images/_category/${categoryName}_cat.png'),
+                ),
               ),
               Align(
                 alignment: Alignment.center,
@@ -32,7 +38,7 @@ class CategoryButton extends StatelessWidget {
                   height: 50,
                   width: double.infinity,
                   decoration:
-                      BoxDecoration(color: Color.fromRGBO(255, 255, 255, 0.90)),
+                      BoxDecoration(color: Color.fromRGBO(255, 255, 255, 0.80)),
                   child: Center(
                     child: Text(
                       Helpers.capitalize(categoryName),

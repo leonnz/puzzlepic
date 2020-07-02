@@ -24,12 +24,18 @@ class ImageButton extends StatelessWidget {
         ),
       ),
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
         elevation: 3,
         borderOnForeground: true,
         child: Stack(
           children: [
-            Image(
-              image: AssetImage('assets/images/$categoryName/$assetName.png'),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image(
+                image: AssetImage('assets/images/$categoryName/$assetName.png'),
+              ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -37,7 +43,7 @@ class ImageButton extends StatelessWidget {
                 height: 50,
                 width: double.infinity,
                 decoration:
-                    BoxDecoration(color: Color.fromRGBO(255, 255, 255, 0.90)),
+                    BoxDecoration(color: Color.fromRGBO(255, 255, 255, 0.80)),
                 child: Center(
                   child: Text(
                     readableName,
