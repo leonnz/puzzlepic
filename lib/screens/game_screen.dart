@@ -130,7 +130,7 @@ class GameScreen extends StatelessWidget {
                     child: Container(
                       width: state.getScreenWidth,
                       height: state.getScreenWidth,
-                      color: Colors.black45,
+                      color: Colors.grey,
                       child: state.getPuzzleComplete
                           ? Stack(
                               children: generateImagePieces(16, true),

@@ -107,14 +107,17 @@ class _ImagePieceState extends State<ImagePiece>
             initial = 0.0;
           },
           child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: 0.7, color: Colors.grey),
+            ),
             width: state.getSinglePieceWidth,
             height: state.getSinglePieceWidth,
-            color: Colors.blue,
             child: Center(
-                child: Image(
-              image: AssetImage(
-                  'assets/images/${widget.category}/${widget.assetName}/${widget.assetName}_${widget.pieceNumber}.png'),
-            )),
+              child: Image(
+                image: AssetImage(
+                    'assets/images/${widget.category}/${widget.assetName}/${widget.assetName}_${widget.pieceNumber}.png'),
+              ),
+            ),
           ),
         ),
       ),
