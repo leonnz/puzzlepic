@@ -19,14 +19,14 @@ class CategoryButton extends StatelessWidget {
         ),
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
           ),
           elevation: 3,
           borderOnForeground: true,
           child: Stack(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
                 child: Image(
                   image: AssetImage(
                       'assets/images/_category/${categoryName}_cat.png'),
