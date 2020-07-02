@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:picturepuzzle/components/image_piece.dart';
 import '../components/button.dart';
+import '../components/puzzle_complete_alert.dart';
 import '../providers/game_state_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -103,29 +104,8 @@ class GameScreen extends StatelessWidget {
     Future<dynamic> showPuzzleCompleteAlert() {
       return showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Center(child: Text('Congratulations!')),
-          content: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text('You completed the puzzle.'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.all(20.0),
-                      child: RaisedButton(
-                        color: Colors.red,
-                        child: Text("Close"),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+        builder: (context) => PuzzleCompleteAlert(
+          readableName: readableName,
         ),
       );
     }
