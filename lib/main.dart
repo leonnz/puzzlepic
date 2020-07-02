@@ -44,7 +44,6 @@ class Home extends StatelessWidget {
             Center(
               child: Button(
                 buttonText: 'Play!',
-                margin: 0.0,
                 action: () {
                   Navigator.push(
                     context,

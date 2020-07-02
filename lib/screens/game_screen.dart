@@ -127,6 +127,7 @@ class GameScreen extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.black,
           body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
                 height: 100,
@@ -166,12 +167,10 @@ class GameScreen extends StatelessWidget {
               ),
               Button(
                 buttonText: 'Hint',
-                margin: 40.0,
                 action: () => showHint(),
               ),
               Button(
                 buttonText: 'Quit',
-                margin: 20.0,
                 action: () => quitGame(),
               ),
             ],

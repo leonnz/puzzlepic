@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatefulWidget {
-  Button({Key key, this.buttonText, this.action, this.margin})
-      : super(key: key);
+  Button({Key key, this.buttonText, this.action}) : super(key: key);
   final String buttonText;
   final Function action;
-  final double margin;
 
   @override
   _ButtonState createState() => _ButtonState();
@@ -54,7 +52,6 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
       child: Transform.scale(
         scale: _scale,
         child: Container(
-          margin: EdgeInsets.all(widget.margin),
           width: 170,
           height: 50,
           decoration: BoxDecoration(
