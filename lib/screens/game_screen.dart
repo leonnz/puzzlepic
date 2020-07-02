@@ -102,7 +102,7 @@ class GameScreen extends StatelessWidget {
       onWillPop: _backPressed,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.white,
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
