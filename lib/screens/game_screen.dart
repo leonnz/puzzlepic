@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:picturepuzzle/components/image_piece.dart';
 import '../components/button.dart';
 import '../components/puzzle_complete_alert.dart';
+import '../components/show_hint_alert.dart';
 import '../providers/game_state_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -67,38 +68,6 @@ class GameScreen extends StatelessWidget {
       if (quit) {
         Navigator.pop(context);
       }
-    }
-
-    // Shows the full image.
-    showHint() {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          content: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Image(
-                  image: AssetImage('assets/images/$category/$assetName.png'),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.all(20.0),
-                      child: RaisedButton(
-                        color: Colors.red,
-                        child: Text("Close"),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
     }
 
     Future<dynamic> showPuzzleCompleteAlert() {
@@ -175,7 +144,13 @@ class GameScreen extends StatelessWidget {
               ),
               Button(
                 buttonText: 'Hint',
-                action: () => showHint(),
+                action: () => showDialog(
+                  context: context,
+                  builder: (context) => HintAlert(
+                    category: category,
+                    assetName: assetName,
+                  ),
+                ),
               ),
               Button(
                 buttonText: 'Quit',
