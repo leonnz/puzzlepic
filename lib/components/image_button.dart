@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../screens/game_screen.dart';
+import '../screens/puzzle_screen.dart';
 
 class ImageButton extends StatelessWidget {
   const ImageButton(
