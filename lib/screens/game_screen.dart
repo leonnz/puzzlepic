@@ -4,6 +4,7 @@ import '../components/button.dart';
 import '../components/puzzle_complete_alert.dart';
 import '../components/show_hint_alert.dart';
 import '../providers/game_state_provider.dart';
+import '../providers/image_piece_provider.dart';
 import 'package:provider/provider.dart';
 
 class GameScreen extends StatelessWidget {
@@ -98,65 +99,68 @@ class GameScreen extends StatelessWidget {
       return imagePieceList;
     }
 
-    return WillPopScope(
-      onWillPop: _backPressed,
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                height: 100,
-                child: Text(
-                  readableName,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 40.0,
-                  ),
-                ),
-              ),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(3),
-                    ),
-                  ),
-                  width: state.getScreenWidth + 5,
-                  height: state.getScreenWidth + 5,
-                  child: Center(
-                    child: Container(
-                      width: state.getScreenWidth,
-                      height: state.getScreenWidth,
-                      color: Colors.grey,
-                      child: state.getPuzzleComplete
-                          ? Stack(
-                              children: generateImagePieces(16, true),
-                            )
-                          : Stack(
-                              children: generateImagePieces(15, false),
-                            ),
+    return ChangeNotifierProvider(
+      create: (_) => ImagePieceProvider(),
+      child: WillPopScope(
+        onWillPop: _backPressed,
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                  height: 100,
+                  child: Text(
+                    readableName,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 40.0,
                     ),
                   ),
                 ),
-              ),
-              Button(
-                buttonText: 'Hint',
-                action: () => showDialog(
-                  context: context,
-                  builder: (context) => HintAlert(
-                    category: category,
-                    assetName: assetName,
+                Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(3),
+                      ),
+                    ),
+                    width: state.getScreenWidth + 5,
+                    height: state.getScreenWidth + 5,
+                    child: Center(
+                      child: Container(
+                        width: state.getScreenWidth,
+                        height: state.getScreenWidth,
+                        color: Colors.grey,
+                        child: state.getPuzzleComplete
+                            ? Stack(
+                                children: generateImagePieces(16, true),
+                              )
+                            : Stack(
+                                children: generateImagePieces(15, false),
+                              ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              Button(
-                buttonText: 'Quit',
-                action: () => quitGame(),
-              ),
-            ],
+                Button(
+                  buttonText: 'Hint',
+                  action: () => showDialog(
+                    context: context,
+                    builder: (context) => HintAlert(
+                      category: category,
+                      assetName: assetName,
+                    ),
+                  ),
+                ),
+                Button(
+                  buttonText: 'Quit',
+                  action: () => quitGame(),
+                ),
+              ],
+            ),
           ),
         ),
       ),

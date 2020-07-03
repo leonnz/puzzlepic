@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/game_state_provider.dart';
+import '../providers/image_piece_provider.dart';
 
 class ImagePiece extends StatefulWidget {
   const ImagePiece({
@@ -54,7 +55,8 @@ class _ImagePieceState extends State<ImagePiece>
   }
 
   Widget build(BuildContext context) {
-    final state = Provider.of<GameStateProvider>(context, listen: true);
+    final state = Provider.of<GameStateProvider>(context);
+    final imagePieceProvider = Provider.of<ImagePieceProvider>(context);
 
     bool dragged = false;
     double initial = 0.0;
@@ -75,10 +77,15 @@ class _ImagePieceState extends State<ImagePiece>
           onHorizontalDragUpdate: (DragUpdateDetails details) {
             xDistance = details.globalPosition.dx - initial;
             if (dragged) {
-              if (state.draggable(
-                  pieceNumber: widget.pieceNumber,
-                  xDistance: xDistance,
-                  yDistance: 0.0)) {
+              if (imagePieceProvider.draggable(
+                pieceNumber: widget.pieceNumber,
+                xDistance: xDistance,
+                yDistance: 0.0,
+                piecePositions: state.getPiecePositions,
+                blankSquare: state.getBlankSquare,
+                gridSideSize: state.getGridSideSize,
+                gridSize: state.getTotalGridSize,
+              )) {
                 state.setPieceLeftPosition(widget.pieceNumber, xDistance);
               }
               dragged = false;
@@ -94,10 +101,15 @@ class _ImagePieceState extends State<ImagePiece>
           onVerticalDragUpdate: (DragUpdateDetails details) {
             yDistance = details.globalPosition.dy - initial;
             if (dragged) {
-              if (state.draggable(
-                  pieceNumber: widget.pieceNumber,
-                  xDistance: 0.0,
-                  yDistance: yDistance)) {
+              if (imagePieceProvider.draggable(
+                pieceNumber: widget.pieceNumber,
+                xDistance: 0.0,
+                yDistance: yDistance,
+                piecePositions: state.getPiecePositions,
+                blankSquare: state.getBlankSquare,
+                gridSideSize: state.getGridSideSize,
+                gridSize: state.getTotalGridSize,
+              )) {
                 state.setPieceTopPosition(widget.pieceNumber, yDistance);
               }
               dragged = false;
