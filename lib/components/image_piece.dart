@@ -122,7 +122,9 @@ class _ImagePieceState extends State<ImagePiece>
           },
           child: Container(
             decoration: BoxDecoration(
-              border: Border.all(width: 0.7, color: Colors.grey),
+              border: state.getPuzzleComplete
+                  ? null
+                  : Border.all(width: 0.7, color: Colors.grey),
             ),
             width: state.getSinglePieceWidth,
             height: state.getSinglePieceWidth,
