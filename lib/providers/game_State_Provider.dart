@@ -83,9 +83,9 @@ class GameStateProvider with ChangeNotifier {
       pieceToUpdate['gridPosition'] = getBlankSquare;
       setBlankSquare(piecePreviousPosition);
     }
+    notifyListeners();
 
     checkComplete();
-    notifyListeners();
   }
 
   void setAdjacentPieceLeftPosition(
@@ -126,8 +126,6 @@ class GameStateProvider with ChangeNotifier {
         }
       }
     }
-
-    notifyListeners();
   }
 
   void setPieceTopPosition(int pieceNumber, double yDistance) {
@@ -166,9 +164,9 @@ class GameStateProvider with ChangeNotifier {
       pieceToUpdate['gridPosition'] = getBlankSquare;
       setBlankSquare(piecePreviousPosition);
     }
+    notifyListeners();
 
     checkComplete();
-    notifyListeners();
   }
 
   void setAdjacentPieceTopPosition(
@@ -207,8 +205,6 @@ class GameStateProvider with ChangeNotifier {
         }
       }
     }
-
-    notifyListeners();
   }
 
   void setInitialPuzzlePiecePosition(int pieceNumber) {

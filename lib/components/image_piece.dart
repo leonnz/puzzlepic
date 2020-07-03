@@ -78,14 +78,15 @@ class _ImagePieceState extends State<ImagePiece>
             xDistance = details.globalPosition.dx - initial;
             if (dragged) {
               if (imagePieceProvider.draggable(
-                pieceNumber: widget.pieceNumber,
-                xDistance: xDistance,
-                yDistance: 0.0,
-                piecePositions: state.getPiecePositions,
-                blankSquare: state.getBlankSquare,
-                gridSideSize: state.getGridSideSize,
-                gridSize: state.getTotalGridSize,
-              )) {
+                    pieceNumber: widget.pieceNumber,
+                    xDistance: xDistance,
+                    yDistance: 0.0,
+                    piecePositions: state.getPiecePositions,
+                    blankSquare: state.getBlankSquare,
+                    gridSideSize: state.getGridSideSize,
+                    gridSize: state.getTotalGridSize,
+                  ) &&
+                  !state.getPuzzleComplete) {
                 state.setPieceLeftPosition(widget.pieceNumber, xDistance);
               }
               dragged = false;
@@ -102,14 +103,15 @@ class _ImagePieceState extends State<ImagePiece>
             yDistance = details.globalPosition.dy - initial;
             if (dragged) {
               if (imagePieceProvider.draggable(
-                pieceNumber: widget.pieceNumber,
-                xDistance: 0.0,
-                yDistance: yDistance,
-                piecePositions: state.getPiecePositions,
-                blankSquare: state.getBlankSquare,
-                gridSideSize: state.getGridSideSize,
-                gridSize: state.getTotalGridSize,
-              )) {
+                    pieceNumber: widget.pieceNumber,
+                    xDistance: 0.0,
+                    yDistance: yDistance,
+                    piecePositions: state.getPiecePositions,
+                    blankSquare: state.getBlankSquare,
+                    gridSideSize: state.getGridSideSize,
+                    gridSize: state.getTotalGridSize,
+                  ) &&
+                  !state.getPuzzleComplete) {
                 state.setPieceTopPosition(widget.pieceNumber, yDistance);
               }
               dragged = false;

@@ -93,7 +93,7 @@ class GameScreen extends StatelessWidget {
           ),
         );
         state.setInitialPuzzlePiecePosition(i);
-        state.setPuzzleComplete(false);
+        state.setPuzzleComplete(complete);
       }
 
       return imagePieceList;
