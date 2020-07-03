@@ -67,15 +67,15 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.blue,
-                  Colors.blue,
+                  Colors.white,
+                  Colors.white,
                 ]),
           ),
           child: Center(
             child: Text(
               widget.buttonText,
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.purple,
                 fontSize: 25.0,
                 letterSpacing: 3,
               ),
