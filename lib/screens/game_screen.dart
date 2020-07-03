@@ -38,6 +38,7 @@ class GameScreen extends StatelessWidget {
             FlatButton(
               onPressed: () {
                 state.setPuzzleComplete(false);
+                state.resetPiecePositions();
                 Navigator.pop(context, true);
               },
               child: Text('Yes'),
@@ -71,7 +72,7 @@ class GameScreen extends StatelessWidget {
       );
       if (quit) {
         state.setPuzzleComplete(false);
-
+        state.resetPiecePositions();
         Navigator.pop(context);
       }
     }

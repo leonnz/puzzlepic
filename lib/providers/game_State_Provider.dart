@@ -30,7 +30,11 @@ class GameStateProvider with ChangeNotifier {
 
   void setPuzzleComplete(bool complete) {
     _puzzleComplete = complete;
-    // notifyListeners();
+  }
+
+  void resetPiecePositions() {
+    _piecePositions = [];
+    setBlankSquare(_totalGridSize);
   }
 
   void setGridPositions() {
