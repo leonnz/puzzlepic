@@ -41,6 +41,11 @@ class GameStateProvider with ChangeNotifier {
     _gridPositions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   }
 
+  void setScreenWidth({double screenwidth}) {
+    _screenWidth = screenwidth;
+    // notifyListeners();
+  }
+
   // Check if the piece number matches its position
   void checkComplete() {
     var matching = getPiecePositions
@@ -285,11 +290,6 @@ class GameStateProvider with ChangeNotifier {
 
   void setBlankSquare(int squareNumber) {
     _blankSquare = squareNumber;
-    // notifyListeners();
-  }
-
-  void setScreenWidth({double screenwidth}) {
-    _screenWidth = screenwidth;
     // notifyListeners();
   }
 }

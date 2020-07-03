@@ -18,7 +18,7 @@ class GameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<GameStateProvider>(context, listen: true);
-    state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
+    // state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
 
     state.setGridPositions();
 

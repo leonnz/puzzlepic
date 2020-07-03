@@ -58,7 +58,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
             borderRadius: BorderRadius.circular(5),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey,
+                color: Colors.black45,
                 blurRadius: 5.0,
                 offset: Offset(0.0, 5.0),
               ),
