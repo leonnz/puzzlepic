@@ -133,8 +133,10 @@ class _ImagePieceState extends State<ImagePiece>
           ),
         ),
       ),
-      left: state.getLeftPosition(widget.pieceNumber),
-      top: state.getTopPosition(widget.pieceNumber),
+      left: imagePieceProvider.getLeftPosition(
+          widget.pieceNumber, state.getPiecePositions),
+      top: imagePieceProvider.getTopPosition(
+          widget.pieceNumber, state.getPiecePositions),
       duration: Duration(milliseconds: 100),
       curve: Curves.linear,
     );

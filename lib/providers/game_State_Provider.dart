@@ -37,16 +37,6 @@ class GameStateProvider with ChangeNotifier {
     _gridPositions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   }
 
-  double getLeftPosition(int pieceNumber) {
-    return getPiecePositions.firstWhere(
-        (imgPiece) => imgPiece['pieceNumber'] == pieceNumber)['leftPosition'];
-  }
-
-  double getTopPosition(int pieceNumber) {
-    return getPiecePositions.firstWhere(
-        (imgPiece) => imgPiece['pieceNumber'] == pieceNumber)['topPosition'];
-  }
-
   // Check if the piece number matches its position
   void checkComplete() {
     var matching = getPiecePositions

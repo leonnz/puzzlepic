@@ -2,6 +2,18 @@ import 'package:flutter/cupertino.dart';
 import '../data/image_piece_config.dart';
 
 class ImagePieceProvider with ChangeNotifier {
+  double getLeftPosition(
+      int pieceNumber, List<Map<String, dynamic>> piecePositions) {
+    return piecePositions.firstWhere(
+        (imgPiece) => imgPiece['pieceNumber'] == pieceNumber)['leftPosition'];
+  }
+
+  double getTopPosition(
+      int pieceNumber, List<Map<String, dynamic>> piecePositions) {
+    return piecePositions.firstWhere(
+        (imgPiece) => imgPiece['pieceNumber'] == pieceNumber)['topPosition'];
+  }
+
   bool draggable(
       {int pieceNumber,
       double xDistance,
