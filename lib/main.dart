@@ -44,9 +44,6 @@ class Home extends StatelessWidget {
             gradient: LinearGradient(
               colors: [
                 Color(0xff501E5D),
-                Color(0xff662259),
-                Color(0xff7D2555),
-                Color(0xff862754),
                 Color(0xff9E2950),
               ],
               begin: Alignment.topCenter,

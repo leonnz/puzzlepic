@@ -12,9 +12,20 @@ class SelectCategory extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Select Cateogry'),
+          backgroundColor: Color(0xff000000),
         ),
         body: Container(
-          margin: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xff501E5D),
+                Color(0xff9E2950),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          padding: EdgeInsets.all(10),
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
