@@ -31,6 +31,8 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   void initState() {
+    super.initState();
+
     _bannerAd = BannerAd(
       adUnitId: AdManager.bannerAdUnitId,
       size: AdSize.fullBanner,
@@ -40,13 +42,12 @@ class _GameScreenState extends State<GameScreen> {
     );
 
     _loadBannerAd();
-    super.initState();
   }
 
   @override
   void dispose() {
-    _bannerAd?.dispose();
     super.dispose();
+    _bannerAd?.dispose();
   }
 
   @override
