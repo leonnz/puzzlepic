@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:picturepuzzle/components/image_piece.dart';
+import 'package:picturepuzzle/screens/home_screen.dart';
 import '../components/puzzle_complete_alert.dart';
 import '../components/show_hint_alert.dart';
 import '../providers/game_state_provider.dart';
@@ -7,6 +8,7 @@ import '../providers/image_piece_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
+import '../screens/home_screen.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({Key key, this.assetName, this.readableName, this.category})
@@ -22,11 +24,35 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   BannerAd _bannerAd;
+  InterstitialAd _interstitialAd;
+  bool _isInterstitialAdReady;
 
   void _loadBannerAd() {
     _bannerAd
       ..load()
       ..show(anchorType: AnchorType.bottom);
+  }
+
+  void _loadInterstitialAd() {
+    _interstitialAd.load();
+  }
+
+  void _onInterstitialAdEvent(MobileAdEvent event) {
+    switch (event) {
+      case MobileAdEvent.loaded:
+        _isInterstitialAdReady = true;
+        break;
+      case MobileAdEvent.failedToLoad:
+        _isInterstitialAdReady = false;
+        print('Failed to load an interstitial ad');
+        break;
+      case MobileAdEvent.closed:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Home()));
+        break;
+      default:
+      // do nothing
+    }
   }
 
   @override
