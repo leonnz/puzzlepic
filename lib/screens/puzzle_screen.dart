@@ -155,7 +155,6 @@ class _GameScreenState extends State<GameScreen> {
           readableName: widget.readableName,
           fullAd: _interstitialAd,
           fullAdReady: _isInterstitialAdReady,
-          bannerAd: _bannerAd,
         ),
       );
     }
