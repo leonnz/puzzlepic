@@ -26,6 +26,7 @@ class HintAlert extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.all(20.0),
                   child: FlatButton(
+                    textColor: Color(0xff501E5D),
                     child: Text("Close"),
                     onPressed: () => Navigator.pop(context),
                   ),

@@ -58,10 +58,12 @@ class GameScreen extends StatelessWidget {
           actions: [
             FlatButton(
               child: Text("No"),
+              textColor: Color(0xff501E5D),
               onPressed: () => Navigator.pop(context),
             ),
             FlatButton(
               child: Text("Yes"),
+              textColor: Color(0xff501E5D),
               onPressed: () {
                 quit = true;
                 Navigator.pop(context);
@@ -129,14 +131,6 @@ class GameScreen extends StatelessWidget {
                   Card(
                     child: Center(
                       child: Container(
-                        // decoration: BoxDecoration(
-                        //   color: Colors.black,
-                        //   borderRadius: BorderRadius.all(
-                        //     Radius.circular(3),
-                        //   ),
-                        // ),
-                        // width: state.getScreenWidth + 5,
-                        // height: state.getScreenWidth + 5,
                         padding: EdgeInsets.all(5),
                         child: Center(
                           child: Container(
@@ -155,20 +149,29 @@ class GameScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Button(
-                    buttonText: 'Hint',
-                    action: () => showDialog(
-                      context: context,
-                      builder: (context) => HintAlert(
-                        category: category,
-                        assetName: assetName,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      RaisedButton(
+                        elevation: 3,
+                        color: Color(0xff501E5D),
+                        child: Text("Hint"),
+                        onPressed: () => showDialog(
+                          context: context,
+                          builder: (context) => HintAlert(
+                            category: category,
+                            assetName: assetName,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  Button(
-                    buttonText: 'Quit',
-                    action: () => quitGame(),
-                  ),
+                      RaisedButton(
+                        elevation: 3,
+                        color: Color(0xff501E5D),
+                        child: Text("Quit"),
+                        onPressed: () => quitGame(),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),

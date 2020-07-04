@@ -14,18 +14,13 @@ class PuzzleCompleteAlert extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text('You completed $readableName.'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.all(20.0),
-                  child: RaisedButton(
-                    color: Colors.red,
-                    child: Text("Close"),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ),
-              ],
+            Container(
+              margin: EdgeInsets.all(20.0),
+              child: FlatButton(
+                textColor: Color(0xff501E5D),
+                child: Text("Close"),
+                onPressed: () => Navigator.pop(context),
+              ),
             ),
           ],
         ),
