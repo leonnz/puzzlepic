@@ -44,7 +44,7 @@ class _GameScreenState extends State<GameScreen> {
         break;
       case MobileAdEvent.failedToLoad:
         _isInterstitialAdReady = false;
-        print('Failed to load an interstitial ad');
+        print('Failed to load an interstitial ad.');
         break;
       case MobileAdEvent.closed:
         Navigator.push(
