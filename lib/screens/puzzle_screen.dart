@@ -31,8 +31,6 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   void initState() {
-    super.initState();
-
     _bannerAd = BannerAd(
       adUnitId: AdManager.bannerAdUnitId,
       size: AdSize.fullBanner,
@@ -42,12 +40,14 @@ class _GameScreenState extends State<GameScreen> {
     );
 
     _loadBannerAd();
+
+    super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
     _bannerAd?.dispose();
+    super.dispose();
   }
 
   @override
@@ -68,6 +68,7 @@ class _GameScreenState extends State<GameScreen> {
             FlatButton(
               onPressed: () => Navigator.pop(context, false),
               child: Text('No'),
+              textColor: Color(0xff501E5D),
             ),
             FlatButton(
               onPressed: () {
@@ -76,6 +77,7 @@ class _GameScreenState extends State<GameScreen> {
                 Navigator.pop(context, true);
               },
               child: Text('Yes'),
+              textColor: Color(0xff501E5D),
             )
           ],
         ),
