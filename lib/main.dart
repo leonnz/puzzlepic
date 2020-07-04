@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:picturepuzzle/providers/game_state_provider.dart';
 import 'package:provider/provider.dart';
-import './screens/select_category.dart';
+import 'screens/select_category_screen.dart';
 import './components/button.dart';
 
 void main() => runApp(MyApp());
@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
         title: 'Puzzle Pic',
         theme: ThemeData(
           fontFamily: 'Rabelo',
-          primarySwatch: Colors.purple,
+          primarySwatch: Colors.blue,
           buttonTheme: ButtonThemeData(
-            buttonColor: Colors.purple,
+            buttonColor: Colors.blue,
             textTheme: ButtonTextTheme.primary,
           ),
         ),
@@ -35,27 +35,44 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var state = Provider.of<GameStateProvider>(context);
+    state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text('test'),
-            Center(
-              child: Button(
-                buttonText: 'Play!',
-                margin: 0.0,
-                action: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SelectCategory(),
-                    ),
-                  );
-                },
-              ),
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xff501E5D),
+                Color(0xff9E2950),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
-          ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Image(
+                width: state.getScreenWidth * 0.7,
+                image: AssetImage('assets/images/puzzlepiclogo.png'),
+              ),
+              Center(
+                child: Button(
+                  buttonText: 'Play!',
+                  action: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SelectCategory(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

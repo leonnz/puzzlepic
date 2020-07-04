@@ -1,22 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/game_state_provider.dart';
+import '../providers/image_piece_provider.dart';
 
-class ImagePiece extends StatelessWidget {
-  const ImagePiece({Key key, this.pieceNumber}) : super(key: key);
+class ImagePiece extends StatefulWidget {
+  const ImagePiece({
+    Key key,
+    this.pieceNumber,
+    this.category,
+    this.assetName,
+    this.lastPiece,
+    this.puzzleCompleteCallback,
+  }) : super(key: key);
 
+  final String category;
+  final String assetName;
   final int pieceNumber;
+  final bool lastPiece;
+  final Function puzzleCompleteCallback;
 
   @override
+  _ImagePieceState createState() => _ImagePieceState();
+}
+
+class _ImagePieceState extends State<ImagePiece>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+  Animation _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+
+    _animation = Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_controller);
+
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed && widget.lastPiece == true) {
+        widget.puzzleCompleteCallback();
+      }
+    });
+  }
+
+  @protected
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
-    final state = Provider.of<GameStateProvider>(context, listen: true);
+    final state = Provider.of<GameStateProvider>(context);
+    final imagePieceProvider = Provider.of<ImagePieceProvider>(context);
 
     bool dragged = false;
     double initial = 0.0;
     double xDistance = 0.0;
     double yDistance = 0.0;
 
+    _controller.forward();
     return AnimatedPositioned(
+      child: FadeTransition(
+        opacity: widget.lastPiece
+            ? _animation
+            : Tween(begin: 1.0, end: 1.0).animate(_controller),
         child: GestureDetector(
           onHorizontalDragStart: (DragStartDetails details) {
             initial = details.globalPosition.dx;
@@ -25,11 +77,17 @@ class ImagePiece extends StatelessWidget {
           onHorizontalDragUpdate: (DragUpdateDetails details) {
             xDistance = details.globalPosition.dx - initial;
             if (dragged) {
-              if (state.draggable(
-                  pieceNumber: pieceNumber,
-                  xDistance: xDistance,
-                  yDistance: 0.0)) {
-                state.setPieceLeftPosition(pieceNumber, xDistance);
+              if (imagePieceProvider.draggable(
+                    pieceNumber: widget.pieceNumber,
+                    xDistance: xDistance,
+                    yDistance: 0.0,
+                    piecePositions: state.getPiecePositions,
+                    blankSquare: state.getBlankSquare,
+                    gridSideSize: state.getGridSideSize,
+                    gridSize: state.getTotalGridSize,
+                  ) &&
+                  !state.getPuzzleComplete) {
+                state.setPieceLeftPosition(widget.pieceNumber, xDistance);
               }
               dragged = false;
             }
@@ -44,11 +102,17 @@ class ImagePiece extends StatelessWidget {
           onVerticalDragUpdate: (DragUpdateDetails details) {
             yDistance = details.globalPosition.dy - initial;
             if (dragged) {
-              if (state.draggable(
-                  pieceNumber: pieceNumber,
-                  xDistance: 0.0,
-                  yDistance: yDistance)) {
-                state.setPieceTopPosition(pieceNumber, yDistance);
+              if (imagePieceProvider.draggable(
+                    pieceNumber: widget.pieceNumber,
+                    xDistance: 0.0,
+                    yDistance: yDistance,
+                    piecePositions: state.getPiecePositions,
+                    blankSquare: state.getBlankSquare,
+                    gridSideSize: state.getGridSideSize,
+                    gridSize: state.getTotalGridSize,
+                  ) &&
+                  !state.getPuzzleComplete) {
+                state.setPieceTopPosition(widget.pieceNumber, yDistance);
               }
               dragged = false;
             }
@@ -57,18 +121,28 @@ class ImagePiece extends StatelessWidget {
             initial = 0.0;
           },
           child: Container(
+            decoration: BoxDecoration(
+              border: state.getPuzzleComplete
+                  ? null
+                  : Border.all(width: 0.7, color: Colors.grey),
+            ),
             width: state.getSinglePieceWidth,
             height: state.getSinglePieceWidth,
-            color: Colors.blue,
             child: Center(
-                child: Text(
-              '$pieceNumber',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            )),
+              child: Image(
+                image: AssetImage(
+                    'assets/images/${widget.category}/${widget.assetName}/${widget.assetName}_${widget.pieceNumber}.png'),
+              ),
+            ),
           ),
         ),
-        left: state.getLeftPosition(pieceNumber),
-        top: state.getTopPosition(pieceNumber),
-        duration: Duration(milliseconds: 100));
+      ),
+      left: imagePieceProvider.getLeftPosition(
+          widget.pieceNumber, state.getPiecePositions),
+      top: imagePieceProvider.getTopPosition(
+          widget.pieceNumber, state.getPiecePositions),
+      duration: Duration(milliseconds: 100),
+      curve: Curves.linear,
+    );
   }
 }
