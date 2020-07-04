@@ -26,17 +26,18 @@ class _GameScreenState extends State<GameScreen> {
   void _loadBannerAd() {
     _bannerAd
       ..load()
-      ..show(anchorType: AnchorType.top);
+      ..show(anchorType: AnchorType.bottom);
   }
 
   @override
   void initState() {
     _bannerAd = BannerAd(
-        adUnitId: AdManager.bannerAdUnitId,
-        size: AdSize.banner,
-        listener: (MobileAdEvent e) {
-          print(e);
-        });
+      adUnitId: AdManager.bannerAdUnitId,
+      size: AdSize.fullBanner,
+      listener: (MobileAdEvent e) {
+        print(e);
+      },
+    );
 
     _loadBannerAd();
     super.initState();
@@ -203,7 +204,8 @@ class _GameScreenState extends State<GameScreen> {
                         onPressed: () => quitGame(),
                       ),
                     ],
-                  )
+                  ),
+                  Spacer(),
                 ],
               ),
             ),
