@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:picturepuzzle/components/image_piece.dart';
-import '../components/button.dart';
 import '../components/puzzle_complete_alert.dart';
 import '../components/show_hint_alert.dart';
 import '../providers/game_state_provider.dart';
 import '../providers/image_piece_provider.dart';
+import '../ad_manager.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
 
-class GameScreen extends StatelessWidget {
+class GameScreen extends StatefulWidget {
   const GameScreen({Key key, this.assetName, this.readableName, this.category})
       : super(key: key);
 
@@ -16,9 +17,40 @@ class GameScreen extends StatelessWidget {
   final String category;
 
   @override
+  _GameScreenState createState() => _GameScreenState();
+}
+
+class _GameScreenState extends State<GameScreen> {
+  BannerAd _bannerAd;
+
+  void _loadBannerAd() {
+    _bannerAd
+      ..load()
+      ..show(anchorType: AnchorType.top);
+  }
+
+  @override
+  void initState() {
+    _bannerAd = BannerAd(
+        adUnitId: AdManager.bannerAdUnitId,
+        size: AdSize.banner,
+        listener: (MobileAdEvent e) {
+          print(e);
+        });
+
+    _loadBannerAd();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final state = Provider.of<GameStateProvider>(context, listen: true);
-    // state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
 
     state.setGridPositions();
 
@@ -83,7 +115,7 @@ class GameScreen extends StatelessWidget {
       return showDialog(
         context: context,
         builder: (context) => PuzzleCompleteAlert(
-          readableName: readableName,
+          readableName: widget.readableName,
         ),
       );
     }
@@ -93,8 +125,8 @@ class GameScreen extends StatelessWidget {
       for (int i = 1; i <= numberOfPieces; i++) {
         imagePieceList.add(
           ImagePiece(
-            category: category,
-            assetName: assetName,
+            category: widget.category,
+            assetName: widget.assetName,
             pieceNumber: i,
             lastPiece: complete ? true : false,
             puzzleCompleteCallback: showPuzzleCompleteAlert,
@@ -121,7 +153,7 @@ class GameScreen extends StatelessWidget {
                   Container(
                     height: 100,
                     child: Text(
-                      readableName,
+                      widget.readableName,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 40.0,
@@ -159,8 +191,8 @@ class GameScreen extends StatelessWidget {
                         onPressed: () => showDialog(
                           context: context,
                           builder: (context) => HintAlert(
-                            category: category,
-                            assetName: assetName,
+                            category: widget.category,
+                            assetName: widget.assetName,
                           ),
                         ),
                       ),
