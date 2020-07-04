@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:picturepuzzle/components/image_piece.dart';
-import 'package:picturepuzzle/screens/home_screen.dart';
 import '../components/puzzle_complete_alert.dart';
 import '../components/show_hint_alert.dart';
 import '../providers/game_state_provider.dart';
@@ -8,7 +7,6 @@ import '../providers/image_piece_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
-import '../screens/home_screen.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({Key key, this.assetName, this.readableName, this.category})
@@ -47,8 +45,8 @@ class _GameScreenState extends State<GameScreen> {
         print('Failed to load an interstitial ad.');
         break;
       case MobileAdEvent.closed:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Home()));
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (context) => Home()));
         break;
       default:
       // do nothing
@@ -196,10 +194,7 @@ class _GameScreenState extends State<GameScreen> {
                     height: 100,
                     child: Text(
                       widget.readableName,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 40.0,
-                      ),
+                      style: Theme.of(context).textTheme.headline3,
                     ),
                   ),
                   Card(

@@ -15,7 +15,10 @@ class SelectPicture extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Select Picture'),
+          title: Text(
+            'Select Picture',
+            style: Theme.of(context).textTheme.headline1,
+          ),
           backgroundColor: Color(0xff501E5D),
         ),
         body: Container(

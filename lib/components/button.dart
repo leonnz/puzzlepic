@@ -77,7 +77,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
               style: TextStyle(
                 color: Colors.purple,
                 fontSize: 25.0,
-                letterSpacing: 3,
+                letterSpacing: 1,
               ),
             ),
           ),

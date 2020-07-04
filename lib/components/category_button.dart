@@ -42,9 +42,7 @@ class CategoryButton extends StatelessWidget {
                   child: Center(
                     child: Text(
                       Helpers.capitalize(categoryName),
-                      style: TextStyle(
-                        fontSize: 25.0,
-                      ),
+                      style: Theme.of(context).textTheme.headline2,
                       textAlign: TextAlign.center,
                     ),
                   ),

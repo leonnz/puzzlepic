@@ -50,9 +50,7 @@ class ImageButton extends StatelessWidget {
                 child: Center(
                   child: Text(
                     readableName,
-                    style: TextStyle(
-                      fontSize: 25.0,
-                    ),
+                    style: Theme.of(context).textTheme.headline2,
                     textAlign: TextAlign.center,
                   ),
                 ),

@@ -11,7 +11,10 @@ class SelectCategory extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Select Cateogry'),
+          title: Text(
+            'Select Category',
+            style: Theme.of(context).textTheme.headline1,
+          ),
           backgroundColor: Color(0xff501E5D),
         ),
         body: Container(
