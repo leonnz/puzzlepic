@@ -1,5 +1,6 @@
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
+import '../screens/home_screen.dart';
 
 class PuzzleCompleteAlert extends StatelessWidget {
   const PuzzleCompleteAlert(
@@ -30,11 +31,12 @@ class PuzzleCompleteAlert extends StatelessWidget {
                 textColor: Color(0xff501E5D),
                 child: Text("Close"),
                 onPressed: () {
+                  Navigator.pop(context);
+
                   if (fullAdReady) {
                     fullAd.show();
                     bannerAd.dispose();
                   }
-                  Navigator.pop(context);
                 },
               ),
             ),
