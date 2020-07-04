@@ -57,22 +57,29 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   void initState() {
+    _isInterstitialAdReady = false;
+
+    _interstitialAd = InterstitialAd(
+      adUnitId: AdManager.interstitialAdUnitId,
+      listener: _onInterstitialAdEvent,
+    );
+
     _bannerAd = BannerAd(
       adUnitId: AdManager.bannerAdUnitId,
       size: AdSize.fullBanner,
-      listener: (MobileAdEvent e) {
-        print(e);
-      },
     );
 
     _loadBannerAd();
+    _loadInterstitialAd();
 
     super.initState();
   }
 
   @override
   void dispose() {
+    _interstitialAd?.dispose();
     _bannerAd?.dispose();
+
     super.dispose();
   }
 
@@ -142,10 +149,15 @@ class _GameScreenState extends State<GameScreen> {
     }
 
     Future<dynamic> showPuzzleCompleteAlert() {
+      state.setPuzzleComplete(false);
+
       return showDialog(
         context: context,
         builder: (context) => PuzzleCompleteAlert(
           readableName: widget.readableName,
+          fullAd: _interstitialAd,
+          fullAdReady: _isInterstitialAdReady,
+          bannerAd: _bannerAd,
         ),
       );
     }
@@ -163,8 +175,8 @@ class _GameScreenState extends State<GameScreen> {
           ),
         );
         state.setInitialPuzzlePiecePosition(i);
-        state.setPuzzleComplete(complete);
       }
+      state.setPuzzleComplete(complete);
 
       return imagePieceList;
     }
