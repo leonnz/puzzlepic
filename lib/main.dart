@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:picturepuzzle/providers/game_state_provider.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter/services.dart';
 import './screens/home_screen.dart';
 
 void main() => runApp(MyApp());
 
+// TODO Splash screen
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Color(0xff501E5D), //or set color with: Color(0xFF0000FF)
+    ));
+
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+
     return ChangeNotifierProvider(
       create: (_) => GameStateProvider(),
       child: MaterialApp(

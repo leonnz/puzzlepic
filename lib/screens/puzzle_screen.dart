@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:picturepuzzle/components/image_piece.dart';
 import '../components/puzzle_complete_alert.dart';
-import '../components/show_hint_alert.dart';
+import '../screens/hint_screen.dart';
 import '../providers/game_state_provider.dart';
 import '../providers/image_piece_provider.dart';
 import '../ad_manager.dart';
@@ -182,67 +182,81 @@ class _GameScreenState extends State<GameScreen> {
       create: (_) => ImagePieceProvider(),
       child: WillPopScope(
         onWillPop: _backPressed,
-        child: SafeArea(
-          child: Scaffold(
-            backgroundColor: Colors.white,
-            body: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    height: 100,
-                    child: Text(
-                      widget.readableName,
-                      style: Theme.of(context).textTheme.headline3,
-                    ),
-                  ),
-                  Card(
-                    child: Center(
-                      child: Container(
-                        padding: EdgeInsets.all(5),
-                        child: Center(
-                          child: Container(
-                            width: state.getScreenWidth,
-                            height: state.getScreenWidth,
-                            color: Colors.grey,
-                            child: state.getPuzzleComplete
-                                ? Stack(
-                                    children: generateImagePieces(16, true),
-                                  )
-                                : Stack(
-                                    children: generateImagePieces(15, false),
-                                  ),
-                          ),
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Spacer(),
+                Text(
+                  widget.readableName,
+                  style: Theme.of(context).textTheme.headline3,
+                ),
+                Text(
+                  'Moves: ',
+                  // style: Theme.of(context).textTheme.headline3,
+                ),
+                Card(
+                  child: Center(
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      child: Center(
+                        child: Container(
+                          width: state.getScreenWidth,
+                          height: state.getScreenWidth,
+                          color: Colors.grey,
+                          child: state.getPuzzleComplete
+                              ? Stack(
+                                  children: generateImagePieces(16, true),
+                                )
+                              : Stack(
+                                  children: generateImagePieces(15, false),
+                                ),
                         ),
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      RaisedButton(
-                        elevation: 3,
-                        color: Color(0xff501E5D),
-                        child: Text("Hint"),
-                        onPressed: () => showDialog(
-                          context: context,
-                          builder: (context) => HintAlert(
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RaisedButton(
+                      elevation: 3,
+                      color: Color(0xff501E5D),
+                      child: Text("Hint"),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          fullscreenDialog: true,
+                          builder: (_) => HintScreen(
                             category: widget.category,
-                            assetName: widget.assetName,
+                            imageAssetname: widget.assetName,
                           ),
                         ),
                       ),
-                      RaisedButton(
-                        elevation: 3,
-                        color: Color(0xff501E5D),
-                        child: Text("Quit"),
-                        onPressed: () => quitGame(),
-                      ),
-                    ],
-                  ),
-                  Spacer(),
-                ],
-              ),
+                    ),
+
+                    //   showDialog(
+                    //     context: context,
+                    //     builder: (context) =>
+
+                    //     HintAlert(
+                    //       category: widget.category,
+                    //       assetName: widget.assetName,
+                    //     ),
+                    //   ),
+                    // ),
+                    RaisedButton(
+                      elevation: 3,
+                      color: Color(0xff501E5D),
+                      child: Text("Quit"),
+                      onPressed: () => quitGame(),
+                    ),
+                  ],
+                ),
+                Spacer(),
+              ],
             ),
           ),
         ),
