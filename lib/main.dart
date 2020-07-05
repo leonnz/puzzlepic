@@ -4,6 +4,7 @@ import 'package:picturepuzzle/providers/game_state_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import './screens/home_screen.dart';
+import './screens/splash_screen.dart';
 
 void main() => runApp(MyApp());
 
