@@ -1,5 +1,3 @@
-import 'package:sqflite/sqflite.dart';
-
 class PuzzleRecord {
   final int id;
   final String puzzleName;

@@ -1,8 +1,25 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import '../data/puzzle_record_model.dart';
+import 'puzzle_record_model.dart';
 
-class PuzzleRecordDb {
+class DBProviderDb {
+  static final DBProviderDb db = DBProviderDb._internal();
+
+  factory DBProviderDb() {
+    return db;
+  }
+
+  DBProviderDb._internal();
+
+  static Database _database;
+
+  Future<Database> get database async {
+    if (_database != null) return _database;
+
+    _database = await initDB();
+    return _database;
+  }
+
   Future<Database> initDB() async {
     return await openDatabase(
       join(await getDatabasesPath(), 'puzzle_record.db'),
@@ -15,7 +32,7 @@ class PuzzleRecordDb {
     );
   }
 
-  Future<void> insertRecord(PuzzleRecord pr, Future<Database> database) async {
+  Future<void> insertRecord(PuzzleRecord pr) async {
     final Database db = await database;
 
     await db.insert(
@@ -25,11 +42,10 @@ class PuzzleRecordDb {
     );
   }
 
-  Future<List<PuzzleRecord>> getRecords(Future<Database> database) async {
+  Future<List<PuzzleRecord>> getRecords() async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.query('puzzle_record');
-    await db.close();
 
     return List.generate(maps.length, (i) {
       return PuzzleRecord(

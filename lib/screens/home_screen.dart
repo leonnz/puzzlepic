@@ -3,14 +3,9 @@ import 'select_category_screen.dart';
 import '../components/button.dart';
 import 'package:provider/provider.dart';
 import 'package:picturepuzzle/providers/game_state_provider.dart';
-
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
-
-import 'package:sqflite/sqflite.dart';
 import 'dart:async';
-import '../data/puzzle_record_model.dart';
-import '../data/puzzle_record_db.dart';
 
 class Home extends StatelessWidget {
   const Home({Key key}) : super(key: key);
@@ -19,35 +14,8 @@ class Home extends StatelessWidget {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
   }
 
-  dbTest() async {
-    PuzzleRecordDb prDb = PuzzleRecordDb();
-
-    Future<Database> database = prDb.initDB();
-
-    final tajMahal = PuzzleRecord(
-      id: 0,
-      puzzleName: 'tajmahal',
-      complete: 'true',
-      bestMoves: 0,
-    );
-
-    await prDb.insertRecord(tajMahal, database);
-
-    print(
-      await prDb.getRecords(database).then(
-            (value) => value.forEach(
-              (element) {
-                print(element.complete);
-              },
-            ),
-          ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    dbTest();
-
     var state = Provider.of<GameStateProvider>(context);
     state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
     return Scaffold(
