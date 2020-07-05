@@ -1,9 +1,17 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 
 class PuzzleCompleteAlert extends StatelessWidget {
-  const PuzzleCompleteAlert({Key key, this.readableName}) : super(key: key);
+  const PuzzleCompleteAlert({
+    Key key,
+    this.readableName,
+    this.fullAd,
+    this.fullAdReady,
+  }) : super(key: key);
 
   final String readableName;
+  final InterstitialAd fullAd;
+  final bool fullAdReady;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +27,13 @@ class PuzzleCompleteAlert extends StatelessWidget {
               child: FlatButton(
                 textColor: Color(0xff501E5D),
                 child: Text("Close"),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  Navigator.pop(context);
+
+                  if (fullAdReady) {
+                    fullAd.show();
+                  }
+                },
               ),
             ),
           ],

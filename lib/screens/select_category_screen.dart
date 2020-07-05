@@ -8,26 +8,28 @@ class SelectCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Select Cateogry'),
-          backgroundColor: Color(0xff501E5D),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Select Category',
+          style: Theme.of(context).textTheme.headline1,
         ),
-        body: Container(
-          padding: EdgeInsets.all(10),
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-            itemCount: Images.imageList.length,
-            itemBuilder: (BuildContext context, int i) {
-              return CategoryButton(
-                  categoryName: Images.imageList[i]["categoryName"]);
-            },
+        backgroundColor: Color(0xff501E5D),
+      ),
+      body: Container(
+        padding: EdgeInsets.all(10),
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
           ),
+          itemCount: Images.imageList.length,
+          itemBuilder: (BuildContext context, int i) {
+            return CategoryButton(
+                categoryName: Images.imageList[i]["categoryName"]);
+          },
         ),
       ),
     );
