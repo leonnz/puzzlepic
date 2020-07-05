@@ -8,7 +8,6 @@ import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 import 'dart:async';
 import '../data/puzzle_record_model.dart';
 import '../data/puzzle_record_db.dart';
@@ -25,17 +24,6 @@ class Home extends StatelessWidget {
 
     Future<Database> database = prDb.initDB();
 
-    Future<void> insertRecord(PuzzleRecord pr) async {
-      final Database db = await database;
-
-      await db.insert(
-        'puzzle_record',
-        pr.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-    }
-
-    // Create a Dog and add it to the dogs table.
     final tajMahal = PuzzleRecord(
       id: 0,
       puzzleName: 'tajmahal',
@@ -43,33 +31,17 @@ class Home extends StatelessWidget {
       bestMoves: 0,
     );
 
-    await insertRecord(tajMahal);
+    await prDb.insertRecord(tajMahal, database);
 
-    Future<List<PuzzleRecord>> getRecords() async {
-      // Get a reference to the database.
-      final Database db = await database;
-
-      // Query the table for all The Dogs.
-      final List<Map<String, dynamic>> maps = await db.query('puzzle_record');
-      await db.close();
-
-      // Convert the List<Map<String, dynamic> into a List<Dog>.
-      return List.generate(maps.length, (i) {
-        return PuzzleRecord(
-          id: maps[i]['id'],
-          puzzleName: maps[i]['puzzleName'],
-          complete: maps[i]['complete'],
-          bestMoves: maps[i]['bestMoves'],
-        );
-      });
-    }
-
-    // Now, use the method above to retrieve all the dogs.
-    print(await getRecords().then((value) => value.forEach((element) {
-          print(element.complete);
-        })));
-
-    // Close the database
+    print(
+      await prDb.getRecords(database).then(
+            (value) => value.forEach(
+              (element) {
+                print(element.complete);
+              },
+            ),
+          ),
+    );
   }
 
   @override
