@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../data/images_data.dart';
 import '../components/image_button.dart';
 import '../data/db_provider.dart';
+import '../data/puzzle_record_model.dart';
 
 class SelectPicture extends StatelessWidget {
   const SelectPicture({Key key, @required this.category}) : super(key: key);
@@ -10,9 +11,18 @@ class SelectPicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var records = DBProviderDb.db.getRecords();
+    var dbProvider = new DBProviderDb();
 
-    records.then((value) => print(value[0].puzzleName));
+    final tajMahal = PuzzleRecord(
+      id: 0,
+      puzzleName: 'tajmahal',
+      complete: 'true',
+      bestMoves: 0,
+    );
+
+    dbProvider.insertRecord(tajMahal);
+
+    dbProvider.getRecords().then((value) => print(value[0].puzzleName));
 
     List<Map<String, dynamic>> images = Images.imageList.firstWhere(
         (imageList) => imageList["categoryName"] == category)["categoryImages"];
