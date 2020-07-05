@@ -11,7 +11,7 @@ class SelectPicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dbProvider = new DBProviderDb();
+    var dbProvider = DBProviderDb();
 
     final tajMahal = PuzzleRecord(
       id: 0,

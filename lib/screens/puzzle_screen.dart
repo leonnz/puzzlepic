@@ -175,6 +175,8 @@ class _GameScreenState extends State<GameScreen> {
       }
       state.setPuzzleComplete(complete);
 
+      // TODO complete function that will add record to DB
+
       return imagePieceList;
     }
 
