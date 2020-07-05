@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import '../screens/puzzle_screen.dart';
 
 class ImageButton extends StatelessWidget {
-  const ImageButton(
-      {Key key, this.assetName, this.readableName, this.categoryName})
-      : super(key: key);
+  const ImageButton({
+    Key key,
+    this.assetName,
+    this.readableName,
+    this.categoryName,
+    this.complete,
+  }) : super(key: key);
 
   final String categoryName;
   final String assetName;
   final String readableName;
+  final bool complete;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +42,7 @@ class ImageButton extends StatelessWidget {
                 image: AssetImage('assets/images/$categoryName/$assetName.png'),
               ),
             ),
+            complete ? Icon(Icons.check) : Icon(Icons.golf_course),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(

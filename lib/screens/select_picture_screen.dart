@@ -11,18 +11,26 @@ class SelectPicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dbProvider = DBProviderDb();
+    // List<String> completePuzzles = [];
+
+    DBProviderDb dbProvider = DBProviderDb();
 
     final tajMahal = PuzzleRecord(
       id: 0,
       puzzleName: 'tajmahal',
+      puzzleCategory: 'buildings',
       complete: 'true',
       bestMoves: 0,
     );
 
     dbProvider.insertRecord(tajMahal);
 
-    dbProvider.getRecords().then((value) => print(value[0].puzzleName));
+    // dbProvider.getRecordsByCategory(category: category).then(
+    //       (records) => records.forEach((puzzle) {
+    //         completePuzzles.add(puzzle.puzzleName);
+    //         print(completePuzzles);
+    //       }),
+    //     );
 
     List<Map<String, dynamic>> images = Images.imageList.firstWhere(
         (imageList) => imageList["categoryName"] == category)["categoryImages"];
@@ -39,18 +47,27 @@ class SelectPicture extends StatelessWidget {
       body: Container(
         //
         padding: EdgeInsets.all(10),
-        child: GridView.builder(
-          itemCount: images.length,
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          itemBuilder: (BuildContext context, int i) {
-            return ImageButton(
-              categoryName: category,
-              assetName: images[i]["assetName"],
-              readableName: images[i]["readableName"],
-            );
-          },
-        ),
+        child: FutureBuilder(
+            future: dbProvider.getRecordsByCategory(category: category),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+              return GridView.builder(
+                itemCount: images.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemBuilder: (BuildContext context, int i) {
+                  return ImageButton(
+                    categoryName: category,
+                    assetName: images[i]["assetName"],
+                    readableName: images[i]["readableName"],
+                    complete: (snapshot.hasData &&
+                            snapshot.data.contains(images[i]["assetName"]))
+                        ? true
+                        : false,
+                  );
+                },
+              );
+            }),
       ),
     );
   }
