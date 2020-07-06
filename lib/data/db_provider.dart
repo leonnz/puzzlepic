@@ -53,6 +53,7 @@ class DBProviderDb {
     });
   }
 
+  // DEV TESTING ONLY
   void deleteTable() async {
     final Database db = await database;
 
