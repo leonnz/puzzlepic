@@ -164,7 +164,7 @@ class _GameScreenState extends State<GameScreen> {
     void addPuzzleToRecordDb() {
       DBProviderDb dbProvider = DBProviderDb();
       final record = PuzzleRecord(
-        id: 0,
+        // id: 0,
         puzzleName: widget.readableName,
         puzzleCategory: widget.category,
         complete: 'true',
