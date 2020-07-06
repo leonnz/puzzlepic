@@ -39,7 +39,8 @@ class ImageButton extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image(
-                image: AssetImage('assets/images/$categoryName/$assetName.png'),
+                image: AssetImage(
+                    'assets/images/$categoryName/${assetName}_full.png'),
               ),
             ),
             Align(
