@@ -7,6 +7,10 @@ class Images {
         {
           "assetName": "tajmahal",
           "readableName": "Taj Mahal",
+        },
+        {
+          "assetName": "petra",
+          "readableName": "Petra",
         }
       ]
     },
