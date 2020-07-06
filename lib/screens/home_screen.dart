@@ -6,7 +6,6 @@ import 'package:picturepuzzle/providers/game_state_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'dart:async';
-import '../data/db_provider.dart';
 
 class Home extends StatelessWidget {
   const Home({Key key}) : super(key: key);
@@ -18,11 +17,8 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var state = Provider.of<GameStateProvider>(context);
-    DBProviderDb dbProvider = DBProviderDb();
 
     state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
-
-    state.setCompletedPuzzles(puzzles: dbProvider.getRecords());
 
     return Scaffold(
       body: FutureBuilder<void>(

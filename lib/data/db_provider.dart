@@ -33,16 +33,45 @@ class DBProviderDb {
     );
   }
 
-  Future<void> insertRecord(PuzzleRecord record) async {
+  Future<List<Map<String, dynamic>>> getSingleRecord(
+      {String puzzleName}) async {
     final Database db = await database;
-    await db.insert(
-      'puzzle_record',
-      record.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+
+    return await db.rawQuery(
+        'SELECT * FROM puzzle_record WHERE puzzleName = ?', [puzzleName]);
   }
 
-  Future<List<String>> getRecords({String category}) async {
+  Future<void> insertRecord(PuzzleRecord record) async {
+    final Database db = await database;
+
+    List<String> currentRecords = await getRecords();
+
+    // print('current record $currentRecords');
+
+    if (currentRecords.contains(record.puzzleName)) {
+      // Get the current record
+      var existingRecord = await getSingleRecord(puzzleName: record.puzzleName);
+
+      print('existingRecord: $existingRecord');
+      // Update the best moves if lower
+
+      // if(record.bestMoves < existingRecord.toList()[0]) {
+
+      // }
+      // await db.rawUpdate(
+      //     'UPDATE puzzle_record SET bestMoves = ? WHERE puzzleName = ?',
+      //     [record.bestMoves]);
+    } else {
+      print('here');
+      await db.insert(
+        'puzzle_record',
+        record.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+  }
+
+  Future<List<String>> getRecords() async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps =
