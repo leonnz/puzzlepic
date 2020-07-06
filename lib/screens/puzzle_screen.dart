@@ -136,7 +136,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               textColor: Color(0xff501E5D),
               onPressed: () {
                 quit = true;
-                Navigator.of(context).pop(true);
+                Navigator.pop(context);
               },
             ),
           ],
@@ -145,7 +145,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       if (quit) {
         state.setPuzzleComplete(false);
         state.resetPiecePositions();
-        Navigator.pop(context);
+        Navigator.pop(context, true);
       }
     }
 

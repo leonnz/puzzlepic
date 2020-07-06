@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../screens/puzzle_screen.dart';
 
 class ImageButton extends StatelessWidget {
   const ImageButton({
@@ -17,63 +16,51 @@ class ImageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => GameScreen(
-            category: categoryName,
-            assetName: assetName,
-            readableName: readableName,
-          ),
-        ),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        elevation: 3,
-        borderOnForeground: true,
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image(
-                image: AssetImage(
-                    'assets/images/$categoryName/${assetName}_full.png'),
-              ),
+      elevation: 3,
+      borderOnForeground: true,
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image(
+              image: AssetImage(
+                  'assets/images/$categoryName/${assetName}_full.png'),
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: complete
-                  ? Icon(
-                      Icons.check,
-                      color: Colors.lightGreenAccent[400],
-                      size: 40,
-                    )
-                  : null,
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(255, 255, 255, 0.80),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10))),
-                child: Center(
-                  child: Text(
-                    readableName,
-                    style: Theme.of(context).textTheme.headline2,
-                    textAlign: TextAlign.center,
-                  ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: complete
+                ? Icon(
+                    Icons.check,
+                    color: Colors.lightGreenAccent[400],
+                    size: 40,
+                  )
+                : null,
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 50,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Color.fromRGBO(255, 255, 255, 0.80),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10))),
+              child: Center(
+                child: Text(
+                  readableName,
+                  style: Theme.of(context).textTheme.headline2,
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
