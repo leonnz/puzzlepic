@@ -10,8 +10,9 @@ import 'package:provider/provider.dart';
 import '../data/db_provider.dart';
 import '../data/puzzle_record_model.dart';
 
-class GameScreen extends StatefulWidget {
-  const GameScreen({Key key, this.assetName, this.readableName, this.category})
+class PuzzleScreen extends StatefulWidget {
+  const PuzzleScreen(
+      {Key key, this.assetName, this.readableName, this.category})
       : super(key: key);
 
   final String assetName;
@@ -19,10 +20,10 @@ class GameScreen extends StatefulWidget {
   final String category;
 
   @override
-  _GameScreenState createState() => _GameScreenState();
+  _PuzzleScreenState createState() => _PuzzleScreenState();
 }
 
-class _GameScreenState extends State<GameScreen> {
+class _PuzzleScreenState extends State<PuzzleScreen> {
   BannerAd _bannerAd;
   InterstitialAd _interstitialAd;
   bool _isInterstitialAdReady;
@@ -135,7 +136,7 @@ class _GameScreenState extends State<GameScreen> {
               textColor: Color(0xff501E5D),
               onPressed: () {
                 quit = true;
-                Navigator.pop(context);
+                Navigator.of(context).pop(true);
               },
             ),
           ],
@@ -172,8 +173,6 @@ class _GameScreenState extends State<GameScreen> {
       );
 
       dbProvider.insertRecord(record);
-
-      state.setCompletedPuzzles(puzzles: dbProvider.getRecords());
     }
 
     List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {
