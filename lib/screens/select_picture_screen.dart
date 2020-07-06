@@ -27,7 +27,6 @@ class SelectPicture extends StatelessWidget {
         backgroundColor: Color(0xff501E5D),
       ),
       body: Container(
-        //
         padding: EdgeInsets.all(10),
         child: FutureBuilder(
             future: dbProvider.getRecordsByCategory(category: category),
