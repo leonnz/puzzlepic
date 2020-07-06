@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<GameStateProvider>(context);
+    var state = Provider.of<GameStateProvider>(context);
     DBProviderDb dbProvider = DBProviderDb();
 
     state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);

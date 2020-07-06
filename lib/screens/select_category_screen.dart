@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:picturepuzzle/components/category_button.dart';
 import '../data/images_data.dart';
-import 'package:picturepuzzle/providers/game_State_Provider.dart';
+import 'package:picturepuzzle/providers/game_state_provider.dart';
 import 'package:provider/provider.dart';
 
 class SelectCategory extends StatelessWidget {
@@ -10,7 +10,9 @@ class SelectCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var state = Provider.of<GameStateProvider>(context);
+    // final state = Provider.of<GameStateProvider>(context);
+    // Provider.of<GameStateProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
