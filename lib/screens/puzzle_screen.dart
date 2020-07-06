@@ -188,9 +188,11 @@ class _GameScreenState extends State<GameScreen> {
         );
         state.setInitialPuzzlePiecePosition(i);
       }
-      state.setPuzzleComplete(complete);
 
-      if (complete) addPuzzleToRecordDb();
+      if (complete) {
+        state.setPuzzleComplete(complete);
+        addPuzzleToRecordDb();
+      }
 
       return imagePieceList;
     }
@@ -253,17 +255,6 @@ class _GameScreenState extends State<GameScreen> {
                         ),
                       ),
                     ),
-
-                    //   showDialog(
-                    //     context: context,
-                    //     builder: (context) =>
-
-                    //     HintAlert(
-                    //       category: widget.category,
-                    //       assetName: widget.assetName,
-                    //     ),
-                    //   ),
-                    // ),
                     RaisedButton(
                       elevation: 3,
                       color: Color(0xff501E5D),

@@ -12,7 +12,7 @@ class SelectPicture extends StatelessWidget {
   Widget build(BuildContext context) {
     DBProviderDb dbProvider = DBProviderDb();
 
-    // dbProvider.deleteTable();
+    dbProvider.deleteTable();
 
     List<Map<String, dynamic>> images = Images.imageList.firstWhere(
         (imageList) => imageList["categoryName"] == category)["categoryImages"];

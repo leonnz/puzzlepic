@@ -31,7 +31,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
                   Navigator.pop(context);
 
                   if (fullAdReady) {
-                    fullAd.show();
+                    // fullAd.show();
                   }
                 },
               ),
