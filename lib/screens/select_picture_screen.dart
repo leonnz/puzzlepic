@@ -61,6 +61,7 @@ class _SelectPictureState extends State<SelectPicture> {
                           ),
                         );
                         if (result) {
+                          // Refreshes the pictures to show complete ticks from database
                           setState(() {});
                         }
                       },

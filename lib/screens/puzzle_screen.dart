@@ -100,7 +100,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           content: Text('Progress will be lost, are you sure?'),
           actions: <Widget>[
             FlatButton(
-              onPressed: () => Navigator.pop(context, false),
+              onPressed: () => Navigator.pop(context),
               child: Text('No'),
               textColor: Color(0xff501E5D),
             ),
@@ -201,7 +201,13 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     return ChangeNotifierProvider(
       create: (_) => ImagePieceProvider(),
       child: WillPopScope(
-        onWillPop: _backPressed,
+        onWillPop: () async {
+          bool confirmQuit = await _backPressed();
+
+          if (confirmQuit) Navigator.pop(context, true);
+
+          return confirmQuit;
+        },
         child: Scaffold(
           backgroundColor: Colors.white,
           body: Container(
