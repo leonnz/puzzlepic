@@ -50,28 +50,12 @@ class DBProviderDb {
 
     return List.generate(maps.length, (i) {
       return maps[i]['puzzleName'];
-      // return PuzzleRecord(
-      //   id: maps[i]['id'],
-      //   puzzleName: maps[i]['puzzleName'],
-      //   puzzleCategory: maps[i]['puzzleCategory'],
-      //   complete: maps[i]['complete'],
-      //   bestMoves: maps[i]['bestMoves'],
-      // );
     });
   }
 
-  Future<List<PuzzleRecord>> getComRecords() async {
+  void deleteTable() async {
     final Database db = await database;
 
-    final List<Map<String, dynamic>> maps = await db.query('puzzle_record');
-
-    return List.generate(maps.length, (i) {
-      return PuzzleRecord(
-        id: maps[i]['id'],
-        puzzleName: maps[i]['puzzleName'],
-        complete: maps[i]['complete'],
-        bestMoves: maps[i]['bestMoves'],
-      );
-    });
+    await db.delete('puzzle_record');
   }
 }

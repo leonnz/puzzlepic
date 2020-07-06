@@ -11,8 +11,6 @@ class SelectPicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List<String> completePuzzles = [];
-
     DBProviderDb dbProvider = DBProviderDb();
 
     final tajMahal = PuzzleRecord(
@@ -25,12 +23,7 @@ class SelectPicture extends StatelessWidget {
 
     dbProvider.insertRecord(tajMahal);
 
-    // dbProvider.getRecordsByCategory(category: category).then(
-    //       (records) => records.forEach((puzzle) {
-    //         completePuzzles.add(puzzle.puzzleName);
-    //         print(completePuzzles);
-    //       }),
-    //     );
+    // dbProvider.deleteTable();
 
     List<Map<String, dynamic>> images = Images.imageList.firstWhere(
         (imageList) => imageList["categoryName"] == category)["categoryImages"];

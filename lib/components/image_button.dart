@@ -42,7 +42,16 @@ class ImageButton extends StatelessWidget {
                 image: AssetImage('assets/images/$categoryName/$assetName.png'),
               ),
             ),
-            complete ? Icon(Icons.check) : Icon(Icons.golf_course),
+            Align(
+              alignment: Alignment.topRight,
+              child: complete
+                  ? Icon(
+                      Icons.check,
+                      color: Colors.lightGreenAccent[400],
+                      size: 40,
+                    )
+                  : null,
+            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
