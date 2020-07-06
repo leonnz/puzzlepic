@@ -7,7 +7,7 @@ import './screens/home_screen.dart';
 import './screens/splash_screen.dart';
 import './data/db_provider.dart';
 
-void main() => runApp(widget(child: MyApp()));
+void main() => runApp(MyApp());
 
 // TODO Splash screen
 class MyApp extends StatelessWidget {
@@ -21,33 +21,36 @@ class MyApp extends StatelessWidget {
 
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 
-    return MaterialApp(
-      title: 'Puzzle Pic',
-      theme: ThemeData(
-        fontFamily: 'Rabelo',
-        buttonTheme: ButtonThemeData(
-          buttonColor: Colors.blue,
-          textTheme: ButtonTextTheme.primary,
+    return ChangeNotifierProvider(
+      create: (_) => GameStateProvider(),
+      child: MaterialApp(
+        title: 'Puzzle Pic',
+        theme: ThemeData(
+          fontFamily: 'Rabelo',
+          buttonTheme: ButtonThemeData(
+            buttonColor: Colors.blue,
+            textTheme: ButtonTextTheme.primary,
+          ),
+          textTheme: TextTheme(
+            button: GoogleFonts.roboto(letterSpacing: 1),
+            headline1: GoogleFonts.roboto(
+              fontSize: 20,
+              letterSpacing: 1,
+              color: Colors.white,
+            ),
+            headline2: GoogleFonts.solway(
+              fontSize: 20,
+              color: Colors.black,
+            ),
+            headline3: GoogleFonts.solway(
+              fontSize: 30,
+              letterSpacing: 1,
+              color: Colors.black,
+            ),
+          ),
         ),
-        textTheme: TextTheme(
-          button: GoogleFonts.roboto(letterSpacing: 1),
-          headline1: GoogleFonts.roboto(
-            fontSize: 20,
-            letterSpacing: 1,
-            color: Colors.white,
-          ),
-          headline2: GoogleFonts.solway(
-            fontSize: 20,
-            color: Colors.black,
-          ),
-          headline3: GoogleFonts.solway(
-            fontSize: 30,
-            letterSpacing: 1,
-            color: Colors.black,
-          ),
-        ),
+        home: Home(),
       ),
-      home: Home(),
     );
   }
 }
