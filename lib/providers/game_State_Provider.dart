@@ -34,7 +34,6 @@ class GameStateProvider with ChangeNotifier {
 
   void setCompletedPuzzles({Future<List<String>> puzzles}) {
     _completedPuzzles = puzzles;
-    // notifyListeners();
   }
 
   void setPuzzleComplete(bool complete) {
