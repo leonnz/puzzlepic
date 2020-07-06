@@ -7,6 +7,8 @@ import '../providers/image_piece_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
+import '../data//db_provider.dart';
+import '../data//puzzle_record_model.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({Key key, this.assetName, this.readableName, this.category})
@@ -159,6 +161,19 @@ class _GameScreenState extends State<GameScreen> {
       );
     }
 
+    void addPuzzleToRecordDb() {
+      DBProviderDb dbProvider = DBProviderDb();
+      final record = PuzzleRecord(
+        id: 0,
+        puzzleName: widget.readableName,
+        puzzleCategory: widget.category,
+        complete: 'true',
+        bestMoves: 0,
+      );
+
+      dbProvider.insertRecord(record);
+    }
+
     List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {
       // Always produce 1 less image piece that the grid size
       for (int i = 1; i <= numberOfPieces; i++) {
@@ -175,7 +190,7 @@ class _GameScreenState extends State<GameScreen> {
       }
       state.setPuzzleComplete(complete);
 
-      // TODO complete function that will add record to DB
+      if (complete) addPuzzleToRecordDb();
 
       return imagePieceList;
     }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../data/images_data.dart';
 import '../components/image_button.dart';
 import '../data/db_provider.dart';
-import '../data/puzzle_record_model.dart';
 
 class SelectPicture extends StatelessWidget {
   const SelectPicture({Key key, @required this.category}) : super(key: key);
@@ -12,16 +11,6 @@ class SelectPicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DBProviderDb dbProvider = DBProviderDb();
-
-    final tajMahal = PuzzleRecord(
-      id: 0,
-      puzzleName: 'tajmahal',
-      puzzleCategory: 'buildings',
-      complete: 'true',
-      bestMoves: 0,
-    );
-
-    dbProvider.insertRecord(tajMahal);
 
     // dbProvider.deleteTable();
 
@@ -54,7 +43,7 @@ class SelectPicture extends StatelessWidget {
                     assetName: images[i]["assetName"],
                     readableName: images[i]["readableName"],
                     complete: (snapshot.hasData &&
-                            snapshot.data.contains(images[i]["assetName"]))
+                            snapshot.data.contains(images[i]["readableName"]))
                         ? true
                         : false,
                   );
