@@ -42,6 +42,17 @@ class DBProviderDb {
     );
   }
 
+  Future<List<String>> getRecords({String category}) async {
+    final Database db = await database;
+
+    final List<Map<String, dynamic>> maps =
+        await db.rawQuery('SELECT * FROM puzzle_record');
+
+    return List.generate(maps.length, (i) {
+      return maps[i]['puzzleName'];
+    });
+  }
+
   Future<List<String>> getRecordsByCategory({String category}) async {
     final Database db = await database;
 

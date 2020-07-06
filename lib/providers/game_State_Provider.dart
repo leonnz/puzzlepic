@@ -16,6 +16,8 @@ class GameStateProvider with ChangeNotifier {
   static int _blankSquare = _totalGridSize;
   static int _gridSideSize = sqrt(_totalGridSize).toInt();
 
+  static Future<List<String>> _completedPuzzles;
+
   // Pool of positions for random position generation.
   static List<int> _gridPositions;
 
@@ -27,6 +29,13 @@ class GameStateProvider with ChangeNotifier {
   int get getTotalGridSize => _totalGridSize;
   int get getBlankSquare => _blankSquare;
   int get getGridSideSize => _gridSideSize;
+
+  Future<List<String>> get getCompletedPuzzles => _completedPuzzles;
+
+  void setCompletedPuzzles({Future<List<String>> puzzles}) {
+    _completedPuzzles = puzzles;
+    // notifyListeners();
+  }
 
   void setPuzzleComplete(bool complete) {
     _puzzleComplete = complete;

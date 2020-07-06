@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:picturepuzzle/providers/game_State_Provider.dart';
+import 'package:provider/provider.dart';
 import '../data/images_data.dart';
 import '../components/image_button.dart';
 import '../data/db_provider.dart';
@@ -12,10 +14,12 @@ class SelectPicture extends StatelessWidget {
   Widget build(BuildContext context) {
     DBProviderDb dbProvider = DBProviderDb();
 
-    // dbProvider.deleteTable();
+    dbProvider.deleteTable();
 
     List<Map<String, dynamic>> images = Images.imageList.firstWhere(
         (imageList) => imageList["categoryName"] == category)["categoryImages"];
+
+    // final state = Provider.of<GameStateProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -30,6 +34,7 @@ class SelectPicture extends StatelessWidget {
         padding: EdgeInsets.all(10),
         child: FutureBuilder(
             future: dbProvider.getRecordsByCategory(category: category),
+            // future: state.getCompletedPuzzles,
             builder:
                 (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
               return GridView.builder(

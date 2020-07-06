@@ -7,8 +7,8 @@ import '../providers/image_piece_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
-import '../data//db_provider.dart';
-import '../data//puzzle_record_model.dart';
+import '../data/db_provider.dart';
+import '../data/puzzle_record_model.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({Key key, this.assetName, this.readableName, this.category})
@@ -172,6 +172,8 @@ class _GameScreenState extends State<GameScreen> {
       );
 
       dbProvider.insertRecord(record);
+
+      state.setCompletedPuzzles(puzzles: dbProvider.getRecords());
     }
 
     List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {
