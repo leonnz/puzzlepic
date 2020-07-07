@@ -163,11 +163,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           fullAd: _interstitialAd,
           fullAdReady: _isInterstitialAdReady,
         ),
-      ).then((value) {
-        if (value) {
-          setState(() {});
-        }
-      });
+      );
     }
 
     void puzzleCompleteDb() async {
@@ -197,6 +193,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
         dbProvider.insertRecord(record: record);
       }
+
+      setState(() {});
     }
 
     List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {
