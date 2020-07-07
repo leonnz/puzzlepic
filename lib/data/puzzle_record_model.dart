@@ -3,14 +3,14 @@ class PuzzleRecord {
   final String puzzleName;
   final String puzzleCategory;
   final String complete;
-  final int bestMoves;
+  final int moves;
 
   PuzzleRecord({
     this.id,
     this.puzzleName,
     this.puzzleCategory,
     this.complete,
-    this.bestMoves,
+    this.moves,
   });
 
   Map<String, dynamic> toMap() {
@@ -19,7 +19,7 @@ class PuzzleRecord {
       'puzzleName': puzzleName,
       'puzzleCategory': puzzleCategory,
       'complete': complete,
-      'bestMoves': bestMoves,
+      'bestMoves': moves,
     };
   }
 }

@@ -92,6 +92,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
     List<ImagePiece> imagePieceList = <ImagePiece>[];
 
+    DBProviderDb dbProvider = DBProviderDb();
+
     void resetGameState() {
       state.setPuzzleComplete(false);
       state.resetPiecePositions();
@@ -173,7 +175,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         puzzleName: widget.readableName,
         puzzleCategory: widget.category,
         complete: 'true',
-        bestMoves: 0,
+        moves: state.getMoves,
       );
 
       dbProvider.insertRecord(record);
@@ -202,6 +204,17 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       return imagePieceList;
     }
 
+    getSingleRecord() async {
+      var best = 0;
+      var record =
+          await dbProvider.getSingleRecord(puzzleName: widget.readableName);
+      if (record.length > 0) best = record[0]['bestMoves'];
+      print(best);
+      return best;
+    }
+
+    // getSingleRecord();
+
     return ChangeNotifierProvider(
       create: (_) => ImagePieceProvider(),
       child: WillPopScope(
@@ -213,69 +226,82 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         },
         child: Scaffold(
           backgroundColor: Colors.white,
-          body: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Spacer(),
-                Text(
-                  widget.readableName,
-                  style: Theme.of(context).textTheme.headline3,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Spacer(),
+              Text(
+                widget.readableName,
+                style: Theme.of(context).textTheme.headline3,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text(
+                    'Moves: ${state.getMoves}',
+                    // style: Theme.of(context).textTheme.headline3,
+                  ),
+                  FutureBuilder(
+                      future: getSingleRecord(),
+                      initialData: 0,
+                      builder: (context, AsyncSnapshot<int> snapshot) {
+                        Widget bestMoves;
+
+                        if (snapshot.hasData) {
+                          int moves = snapshot.data;
+                          bestMoves = Text('Best moves: $moves');
+                        } else {
+                          bestMoves = Text('Best moves: 0');
+                        }
+                        return bestMoves;
+                      }),
+                ],
+              ),
+              Card(
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Container(
+                    width: state.getScreenWidth,
+                    height: state.getScreenWidth,
+                    color: Colors.grey,
+                    child: state.getPuzzleComplete
+                        ? Stack(
+                            children: generateImagePieces(16, true),
+                          )
+                        : Stack(
+                            children: generateImagePieces(15, false),
+                          ),
+                  ),
                 ),
-                Text(
-                  'Moves: ${state.getMoves}',
-                  // style: Theme.of(context).textTheme.headline3,
-                ),
-                Card(
-                  child: Center(
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      child: Center(
-                        child: Container(
-                          width: state.getScreenWidth,
-                          height: state.getScreenWidth,
-                          color: Colors.grey,
-                          child: state.getPuzzleComplete
-                              ? Stack(
-                                  children: generateImagePieces(16, true),
-                                )
-                              : Stack(
-                                  children: generateImagePieces(15, false),
-                                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  RaisedButton(
+                    elevation: 3,
+                    color: Color(0xff501E5D),
+                    child: Text("Hint"),
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (_) => HintScreen(
+                          category: widget.category,
+                          imageAssetname: widget.assetName,
                         ),
                       ),
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    RaisedButton(
-                      elevation: 3,
-                      color: Color(0xff501E5D),
-                      child: Text("Hint"),
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          fullscreenDialog: true,
-                          builder: (_) => HintScreen(
-                            category: widget.category,
-                            imageAssetname: widget.assetName,
-                          ),
-                        ),
-                      ),
-                    ),
-                    RaisedButton(
-                      elevation: 3,
-                      color: Color(0xff501E5D),
-                      child: Text("Quit"),
-                      onPressed: () => quitGame(),
-                    ),
-                  ],
-                ),
-                Spacer(),
-              ],
-            ),
+                  RaisedButton(
+                    elevation: 3,
+                    color: Color(0xff501E5D),
+                    child: Text("Quit"),
+                    onPressed: () => quitGame(),
+                  ),
+                ],
+              ),
+              Spacer(),
+            ],
           ),
         ),
       ),

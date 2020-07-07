@@ -37,6 +37,8 @@ class DBProviderDb {
       {String puzzleName}) async {
     final Database db = await database;
 
+    // print(puzzleName);
+
     return await db.rawQuery(
         'SELECT * FROM puzzle_record WHERE puzzleName = ?', [puzzleName]);
   }
@@ -50,19 +52,20 @@ class DBProviderDb {
 
     if (currentRecords.contains(record.puzzleName)) {
       // Get the current record
-      var existingRecord = await getSingleRecord(puzzleName: record.puzzleName);
+      List<Map<String, dynamic>> existingRecord =
+          await getSingleRecord(puzzleName: record.puzzleName);
 
-      print('existingRecord: $existingRecord');
+      int existingRecordBestMoves = existingRecord[0]['bestMoves'];
+
+      // print('existingRecord: $existingRecordBestMoves');
       // Update the best moves if lower
 
-      // if(record.bestMoves < existingRecord.toList()[0]) {
-
-      // }
-      // await db.rawUpdate(
-      //     'UPDATE puzzle_record SET bestMoves = ? WHERE puzzleName = ?',
-      //     [record.bestMoves]);
+      if (record.moves < existingRecordBestMoves) {}
+      await db.rawUpdate(
+          'UPDATE puzzle_record SET bestMoves = ? WHERE puzzleName = ?',
+          [record.moves, record.puzzleName]);
     } else {
-      print('here');
+      // Insert new record
       await db.insert(
         'puzzle_record',
         record.toMap(),
