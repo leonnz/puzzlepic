@@ -53,6 +53,7 @@ class DBProviderDb {
 
   Future<void> updateRecord({int moves, String puzzleName}) async {
     final Database db = await database;
+    print(moves);
     await db.rawUpdate(
         'UPDATE puzzle_record SET bestMoves = ? WHERE puzzleName = ?',
         [moves, puzzleName]);

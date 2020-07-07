@@ -163,7 +163,11 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           fullAd: _interstitialAd,
           fullAdReady: _isInterstitialAdReady,
         ),
-      );
+      ).then((value) {
+        if (value) {
+          // setState(() {});
+        }
+      });
     }
 
     void puzzleCompleteDb() async {
@@ -182,6 +186,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         if (state.getMoves < existingRecordBestMoves) {
           dbProvider.updateRecord(
               moves: state.getMoves, puzzleName: widget.readableName);
+          setState(() {});
         }
       } else {
         final record = PuzzleRecord(
@@ -192,9 +197,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         );
 
         dbProvider.insertRecord(record: record);
+        setState(() {});
       }
-
-      setState(() {});
     }
 
     List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {

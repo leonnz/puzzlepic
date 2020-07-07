@@ -28,7 +28,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
                 textColor: Color(0xff501E5D),
                 child: Text("Close"),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pop(context, true);
 
                   if (fullAdReady) {
                     // fullAd.show();
