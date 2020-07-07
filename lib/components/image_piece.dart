@@ -88,6 +88,7 @@ class _ImagePieceState extends State<ImagePiece>
                   ) &&
                   !state.getPuzzleComplete) {
                 state.setPieceLeftPosition(widget.pieceNumber, xDistance);
+                state.setMoves();
               }
               dragged = false;
             }
@@ -113,6 +114,7 @@ class _ImagePieceState extends State<ImagePiece>
                   ) &&
                   !state.getPuzzleComplete) {
                 state.setPieceTopPosition(widget.pieceNumber, yDistance);
+                state.setMoves();
               }
               dragged = false;
             }

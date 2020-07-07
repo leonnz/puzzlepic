@@ -92,6 +92,12 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
     List<ImagePiece> imagePieceList = <ImagePiece>[];
 
+    void resetGameState() {
+      state.setPuzzleComplete(false);
+      state.resetPiecePositions();
+      state.resetMoves();
+    }
+
     Future<bool> _backPressed() {
       return showDialog(
         context: context,
@@ -106,8 +112,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
             ),
             FlatButton(
               onPressed: () {
-                state.setPuzzleComplete(false);
-                state.resetPiecePositions();
+                resetGameState();
                 Navigator.pop(context, true);
               },
               child: Text('Yes'),
@@ -143,8 +148,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         ),
       );
       if (quit) {
-        state.setPuzzleComplete(false);
-        state.resetPiecePositions();
+        resetGameState();
         Navigator.pop(context, true);
       }
     }
@@ -219,7 +223,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   style: Theme.of(context).textTheme.headline3,
                 ),
                 Text(
-                  'Moves: ',
+                  'Moves: ${state.getMoves}',
                   // style: Theme.of(context).textTheme.headline3,
                 ),
                 Card(
