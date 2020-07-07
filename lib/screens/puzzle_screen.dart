@@ -223,11 +223,11 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     }
 
     getSingleRecord() async {
-      var best = 0;
-      var record =
+      int best = 0;
+      List<Map<String, dynamic>> record =
           await dbProvider.getSingleRecord(puzzleName: widget.readableName);
+
       if (record.length > 0) best = record[0]['bestMoves'];
-      print(best);
       return best;
     }
 
