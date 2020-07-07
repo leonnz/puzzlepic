@@ -4,6 +4,7 @@ import '../data/images_data.dart';
 import '../components/image_button.dart';
 import '../data/db_provider.dart';
 import '../screens/puzzle_screen.dart';
+import '../utilities/helpers.dart';
 
 class SelectPicture extends StatefulWidget {
   const SelectPicture({Key key, @required this.category}) : super(key: key);
@@ -29,7 +30,7 @@ class _SelectPictureState extends State<SelectPicture> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Select Picture',
+          Helpers.capitalize(widget.category),
           style: Theme.of(context).textTheme.headline1,
         ),
         backgroundColor: Color(0xff501E5D),
@@ -43,37 +44,48 @@ class _SelectPictureState extends State<SelectPicture> {
             Widget grid;
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
-                grid = GridView.builder(
-                  itemCount: images.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemBuilder: (BuildContext context, int i) {
-                    return GestureDetector(
-                      onTap: () async {
-                        final result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PuzzleScreen(
-                              category: widget.category,
-                              assetName: images[i]["assetName"],
-                              readableName: images[i]["readableName"],
-                            ),
-                          ),
-                        );
-                        // Refreshes the pictures to show complete ticks from database
-                        if (result) setState(() {});
-                      },
-                      child: ImageButton(
-                        categoryName: widget.category,
-                        assetName: images[i]["assetName"],
-                        readableName: images[i]["readableName"],
-                        complete:
-                            (snapshot.data.contains(images[i]["readableName"]))
+                grid = Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Divider(),
+                    Text(
+                      'Completed ${snapshot.data.length} / ${images.length}',
+                    ),
+                    Divider(),
+                    GridView.builder(
+                      shrinkWrap: true,
+                      itemCount: images.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2),
+                      itemBuilder: (BuildContext context, int i) {
+                        return GestureDetector(
+                          onTap: () async {
+                            final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PuzzleScreen(
+                                  category: widget.category,
+                                  assetName: images[i]["assetName"],
+                                  readableName: images[i]["readableName"],
+                                ),
+                              ),
+                            );
+                            // Refreshes the pictures to show complete ticks from database
+                            if (result) setState(() {});
+                          },
+                          child: ImageButton(
+                            categoryName: widget.category,
+                            assetName: images[i]["assetName"],
+                            readableName: images[i]["readableName"],
+                            complete: (snapshot.data
+                                    .contains(images[i]["readableName"]))
                                 ? true
                                 : false,
-                      ),
-                    );
-                  },
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 );
               }
             } else {
