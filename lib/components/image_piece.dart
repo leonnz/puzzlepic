@@ -10,14 +10,14 @@ class ImagePiece extends StatefulWidget {
     this.category,
     this.assetName,
     this.lastPiece,
-    this.puzzleCompleteCallback,
+    this.puzzleCompleteAlertCallback,
   }) : super(key: key);
 
   final String category;
   final String assetName;
   final int pieceNumber;
   final bool lastPiece;
-  final Function puzzleCompleteCallback;
+  final Function puzzleCompleteAlertCallback;
 
   @override
   _ImagePieceState createState() => _ImagePieceState();
@@ -43,7 +43,7 @@ class _ImagePieceState extends State<ImagePiece>
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed && widget.lastPiece == true) {
-        widget.puzzleCompleteCallback();
+        widget.puzzleCompleteAlertCallback();
       }
     });
   }

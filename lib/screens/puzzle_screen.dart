@@ -156,7 +156,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     }
 
     Future<dynamic> showPuzzleCompleteAlert() {
-      state.setPuzzleComplete(false);
+      // state.setPuzzleComplete(false);
 
       return showDialog(
         context: context,
@@ -172,17 +172,34 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       });
     }
 
-    void addPuzzleToRecordDb() {
-      DBProviderDb dbProvider = DBProviderDb();
-      final record = PuzzleRecord(
-        // id: 0,
-        puzzleName: widget.readableName,
-        puzzleCategory: widget.category,
-        complete: 'true',
-        moves: state.getMoves,
-      );
+    void puzzleCompleteDb() async {
+      state.setPuzzleComplete(true);
 
-      dbProvider.insertRecord(record: record);
+      DBProviderDb dbProvider = DBProviderDb();
+
+      List<String> currentRecords = await dbProvider.getRecords();
+
+      if (currentRecords.contains(widget.readableName)) {
+        List<Map<String, dynamic>> existingRecord =
+            await dbProvider.getSingleRecord(puzzleName: widget.readableName);
+
+        int existingRecordBestMoves = existingRecord[0]['bestMoves'];
+
+        if (state.getMoves < existingRecordBestMoves) {
+          dbProvider.updateRecord(
+              moves: state.getMoves, puzzleName: widget.readableName);
+        }
+      } else {
+        final record = PuzzleRecord(
+          // id: 0,
+          puzzleName: widget.readableName,
+          puzzleCategory: widget.category,
+          complete: 'true',
+          moves: state.getMoves,
+        );
+
+        dbProvider.insertRecord(record: record);
+      }
     }
 
     List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {
@@ -202,7 +219,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
       if (complete) {
         state.setPuzzleComplete(complete);
-        addPuzzleToRecordDb();
+        puzzleCompleteDb();
       }
 
       return imagePieceList;
