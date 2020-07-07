@@ -165,7 +165,11 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           fullAd: _interstitialAd,
           fullAdReady: _isInterstitialAdReady,
         ),
-      );
+      ).then((value) {
+        if (value) {
+          setState(() {});
+        }
+      });
     }
 
     void addPuzzleToRecordDb() {
@@ -178,7 +182,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         moves: state.getMoves,
       );
 
-      dbProvider.insertRecord(record);
+      dbProvider.insertRecord(record: record);
     }
 
     List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {
@@ -190,7 +194,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
             assetName: widget.assetName,
             pieceNumber: i,
             lastPiece: complete ? true : false,
-            puzzleCompleteCallback: showPuzzleCompleteAlert,
+            puzzleCompleteAlertCallback: showPuzzleCompleteAlert,
           ),
         );
         state.setInitialPuzzlePiecePosition(i);
