@@ -23,6 +23,7 @@ class CategoryButton extends StatelessWidget {
           ),
           elevation: 3,
           borderOnForeground: true,
+          // TODO Show how many completed from each category
           child: Stack(
             children: [
               ClipRRect(
