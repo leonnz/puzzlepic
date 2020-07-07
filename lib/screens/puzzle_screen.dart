@@ -156,8 +156,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     }
 
     Future<dynamic> showPuzzleCompleteAlert() {
-      // state.setPuzzleComplete(false);
-
       return showDialog(
         context: context,
         builder: (context) => PuzzleCompleteAlert(
@@ -191,7 +189,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         }
       } else {
         final record = PuzzleRecord(
-          // id: 0,
           puzzleName: widget.readableName,
           puzzleCategory: widget.category,
           complete: 'true',
@@ -233,8 +230,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       print(best);
       return best;
     }
-
-    // getSingleRecord();
 
     return ChangeNotifierProvider(
       create: (_) => ImagePieceProvider(),

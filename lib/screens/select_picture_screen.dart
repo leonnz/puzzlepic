@@ -21,12 +21,6 @@ class _SelectPictureState extends State<SelectPicture> {
 
     // dbProvider.deleteTable();
 
-    // Future<List<String>> test() {
-    //   return dbProvider.getRecords();
-    // }
-
-    // test().then((value) => print(value));
-
     List<Map<String, dynamic>> images = Images.imageList.firstWhere(
         (imageList) =>
             imageList["categoryName"] == widget.category)["categoryImages"];
