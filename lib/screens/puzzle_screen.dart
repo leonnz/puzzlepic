@@ -275,9 +275,12 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   elevation: 4,
                   child: Column(
                     children: <Widget>[
-                      Text(
-                        widget.readableName,
-                        style: Theme.of(context).textTheme.headline3,
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          widget.readableName,
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
