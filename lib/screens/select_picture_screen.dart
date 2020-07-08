@@ -86,41 +86,44 @@ class _SelectPictureState extends State<SelectPicture> {
                           ),
                         ],
                       ),
-                      GridView.builder(
-                        shrinkWrap: true,
-                        itemCount: images.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                        ),
-                        itemBuilder: (BuildContext context, int i) {
-                          return GestureDetector(
-                            onTap: () async {
-                              final result = await Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) => PuzzleScreen(
-                                    category: widget.category,
-                                    assetName: images[i]["assetName"],
-                                    readableName: images[i]["readableName"],
+                      Expanded(
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          itemCount: images.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemBuilder: (BuildContext context, int i) {
+                            return GestureDetector(
+                              onTap: () async {
+                                final result = await Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (context) => PuzzleScreen(
+                                      category: widget.category,
+                                      assetName: images[i]["assetName"],
+                                      readableName: images[i]["readableName"],
+                                    ),
                                   ),
-                                ),
-                              );
-                              // Refreshes the pictures to show complete ticks from database
-                              if (result) setState(() {});
-                            },
-                            child: ImageButton(
-                              categoryName: widget.category,
-                              assetName: images[i]["assetName"],
-                              readableName: images[i]["readableName"],
-                              complete: (snapshot.data
-                                      .contains(images[i]["readableName"]))
-                                  ? true
-                                  : false,
-                            ),
-                          );
-                        },
+                                );
+                                // Refreshes the pictures to show complete ticks from database
+                                if (result) setState(() {});
+                              },
+                              child: ImageButton(
+                                categoryName: widget.category,
+                                assetName: images[i]["assetName"],
+                                readableName: images[i]["readableName"],
+                                complete: (snapshot.data
+                                        .contains(images[i]["readableName"]))
+                                    ? true
+                                    : false,
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ],
                   );
