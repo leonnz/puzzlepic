@@ -26,7 +26,13 @@ class SelectCategory extends StatelessWidget {
             style: Theme.of(context).textTheme.headline1,
           ),
           backgroundColor: Color(0xffffffff),
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
         body: Container(
           padding: EdgeInsets.all(10),

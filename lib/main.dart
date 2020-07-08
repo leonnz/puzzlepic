@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
           ),
           textTheme: TextTheme(
             button: GoogleFonts.roboto(letterSpacing: 1),
-            headline1: GoogleFonts.roboto(
-              fontSize: 20,
+            headline1: GoogleFonts.solway(
+              fontSize: 22,
               letterSpacing: 1,
               color: Colors.black,
             ),
