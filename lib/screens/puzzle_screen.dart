@@ -28,6 +28,21 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
   InterstitialAd _interstitialAd;
   bool _isInterstitialAdReady;
 
+  Route _customScaleRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => HintScreen(
+        category: widget.category,
+        imageAssetname: widget.assetName,
+      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return ScaleTransition(
+          scale: CurvedAnimation(parent: animation, curve: Curves.easeIn),
+          child: child,
+        );
+      },
+    );
+  }
+
   void _loadBannerAd() {
     _bannerAd
       ..load()
@@ -312,16 +327,17 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                       elevation: 3,
                       color: Color(0xff501E5D),
                       child: Text("Hint"),
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          fullscreenDialog: true,
-                          builder: (_) => HintScreen(
-                            category: widget.category,
-                            imageAssetname: widget.assetName,
-                          ),
-                        ),
-                      ),
+                      onPressed: () =>
+                          Navigator.of(context).push(_customScaleRoute()),
+                      // onPressed: () => Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (_) => HintScreen(
+                      //       category: widget.category,
+                      //       imageAssetname: widget.assetName,
+                      //     ),
+                      //   ),
+                      // ),
                     ),
                     RaisedButton(
                       elevation: 3,
