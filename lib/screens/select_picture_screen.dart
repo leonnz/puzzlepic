@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../data/images_data.dart';
@@ -71,7 +72,7 @@ class _SelectPictureState extends State<SelectPicture> {
                             onTap: () async {
                               final result = await Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                   builder: (context) => PuzzleScreen(
                                     category: widget.category,
                                     assetName: images[i]["assetName"],

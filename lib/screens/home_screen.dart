@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'select_category_screen.dart';
 import '../components/button.dart';
@@ -39,7 +40,7 @@ class Home extends StatelessWidget {
                     action: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        CupertinoPageRoute(
                           builder: (context) => SelectCategory(),
                         ),
                       );
