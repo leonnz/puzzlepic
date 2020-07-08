@@ -26,73 +26,83 @@ class _SelectPictureState extends State<SelectPicture> {
         (imageList) =>
             imageList["categoryName"] == widget.category)["categoryImages"];
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          Helpers.capitalize(widget.category),
-          style: Theme.of(context).textTheme.headline1,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage('assets/images/background.png'),
         ),
-        backgroundColor: Color(0xff501E5D),
       ),
-      body: Container(
-        padding: EdgeInsets.all(10),
-        child: FutureBuilder(
-          future: dbProvider.getRecordsByCategory(category: widget.category),
-          builder:
-              (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-            Widget grid;
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasData) {
-                grid = Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Divider(),
-                    Text(
-                      'Completed ${snapshot.data.length} / ${images.length}',
-                    ),
-                    Divider(),
-                    GridView.builder(
-                      shrinkWrap: true,
-                      itemCount: images.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2),
-                      itemBuilder: (BuildContext context, int i) {
-                        return GestureDetector(
-                          onTap: () async {
-                            final result = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PuzzleScreen(
-                                  category: widget.category,
-                                  assetName: images[i]["assetName"],
-                                  readableName: images[i]["readableName"],
+      child: Scaffold(
+        backgroundColor: Color.fromRGBO(255, 255, 255, 0.8),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            Helpers.capitalize(widget.category),
+            style: Theme.of(context).textTheme.headline1,
+          ),
+          backgroundColor: Color(0xffffffff),
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          child: FutureBuilder(
+            future: dbProvider.getRecordsByCategory(category: widget.category),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+              Widget grid;
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  grid = Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Divider(),
+                      Text(
+                        'Completed ${snapshot.data.length} / ${images.length}',
+                      ),
+                      Divider(),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        itemCount: images.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2),
+                        itemBuilder: (BuildContext context, int i) {
+                          return GestureDetector(
+                            onTap: () async {
+                              final result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PuzzleScreen(
+                                    category: widget.category,
+                                    assetName: images[i]["assetName"],
+                                    readableName: images[i]["readableName"],
+                                  ),
                                 ),
-                              ),
-                            );
-                            // Refreshes the pictures to show complete ticks from database
-                            if (result) setState(() {});
-                          },
-                          child: ImageButton(
-                            categoryName: widget.category,
-                            assetName: images[i]["assetName"],
-                            readableName: images[i]["readableName"],
-                            complete: (snapshot.data
-                                    .contains(images[i]["readableName"]))
-                                ? true
-                                : false,
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                );
+                              );
+                              // Refreshes the pictures to show complete ticks from database
+                              if (result) setState(() {});
+                            },
+                            child: ImageButton(
+                              categoryName: widget.category,
+                              assetName: images[i]["assetName"],
+                              readableName: images[i]["readableName"],
+                              complete: (snapshot.data
+                                      .contains(images[i]["readableName"]))
+                                  ? true
+                                  : false,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                }
+              } else {
+                grid = Container();
               }
-            } else {
-              grid = Container();
-            }
-            return grid;
-          },
+              return grid;
+            },
+          ),
         ),
       ),
     );

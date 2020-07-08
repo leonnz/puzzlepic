@@ -17,7 +17,8 @@ class SelectCategory extends StatelessWidget {
           'Select Category',
           style: Theme.of(context).textTheme.headline1,
         ),
-        backgroundColor: Color(0xff501E5D),
+        backgroundColor: Color(0xffffffff),
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Container(
         padding: EdgeInsets.all(10),

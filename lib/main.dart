@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
             headline1: GoogleFonts.roboto(
               fontSize: 20,
               letterSpacing: 1,
-              color: Colors.white,
+              color: Colors.black,
             ),
             headline2: GoogleFonts.solway(
               fontSize: 20,
