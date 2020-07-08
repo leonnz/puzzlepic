@@ -36,7 +36,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       ),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return ScaleTransition(
-          scale: CurvedAnimation(parent: animation, curve: Curves.easeIn),
+          scale: CurvedAnimation(parent: animation, curve: Curves.ease),
           child: child,
         );
       },
