@@ -43,9 +43,13 @@ class _SelectPictureState extends State<SelectPicture> {
           //   fit: BoxFit.cover,
           // ),
           centerTitle: true,
-          title: Text(
-            Helpers.capitalize(widget.category),
-            style: Theme.of(context).textTheme.headline1,
+          title: Column(
+            children: <Widget>[
+              Text(
+                Helpers.capitalize(widget.category),
+                style: Theme.of(context).textTheme.headline1,
+              ),
+            ],
           ),
           backgroundColor: Color(0xffffffff),
           iconTheme: IconThemeData(color: Colors.black),
@@ -62,16 +66,30 @@ class _SelectPictureState extends State<SelectPicture> {
                   grid = Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Divider(),
-                      Text(
-                        'Completed ${snapshot.data.length} / ${images.length}',
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              color: Color.fromRGBO(255, 255, 255, 0.7),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text(
+                                  'Completed ${snapshot.data.length} / ${images.length}',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      Divider(),
                       GridView.builder(
                         shrinkWrap: true,
                         itemCount: images.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                        ),
                         itemBuilder: (BuildContext context, int i) {
                           return GestureDetector(
                             onTap: () async {
