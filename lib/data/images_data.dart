@@ -1,6 +1,14 @@
 class Images {
   static List<Map<String, dynamic>> imageList = [
-    {"categoryName": "animals", "categoryImages": {}},
+    {
+      "categoryName": "animals",
+      "categoryImages": [
+        {
+          "assetName": "tiger",
+          "readableName": "Tiger",
+        },
+      ]
+    },
     {
       "categoryName": "buildings",
       "categoryImages": [
