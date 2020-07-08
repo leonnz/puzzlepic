@@ -5,6 +5,10 @@ class Images {
       "categoryName": "buildings",
       "categoryImages": [
         {
+          "assetName": "eiffel_tower",
+          "readableName": "Eiffel Tower",
+        },
+        {
           "assetName": "tajmahal",
           "readableName": "Taj Mahal",
         },
