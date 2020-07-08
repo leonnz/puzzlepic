@@ -37,6 +37,10 @@ class _SelectPictureState extends State<SelectPicture> {
       child: Scaffold(
         backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
         appBar: AppBar(
+          flexibleSpace: Image(
+            image: AssetImage('assets/images/background.png'),
+            fit: BoxFit.cover,
+          ),
           centerTitle: true,
           title: Text(
             Helpers.capitalize(widget.category),

@@ -45,7 +45,7 @@ flutter:
   assets:
     - assets/data/asset_image_map.json
     - assets/images/
-    - assets/images/_category/
+    - assets/images/categories/
     - assets/images/flowers/
     - assets/images/flowers/pumpkin/
     - assets/images/buildings/
