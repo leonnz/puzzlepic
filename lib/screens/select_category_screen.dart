@@ -22,7 +22,7 @@ class SelectCategory extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'Select Category',
+            'Categories',
             style: Theme.of(context).textTheme.headline1,
           ),
           backgroundColor: Color(0xffffffff),
