@@ -34,7 +34,7 @@ class _SelectPictureState extends State<SelectPicture> {
         ),
       ),
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(255, 255, 255, 0.8),
+        backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
         appBar: AppBar(
           centerTitle: true,
           title: Text(

@@ -250,7 +250,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
             ),
           ),
           child: Scaffold(
-            backgroundColor: Color.fromRGBO(255, 255, 255, 0.8),
+            backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
             body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
