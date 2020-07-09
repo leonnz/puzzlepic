@@ -47,6 +47,7 @@ flutter:
     - assets/images/
     - assets/images/categories/
     - assets/images/animals/
+    - assets/images/animals/elephant/
     - assets/images/animals/tiger/
     - assets/images/flowers/
     - assets/images/flowers/pumpkin/

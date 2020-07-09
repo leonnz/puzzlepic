@@ -4,6 +4,10 @@ class Images {
       "categoryName": "animals",
       "categoryImages": [
         {
+          "assetName": "elephant",
+          "readableName": "Elephant",
+        },
+        {
           "assetName": "tiger",
           "readableName": "Tiger",
         },
