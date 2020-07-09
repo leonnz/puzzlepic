@@ -45,10 +45,10 @@ class Images {
     {
       "categoryName": "flowers",
       "categoryImages": [
-        // {
-        //   "assetName": "daisies",
-        //   "readableName": "Daisies",
-        // },
+        {
+          "assetName": "daisies",
+          "readableName": "Daisies",
+        },
         // {
         //   "assetName": "lavender",
         //   "readableName": "Lavender",
