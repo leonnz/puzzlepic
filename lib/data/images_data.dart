@@ -8,6 +8,10 @@ class Images {
           "readableName": "Elephant",
         },
         {
+          "assetName": "monkey",
+          "readableName": "Monkey",
+        },
+        {
           "assetName": "tiger",
           "readableName": "Tiger",
         },
