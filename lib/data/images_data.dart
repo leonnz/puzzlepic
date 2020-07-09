@@ -46,8 +46,16 @@ class Images {
       "categoryName": "flowers",
       "categoryImages": [
         {
+          "assetName": "daisies",
+          "readableName": "Daisies",
+        },
+        {
           "assetName": "roses",
           "readableName": "Roses",
+        },
+        {
+          "assetName": "sunflowers",
+          "readableName": "Sunflowers",
         },
         {
           "assetName": "tulips",
