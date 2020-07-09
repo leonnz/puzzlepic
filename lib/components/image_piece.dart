@@ -133,7 +133,7 @@ class _ImagePieceState extends State<ImagePiece>
             child: Center(
               child: Image(
                 image: AssetImage(
-                    'assets/images/${widget.category}/${widget.assetName}/${widget.assetName}_${widget.pieceNumber}.png'),
+                    'assets/images/${widget.category}/${widget.assetName}/${widget.assetName}_${widget.pieceNumber}.jpg'),
               ),
             ),
           ),

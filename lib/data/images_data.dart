@@ -45,30 +45,30 @@ class Images {
     {
       "categoryName": "flowers",
       "categoryImages": [
-        {
-          "assetName": "daisies",
-          "readableName": "Daisies",
-        },
-        {
-          "assetName": "lavender",
-          "readableName": "Lavender",
-        },
+        // {
+        //   "assetName": "daisies",
+        //   "readableName": "Daisies",
+        // },
+        // {
+        //   "assetName": "lavender",
+        //   "readableName": "Lavender",
+        // },
         {
           "assetName": "orchids",
           "readableName": "Orchids",
         },
-        {
-          "assetName": "roses",
-          "readableName": "Roses",
-        },
-        {
-          "assetName": "sunflowers",
-          "readableName": "Sunflowers",
-        },
-        {
-          "assetName": "tulips",
-          "readableName": "Tulips",
-        }
+        // {
+        //   "assetName": "roses",
+        //   "readableName": "Roses",
+        // },
+        // {
+        //   "assetName": "sunflowers",
+        //   "readableName": "Sunflowers",
+        // },
+        // {
+        //   "assetName": "tulips",
+        //   "readableName": "Tulips",
+        // }
       ]
     }
   ];
