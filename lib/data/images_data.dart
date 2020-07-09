@@ -65,10 +65,10 @@ class Images {
           "assetName": "sunflowers",
           "readableName": "Sunflowers",
         },
-        // {
-        //   "assetName": "tulips",
-        //   "readableName": "Tulips",
-        // }
+        {
+          "assetName": "tulips",
+          "readableName": "Tulips",
+        }
       ]
     }
   ];
