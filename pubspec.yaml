@@ -51,7 +51,8 @@ flutter:
     - assets/images/animals/monkey/
     - assets/images/animals/tiger/
     - assets/images/flowers/
-    - assets/images/flowers/pumpkin/
+    - assets/images/flowers/roses/
+    - assets/images/flowers/tulips/
     - assets/images/buildings/
     - assets/images/buildings/big_ben/
     - assets/images/buildings/eiffel_tower/

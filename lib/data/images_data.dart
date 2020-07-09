@@ -46,8 +46,12 @@ class Images {
       "categoryName": "flowers",
       "categoryImages": [
         {
-          "assetName": "pumpkin",
-          "readableName": "Pumpkin",
+          "assetName": "roses",
+          "readableName": "Roses",
+        },
+        {
+          "assetName": "tulips",
+          "readableName": "Tulips",
         }
       ]
     }
