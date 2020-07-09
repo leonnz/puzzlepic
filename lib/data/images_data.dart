@@ -57,10 +57,10 @@ class Images {
           "assetName": "orchids",
           "readableName": "Orchids",
         },
-        // {
-        //   "assetName": "roses",
-        //   "readableName": "Roses",
-        // },
+        {
+          "assetName": "roses",
+          "readableName": "Roses",
+        },
         {
           "assetName": "sunflowers",
           "readableName": "Sunflowers",
