@@ -7,14 +7,14 @@ class Images {
           "assetName": "elephant",
           "readableName": "Elephant",
         },
-        {
-          "assetName": "monkey",
-          "readableName": "Monkey",
-        },
-        {
-          "assetName": "tiger",
-          "readableName": "Tiger",
-        },
+        // {
+        //   "assetName": "monkey",
+        //   "readableName": "Monkey",
+        // },
+        // {
+        //   "assetName": "tiger",
+        //   "readableName": "Tiger",
+        // },
       ]
     },
     {
