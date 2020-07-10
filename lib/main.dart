@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
               color: Colors.black,
             ),
             headline2: GoogleFonts.solway(
-              fontSize: 20,
+              fontSize: 18,
               color: Colors.black,
             ),
             headline3: GoogleFonts.solway(

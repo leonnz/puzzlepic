@@ -4,9 +4,11 @@ import '../screens/select_picture_screen.dart';
 import '../utilities/helpers.dart';
 
 class CategoryButton extends StatelessWidget {
-  const CategoryButton({Key key, @required this.categoryName})
+  const CategoryButton(
+      {Key key, @required this.categoryName, this.categoryReadableName})
       : super(key: key);
   final String categoryName;
+  final String categoryReadableName;
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +38,14 @@ class CategoryButton extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: Container(
+                  padding: EdgeInsets.all(5),
                   height: 50,
                   width: double.infinity,
                   decoration:
                       BoxDecoration(color: Color.fromRGBO(255, 255, 255, 0.80)),
                   child: Center(
                     child: Text(
-                      Helpers.capitalize(categoryName),
+                      categoryReadableName,
                       style: Theme.of(context).textTheme.headline2,
                       textAlign: TextAlign.center,
                     ),

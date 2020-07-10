@@ -45,7 +45,10 @@ class SelectCategory extends StatelessWidget {
             itemCount: Images.imageList.length,
             itemBuilder: (BuildContext context, int i) {
               return CategoryButton(
-                  categoryName: Images.imageList[i]["categoryName"]);
+                categoryName: Images.imageList[i]["categoryName"],
+                categoryReadableName: Images.imageList[i]
+                    ["categoryReadableName"],
+              );
             },
           ),
         ),
