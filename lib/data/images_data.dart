@@ -24,10 +24,10 @@ class Images {
           "assetName": "big_ben",
           "readableName": "Big Ben",
         },
-        // {
-        //   "assetName": "eiffel_tower",
-        //   "readableName": "Eiffel Tower",
-        // },
+        {
+          "assetName": "eiffel_tower",
+          "readableName": "Eiffel Tower",
+        },
         // {
         //   "assetName": "tajmahal",
         //   "readableName": "Taj Mahal",
