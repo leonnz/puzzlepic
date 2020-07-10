@@ -20,10 +20,10 @@ class Images {
     {
       "categoryName": "buildings",
       "categoryImages": [
-        // {
-        //   "assetName": "big_ben",
-        //   "readableName": "Big Ben",
-        // },
+        {
+          "assetName": "big_ben",
+          "readableName": "Big Ben",
+        },
         // {
         //   "assetName": "eiffel_tower",
         //   "readableName": "Eiffel Tower",
