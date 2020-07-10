@@ -10,14 +10,14 @@ class ImagePiece extends StatefulWidget {
     this.category,
     this.assetName,
     this.lastPiece,
-    this.puzzleCompleteCallback,
+    this.puzzleCompleteAlertCallback,
   }) : super(key: key);
 
   final String category;
   final String assetName;
   final int pieceNumber;
   final bool lastPiece;
-  final Function puzzleCompleteCallback;
+  final Function puzzleCompleteAlertCallback;
 
   @override
   _ImagePieceState createState() => _ImagePieceState();
@@ -43,7 +43,7 @@ class _ImagePieceState extends State<ImagePiece>
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed && widget.lastPiece == true) {
-        widget.puzzleCompleteCallback();
+        widget.puzzleCompleteAlertCallback();
       }
     });
   }
@@ -88,6 +88,7 @@ class _ImagePieceState extends State<ImagePiece>
                   ) &&
                   !state.getPuzzleComplete) {
                 state.setPieceLeftPosition(widget.pieceNumber, xDistance);
+                state.setMoves();
               }
               dragged = false;
             }
@@ -113,6 +114,7 @@ class _ImagePieceState extends State<ImagePiece>
                   ) &&
                   !state.getPuzzleComplete) {
                 state.setPieceTopPosition(widget.pieceNumber, yDistance);
+                state.setMoves();
               }
               dragged = false;
             }
@@ -131,7 +133,7 @@ class _ImagePieceState extends State<ImagePiece>
             child: Center(
               child: Image(
                 image: AssetImage(
-                    'assets/images/${widget.category}/${widget.assetName}/${widget.assetName}_${widget.pieceNumber}.png'),
+                    'assets/images/${widget.category}/${widget.assetName}/${widget.assetName}_${widget.pieceNumber}.jpg'),
               ),
             ),
           ),

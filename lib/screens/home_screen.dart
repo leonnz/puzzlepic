@@ -1,11 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'select_category_screen.dart';
 import '../components/button.dart';
 import 'package:provider/provider.dart';
 import 'package:picturepuzzle/providers/game_state_provider.dart';
-
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
+import 'dart:async';
 
 class Home extends StatelessWidget {
   const Home({Key key}) : super(key: key);
@@ -17,7 +18,9 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var state = Provider.of<GameStateProvider>(context);
+
     state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
+
     return Scaffold(
       body: FutureBuilder<void>(
           future: _initAdMob(),
@@ -37,7 +40,7 @@ class Home extends StatelessWidget {
                     action: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        CupertinoPageRoute(
                           builder: (context) => SelectCategory(),
                         ),
                       );

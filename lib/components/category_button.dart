@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../screens/select_picture_screen.dart';
 import '../utilities/helpers.dart';
@@ -13,7 +14,7 @@ class CategoryButton extends StatelessWidget {
       child: GestureDetector(
         onTap: () => Navigator.push(
           context,
-          MaterialPageRoute(
+          CupertinoPageRoute(
             builder: (context) => SelectPicture(category: categoryName),
           ),
         ),
@@ -29,7 +30,7 @@ class CategoryButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: Image(
                   image: AssetImage(
-                      'assets/images/_category/${categoryName}_cat.png'),
+                      'assets/images/categories/${categoryName}_cat.png'),
                 ),
               ),
               Align(

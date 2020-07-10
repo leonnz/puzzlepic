@@ -7,9 +7,12 @@ import '../providers/image_piece_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
+import '../data/db_provider.dart';
+import '../data/puzzle_record_model.dart';
 
-class GameScreen extends StatefulWidget {
-  const GameScreen({Key key, this.assetName, this.readableName, this.category})
+class PuzzleScreen extends StatefulWidget {
+  const PuzzleScreen(
+      {Key key, this.assetName, this.readableName, this.category})
       : super(key: key);
 
   final String assetName;
@@ -17,13 +20,28 @@ class GameScreen extends StatefulWidget {
   final String category;
 
   @override
-  _GameScreenState createState() => _GameScreenState();
+  _PuzzleScreenState createState() => _PuzzleScreenState();
 }
 
-class _GameScreenState extends State<GameScreen> {
+class _PuzzleScreenState extends State<PuzzleScreen> {
   BannerAd _bannerAd;
   InterstitialAd _interstitialAd;
   bool _isInterstitialAdReady;
+
+  Route _customScaleRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => HintScreen(
+        category: widget.category,
+        imageAssetname: widget.assetName,
+      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return ScaleTransition(
+          scale: CurvedAnimation(parent: animation, curve: Curves.ease),
+          child: child,
+        );
+      },
+    );
+  }
 
   void _loadBannerAd() {
     _bannerAd
@@ -89,6 +107,14 @@ class _GameScreenState extends State<GameScreen> {
 
     List<ImagePiece> imagePieceList = <ImagePiece>[];
 
+    DBProviderDb dbProvider = DBProviderDb();
+
+    void resetGameState() {
+      state.setPuzzleComplete(false);
+      state.resetPiecePositions();
+      state.resetMoves();
+    }
+
     Future<bool> _backPressed() {
       return showDialog(
         context: context,
@@ -103,8 +129,7 @@ class _GameScreenState extends State<GameScreen> {
             ),
             FlatButton(
               onPressed: () {
-                state.setPuzzleComplete(false);
-                state.resetPiecePositions();
+                resetGameState();
                 Navigator.pop(context, true);
               },
               child: Text('Yes'),
@@ -140,15 +165,12 @@ class _GameScreenState extends State<GameScreen> {
         ),
       );
       if (quit) {
-        state.setPuzzleComplete(false);
-        state.resetPiecePositions();
-        Navigator.pop(context);
+        resetGameState();
+        Navigator.pop(context, true);
       }
     }
 
     Future<dynamic> showPuzzleCompleteAlert() {
-      state.setPuzzleComplete(false);
-
       return showDialog(
         context: context,
         builder: (context) => PuzzleCompleteAlert(
@@ -156,7 +178,42 @@ class _GameScreenState extends State<GameScreen> {
           fullAd: _interstitialAd,
           fullAdReady: _isInterstitialAdReady,
         ),
-      );
+      ).then((value) {
+        if (value) {
+          // setState(() {});
+        }
+      });
+    }
+
+    void puzzleCompleteDb() async {
+      state.setPuzzleComplete(true);
+
+      DBProviderDb dbProvider = DBProviderDb();
+
+      List<String> currentRecords = await dbProvider.getRecords();
+
+      if (currentRecords.contains(widget.readableName)) {
+        List<Map<String, dynamic>> existingRecord =
+            await dbProvider.getSingleRecord(puzzleName: widget.readableName);
+
+        int existingRecordBestMoves = existingRecord[0]['bestMoves'];
+
+        if (state.getMoves < existingRecordBestMoves) {
+          dbProvider.updateRecord(
+              moves: state.getMoves, puzzleName: widget.readableName);
+          setState(() {});
+        }
+      } else {
+        final record = PuzzleRecord(
+          puzzleName: widget.readableName,
+          puzzleCategory: widget.category,
+          complete: 'true',
+          moves: state.getMoves,
+        );
+
+        dbProvider.insertRecord(record: record);
+        setState(() {});
+      }
     }
 
     List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {
@@ -168,40 +225,88 @@ class _GameScreenState extends State<GameScreen> {
             assetName: widget.assetName,
             pieceNumber: i,
             lastPiece: complete ? true : false,
-            puzzleCompleteCallback: showPuzzleCompleteAlert,
+            puzzleCompleteAlertCallback: showPuzzleCompleteAlert,
           ),
         );
         state.setInitialPuzzlePiecePosition(i);
       }
-      state.setPuzzleComplete(complete);
+
+      if (complete) {
+        state.setPuzzleComplete(complete);
+        puzzleCompleteDb();
+      }
 
       return imagePieceList;
+    }
+
+    getSingleRecord() async {
+      int best = 0;
+      List<Map<String, dynamic>> record =
+          await dbProvider.getSingleRecord(puzzleName: widget.readableName);
+
+      if (record.length > 0) best = record[0]['bestMoves'];
+      return best;
     }
 
     return ChangeNotifierProvider(
       create: (_) => ImagePieceProvider(),
       child: WillPopScope(
-        onWillPop: _backPressed,
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          body: Container(
-            child: Column(
+        onWillPop: () async {
+          bool confirmQuit = await _backPressed();
+          if (confirmQuit) Navigator.pop(context, true);
+
+          return confirmQuit;
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage('assets/images/background.png'),
+            ),
+          ),
+          child: Scaffold(
+            backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
+            body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Spacer(),
-                Text(
-                  widget.readableName,
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-                Text(
-                  'Moves: ',
-                  // style: Theme.of(context).textTheme.headline3,
-                ),
                 Card(
-                  child: Center(
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      child: Center(
+                  color: Colors.white,
+                  elevation: 4,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          widget.readableName,
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text(
+                            'Moves: ${state.getMoves}',
+                            // style: Theme.of(context).textTheme.headline3,
+                          ),
+                          FutureBuilder(
+                              future: getSingleRecord(),
+                              initialData: 0,
+                              builder: (context, AsyncSnapshot<int> snapshot) {
+                                Widget bestMoves;
+
+                                if (snapshot.hasData) {
+                                  int moves = snapshot.data;
+                                  bestMoves = Text('Best moves: $moves');
+                                } else {
+                                  bestMoves = Text('Best moves: 0');
+                                }
+                                return bestMoves;
+                              }),
+                        ],
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(5),
                         child: Container(
                           width: state.getScreenWidth,
                           height: state.getScreenWidth,
@@ -215,7 +320,7 @@ class _GameScreenState extends State<GameScreen> {
                                 ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
                 Row(
@@ -225,28 +330,18 @@ class _GameScreenState extends State<GameScreen> {
                       elevation: 3,
                       color: Color(0xff501E5D),
                       child: Text("Hint"),
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          fullscreenDialog: true,
-                          builder: (_) => HintScreen(
-                            category: widget.category,
-                            imageAssetname: widget.assetName,
-                          ),
-                        ),
-                      ),
+                      onPressed: () =>
+                          Navigator.of(context).push(_customScaleRoute()),
+                      // onPressed: () => Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (_) => HintScreen(
+                      //       category: widget.category,
+                      //       imageAssetname: widget.assetName,
+                      //     ),
+                      //   ),
+                      // ),
                     ),
-
-                    //   showDialog(
-                    //     context: context,
-                    //     builder: (context) =>
-
-                    //     HintAlert(
-                    //       category: widget.category,
-                    //       assetName: widget.assetName,
-                    //     ),
-                    //   ),
-                    // ),
                     RaisedButton(
                       elevation: 3,
                       color: Color(0xff501E5D),

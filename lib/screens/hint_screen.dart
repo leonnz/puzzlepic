@@ -15,7 +15,8 @@ class HintScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image(
-            image: AssetImage('assets/images/$category/$imageAssetname.png'),
+            image: AssetImage(
+                'assets/images/$category/${imageAssetname}_full.jpg'),
           ),
           IconButton(
             icon: Icon(

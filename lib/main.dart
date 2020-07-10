@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import './screens/home_screen.dart';
 import './screens/splash_screen.dart';
+import './data/db_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,6 +13,8 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Init the database
+    DBProviderDb().database;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Color(0xff501E5D), //or set color with: Color(0xFF0000FF)
     ));
@@ -30,10 +33,10 @@ class MyApp extends StatelessWidget {
           ),
           textTheme: TextTheme(
             button: GoogleFonts.roboto(letterSpacing: 1),
-            headline1: GoogleFonts.roboto(
-              fontSize: 20,
+            headline1: GoogleFonts.solway(
+              fontSize: 22,
               letterSpacing: 1,
-              color: Colors.white,
+              color: Colors.black,
             ),
             headline2: GoogleFonts.solway(
               fontSize: 20,
@@ -46,10 +49,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => Home(),
-        },
+        home: Home(),
       ),
     );
   }

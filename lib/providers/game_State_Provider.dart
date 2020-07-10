@@ -15,6 +15,7 @@ class GameStateProvider with ChangeNotifier {
 
   static int _blankSquare = _totalGridSize;
   static int _gridSideSize = sqrt(_totalGridSize).toInt();
+  static int _moves = 0;
 
   // Pool of positions for random position generation.
   static List<int> _gridPositions;
@@ -27,6 +28,17 @@ class GameStateProvider with ChangeNotifier {
   int get getTotalGridSize => _totalGridSize;
   int get getBlankSquare => _blankSquare;
   int get getGridSideSize => _gridSideSize;
+  int get getMoves => _moves;
+
+  void setMoves() {
+    _moves += 1;
+    notifyListeners();
+  }
+
+  void resetMoves() {
+    _moves = 0;
+    notifyListeners();
+  }
 
   void setPuzzleComplete(bool complete) {
     _puzzleComplete = complete;
