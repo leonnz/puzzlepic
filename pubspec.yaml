@@ -61,7 +61,7 @@ flutter:
     - assets/images/buildings/big_ben/
     - assets/images/buildings/eiffel_tower/
     - assets/images/buildings/pyramids/
-    - assets/images/buildings/tajmahal/
+    - assets/images/buildings/taj_mahal/
     - assets/images/buildings/petra/
     - assets/images/sports/
   # An image asset can refer to one or more resolution-specific "variants", see

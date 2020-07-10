@@ -28,10 +28,10 @@ class Images {
           "assetName": "eiffel_tower",
           "readableName": "Eiffel Tower",
         },
-        // {
-        //   "assetName": "tajmahal",
-        //   "readableName": "Taj Mahal",
-        // },
+        {
+          "assetName": "taj_mahal",
+          "readableName": "Taj Mahal",
+        },
         {
           "assetName": "petra",
           "readableName": "Petra",
