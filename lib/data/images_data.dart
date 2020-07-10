@@ -36,10 +36,10 @@ class Images {
           "assetName": "petra",
           "readableName": "Petra",
         },
-        // {
-        //   "assetName": "pyramids",
-        //   "readableName": "Pyramids",
-        // }
+        {
+          "assetName": "pyramids",
+          "readableName": "Pyramids",
+        }
       ]
     },
     {
