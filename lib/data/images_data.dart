@@ -105,7 +105,12 @@ class Images {
     {
       "categoryName": "natural_wonders",
       "categoryReadableName": "Natural Wonders",
-      "categoryImages": [],
+      "categoryImages": [
+        {
+          "assetName": "mount_everest",
+          "readableName": "Mount Everest",
+        }
+      ],
     }
   ];
 }
