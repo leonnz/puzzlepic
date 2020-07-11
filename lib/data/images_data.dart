@@ -101,6 +101,11 @@ class Images {
           "readableName": "Tulips",
         }
       ]
+    },
+    {
+      "categoryName": "natural_wonders",
+      "categoryReadableName": "Natural Wonders",
+      "categoryImages": [],
     }
   ];
 }
