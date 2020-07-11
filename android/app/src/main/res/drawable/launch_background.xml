@@ -2,9 +2,9 @@
 <!-- Modify this file to customize your launch splash screen -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- <item android:drawable="@color/red" /> -->
-    <item android:drawable="@color/purple" />
+    <item android:drawable="@color/white" />
     <item>
-        <bitmap android:gravity= "center" android:src= "@drawable/mario" />
+        <bitmap android:gravity= "center" android:src= "@drawable/puzzlepiclogo_nowords" />
     </item>
     <!-- You can insert your own image assets here -->
     <!-- <item>
