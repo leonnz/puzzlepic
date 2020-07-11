@@ -5,6 +5,10 @@ class Images {
       "categoryReadableName": "Animal Kingdom",
       "categoryImages": [
         {
+          "assetName": "bear",
+          "readableName": "Bear",
+        },
+        {
           "assetName": "elephant",
           "readableName": "Elephant",
         },
