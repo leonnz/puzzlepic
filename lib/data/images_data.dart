@@ -107,6 +107,10 @@ class Images {
       "categoryReadableName": "Natural Wonders",
       "categoryImages": [
         {
+          "assetName": "aurora_borealis",
+          "readableName": "Aurora Borealis",
+        },
+        {
           "assetName": "great_barrier_reef",
           "readableName": "Great Barrier Reef",
         },
