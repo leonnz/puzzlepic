@@ -5,7 +5,6 @@ import '../data/images_data.dart';
 import '../components/image_button.dart';
 import '../data/db_provider.dart';
 import '../screens/puzzle_screen.dart';
-import '../utilities/helpers.dart';
 
 class SelectPicture extends StatefulWidget {
   const SelectPicture(

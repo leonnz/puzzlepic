@@ -9,7 +9,6 @@ import './data/db_provider.dart';
 
 void main() => runApp(MyApp());
 
-// TODO Splash screen
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
