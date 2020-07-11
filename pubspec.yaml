@@ -51,7 +51,7 @@ flutter:
     - assets/images/animals/giraffe/
     - assets/images/animals/lion/
     - assets/images/animals/monkey/
-    - assets/images/animals/parrots/
+    - assets/images/animals/parrot/
     - assets/images/animals/tiger/
     - assets/images/flowers/
     - assets/images/flowers/daisies/
@@ -63,6 +63,7 @@ flutter:
     - assets/images/flowers/tulips/
     - assets/images/buildings/
     - assets/images/buildings/big_ben/
+    - assets/images/buildings/colosseum/
     - assets/images/buildings/eiffel_tower/
     - assets/images/buildings/pyramids/
     - assets/images/buildings/taj_mahal/

@@ -21,8 +21,8 @@ class Images {
           "readableName": "Monkey",
         },
         {
-          "assetName": "parrots",
-          "readableName": "Parrots",
+          "assetName": "parrot",
+          "readableName": "Parrot",
         },
         {
           "assetName": "tiger",
