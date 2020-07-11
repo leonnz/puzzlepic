@@ -26,28 +26,26 @@ class Home extends StatelessWidget {
           future: _initAdMob(),
           builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
             List<Widget> children = <Widget>[
-              Image(
-                width: state.getScreenWidth * 0.7,
-                image: AssetImage('assets/images/puzzlepiclogo.png'),
+              Center(
+                child: Button(
+                  buttonText: 'Play!',
+                  action: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => SelectCategory(),
+                      ),
+                    );
+                  },
+                ),
               ),
+              // Image(
+              //   width: state.getScreenWidth * 0.7,
+              //   image: AssetImage('assets/images/puzzlepiclogo.png'),
+              // ),
             ];
 
             if (snapshot.hasData) {
-              children.add(
-                Center(
-                  child: Button(
-                    buttonText: 'Play!',
-                    action: () {
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context) => SelectCategory(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              );
             } else if (snapshot.hasError) {
               children.addAll(<Widget>[
                 Icon(
@@ -66,14 +64,9 @@ class Home extends StatelessWidget {
 
             return Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xff501E5D),
-                    Color(0xff9E2950),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage('assets/images/checker_background.png')),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
