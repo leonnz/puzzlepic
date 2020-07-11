@@ -39,6 +39,10 @@ class Images {
           "readableName": "Big Ben",
         },
         {
+          "assetName": "colosseum",
+          "readableName": "Colosseum",
+        },
+        {
           "assetName": "eiffel_tower",
           "readableName": "Eiffel Tower",
         },
