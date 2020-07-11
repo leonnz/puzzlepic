@@ -115,6 +115,10 @@ class Images {
           "readableName": "Grand Canyon",
         },
         {
+          "assetName": "guanabara_bay",
+          "readableName": "Guanabara Bay",
+        },
+        {
           "assetName": "great_barrier_reef",
           "readableName": "Great Barrier Reef",
         },

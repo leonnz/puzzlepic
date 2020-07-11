@@ -74,6 +74,7 @@ flutter:
     - assets/images/natural_wonders/aurora_borealis/
     - assets/images/natural_wonders/grand_canyon/
     - assets/images/natural_wonders/great_barrier_reef/
+    - assets/images/natural_wonders/guanabara_bay/
     - assets/images/natural_wonders/mount_everest/
     - assets/images/sports/
   # An image asset can refer to one or more resolution-specific "variants", see
