@@ -43,19 +43,22 @@ class _HomeState extends State<Home> {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Center(
-              child: Button(
-                buttonText: 'Play!',
-                action: () {
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => SelectCategory(),
-                    ),
-                  );
-                },
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 50),
+                child: Button(
+                  buttonText: 'Play!',
+                  action: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => SelectCategory(),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             // Image(
