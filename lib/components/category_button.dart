@@ -17,7 +17,10 @@ class CategoryButton extends StatelessWidget {
         onTap: () => Navigator.push(
           context,
           CupertinoPageRoute(
-            builder: (context) => SelectPicture(category: categoryName),
+            builder: (context) => SelectPicture(
+              category: categoryName,
+              categoryReadableName: categoryReadableName,
+            ),
           ),
         ),
         child: Card(

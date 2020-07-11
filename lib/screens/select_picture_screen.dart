@@ -8,9 +8,12 @@ import '../screens/puzzle_screen.dart';
 import '../utilities/helpers.dart';
 
 class SelectPicture extends StatefulWidget {
-  const SelectPicture({Key key, @required this.category}) : super(key: key);
+  const SelectPicture(
+      {Key key, @required this.category, this.categoryReadableName})
+      : super(key: key);
 
   final String category;
+  final String categoryReadableName;
 
   @override
   _SelectPictureState createState() => _SelectPictureState();
@@ -46,7 +49,7 @@ class _SelectPictureState extends State<SelectPicture> {
           title: Column(
             children: <Widget>[
               Text(
-                Helpers.capitalize(widget.category),
+                widget.categoryReadableName,
                 style: Theme.of(context).textTheme.headline1,
               ),
             ],
