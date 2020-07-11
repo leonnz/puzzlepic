@@ -111,6 +111,10 @@ class Images {
           "readableName": "Aurora Borealis",
         },
         {
+          "assetName": "grand_canyon",
+          "readableName": "Grand Canyon",
+        },
+        {
           "assetName": "great_barrier_reef",
           "readableName": "Great Barrier Reef",
         },
