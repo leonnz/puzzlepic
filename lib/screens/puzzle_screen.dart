@@ -332,15 +332,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                       child: Text("Hint"),
                       onPressed: () =>
                           Navigator.of(context).push(_customScaleRoute()),
-                      // onPressed: () => Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (_) => HintScreen(
-                      //       category: widget.category,
-                      //       imageAssetname: widget.assetName,
-                      //     ),
-                      //   ),
-                      // ),
                     ),
                     RaisedButton(
                       elevation: 3,
