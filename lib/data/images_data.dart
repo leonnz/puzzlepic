@@ -107,6 +107,10 @@ class Images {
       "categoryReadableName": "Natural Wonders",
       "categoryImages": [
         {
+          "assetName": "great_barrier_reef",
+          "readableName": "Great Barrier Reef",
+        },
+        {
           "assetName": "mount_everest",
           "readableName": "Mount Everest",
         }
