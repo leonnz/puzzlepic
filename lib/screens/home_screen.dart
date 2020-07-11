@@ -8,11 +8,24 @@ import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'dart:async';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
 
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
+  }
+
+  @override
+  void initState() {
+    _initAdMob().then((_) {
+      print('Admob loaded');
+    }, onError: (error) => print(error));
+    super.initState();
   }
 
   @override
@@ -22,59 +35,36 @@ class Home extends StatelessWidget {
     state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
 
     return Scaffold(
-      body: FutureBuilder<void>(
-          future: _initAdMob(),
-          builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-            List<Widget> children = <Widget>[
-              Center(
-                child: Button(
-                  buttonText: 'Play!',
-                  action: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder: (context) => SelectCategory(),
-                      ),
-                    );
-                  },
-                ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage('assets/images/checker_background.png')),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Center(
+              child: Button(
+                buttonText: 'Play!',
+                action: () {
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => SelectCategory(),
+                    ),
+                  );
+                },
               ),
-              // Image(
-              //   width: state.getScreenWidth * 0.7,
-              //   image: AssetImage('assets/images/puzzlepiclogo.png'),
-              // ),
-            ];
-
-            if (snapshot.hasData) {
-            } else if (snapshot.hasError) {
-              children.addAll(<Widget>[
-                Icon(
-                  Icons.error_outline,
-                  color: Colors.red,
-                  size: 60,
-                ),
-              ]);
-            } else {
-              children.add(SizedBox(
-                child: CircularProgressIndicator(),
-                width: 48,
-                height: 48,
-              ));
-            }
-
-            return Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage('assets/images/checker_background.png')),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: children,
-              ),
-            );
-          }),
+            ),
+            // Image(
+            //   width: state.getScreenWidth * 0.7,
+            //   image: AssetImage('assets/images/puzzlepiclogo.png'),
+            // ),
+          ],
+        ),
+      ),
     );
   }
 }
