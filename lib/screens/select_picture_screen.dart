@@ -59,36 +59,48 @@ class _SelectPictureState extends State<SelectPicture> {
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () => Navigator.pop(context),
           ),
+          elevation: 0,
         ),
-        body: Container(
-          padding: EdgeInsets.all(10),
-          child: FutureBuilder(
-            future: dbProvider.getRecordsByCategory(category: widget.category),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-              Widget grid;
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData) {
-                  grid = Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              color: Color.fromRGBO(255, 255, 255, 0.7),
-                              child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Text(
-                                  'Completed ${snapshot.data.length} / ${images.length}',
-                                  textAlign: TextAlign.center,
+        body: FutureBuilder(
+          future: dbProvider.getRecordsByCategory(category: widget.category),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+            Widget grid;
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                grid = Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black45,
+                                  blurRadius: 5.0,
+                                  offset: Offset(0.0, 3.0),
                                 ),
+                              ],
+                              color: Colors.white,
+                            ),
+
+                            // color: Color.fromRGBO(0, 0, 0, 0.7),
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 15.0),
+                              child: Text(
+                                'Completed ${snapshot.data.length} / ${images.length}',
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      Expanded(
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(10),
                         child: GridView.builder(
                           shrinkWrap: true,
                           itemCount: images.length,
@@ -127,15 +139,15 @@ class _SelectPictureState extends State<SelectPicture> {
                           },
                         ),
                       ),
-                    ],
-                  );
-                }
-              } else {
-                grid = Container();
+                    ),
+                  ],
+                );
               }
-              return grid;
-            },
-          ),
+            } else {
+              grid = Container();
+            }
+            return grid;
+          },
         ),
       ),
     );
