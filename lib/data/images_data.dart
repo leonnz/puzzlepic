@@ -144,6 +144,10 @@ class Images {
           "assetName": "seahorse",
           "readableName": "Seahorse",
         },
+        {
+          "assetName": "sea_turtle",
+          "readableName": "Sea Turtle",
+        },
       ],
     }
   ];
