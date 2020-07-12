@@ -49,6 +49,7 @@ flutter:
     - assets/images/animals/
     - assets/images/animals/bear/
     - assets/images/animals/elephant/
+    - assets/images/animals/frog/
     - assets/images/animals/giraffe/
     - assets/images/animals/hippopotamus/
     - assets/images/animals/horse/
