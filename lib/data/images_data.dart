@@ -55,6 +55,10 @@ class Images {
           "readableName": "Eiffel Tower",
         },
         {
+          "assetName": "machu_picchu",
+          "readableName": "Machu Picchu",
+        },
+        {
           "assetName": "parthenon",
           "readableName": "Parthenon",
         },
