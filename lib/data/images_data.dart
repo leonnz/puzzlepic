@@ -141,6 +141,10 @@ class Images {
           "readableName": "Clown Fish",
         },
         {
+          "assetName": "jellyfish",
+          "readableName": "Jellyfish",
+        },
+        {
           "assetName": "seahorse",
           "readableName": "Seahorse",
         },
