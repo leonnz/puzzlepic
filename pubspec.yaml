@@ -78,6 +78,8 @@ flutter:
     - assets/images/natural_wonders/mount_everest/
     - assets/images/natural_wonders/victoria_falls/
     - assets/images/sports/
+    - assets/images/under_the_sea/
+    - assets/images/under_the_sea/clown_fish/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

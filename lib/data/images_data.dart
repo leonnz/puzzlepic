@@ -135,7 +135,12 @@ class Images {
     {
       "categoryName": "under_the_sea",
       "categoryReadableName": "Under the Sea",
-      "categoryImages": [],
+      "categoryImages": [
+        {
+          "assetName": "clown_fish",
+          "readableName": "Clown Fish",
+        },
+      ],
     }
   ];
 }
