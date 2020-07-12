@@ -141,6 +141,10 @@ class Images {
           "readableName": "Clown Fish",
         },
         {
+          "assetName": "coral_reef",
+          "readableName": "Coral Reef",
+        },
+        {
           "assetName": "dolphin",
           "readableName": "Dolphin",
         },
