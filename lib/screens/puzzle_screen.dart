@@ -3,6 +3,7 @@ import 'package:picturepuzzle/components/image_piece.dart';
 import '../components/puzzle_complete_alert.dart';
 import '../screens/hint_screen.dart';
 import '../providers/game_state_provider.dart';
+import '../providers/image_piece_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
@@ -247,99 +248,102 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       return best;
     }
 
-    return WillPopScope(
-      onWillPop: () async {
-        bool confirmQuit = await _backPressed();
-        if (confirmQuit) Navigator.pop(context, true);
+    return ChangeNotifierProvider(
+      create: (_) => ImagePieceProvider(),
+      child: WillPopScope(
+        onWillPop: () async {
+          bool confirmQuit = await _backPressed();
+          if (confirmQuit) Navigator.pop(context, true);
 
-        return confirmQuit;
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage('assets/images/background.png'),
+          return confirmQuit;
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage('assets/images/background.png'),
+            ),
           ),
-        ),
-        child: Scaffold(
-          backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Spacer(),
-              Card(
-                color: Colors.white,
-                elevation: 4,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        widget.readableName,
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text(
-                          'Moves: ${state.getMoves}',
-                          // style: Theme.of(context).textTheme.headline3,
+          child: Scaffold(
+            backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Spacer(),
+                Card(
+                  color: Colors.white,
+                  elevation: 4,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          widget.readableName,
+                          style: Theme.of(context).textTheme.headline3,
                         ),
-                        FutureBuilder(
-                            future: getSingleRecord(),
-                            initialData: 0,
-                            builder: (context, AsyncSnapshot<int> snapshot) {
-                              Widget bestMoves;
-
-                              if (snapshot.hasData) {
-                                int moves = snapshot.data;
-                                bestMoves = Text('Best moves: $moves');
-                              } else {
-                                bestMoves = Text('Best moves: 0');
-                              }
-                              return bestMoves;
-                            }),
-                      ],
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      child: Container(
-                        width: state.getScreenWidth,
-                        height: state.getScreenWidth,
-                        color: Colors.grey,
-                        child: state.getPuzzleComplete
-                            ? Stack(
-                                children: generateImagePieces(16, true),
-                              )
-                            : Stack(
-                                children: generateImagePieces(15, false),
-                              ),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text(
+                            'Moves: ${state.getMoves}',
+                            // style: Theme.of(context).textTheme.headline3,
+                          ),
+                          FutureBuilder(
+                              future: getSingleRecord(),
+                              initialData: 0,
+                              builder: (context, AsyncSnapshot<int> snapshot) {
+                                Widget bestMoves;
+
+                                if (snapshot.hasData) {
+                                  int moves = snapshot.data;
+                                  bestMoves = Text('Best moves: $moves');
+                                } else {
+                                  bestMoves = Text('Best moves: 0');
+                                }
+                                return bestMoves;
+                              }),
+                        ],
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        child: Container(
+                          width: state.getScreenWidth,
+                          height: state.getScreenWidth,
+                          color: Colors.grey,
+                          child: state.getPuzzleComplete
+                              ? Stack(
+                                  children: generateImagePieces(16, true),
+                                )
+                              : Stack(
+                                  children: generateImagePieces(15, false),
+                                ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RaisedButton(
+                      elevation: 3,
+                      color: Color(0xff501E5D),
+                      child: Text("Hint"),
+                      onPressed: () =>
+                          Navigator.of(context).push(_customScaleRoute()),
+                    ),
+                    RaisedButton(
+                      elevation: 3,
+                      color: Color(0xff501E5D),
+                      child: Text("Quit"),
+                      onPressed: () => quitGame(),
                     ),
                   ],
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  RaisedButton(
-                    elevation: 3,
-                    color: Color(0xff501E5D),
-                    child: Text("Hint"),
-                    onPressed: () =>
-                        Navigator.of(context).push(_customScaleRoute()),
-                  ),
-                  RaisedButton(
-                    elevation: 3,
-                    color: Color(0xff501E5D),
-                    child: Text("Quit"),
-                    onPressed: () => quitGame(),
-                  ),
-                ],
-              ),
-              Spacer(),
-            ],
+                Spacer(),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/game_state_provider.dart';
-import '../controllers/image_piece_controller.dart';
+import '../providers/image_piece_provider.dart';
 
 class ImagePiece extends StatefulWidget {
   const ImagePiece({
@@ -56,6 +56,7 @@ class _ImagePieceState extends State<ImagePiece>
 
   Widget build(BuildContext context) {
     final state = Provider.of<GameStateProvider>(context);
+    final imagePieceProvider = Provider.of<ImagePieceProvider>(context);
 
     bool dragged = false;
     double initial = 0.0;
@@ -76,7 +77,7 @@ class _ImagePieceState extends State<ImagePiece>
           onHorizontalDragUpdate: (DragUpdateDetails details) {
             xDistance = details.globalPosition.dx - initial;
             if (dragged) {
-              if (ImagePieceController.draggable(
+              if (imagePieceProvider.draggable(
                     pieceNumber: widget.pieceNumber,
                     xDistance: xDistance,
                     yDistance: 0.0,
@@ -102,7 +103,7 @@ class _ImagePieceState extends State<ImagePiece>
           onVerticalDragUpdate: (DragUpdateDetails details) {
             yDistance = details.globalPosition.dy - initial;
             if (dragged) {
-              if (ImagePieceController.draggable(
+              if (imagePieceProvider.draggable(
                     pieceNumber: widget.pieceNumber,
                     xDistance: 0.0,
                     yDistance: yDistance,
@@ -138,9 +139,9 @@ class _ImagePieceState extends State<ImagePiece>
           ),
         ),
       ),
-      left: ImagePieceController.getLeftPosition(
+      left: imagePieceProvider.getLeftPosition(
           widget.pieceNumber, state.getPiecePositions),
-      top: ImagePieceController.getTopPosition(
+      top: imagePieceProvider.getTopPosition(
           widget.pieceNumber, state.getPiecePositions),
       duration: Duration(milliseconds: 100),
       curve: Curves.linear,

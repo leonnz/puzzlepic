@@ -29,6 +29,7 @@ class GameStateProvider with ChangeNotifier {
   int get getBlankSquare => _blankSquare;
   int get getGridSideSize => _gridSideSize;
   int get getMoves => _moves;
+  List<int> get getGridPositions => _gridPositions;
 
   void setMoves() {
     _moves += 1;
@@ -259,7 +260,7 @@ class GameStateProvider with ChangeNotifier {
     //     setStartingLeftPosition(imgPiece['gridPosition']);
     // imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition']);
 
-    _piecePositions.add(imgPiece);
+    getPiecePositions.add(imgPiece);
   }
 
   double setStartingLeftPosition(int pieceNumber) {
