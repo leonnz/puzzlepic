@@ -131,6 +131,11 @@ class Images {
           "readableName": "Victoria Falls",
         },
       ],
+    },
+    {
+      "categoryName": "under_the_sea",
+      "categoryReadableName": "Under the Sea",
+      "categoryImages": [],
     }
   ];
 }
