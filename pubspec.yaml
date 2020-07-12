@@ -67,9 +67,10 @@ flutter:
     - assets/images/buildings/big_ben/
     - assets/images/buildings/colosseum/
     - assets/images/buildings/eiffel_tower/
+    - assets/images/buildings/parthenon/
+    - assets/images/buildings/petra/
     - assets/images/buildings/pyramids/
     - assets/images/buildings/taj_mahal/
-    - assets/images/buildings/petra/
     - assets/images/natural_wonders/
     - assets/images/natural_wonders/aurora_borealis/
     - assets/images/natural_wonders/grand_canyon/

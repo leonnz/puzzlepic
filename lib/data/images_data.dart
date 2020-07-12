@@ -55,8 +55,8 @@ class Images {
           "readableName": "Eiffel Tower",
         },
         {
-          "assetName": "taj_mahal",
-          "readableName": "Taj Mahal",
+          "assetName": "parthenon",
+          "readableName": "Parthenon",
         },
         {
           "assetName": "petra",
@@ -65,7 +65,11 @@ class Images {
         {
           "assetName": "pyramids",
           "readableName": "Pyramids",
-        }
+        },
+        {
+          "assetName": "taj_mahal",
+          "readableName": "Taj Mahal",
+        },
       ]
     },
     {
