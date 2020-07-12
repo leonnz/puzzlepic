@@ -75,6 +75,10 @@ class Images {
           "readableName": "Pyramids",
         },
         {
+          "assetName": "statue_of_liberty",
+          "readableName": "Statue of Liberty",
+        },
+        {
           "assetName": "taj_mahal",
           "readableName": "Taj Mahal",
         },
