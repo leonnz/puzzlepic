@@ -88,13 +88,13 @@ class _ImagePieceState extends State<ImagePiece>
                   ) &&
                   !state.getPuzzleComplete) {
                 imagePieceProvider.setPieceLeftPosition(
-                  widget.pieceNumber,
-                  xDistance,
-                  state.getPiecePositions,
-                  state.getSinglePieceWidth,
-                  state.getBlankSquare,
-                  state.setBlankSquare,
-                  state.checkComplete,
+                  getBlankSquare: state.getBlankSquare,
+                  getPiecePositions: state.getPiecePositions,
+                  getSinglePieceWidth: state.getSinglePieceWidth,
+                  pieceNumber: widget.pieceNumber,
+                  setBlankSquare: state.setBlankSquare,
+                  checkComplete: state.checkComplete,
+                  xDistance: xDistance,
                 );
                 state.setMoves();
               }
@@ -121,7 +121,14 @@ class _ImagePieceState extends State<ImagePiece>
                     gridSize: state.getTotalGridSize,
                   ) &&
                   !state.getPuzzleComplete) {
-                state.setPieceTopPosition(widget.pieceNumber, yDistance);
+                imagePieceProvider.setPieceTopPosition(
+                    getBlankSquare: state.getBlankSquare,
+                    getPiecePositions: state.getPiecePositions,
+                    getSinglePieceWidth: state.getSinglePieceWidth,
+                    pieceNumber: widget.pieceNumber,
+                    setBlankSquare: state.setBlankSquare,
+                    checkComplete: state.checkComplete,
+                    yDistance: yDistance);
                 state.setMoves();
               }
               dragged = false;
@@ -148,9 +155,12 @@ class _ImagePieceState extends State<ImagePiece>
         ),
       ),
       left: imagePieceProvider.getLeftPosition(
-          widget.pieceNumber, state.getPiecePositions),
+          pieceNumber: widget.pieceNumber,
+          piecePositions: state.getPiecePositions),
       top: imagePieceProvider.getTopPosition(
-          widget.pieceNumber, state.getPiecePositions),
+        pieceNumber: widget.pieceNumber,
+        piecePositions: state.getPiecePositions,
+      ),
       duration: Duration(milliseconds: 100),
       curve: Curves.linear,
     );

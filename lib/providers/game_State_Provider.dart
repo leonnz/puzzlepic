@@ -1,23 +1,16 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
-import '../data/image_piece_config.dart';
 
 class GameStateProvider with ChangeNotifier {
   static bool _puzzleComplete = false;
-
   static Map<String, String> _image;
-
   static List<Map<String, dynamic>> _piecePositions = [];
   static double _screenWidth;
   static double _singlePieceWidth = _screenWidth / _gridSideSize;
   static int _totalGridSize = 16;
-
   static int _blankSquare = _totalGridSize;
   static int _gridSideSize = sqrt(_totalGridSize).toInt();
   static int _moves = 0;
-
-  // Pool of positions for random position generation.
   static List<int> _gridPositions;
 
   bool get getPuzzleComplete => _puzzleComplete;
@@ -56,7 +49,6 @@ class GameStateProvider with ChangeNotifier {
 
   void setScreenWidth({double screenwidth}) {
     _screenWidth = screenwidth;
-    // notifyListeners();
   }
 
   // Check if the piece number matches its position
@@ -67,85 +59,6 @@ class GameStateProvider with ChangeNotifier {
       setPuzzleComplete(false);
     } else {
       setPuzzleComplete(true);
-    }
-  }
-
-  void setPieceTopPosition(int pieceNumber, double yDistance) {
-    Map<String, dynamic> pieceToUpdate = getPiecePositions
-        .firstWhere((imgPiece) => imgPiece['pieceNumber'] == pieceNumber);
-
-    // Used to set the new blank square.
-    int piecePreviousPosition = pieceToUpdate['gridPosition'];
-
-    double topPosition;
-
-    if (yDistance > 0.0) {
-      topPosition = pieceToUpdate['topPosition'] + getSinglePieceWidth;
-    } else if (yDistance < 0.0) {
-      topPosition = pieceToUpdate['topPosition'] - getSinglePieceWidth;
-    }
-
-    pieceToUpdate['topPosition'] = topPosition;
-
-    // Checks if the piece being dragged is a multi drag piece initial drag piece.
-    // Call the adjacent drag function.
-    // Then we need to set its grid position to the adjacent dragged piece.
-    // Otherwise this is a single piece drag so the grid position can be set to the blank square.
-    if (ImagePieceConfig.draggablePieces[getBlankSquare]
-        .containsKey(piecePreviousPosition)) {
-      setAdjacentPieceTopPosition(
-          ImagePieceConfig.draggablePieces[getBlankSquare]
-              [piecePreviousPosition],
-          yDistance);
-
-      pieceToUpdate['gridPosition'] = ImagePieceConfig
-          .draggablePieces[getBlankSquare][piecePreviousPosition][0];
-
-      setBlankSquare(piecePreviousPosition);
-    } else {
-      pieceToUpdate['gridPosition'] = getBlankSquare;
-      setBlankSquare(piecePreviousPosition);
-    }
-    notifyListeners();
-
-    checkComplete();
-  }
-
-  void setAdjacentPieceTopPosition(
-      List<int> adjacentPiecesToMove, double yDistance) {
-    if (adjacentPiecesToMove.length == 1) {
-      Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
-          (imgPiece) => imgPiece['gridPosition'] == adjacentPiecesToMove[0]);
-      double topPosition;
-      if (yDistance > 0.0) {
-        topPosition = pieceToUpdate['topPosition'] + getSinglePieceWidth;
-      } else if (yDistance < 0.0) {
-        topPosition = pieceToUpdate['topPosition'] - getSinglePieceWidth;
-      }
-
-      pieceToUpdate['topPosition'] = topPosition;
-      pieceToUpdate['gridPosition'] = getBlankSquare;
-    } else {
-      for (var i = 1; i >= 0; i--) {
-        Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
-            (imgPiece) => imgPiece['gridPosition'] == adjacentPiecesToMove[i]);
-
-        double topPosition;
-
-        if (yDistance > 0.0) {
-          topPosition = pieceToUpdate['topPosition'] + getSinglePieceWidth;
-        } else if (yDistance < 0.0) {
-          topPosition = pieceToUpdate['topPosition'] - getSinglePieceWidth;
-        }
-
-        pieceToUpdate['topPosition'] = topPosition;
-
-        if (i == 1) {
-          pieceToUpdate['gridPosition'] = getBlankSquare;
-        } else if (i == 0) {
-          pieceToUpdate['gridPosition'] = adjacentPiecesToMove[1];
-        }
-      }
     }
   }
 
@@ -223,6 +136,5 @@ class GameStateProvider with ChangeNotifier {
 
   void setBlankSquare(int squareNumber) {
     _blankSquare = squareNumber;
-    // notifyListeners();
   }
 }
