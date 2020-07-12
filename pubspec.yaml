@@ -86,6 +86,7 @@ flutter:
     - assets/images/under_the_sea/octopus/
     - assets/images/under_the_sea/orca/
     - assets/images/under_the_sea/seahorse/
+    - assets/images/under_the_sea/sea_otter/
     - assets/images/under_the_sea/sea_turtle/
     - assets/images/under_the_sea/starfish/
   # An image asset can refer to one or more resolution-specific "variants", see
