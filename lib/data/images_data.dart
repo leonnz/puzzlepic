@@ -139,6 +139,11 @@ class Images {
       ]
     },
     {
+      "categoryName": "foods",
+      "categoryReadableName": "Foods of the world",
+      "categoryImages": []
+    },
+    {
       "categoryName": "natural_wonders",
       "categoryReadableName": "7 Natural Wonders",
       "categoryImages": [
