@@ -87,7 +87,15 @@ class _ImagePieceState extends State<ImagePiece>
                     gridSize: state.getTotalGridSize,
                   ) &&
                   !state.getPuzzleComplete) {
-                state.setPieceLeftPosition(widget.pieceNumber, xDistance);
+                imagePieceProvider.setPieceLeftPosition(
+                  widget.pieceNumber,
+                  xDistance,
+                  state.getPiecePositions,
+                  state.getSinglePieceWidth,
+                  state.getBlankSquare,
+                  state.setBlankSquare,
+                  state.checkComplete,
+                );
                 state.setMoves();
               }
               dragged = false;
