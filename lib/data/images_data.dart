@@ -140,6 +140,10 @@ class Images {
           "assetName": "clown_fish",
           "readableName": "Clown Fish",
         },
+        {
+          "assetName": "seahorse",
+          "readableName": "Seahorse",
+        },
       ],
     }
   ];
