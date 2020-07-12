@@ -157,6 +157,10 @@ class Images {
           "readableName": "Octopus",
         },
         {
+          "assetName": "orca",
+          "readableName": "Orca",
+        },
+        {
           "assetName": "seahorse",
           "readableName": "Seahorse",
         },
