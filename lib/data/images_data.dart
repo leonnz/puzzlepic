@@ -104,7 +104,7 @@ class Images {
     },
     {
       "categoryName": "natural_wonders",
-      "categoryReadableName": "Natural Wonders",
+      "categoryReadableName": "7 Natural Wonders",
       "categoryImages": [
         {
           "assetName": "aurora_borealis",
@@ -125,7 +125,11 @@ class Images {
         {
           "assetName": "mount_everest",
           "readableName": "Mount Everest",
-        }
+        },
+        {
+          "assetName": "victoria_falls",
+          "readableName": "Victoria Falls",
+        },
       ],
     }
   ];
