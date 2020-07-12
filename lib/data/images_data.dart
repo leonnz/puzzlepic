@@ -152,6 +152,10 @@ class Images {
           "assetName": "sea_turtle",
           "readableName": "Sea Turtle",
         },
+        {
+          "assetName": "starfish",
+          "readableName": "Starfish",
+        },
       ],
     }
   ];

@@ -83,6 +83,7 @@ flutter:
     - assets/images/under_the_sea/jellyfish/
     - assets/images/under_the_sea/seahorse/
     - assets/images/under_the_sea/sea_turtle/
+    - assets/images/under_the_sea/starfish/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
