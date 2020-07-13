@@ -167,6 +167,10 @@ class Images {
           "readableName": "Italian Pizza",
         },
         {
+          "assetName": "sausages",
+          "readableName": "German Sausages",
+        },
+        {
           "assetName": "sushi",
           "readableName": "Japanese Sushi",
         },
