@@ -282,14 +282,15 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                           style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Text(
-                            'Moves: ${state.getMoves}',
-                            // style: Theme.of(context).textTheme.headline3,
-                          ),
-                          FutureBuilder(
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Text(
+                              'Moves: ${state.getMoves}',
+                            ),
+                            FutureBuilder(
                               future: getSingleRecord(),
                               initialData: 0,
                               builder: (context, AsyncSnapshot<int> snapshot) {
@@ -302,11 +303,13 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                                   bestMoves = Text('Best moves: 0');
                                 }
                                 return bestMoves;
-                              }),
-                        ],
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(5),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
                         child: Container(
                           width: state.getScreenWidth,
                           height: state.getScreenWidth,
