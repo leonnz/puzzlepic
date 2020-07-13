@@ -45,6 +45,34 @@ class _SelectPictureState extends State<SelectPicture> {
           //   fit: BoxFit.cover,
           // ),
           centerTitle: true,
+          bottom: PreferredSize(
+            child: FutureBuilder(
+              future:
+                  dbProvider.getRecordsByCategory(category: widget.category),
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+                Widget grid;
+                if (snapshot.hasData) {
+                  grid = Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15.0),
+                        child: Text(
+                          'Completed ${snapshot.data.length} / ${images.length}',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  grid = Container();
+                }
+                return grid;
+              },
+            ),
+            preferredSize: Size(double.infinity, 20),
+          ),
           title: Column(
             children: <Widget>[
               Text(
@@ -59,7 +87,7 @@ class _SelectPictureState extends State<SelectPicture> {
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () => Navigator.pop(context),
           ),
-          elevation: 0,
+          elevation: 4,
         ),
         body: FutureBuilder(
           future: dbProvider.getRecordsByCategory(category: widget.category),
@@ -71,33 +99,6 @@ class _SelectPictureState extends State<SelectPicture> {
                 grid = Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black45,
-                                  blurRadius: 5.0,
-                                  offset: Offset(0.0, 3.0),
-                                ),
-                              ],
-                              color: Colors.white,
-                            ),
-
-                            // color: Color.fromRGBO(0, 0, 0, 0.7),
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 15.0),
-                              child: Text(
-                                'Completed ${snapshot.data.length} / ${images.length}',
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     Expanded(
                       child: Container(
                         padding: EdgeInsets.all(10),
