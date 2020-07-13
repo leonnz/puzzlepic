@@ -80,6 +80,8 @@ flutter:
     - assets/images/flowers/tulips/
     - assets/images/foods/
     - assets/images/foods/burger/
+    - assets/images/foods/pizza/
+    - assets/images/foods/sushi/
     - assets/images/natural_wonders/
     - assets/images/natural_wonders/aurora_borealis/
     - assets/images/natural_wonders/grand_canyon/
