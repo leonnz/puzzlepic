@@ -33,9 +33,10 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             button: GoogleFonts.roboto(letterSpacing: 1),
             headline1: GoogleFonts.solway(
-              fontSize: 22,
+              fontSize: 26,
               letterSpacing: 1,
-              color: Colors.black,
+              // fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
             headline2: GoogleFonts.solway(
               fontSize: 16,
@@ -45,6 +46,12 @@ class MyApp extends StatelessWidget {
               fontSize: 30,
               letterSpacing: 1,
               color: Colors.black,
+            ),
+            headline4: GoogleFonts.roboto(
+              fontSize: 14,
+              letterSpacing: 1,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
         ),

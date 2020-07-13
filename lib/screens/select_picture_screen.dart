@@ -38,56 +38,54 @@ class _SelectPictureState extends State<SelectPicture> {
       ),
       child: Scaffold(
         backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
-        appBar: AppBar(
-          // flexibleSpace: Image(
-          //   image: AssetImage(
-          //       'assets/images/categories/${widget.category}_cat.png'),
-          //   fit: BoxFit.cover,
-          // ),
-          centerTitle: true,
-          bottom: PreferredSize(
-            child: FutureBuilder(
-              future:
-                  dbProvider.getRecordsByCategory(category: widget.category),
-              builder:
-                  (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-                Widget grid;
-                if (snapshot.hasData) {
-                  grid = Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 15.0),
-                        child: Text(
-                          'Completed ${snapshot.data.length} / ${images.length}',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
-                  );
-                } else {
-                  grid = Container();
-                }
-                return grid;
-              },
-            ),
-            preferredSize: Size(double.infinity, 20),
-          ),
-          title: Column(
-            children: <Widget>[
-              Text(
-                widget.categoryReadableName,
-                style: Theme.of(context).textTheme.headline1,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(90),
+          child: AppBar(
+            flexibleSpace: Opacity(
+              opacity: 0.6,
+              child: Image(
+                image: AssetImage(
+                    'assets/images/categories/${widget.category}_banner.png'),
+                fit: BoxFit.cover,
               ),
-            ],
+            ),
+            title: Text(
+              widget.categoryReadableName,
+              style: Theme.of(context).textTheme.headline1,
+            ),
+            backgroundColor: Color(0xffffffff),
+            iconTheme: IconThemeData(color: Colors.white),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios),
+              onPressed: () => Navigator.pop(context),
+            ),
+            elevation: 5,
+            centerTitle: true,
+            bottom: PreferredSize(
+              child: FutureBuilder(
+                future:
+                    dbProvider.getRecordsByCategory(category: widget.category),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<String>> snapshot) {
+                  Widget grid;
+                  if (snapshot.hasData) {
+                    grid = Padding(
+                      padding: const EdgeInsets.only(bottom: 15.0),
+                      child: Text(
+                        'Completed ${snapshot.data.length} / ${images.length}',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                    );
+                  } else {
+                    grid = Container();
+                  }
+                  return grid;
+                },
+              ),
+              preferredSize: Size.zero,
+            ),
           ),
-          backgroundColor: Color(0xffffffff),
-          iconTheme: IconThemeData(color: Colors.black),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            onPressed: () => Navigator.pop(context),
-          ),
-          elevation: 4,
         ),
         body: FutureBuilder(
           future: dbProvider.getRecordsByCategory(category: widget.category),
