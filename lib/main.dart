@@ -34,10 +34,16 @@ class MyApp extends StatelessWidget {
             button: GoogleFonts.roboto(letterSpacing: 1),
             // Puzzle select screen title
             headline1: GoogleFonts.solway(
-              fontSize: 24,
-              letterSpacing: 1,
-              color: Colors.white,
-            ),
+                fontSize: 24,
+                letterSpacing: 1,
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+                shadows: [
+                  Shadow(
+                      blurRadius: 1,
+                      color: Colors.white70,
+                      offset: Offset(1, 1))
+                ]),
             // Buttons
             headline2: GoogleFonts.solway(
               fontSize: 16,
@@ -54,7 +60,11 @@ class MyApp extends StatelessWidget {
               fontSize: 14,
               letterSpacing: 1,
               fontWeight: FontWeight.w700,
-              color: Colors.white,
+              color: Colors.black,
+              shadows: [
+                Shadow(
+                    blurRadius: 1, color: Colors.white70, offset: Offset(1, 1))
+              ],
             ),
             headline5: GoogleFonts.roboto(
               fontSize: 24,

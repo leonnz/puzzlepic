@@ -42,7 +42,7 @@ class _SelectPictureState extends State<SelectPicture> {
           preferredSize: Size.fromHeight(90),
           child: AppBar(
             flexibleSpace: Opacity(
-              opacity: 0.9,
+              opacity: 0.8,
               child: Image(
                 image: AssetImage(
                     'assets/images/categories/${widget.category}_banner.png'),
@@ -54,7 +54,9 @@ class _SelectPictureState extends State<SelectPicture> {
               style: Theme.of(context).textTheme.headline1,
             ),
             backgroundColor: Color(0xffffffff),
-            iconTheme: IconThemeData(color: Colors.white),
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () => Navigator.pop(context),
