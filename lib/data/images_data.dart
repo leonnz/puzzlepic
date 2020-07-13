@@ -163,6 +163,10 @@ class Images {
           "readableName": "Malaysian Laksa",
         },
         {
+          "assetName": "paella",
+          "readableName": "Spanish Paella",
+        },
+        {
           "assetName": "pizza",
           "readableName": "Italian Pizza",
         },
