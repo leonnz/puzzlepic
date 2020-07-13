@@ -23,7 +23,7 @@ class SelectCategory extends StatelessWidget {
           centerTitle: true,
           title: Text(
             'Categories',
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.headline5,
           ),
           backgroundColor: Color(0xffffffff),
           iconTheme: IconThemeData(

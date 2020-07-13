@@ -32,26 +32,34 @@ class MyApp extends StatelessWidget {
           ),
           textTheme: TextTheme(
             button: GoogleFonts.roboto(letterSpacing: 1),
+            // Puzzle select screen title
             headline1: GoogleFonts.solway(
-              fontSize: 26,
+              fontSize: 24,
               letterSpacing: 1,
-              // fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
+            // Buttons
             headline2: GoogleFonts.solway(
               fontSize: 16,
               color: Colors.black,
             ),
+            // Puzzle Screen title
             headline3: GoogleFonts.solway(
               fontSize: 30,
               letterSpacing: 1,
               color: Colors.black,
             ),
+            // Puzzle select screen title complete counter
             headline4: GoogleFonts.roboto(
               fontSize: 14,
               letterSpacing: 1,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w700,
               color: Colors.white,
+            ),
+            headline5: GoogleFonts.roboto(
+              fontSize: 24,
+              letterSpacing: 1,
+              color: Colors.black,
             ),
           ),
         ),
