@@ -162,6 +162,10 @@ class Images {
           "assetName": "sushi",
           "readableName": "Japanese Sushi",
         },
+        {
+          "assetName": "tacos",
+          "readableName": "Mexican Tacos",
+        },
       ]
     },
     {
