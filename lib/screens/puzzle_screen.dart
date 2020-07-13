@@ -326,23 +326,28 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                     ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    RaisedButton(
-                      elevation: 3,
-                      color: Color(0xff501E5D),
-                      child: Text("Hint"),
-                      onPressed: () =>
-                          Navigator.of(context).push(_customScaleRoute()),
-                    ),
-                    RaisedButton(
-                      elevation: 3,
-                      color: Color(0xff501E5D),
-                      child: Text("Quit"),
-                      onPressed: () => quitGame(),
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      RaisedButton(
+                        elevation: 3,
+                        color: Color(0xff000000),
+                        // child: Text("Hint"),
+                        child: Icon(Icons.search),
+                        onPressed: () =>
+                            Navigator.of(context).push(_customScaleRoute()),
+                      ),
+                      RaisedButton(
+                        elevation: 3,
+                        color: Color(0xff000000),
+                        // child: Text("Quit"),
+                        child: Icon(Icons.close),
+                        onPressed: () => quitGame(),
+                      ),
+                    ],
+                  ),
                 ),
                 Spacer(),
               ],
