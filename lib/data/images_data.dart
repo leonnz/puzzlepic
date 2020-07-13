@@ -141,7 +141,12 @@ class Images {
     {
       "categoryName": "foods",
       "categoryReadableName": "Foods of the world",
-      "categoryImages": []
+      "categoryImages": [
+        {
+          "assetName": "burger",
+          "readableName": "American Burger",
+        },
+      ]
     },
     {
       "categoryName": "natural_wonders",

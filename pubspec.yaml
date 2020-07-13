@@ -56,17 +56,6 @@ flutter:
     - assets/images/animals/monkey/
     - assets/images/animals/parrot/
     - assets/images/animals/tiger/
-    - assets/images/flowers/
-    - assets/images/flowers/daffodils/
-    - assets/images/flowers/daisies/
-    - assets/images/flowers/lavender/
-    - assets/images/flowers/lilies/
-    - assets/images/flowers/lotus/
-    - assets/images/flowers/orchids/
-    - assets/images/flowers/pansies/
-    - assets/images/flowers/roses/
-    - assets/images/flowers/sunflowers/
-    - assets/images/flowers/tulips/
     - assets/images/buildings/
     - assets/images/buildings/big_ben/
     - assets/images/buildings/colosseum/
@@ -78,6 +67,19 @@ flutter:
     - assets/images/buildings/pyramids/
     - assets/images/buildings/statue_of_liberty/
     - assets/images/buildings/taj_mahal/
+    - assets/images/flowers/
+    - assets/images/flowers/daffodils/
+    - assets/images/flowers/daisies/
+    - assets/images/flowers/lavender/
+    - assets/images/flowers/lilies/
+    - assets/images/flowers/lotus/
+    - assets/images/flowers/orchids/
+    - assets/images/flowers/pansies/
+    - assets/images/flowers/roses/
+    - assets/images/flowers/sunflowers/
+    - assets/images/flowers/tulips/
+    - assets/images/foods/
+    - assets/images/foods/burger/
     - assets/images/natural_wonders/
     - assets/images/natural_wonders/aurora_borealis/
     - assets/images/natural_wonders/grand_canyon/
