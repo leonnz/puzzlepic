@@ -7,8 +7,10 @@ class ImageButton extends StatelessWidget {
     this.readableName,
     this.categoryName,
     this.complete,
+    this.imgNumber,
   }) : super(key: key);
 
+  final int imgNumber;
   final String categoryName;
   final String assetName;
   final String readableName;
@@ -16,12 +18,18 @@ class ImageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      elevation: 3,
-      borderOnForeground: true,
+    return Container(
+      decoration: ShapeDecoration(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          shadows: [
+            BoxShadow(
+              blurRadius: 2,
+              color: Colors.grey,
+              offset: Offset(2, 2),
+            )
+          ]),
       child: Stack(
         children: [
           ClipRRect(
