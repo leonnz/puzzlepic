@@ -63,7 +63,10 @@ class MyApp extends StatelessWidget {
               color: Colors.black,
               shadows: [
                 Shadow(
-                    blurRadius: 1, color: Colors.white70, offset: Offset(1, 1))
+                  blurRadius: 1,
+                  color: Colors.white,
+                  offset: Offset(1, 1),
+                )
               ],
             ),
             headline5: GoogleFonts.roboto(
