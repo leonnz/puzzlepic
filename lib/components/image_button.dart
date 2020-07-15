@@ -21,7 +21,7 @@ class ImageButton extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
-          side: BorderSide(width: 2, color: Colors.white)),
+          side: BorderSide(width: 1, color: Colors.white)),
       elevation: 5,
       child: Stack(
         children: [
