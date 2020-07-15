@@ -32,15 +32,16 @@ class ImageButton extends StatelessWidget {
                   'assets/images/$categoryName/${assetName}_full.jpg'),
             ),
           ),
-          Align(
-            alignment: Alignment.topRight,
+          Positioned(
+            top: 5,
+            right: 5,
             child: complete
                 ? Icon(
                     Icons.check,
                     color: Colors.lightGreenAccent[400],
                     size: 40,
                   )
-                : null,
+                : Container(),
           ),
           Align(
             alignment: Alignment.bottomCenter,
