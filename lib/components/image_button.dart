@@ -18,18 +18,11 @@ class ImageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: ShapeDecoration(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          shadows: [
-            BoxShadow(
-              blurRadius: 2,
-              color: Colors.grey,
-              offset: Offset(2, 2),
-            )
-          ]),
+    return Card(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(width: 2, color: Colors.white)),
+      elevation: 5,
       child: Stack(
         children: [
           ClipRRect(

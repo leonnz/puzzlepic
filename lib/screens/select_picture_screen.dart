@@ -107,45 +107,42 @@ class _SelectPictureState extends State<SelectPicture> {
                     children: <Widget>[
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                          padding: const EdgeInsets.all(10),
                           child: GridView.builder(
                             shrinkWrap: true,
                             itemCount: images.length,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              // crossAxisSpacing: 10,
-                              // mainAxisSpacing: 10,
+                              childAspectRatio: 1,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
                             ),
                             itemBuilder: (BuildContext context, int i) {
-                              return Padding(
-                                padding: EdgeInsets.all(10),
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    final result = await Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                        builder: (context) => PuzzleScreen(
-                                          category: widget.category,
-                                          assetName: images[i]["assetName"],
-                                          readableName: images[i]
-                                              ["readableName"],
-                                        ),
+                              return GestureDetector(
+                                onTap: () async {
+                                  final result = await Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                      builder: (context) => PuzzleScreen(
+                                        category: widget.category,
+                                        assetName: images[i]["assetName"],
+                                        readableName: images[i]["readableName"],
                                       ),
-                                    );
-                                    // Refreshes the pictures to show complete ticks from database
-                                    if (result) setState(() {});
-                                  },
-                                  child: ImageButton(
-                                    imgNumber: i,
-                                    categoryName: widget.category,
-                                    assetName: images[i]["assetName"],
-                                    readableName: images[i]["readableName"],
-                                    complete: (snapshot.data.contains(
-                                            images[i]["readableName"]))
-                                        ? true
-                                        : false,
-                                  ),
+                                    ),
+                                  );
+                                  // Refreshes the pictures to show complete ticks from database
+                                  if (result) setState(() {});
+                                },
+                                child: ImageButton(
+                                  imgNumber: i,
+                                  categoryName: widget.category,
+                                  assetName: images[i]["assetName"],
+                                  readableName: images[i]["readableName"],
+                                  complete: (snapshot.data
+                                          .contains(images[i]["readableName"]))
+                                      ? true
+                                      : false,
                                 ),
                               );
                             },
