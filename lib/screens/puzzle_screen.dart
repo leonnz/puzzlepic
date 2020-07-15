@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:picturepuzzle/components/image_piece.dart';
+import 'package:PuzzlePic/components/image_piece.dart';
 import '../components/puzzle_complete_alert.dart';
 import '../screens/hint_screen.dart';
 import '../providers/game_state_provider.dart';

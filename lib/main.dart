@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:picturepuzzle/providers/game_state_provider.dart';
+import 'package:PuzzlePic/providers/game_state_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import './screens/home_screen.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'select_category_screen.dart';
 import '../components/button.dart';
 import 'package:provider/provider.dart';
-import 'package:picturepuzzle/providers/game_state_provider.dart';
+import 'package:PuzzlePic/providers/game_state_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'dart:async';

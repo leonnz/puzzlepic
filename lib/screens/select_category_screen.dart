@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:picturepuzzle/components/category_button.dart';
+import '../components/category_button.dart';
 import '../data/images_data.dart';
 // import 'package:picturepuzzle/providers/game_state_provider.dart';
 // import 'package:provider/provider.dart';
