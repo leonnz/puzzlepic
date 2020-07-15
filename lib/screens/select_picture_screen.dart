@@ -115,8 +115,8 @@ class _SelectPictureState extends State<SelectPicture> {
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               childAspectRatio: 1,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 5,
+                              mainAxisSpacing: 5,
                             ),
                             itemBuilder: (BuildContext context, int i) {
                               return GestureDetector(
