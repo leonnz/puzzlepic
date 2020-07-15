@@ -33,8 +33,6 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-        ...
-}
     compileSdkVersion 28
 
     sourceSets {
