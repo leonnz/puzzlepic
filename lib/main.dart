@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => GameStateProvider(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Puzzle Pic',
         theme: ThemeData(
           fontFamily: 'Rabelo',
