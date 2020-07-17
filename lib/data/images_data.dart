@@ -47,6 +47,16 @@ class Images {
       ]
     },
     {
+      "categoryName": "art",
+      "categoryReadableName": "Art world",
+      "categoryImages": [
+        {
+          "assetName": "edgar_degas",
+          "readableName": "Edgar Degas",
+        },
+      ]
+    },
+    {
       "categoryName": "buildings",
       "categoryReadableName": "Famous Structures",
       "categoryImages": [
