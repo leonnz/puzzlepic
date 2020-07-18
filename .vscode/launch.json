@@ -5,12 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Flutter",
+      "name": "Flutter - Mobile",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "Flutter1",
+      "name": "Flutter - Tablet",
       "request": "launch",
       "type": "dart"
     }
