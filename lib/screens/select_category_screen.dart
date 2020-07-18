@@ -2,14 +2,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../components/category_button.dart';
 import '../data/images_data.dart';
-// import 'package:picturepuzzle/providers/game_state_provider.dart';
-// import 'package:provider/provider.dart';
+import '../providers/device_provider.dart';
+import 'package:provider/provider.dart';
 
 class SelectCategory extends StatelessWidget {
   const SelectCategory({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
+    deviceState.setGridSize(
+        useMobile: deviceState.getUseMobileLayout,
+        orientation: MediaQuery.of(context).orientation);
+
     return GestureDetector(
       onPanUpdate: (details) {
         if (details.delta.dx > 0) {
@@ -44,7 +49,7 @@ class SelectCategory extends StatelessWidget {
             padding: EdgeInsets.all(10),
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: deviceState.getGridSize,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
               ),

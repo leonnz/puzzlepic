@@ -8,6 +8,11 @@
       "name": "Flutter",
       "request": "launch",
       "type": "dart"
+    },
+    {
+      "name": "Flutter1",
+      "request": "launch",
+      "type": "dart"
     }
   ]
 }

@@ -2,18 +2,25 @@ import 'package:flutter/cupertino.dart';
 
 class DeviceProvider extends ChangeNotifier {
   static bool _useMobileLayout;
-  static Orientation _orientation;
+  static int _gridSize;
 
   bool get getUseMobileLayout => _useMobileLayout;
-  Orientation get getOrientation => _orientation;
+  int get getGridSize => _gridSize;
 
   void setUseMobileLayout({bool useMobileLayout}) {
     _useMobileLayout = useMobileLayout;
-    notifyListeners();
   }
 
-  void setOrientation({Orientation orientation}) {
-    _orientation = orientation;
-    notifyListeners();
+  void setGridSize({bool useMobile, Orientation orientation}) {
+    int columns;
+    if (orientation == Orientation.portrait && getUseMobileLayout) {
+      columns = 2;
+    } else if (orientation == Orientation.portrait && !getUseMobileLayout) {
+      columns = 3;
+    } else {
+      columns = 4;
+    }
+
+    _gridSize = columns;
   }
 }

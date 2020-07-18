@@ -4,6 +4,7 @@ import 'select_category_screen.dart';
 import '../components/button.dart';
 import 'package:provider/provider.dart';
 import 'package:PuzzlePic/providers/game_state_provider.dart';
+import '../providers/device_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'dart:async';
@@ -39,9 +40,18 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    var state = Provider.of<GameStateProvider>(context);
+    final double shortestSide = MediaQuery.of(context).size.shortestSide;
+    final bool useMobileLayout = shortestSide < 600;
+    final Orientation orientation = MediaQuery.of(context).orientation;
+
+    GameStateProvider state = Provider.of<GameStateProvider>(context);
+    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
 
     state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
+    deviceState.setUseMobileLayout(useMobileLayout: useMobileLayout);
+
+    deviceState.setGridSize(
+        useMobile: useMobileLayout, orientation: orientation);
 
     return Scaffold(
       body: Container(
