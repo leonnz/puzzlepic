@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 TextStyle buttonTextStyle = GoogleFonts.roboto(letterSpacing: 1);
 
+// Select Category Screen and Select Picture Screen
 TextStyle selectScreenTitleTextStyle = GoogleFonts.solway(
   fontSize: 24,
   letterSpacing: 1,

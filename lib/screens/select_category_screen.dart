@@ -31,19 +31,22 @@ class SelectCategory extends StatelessWidget {
         ),
         child: Scaffold(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(
-              'Categories',
-              style: selectScreenTitleTextStyle,
-            ),
-            backgroundColor: Color(0xffffffff),
-            iconTheme: IconThemeData(
-              color: Colors.black,
-            ),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () => Navigator.pop(context),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(deviceState.getDeviceHeight * 0.08),
+            child: AppBar(
+              centerTitle: true,
+              title: Text(
+                'Categories',
+                style: selectScreenTitleTextStyle,
+              ),
+              backgroundColor: Color(0xffffffff),
+              iconTheme: IconThemeData(
+                color: Colors.black,
+              ),
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back_ios),
+                onPressed: () => Navigator.pop(context),
+              ),
             ),
           ),
           body: Container(
