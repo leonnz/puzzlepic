@@ -51,6 +51,11 @@ class Images {
       "categoryReadableName": "Art world",
       "categoryImages": [
         {
+          "assetName": "claude_monet",
+          "readableName": "Claude Monet",
+          "title": "The Bridge At Argenteuil (1874)",
+        },
+        {
           "assetName": "edgar_degas",
           "readableName": "Edgar Degas",
           "title": "The False Start (Ca. 1869–72)",
