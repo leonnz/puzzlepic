@@ -24,6 +24,9 @@ class _SelectPictureState extends State<SelectPicture> {
   @override
   Widget build(BuildContext context) {
     DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
+    deviceState.setGridSize(
+        useMobile: deviceState.getUseMobileLayout,
+        orientation: MediaQuery.of(context).orientation);
 
     DBProviderDb dbProvider = DBProviderDb();
 
