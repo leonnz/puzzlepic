@@ -9,6 +9,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
 import '../data/db_provider.dart';
 import '../data/puzzle_record_model.dart';
+import '../styles/customStyles.dart';
 
 class PuzzleScreen extends StatefulWidget {
   const PuzzleScreen(
@@ -280,14 +281,14 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
                           widget.readableName,
-                          style: Theme.of(context).textTheme.headline3,
+                          style: puzzleScreenImageTitle,
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10.0),
                         child: Text(
                           widget.title != null ? widget.title : "",
-                          style: Theme.of(context).textTheme.headline6,
+                          style: puzzleScreenPictureTitle,
                         ),
                       ),
                       Padding(

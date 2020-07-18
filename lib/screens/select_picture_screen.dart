@@ -7,6 +7,7 @@ import '../data/db_provider.dart';
 import '../screens/puzzle_screen.dart';
 import '../providers/device_provider.dart';
 import 'package:provider/provider.dart';
+import '../styles/customStyles.dart';
 
 class SelectPicture extends StatefulWidget {
   const SelectPicture(
@@ -64,7 +65,7 @@ class _SelectPictureState extends State<SelectPicture> {
               ),
               title: Text(
                 widget.categoryReadableName,
-                style: Theme.of(context).textTheme.headline1,
+                style: selectScreenTitleTextStyle,
               ),
               backgroundColor: Color(0xffffffff),
               iconTheme: IconThemeData(
@@ -89,7 +90,7 @@ class _SelectPictureState extends State<SelectPicture> {
                         child: Text(
                           'Completed ${snapshot.data.length} / ${images.length}',
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline4,
+                          style: selectPictureScreenCompletedTextStyle,
                         ),
                       );
                     } else {

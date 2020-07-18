@@ -4,6 +4,7 @@ import '../components/category_button.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import 'package:provider/provider.dart';
+import '../styles/customStyles.dart';
 
 class SelectCategory extends StatelessWidget {
   const SelectCategory({Key key}) : super(key: key);
@@ -34,7 +35,7 @@ class SelectCategory extends StatelessWidget {
             centerTitle: true,
             title: Text(
               'Categories',
-              style: Theme.of(context).textTheme.headline5,
+              style: selectScreenTitleTextStyle,
             ),
             backgroundColor: Color(0xffffffff),
             iconTheme: IconThemeData(

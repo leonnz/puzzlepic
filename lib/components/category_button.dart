@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../screens/select_picture_screen.dart';
+import '../styles/customStyles.dart';
 
 class CategoryButton extends StatelessWidget {
   const CategoryButton(
@@ -48,7 +49,7 @@ class CategoryButton extends StatelessWidget {
                   child: Center(
                     child: Text(
                       categoryReadableName,
-                      style: Theme.of(context).textTheme.headline2,
+                      style: selectPictureButtonTextStyle,
                       textAlign: TextAlign.center,
                     ),
                   ),

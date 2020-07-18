@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../styles/customStyles.dart';
 
 class ImageButton extends StatelessWidget {
   const ImageButton({
@@ -56,7 +57,7 @@ class ImageButton extends StatelessWidget {
               child: Center(
                 child: Text(
                   readableName,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: selectPictureButtonTextStyle,
                   textAlign: TextAlign.center,
                 ),
               ),
