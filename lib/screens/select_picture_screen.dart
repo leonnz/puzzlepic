@@ -65,7 +65,8 @@ class _SelectPictureState extends State<SelectPicture> {
               ),
               title: Text(
                 widget.categoryReadableName,
-                style: selectScreenTitleTextStyle,
+                style: CustomTextTheme(deviceProvider: deviceState)
+                    .selectScreenTitleTextStyle(context),
               ),
               backgroundColor: Color(0xffffffff),
               iconTheme: IconThemeData(
@@ -90,7 +91,8 @@ class _SelectPictureState extends State<SelectPicture> {
                         child: Text(
                           'Completed ${snapshot.data.length} / ${images.length}',
                           textAlign: TextAlign.center,
-                          style: selectPictureScreenCompletedTextStyle,
+                          style: CustomTextTheme
+                              .selectPictureScreenCompletedTextStyle(context),
                         ),
                       );
                     } else {

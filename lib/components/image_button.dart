@@ -57,7 +57,7 @@ class ImageButton extends StatelessWidget {
               child: Center(
                 child: Text(
                   readableName,
-                  style: selectPictureButtonTextStyle,
+                  style: CustomTextTheme.selectPictureButtonTextStyle(context),
                   textAlign: TextAlign.center,
                 ),
               ),

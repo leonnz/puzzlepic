@@ -32,23 +32,63 @@ class SelectCategory extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(deviceState.getDeviceHeight * 0.08),
-            child: AppBar(
-              centerTitle: true,
-              title: Text(
-                'Categories',
-                style: selectScreenTitleTextStyle,
+              preferredSize:
+                  Size.fromHeight(deviceState.getDeviceHeight * 0.09),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 5.0,
+                      offset: Offset(0.0, 3.0),
+                    ),
+                  ],
+                ),
+                // color: Colors.white,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        iconSize: deviceState.getUseMobileLayout ? 25 : 50,
+                        icon: Icon(Icons.arrow_back_ios),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
+                    Text(
+                      'Categories',
+                      style: CustomTextTheme(deviceProvider: deviceState)
+                          .selectScreenTitleTextStyle(context),
+                    ),
+                  ],
+                ),
+              )
+
+              // Container(
+              //   color: Colors.white,
+              //   height: 500,
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: <Widget>[
+              //       Text(
+              //         'Categories',
+              //         style: CustomTextTheme(deviceProvider: deviceState)
+              //             .selectScreenTitleTextStyle(context),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // backgroundColor: Color(0xffffffff),
+              // iconTheme: IconThemeData(
+              //   color: Colors.black,
+              // ),
+              // leading: IconButton(
+              //   icon: Icon(Icons.arrow_back_ios),
+              //   onPressed: () => Navigator.pop(context),
+              // ),
               ),
-              backgroundColor: Color(0xffffffff),
-              iconTheme: IconThemeData(
-                color: Colors.black,
-              ),
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
-          ),
           body: Container(
             padding: EdgeInsets.all(10),
             child: GridView.builder(

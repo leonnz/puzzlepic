@@ -49,7 +49,8 @@ class CategoryButton extends StatelessWidget {
                   child: Center(
                     child: Text(
                       categoryReadableName,
-                      style: selectPictureButtonTextStyle,
+                      style:
+                          CustomTextTheme.selectPictureButtonTextStyle(context),
                       textAlign: TextAlign.center,
                     ),
                   ),

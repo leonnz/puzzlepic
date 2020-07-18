@@ -44,7 +44,6 @@ class _HomeState extends State<Home> {
     final bool useMobileLayout = shortestSide < 600;
     final Orientation orientation = MediaQuery.of(context).orientation;
     final double deviceHeight = MediaQuery.of(context).size.height;
-    print(deviceHeight);
 
     GameStateProvider state = Provider.of<GameStateProvider>(context);
     DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
