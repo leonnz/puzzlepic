@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 class DeviceProvider extends ChangeNotifier {
   static bool _useMobileLayout;
   static int _gridSize;
+  static double _deviceHeight;
 
   bool get getUseMobileLayout => _useMobileLayout;
   int get getGridSize => _gridSize;
+  double get getDeviceHeight => _deviceHeight;
 
   void setUseMobileLayout({bool useMobileLayout}) {
     _useMobileLayout = useMobileLayout;
@@ -29,5 +31,9 @@ class DeviceProvider extends ChangeNotifier {
     }
 
     _gridSize = columns;
+  }
+
+  void setDeviceHeight({double height}) {
+    _deviceHeight = height;
   }
 }

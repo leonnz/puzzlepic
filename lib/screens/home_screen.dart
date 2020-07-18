@@ -43,15 +43,19 @@ class _HomeState extends State<Home> {
     final double shortestSide = MediaQuery.of(context).size.shortestSide;
     final bool useMobileLayout = shortestSide < 600;
     final Orientation orientation = MediaQuery.of(context).orientation;
+    final double deviceHeight = MediaQuery.of(context).size.height;
+    print(deviceHeight);
 
     GameStateProvider state = Provider.of<GameStateProvider>(context);
     DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
 
     state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
     deviceState.setUseMobileLayout(useMobileLayout: useMobileLayout);
-
+    deviceState.setDeviceHeight(height: deviceHeight);
     deviceState.setGridSize(
-        useMobile: useMobileLayout, orientation: orientation);
+      useMobile: useMobileLayout,
+      orientation: orientation,
+    );
 
     return Scaffold(
       body: Container(
@@ -67,7 +71,8 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             Center(
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 50),
+                padding:
+                    EdgeInsets.only(bottom: deviceState.getDeviceHeight * 0.2),
                 child: Button(
                   buttonText: 'Play!',
                   action: () {
