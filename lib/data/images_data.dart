@@ -66,6 +66,11 @@ class Images {
           "title": "The False Start (Ca. 1869–72)",
         },
         {
+          "assetName": "rembrandt",
+          "readableName": "Rembrandt",
+          "title": "Night Watch (1642)",
+        },
+        {
           "assetName": "van_gogh",
           "readableName": "Van Gogh",
           "title": "Le Café De Nuit (The Night Café) (1888)",
