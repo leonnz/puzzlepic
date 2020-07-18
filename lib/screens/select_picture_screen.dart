@@ -95,13 +95,16 @@ class _SelectPictureState extends State<SelectPicture> {
                         Widget grid;
                         if (snapshot.hasData) {
                           grid = Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
+                            padding: EdgeInsets.only(
+                                bottom:
+                                    deviceState.getUseMobileLayout ? 10 : 15),
                             child: Text(
                               'Completed ${snapshot.data.length} / ${images.length}',
                               textAlign: TextAlign.center,
-                              style: CustomTextTheme
-                                  .selectPictureScreenCompletedTextStyle(
-                                      context),
+                              style:
+                                  CustomTextTheme(deviceProvider: deviceState)
+                                      .selectPictureScreenCompletedTextStyle(
+                                          context),
                             ),
                           );
                         } else {

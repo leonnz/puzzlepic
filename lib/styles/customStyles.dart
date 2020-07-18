@@ -44,9 +44,9 @@ class CustomTextTheme {
     );
   }
 
-  static TextStyle selectPictureScreenCompletedTextStyle(BuildContext context) {
+  TextStyle selectPictureScreenCompletedTextStyle(BuildContext context) {
     return GoogleFonts.solway(
-      fontSize: 14,
+      fontSize: deviceProvider.getUseMobileLayout ? 14 : 22,
       letterSpacing: 1,
       fontWeight: FontWeight.w700,
       color: Colors.black,
