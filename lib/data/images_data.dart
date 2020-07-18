@@ -53,6 +53,12 @@ class Images {
         {
           "assetName": "edgar_degas",
           "readableName": "Edgar Degas",
+          "title": "The False Start (Ca. 1869–72)",
+        },
+        {
+          "assetName": "van_gogh",
+          "readableName": "Van Gogh",
+          "title": "Le Café De Nuit (The Night Café) (1888)",
         },
       ]
     },
