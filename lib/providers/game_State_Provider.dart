@@ -6,6 +6,7 @@ class GameStateProvider with ChangeNotifier {
   static Map<String, String> _image;
   static List<Map<String, dynamic>> _piecePositions = [];
   static double _screenWidth;
+  static double _screenHeight;
   static double _singlePieceWidth = _screenWidth / _gridSideSize;
   static int _totalGridSize = 16;
   static int _blankSquare = _totalGridSize;
@@ -17,6 +18,7 @@ class GameStateProvider with ChangeNotifier {
   Map<String, String> get getImage => _image;
   List<Map<String, dynamic>> get getPiecePositions => _piecePositions;
   double get getScreenWidth => _screenWidth;
+  double get getScreenHeight => _screenHeight;
   double get getSinglePieceWidth => _singlePieceWidth;
   int get getTotalGridSize => _totalGridSize;
   int get getBlankSquare => _blankSquare;
@@ -47,8 +49,12 @@ class GameStateProvider with ChangeNotifier {
     _gridPositions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   }
 
-  void setScreenWidth({double screenwidth}) {
-    _screenWidth = screenwidth;
+  void setScreenWidth({double width}) {
+    _screenWidth = width;
+  }
+
+  void setScreenHeight({double height}) {
+    _screenHeight = height;
   }
 
   // Check if the piece number matches its position

@@ -48,7 +48,9 @@ class _HomeState extends State<Home> {
     GameStateProvider state = Provider.of<GameStateProvider>(context);
     DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
 
-    state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
+    state.setScreenWidth(width: MediaQuery.of(context).size.width - 20);
+    state.setScreenHeight(height: MediaQuery.of(context).size.height);
+
     deviceState.setUseMobileLayout(useMobileLayout: useMobileLayout);
     deviceState.setDeviceHeight(height: deviceHeight);
     deviceState.setGridSize(
