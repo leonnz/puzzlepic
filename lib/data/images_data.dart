@@ -56,6 +56,11 @@ class Images {
           "title": "The Bridge At Argenteuil (1874)",
         },
         {
+          "assetName": "da_vinci",
+          "readableName": "Da Vinci",
+          "title": "Ginevra De’ Benci (Ca. 1474-1478)",
+        },
+        {
           "assetName": "edgar_degas",
           "readableName": "Edgar Degas",
           "title": "The False Start (Ca. 1869–72)",

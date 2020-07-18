@@ -67,6 +67,7 @@ flutter:
     - assets/images/animals/tiger/
     - assets/images/art/
     - assets/images/art/claude_monet/
+    - assets/images/art/da_vinci/
     - assets/images/art/edgar_degas/
     - assets/images/art/van_gogh/
     - assets/images/buildings/
