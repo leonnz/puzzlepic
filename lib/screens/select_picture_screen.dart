@@ -5,6 +5,8 @@ import '../data/images_data.dart';
 import '../components/image_button.dart';
 import '../data/db_provider.dart';
 import '../screens/puzzle_screen.dart';
+import '../providers/device_provider.dart';
+import 'package:provider/provider.dart';
 
 class SelectPicture extends StatefulWidget {
   const SelectPicture(
@@ -21,6 +23,8 @@ class SelectPicture extends StatefulWidget {
 class _SelectPictureState extends State<SelectPicture> {
   @override
   Widget build(BuildContext context) {
+    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
+
     DBProviderDb dbProvider = DBProviderDb();
 
     // dbProvider.deleteTable();
@@ -113,7 +117,7 @@ class _SelectPictureState extends State<SelectPicture> {
                             itemCount: images.length,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
+                              crossAxisCount: deviceState.getGridSize,
                               childAspectRatio: 1,
                               crossAxisSpacing: 5,
                               mainAxisSpacing: 5,
