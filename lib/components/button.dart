@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../providers/device_provider.dart';
+import 'package:provider/provider.dart';
 
 class Button extends StatefulWidget {
   Button({Key key, this.buttonText, this.action}) : super(key: key);
@@ -46,14 +48,16 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     _scale = 1 - _controller.value;
 
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+
     return GestureDetector(
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
       child: Transform.scale(
         scale: _scale,
         child: Container(
-          width: 170,
-          height: 50,
+          width: deviceProvider.getUseMobileLayout ? 170 : 300,
+          height: deviceProvider.getUseMobileLayout ? 50 : 80,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             boxShadow: [
@@ -76,7 +80,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
               widget.buttonText,
               style: TextStyle(
                 color: Colors.purple,
-                fontSize: 25.0,
+                fontSize: deviceProvider.getUseMobileLayout ? 25 : 40,
                 letterSpacing: 1,
               ),
             ),
