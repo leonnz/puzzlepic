@@ -128,6 +128,7 @@ class _SelectPictureState extends State<SelectPicture> {
                                         category: widget.category,
                                         assetName: images[i]["assetName"],
                                         readableName: images[i]["readableName"],
+                                        title: images[i]["title"],
                                       ),
                                     ),
                                   );

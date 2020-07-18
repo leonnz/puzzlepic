@@ -12,11 +12,12 @@ import '../data/puzzle_record_model.dart';
 
 class PuzzleScreen extends StatefulWidget {
   const PuzzleScreen(
-      {Key key, this.assetName, this.readableName, this.category})
+      {Key key, this.assetName, this.readableName, this.title, this.category})
       : super(key: key);
 
   final String assetName;
   final String readableName;
+  final String title;
   final String category;
 
   @override
@@ -280,6 +281,13 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                         child: Text(
                           widget.readableName,
                           style: Theme.of(context).textTheme.headline3,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: Text(
+                          widget.title != null ? widget.title : "",
+                          style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
                       Padding(

@@ -75,6 +75,11 @@ class MyApp extends StatelessWidget {
               letterSpacing: 1,
               color: Colors.black,
             ),
+            headline6: GoogleFonts.roboto(
+              fontSize: 14,
+              letterSpacing: 1,
+              color: Colors.black,
+            ),
           ),
         ),
         home: Home(),
