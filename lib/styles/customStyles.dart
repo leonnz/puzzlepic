@@ -29,9 +29,9 @@ class CustomTextTheme {
     return GoogleFonts.roboto(letterSpacing: 1);
   }
 
-  static TextStyle selectPictureButtonTextStyle(BuildContext context) {
+  TextStyle selectPictureButtonTextStyle(BuildContext context) {
     return GoogleFonts.solway(
-      fontSize: 16,
+      fontSize: deviceProvider.getUseMobileLayout ? 16 : 25,
       color: Colors.black,
     );
   }

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../screens/select_picture_screen.dart';
 import '../styles/customStyles.dart';
+import '../providers/device_provider.dart';
+import 'package:provider/provider.dart';
 
 class CategoryButton extends StatelessWidget {
   const CategoryButton(
@@ -12,6 +14,8 @@ class CategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+
     return Container(
       child: GestureDetector(
         onTap: () => Navigator.push(
@@ -49,8 +53,8 @@ class CategoryButton extends StatelessWidget {
                   child: Center(
                     child: Text(
                       categoryReadableName,
-                      style:
-                          CustomTextTheme.selectPictureButtonTextStyle(context),
+                      style: CustomTextTheme(deviceProvider: deviceProvider)
+                          .selectPictureButtonTextStyle(context),
                       textAlign: TextAlign.center,
                     ),
                   ),

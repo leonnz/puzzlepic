@@ -45,7 +45,6 @@ class SelectCategory extends StatelessWidget {
                     ),
                   ],
                 ),
-                // color: Colors.white,
                 child: Stack(
                   alignment: Alignment.center,
                   children: <Widget>[
@@ -64,31 +63,7 @@ class SelectCategory extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
-
-              // Container(
-              //   color: Colors.white,
-              //   height: 500,
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: <Widget>[
-              //       Text(
-              //         'Categories',
-              //         style: CustomTextTheme(deviceProvider: deviceState)
-              //             .selectScreenTitleTextStyle(context),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // backgroundColor: Color(0xffffffff),
-              // iconTheme: IconThemeData(
-              //   color: Colors.black,
-              // ),
-              // leading: IconButton(
-              //   icon: Icon(Icons.arrow_back_ios),
-              //   onPressed: () => Navigator.pop(context),
-              // ),
-              ),
+              )),
           body: Container(
             padding: EdgeInsets.all(10),
             child: GridView.builder(

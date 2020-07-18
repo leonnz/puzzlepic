@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../styles/customStyles.dart';
+import '../providers/device_provider.dart';
+import 'package:provider/provider.dart';
 
 class ImageButton extends StatelessWidget {
   const ImageButton({
@@ -19,6 +21,7 @@ class ImageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     return Card(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -57,7 +60,8 @@ class ImageButton extends StatelessWidget {
               child: Center(
                 child: Text(
                   readableName,
-                  style: CustomTextTheme.selectPictureButtonTextStyle(context),
+                  style: CustomTextTheme(deviceProvider: deviceProvider)
+                      .selectPictureButtonTextStyle(context),
                   textAlign: TextAlign.center,
                 ),
               ),

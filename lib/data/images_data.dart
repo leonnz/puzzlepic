@@ -48,7 +48,7 @@ class Images {
     },
     {
       "categoryName": "art",
-      "categoryReadableName": "Art world",
+      "categoryReadableName": "Art World",
       "categoryImages": [
         {
           "assetName": "claude_monet",
