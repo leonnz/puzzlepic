@@ -56,7 +56,7 @@ class _SelectPictureState extends State<SelectPicture> {
             preferredSize:
                 MediaQuery.of(context).orientation == Orientation.portrait
                     ? Size.fromHeight(deviceState.getDeviceHeight * 0.12)
-                    : Size.fromHeight(deviceState.getDeviceHeight * 0.20),
+                    : Size.fromHeight(deviceState.getDeviceHeight * 0.18),
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -99,8 +99,7 @@ class _SelectPictureState extends State<SelectPicture> {
                         if (snapshot.hasData) {
                           grid = Padding(
                             padding: EdgeInsets.only(
-                                bottom:
-                                    deviceState.getUseMobileLayout ? 4 : 15),
+                                bottom: deviceState.getUseMobileLayout ? 4 : 8),
                             child: Text(
                               'Completed ${snapshot.data.length} / ${images.length}',
                               textAlign: TextAlign.center,
