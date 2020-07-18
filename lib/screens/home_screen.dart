@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'select_category_screen.dart';
 import '../components/button.dart';
 import 'package:provider/provider.dart';
-import 'package:picturepuzzle/providers/game_state_provider.dart';
+import 'package:PuzzlePic/providers/game_state_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'dart:async';
@@ -16,16 +16,25 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  AssetImage bgImage;
+
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
   }
 
   @override
   void initState() {
+    bgImage = AssetImage('assets/images/checker_background.png');
     _initAdMob().then((_) {
       print('Admob loaded');
     }, onError: (error) => print(error));
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    precacheImage(bgImage, context);
+    super.didChangeDependencies();
   }
 
   @override
@@ -38,8 +47,9 @@ class _HomeState extends State<Home> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage('assets/images/checker_background.png')),
+            fit: BoxFit.cover,
+            image: bgImage,
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

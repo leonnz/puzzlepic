@@ -1,4 +1,4 @@
-# picturepuzzle
+# Puzzle Pic
 
 A new Flutter project.
 

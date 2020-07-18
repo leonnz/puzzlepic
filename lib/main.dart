@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:picturepuzzle/providers/game_state_provider.dart';
+import 'package:PuzzlePic/providers/game_state_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import './screens/home_screen.dart';
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => GameStateProvider(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Puzzle Pic',
         theme: ThemeData(
           fontFamily: 'Rabelo',
@@ -71,6 +72,11 @@ class MyApp extends StatelessWidget {
             ),
             headline5: GoogleFonts.roboto(
               fontSize: 24,
+              letterSpacing: 1,
+              color: Colors.black,
+            ),
+            headline6: GoogleFonts.roboto(
+              fontSize: 14,
               letterSpacing: 1,
               color: Colors.black,
             ),

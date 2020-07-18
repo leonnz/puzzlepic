@@ -1,4 +1,4 @@
-name: picturepuzzle
+name: PuzzlePic
 description: A new Flutter project.
 
 # The following defines the version and build number for your application.
@@ -23,6 +23,7 @@ dependencies:
   google_fonts: ^1.1.0
   firebase_admob: ^0.9.3+2
   sqflite: ^1.3.0
+  in_app_purchase: ^0.3.4+1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
@@ -30,6 +31,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.7.5
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "dev_assets/puzzlepic_icon.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "dev_assets/puzzlepic_adaptive_icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -56,6 +65,12 @@ flutter:
     - assets/images/animals/monkey/
     - assets/images/animals/parrot/
     - assets/images/animals/tiger/
+    - assets/images/art/
+    - assets/images/art/claude_monet/
+    - assets/images/art/da_vinci/
+    - assets/images/art/edgar_degas/
+    - assets/images/art/rembrandt/
+    - assets/images/art/van_gogh/
     - assets/images/buildings/
     - assets/images/buildings/big_ben/
     - assets/images/buildings/colosseum/
