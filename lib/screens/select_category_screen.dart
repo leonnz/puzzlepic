@@ -33,7 +33,9 @@ class SelectCategory extends StatelessWidget {
           backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
           appBar: PreferredSize(
               preferredSize:
-                  Size.fromHeight(deviceState.getDeviceHeight * 0.09),
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? Size.fromHeight(deviceState.getDeviceHeight * 0.09)
+                      : Size.fromHeight(deviceState.getDeviceHeight * 0.15),
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,

@@ -53,7 +53,10 @@ class _SelectPictureState extends State<SelectPicture> {
         child: Scaffold(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(deviceState.getDeviceHeight * 0.12),
+            preferredSize:
+                MediaQuery.of(context).orientation == Orientation.portrait
+                    ? Size.fromHeight(deviceState.getDeviceHeight * 0.12)
+                    : Size.fromHeight(deviceState.getDeviceHeight * 0.20),
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -97,7 +100,7 @@ class _SelectPictureState extends State<SelectPicture> {
                           grid = Padding(
                             padding: EdgeInsets.only(
                                 bottom:
-                                    deviceState.getUseMobileLayout ? 10 : 15),
+                                    deviceState.getUseMobileLayout ? 4 : 15),
                             child: Text(
                               'Completed ${snapshot.data.length} / ${images.length}',
                               textAlign: TextAlign.center,
