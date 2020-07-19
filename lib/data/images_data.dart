@@ -81,6 +81,12 @@ class Images {
           "title": "Night Watch (1642)",
         },
         {
+          "assetName": "renoir",
+          "readableName": "Renoir",
+          "readableFullname": "Pierre-Auguste Renoir",
+          "title": "In Brittany (1886)",
+        },
+        {
           "assetName": "van_dyck",
           "readableName": "van Dyck",
           "readableFullname": "Anthony van Dyck",
