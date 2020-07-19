@@ -270,11 +270,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           ),
           child: Scaffold(
             backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
-            body: Flex(
-              direction:
-                  MediaQuery.of(context).orientation == Orientation.portrait
-                      ? Axis.vertical
-                      : Axis.horizontal,
+            body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Spacer(),

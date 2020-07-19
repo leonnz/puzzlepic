@@ -25,9 +25,7 @@ class _SelectPictureState extends State<SelectPicture> {
   @override
   Widget build(BuildContext context) {
     DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
-    deviceState.setGridSize(
-        useMobile: deviceState.getUseMobileLayout,
-        orientation: MediaQuery.of(context).orientation);
+    deviceState.setGridSize(useMobile: deviceState.getUseMobileLayout);
 
     DBProviderDb dbProvider = DBProviderDb();
 
@@ -53,10 +51,7 @@ class _SelectPictureState extends State<SelectPicture> {
         child: Scaffold(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
           appBar: PreferredSize(
-            preferredSize:
-                MediaQuery.of(context).orientation == Orientation.portrait
-                    ? Size.fromHeight(deviceState.getDeviceHeight * 0.12)
-                    : Size.fromHeight(deviceState.getDeviceHeight * 0.18),
+            preferredSize: Size.fromHeight(deviceState.getDeviceHeight * 0.10),
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(

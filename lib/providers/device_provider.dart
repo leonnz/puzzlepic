@@ -13,21 +13,13 @@ class DeviceProvider extends ChangeNotifier {
     _useMobileLayout = useMobileLayout;
   }
 
-  void setGridSize({bool useMobile, Orientation orientation}) {
+  void setGridSize({bool useMobile}) {
     int columns;
 
     if (useMobile) {
-      if (orientation == Orientation.portrait) {
-        columns = 2;
-      } else {
-        columns = 3;
-      }
+      columns = 2;
     } else {
-      if (orientation == Orientation.portrait) {
-        columns = 3;
-      } else {
-        columns = 4;
-      }
+      columns = 3;
     }
 
     _gridSize = columns;

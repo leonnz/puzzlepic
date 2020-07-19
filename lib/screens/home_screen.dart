@@ -42,7 +42,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final double shortestSide = MediaQuery.of(context).size.shortestSide;
     final bool useMobileLayout = shortestSide < 600;
-    final Orientation orientation = MediaQuery.of(context).orientation;
     final double deviceHeight = MediaQuery.of(context).size.height;
 
     GameStateProvider state = Provider.of<GameStateProvider>(context);
@@ -52,10 +51,7 @@ class _HomeState extends State<Home> {
 
     deviceState.setUseMobileLayout(useMobileLayout: useMobileLayout);
     deviceState.setDeviceHeight(height: deviceHeight);
-    deviceState.setGridSize(
-      useMobile: useMobileLayout,
-      orientation: orientation,
-    );
+    deviceState.setGridSize(useMobile: useMobileLayout);
 
     return Scaffold(
       body: Container(

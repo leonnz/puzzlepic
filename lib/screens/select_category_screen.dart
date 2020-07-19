@@ -12,9 +12,7 @@ class SelectCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
-    deviceState.setGridSize(
-        useMobile: deviceState.getUseMobileLayout,
-        orientation: MediaQuery.of(context).orientation);
+    deviceState.setGridSize(useMobile: deviceState.getUseMobileLayout);
 
     return GestureDetector(
       onPanUpdate: (details) {
@@ -33,9 +31,7 @@ class SelectCategory extends StatelessWidget {
           backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
           appBar: PreferredSize(
               preferredSize:
-                  MediaQuery.of(context).orientation == Orientation.portrait
-                      ? Size.fromHeight(deviceState.getDeviceHeight * 0.09)
-                      : Size.fromHeight(deviceState.getDeviceHeight * 0.15),
+                  Size.fromHeight(deviceState.getDeviceHeight * 0.10),
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
