@@ -75,6 +75,12 @@ class Images {
           "title": "Elizabeth And Thomas Linley (Ca. 1768)",
         },
         {
+          "assetName": "lawrence",
+          "readableName": "Lawrence",
+          "readableFullname": "Thomas Lawrence",
+          "title": "Lady Maria Conyngham (Ca. 1824–25)",
+        },
+        {
           "assetName": "rembrandt",
           "readableName": "Rembrandt",
           "readableFullname": null,
