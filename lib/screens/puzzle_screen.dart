@@ -285,16 +285,16 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                           padding: const EdgeInsets.all(10.0),
                           child: Text(
                             widget.readableName,
-                            style:
-                                CustomTextTheme.puzzleScreenImageTitle(context),
+                            style: CustomTextTheme(deviceProvider: deviceState)
+                                .puzzleScreenImageTitle(),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10.0),
                           child: Text(
                             widget.title != null ? widget.title : "",
-                            style: CustomTextTheme.puzzleScreenPictureTitle(
-                                context),
+                            style: CustomTextTheme(deviceProvider: deviceState)
+                                .puzzleScreenPictureSubTitle(),
                           ),
                         ),
                         Padding(

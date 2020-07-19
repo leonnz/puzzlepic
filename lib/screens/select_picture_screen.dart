@@ -100,8 +100,7 @@ class _SelectPictureState extends State<SelectPicture> {
                               textAlign: TextAlign.center,
                               style:
                                   CustomTextTheme(deviceProvider: deviceState)
-                                      .selectPictureScreenCompletedTextStyle(
-                                          context),
+                                      .selectPictureScreenCompletedTextStyle(),
                             ),
                           );
                         } else {

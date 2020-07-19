@@ -25,26 +25,26 @@ class CustomTextTheme {
     );
   }
 
-  static TextStyle buttonTextStyle(BuildContext context) {
+  TextStyle buttonTextStyle() {
     return GoogleFonts.roboto(letterSpacing: 1);
   }
 
-  TextStyle selectPictureButtonTextStyle(BuildContext context) {
+  TextStyle selectPictureButtonTextStyle() {
     return GoogleFonts.solway(
       fontSize: deviceProvider.getUseMobileLayout ? 16 : 25,
       color: Colors.black,
     );
   }
 
-  static TextStyle puzzleScreenImageTitle(BuildContext context) {
+  TextStyle puzzleScreenImageTitle() {
     return GoogleFonts.solway(
-      fontSize: 30,
+      fontSize: deviceProvider.getUseMobileLayout ? 30 : 45,
       letterSpacing: 1,
       color: Colors.black,
     );
   }
 
-  TextStyle selectPictureScreenCompletedTextStyle(BuildContext context) {
+  TextStyle selectPictureScreenCompletedTextStyle() {
     return GoogleFonts.solway(
       fontSize: deviceProvider.getUseMobileLayout ? 14 : 22,
       letterSpacing: 1,
@@ -60,9 +60,9 @@ class CustomTextTheme {
     );
   }
 
-  static TextStyle puzzleScreenPictureTitle(BuildContext context) {
+  TextStyle puzzleScreenPictureSubTitle() {
     return GoogleFonts.roboto(
-      fontSize: 14,
+      fontSize: deviceProvider.getUseMobileLayout ? 14 : 20,
       letterSpacing: 1,
       color: Colors.black,
     );
