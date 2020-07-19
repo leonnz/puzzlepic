@@ -69,6 +69,12 @@ class Images {
           "title": "The False Start (Ca. 1869–72)",
         },
         {
+          "assetName": "gainsborough",
+          "readableName": "Gainsborough",
+          "readableFullname": "Thomas Gainsborough",
+          "title": "Elizabeth And Thomas Linley (Ca. 1768)",
+        },
+        {
           "assetName": "rembrandt",
           "readableName": "Rembrandt",
           "readableFullname": null,
