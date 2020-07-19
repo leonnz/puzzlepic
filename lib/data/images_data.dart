@@ -71,6 +71,11 @@ class Images {
           "title": "Night Watch (1642)",
         },
         {
+          "assetName": "van_dyck",
+          "readableName": "Van Dyck",
+          "title": "Charles I (1600-49)",
+        },
+        {
           "assetName": "van_gogh",
           "readableName": "Van Gogh",
           "title": "Le Café De Nuit (The Night Café) (1888)",
