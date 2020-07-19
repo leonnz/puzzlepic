@@ -367,7 +367,10 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                         buttonColor: Colors.white,
                         child: RaisedButton(
                           elevation: 3,
-                          child: Icon(Icons.search),
+                          child: Icon(
+                            Icons.search,
+                            size: deviceState.getUseMobileLayout ? 24 : 40,
+                          ),
                           onPressed: () =>
                               Navigator.of(context).push(_customScaleRoute()),
                         ),
@@ -378,7 +381,10 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                         buttonColor: Colors.white,
                         child: RaisedButton(
                           elevation: 3,
-                          child: Icon(Icons.close),
+                          child: Icon(
+                            Icons.close,
+                            size: deviceState.getUseMobileLayout ? 24 : 40,
+                          ),
                           onPressed: () => quitGame(),
                         ),
                       ),
