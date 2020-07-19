@@ -8,6 +8,7 @@ import '../providers/device_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'dart:async';
+import 'package:flutter/services.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -57,6 +58,13 @@ class _HomeState extends State<Home> {
       useMobile: useMobileLayout,
       orientation: orientation,
     );
+
+    if (useMobileLayout) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+    }
 
     return Scaffold(
       body: Container(
