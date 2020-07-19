@@ -14,11 +14,17 @@ import '../styles/customStyles.dart';
 
 class PuzzleScreen extends StatefulWidget {
   const PuzzleScreen(
-      {Key key, this.assetName, this.readableName, this.title, this.category})
+      {Key key,
+      this.assetName,
+      this.readableName,
+      this.readableFullname,
+      this.title,
+      this.category})
       : super(key: key);
 
   final String assetName;
   final String readableName;
+  final String readableFullname;
   final String title;
   final String category;
 
@@ -179,6 +185,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         context: context,
         builder: (context) => PuzzleCompleteAlert(
           readableName: widget.readableName,
+          readableFullname: widget.readableFullname,
           fullAd: _interstitialAd,
           fullAdReady: _isInterstitialAdReady,
         ),
@@ -284,7 +291,9 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Text(
-                            widget.readableName,
+                            widget.readableFullname != null
+                                ? widget.readableFullname
+                                : widget.readableName,
                             style: CustomTextTheme(deviceProvider: deviceState)
                                 .puzzleScreenImageTitle(),
                           ),

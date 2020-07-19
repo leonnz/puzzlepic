@@ -5,11 +5,13 @@ class PuzzleCompleteAlert extends StatelessWidget {
   const PuzzleCompleteAlert({
     Key key,
     this.readableName,
+    this.readableFullname,
     this.fullAd,
     this.fullAdReady,
   }) : super(key: key);
 
   final String readableName;
+  final String readableFullname;
   final InterstitialAd fullAd;
   final bool fullAdReady;
 
@@ -21,7 +23,8 @@ class PuzzleCompleteAlert extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text('You completed $readableName.'),
+            Text(
+                'You completed ${readableFullname != null ? readableFullname : readableName}.'),
             Container(
               margin: EdgeInsets.all(20.0),
               child: FlatButton(

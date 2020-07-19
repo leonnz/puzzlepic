@@ -53,31 +53,37 @@ class Images {
         {
           "assetName": "claude_monet",
           "readableName": "Claude Monet",
+          "readableFullname": null,
           "title": "The Bridge At Argenteuil (1874)",
         },
         {
           "assetName": "da_vinci",
-          "readableName": "Da Vinci",
+          "readableName": "da Vinci",
+          "readableFullname": "Leonardo da Vinci",
           "title": "Ginevra De’ Benci (Ca. 1474-1478)",
         },
         {
           "assetName": "edgar_degas",
           "readableName": "Edgar Degas",
+          "readableFullname": null,
           "title": "The False Start (Ca. 1869–72)",
         },
         {
           "assetName": "rembrandt",
           "readableName": "Rembrandt",
+          "readableFullname": null,
           "title": "Night Watch (1642)",
         },
         {
           "assetName": "van_dyck",
-          "readableName": "Van Dyck",
+          "readableName": "van Dyck",
+          "readableFullname": "Anthony van Dyck",
           "title": "Charles I (1600-49)",
         },
         {
           "assetName": "van_gogh",
-          "readableName": "Van Gogh",
+          "readableName": "van Gogh",
+          "readableFullname": "Vincent van Gogh",
           "title": "Le Café De Nuit (The Night Café) (1888)",
         },
       ]
