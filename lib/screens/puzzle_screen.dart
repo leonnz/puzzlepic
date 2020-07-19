@@ -361,20 +361,26 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      RaisedButton(
-                        elevation: 3,
-                        color: Color(0xff000000),
-                        // child: Text("Hint"),
-                        child: Icon(Icons.search),
-                        onPressed: () =>
-                            Navigator.of(context).push(_customScaleRoute()),
+                      ButtonTheme(
+                        minWidth: deviceState.getUseMobileLayout ? 88 : 150,
+                        height: deviceState.getUseMobileLayout ? 36 : 60,
+                        buttonColor: Colors.white,
+                        child: RaisedButton(
+                          elevation: 3,
+                          child: Icon(Icons.search),
+                          onPressed: () =>
+                              Navigator.of(context).push(_customScaleRoute()),
+                        ),
                       ),
-                      RaisedButton(
-                        elevation: 3,
-                        color: Color(0xff000000),
-                        // child: Text("Quit"),
-                        child: Icon(Icons.close),
-                        onPressed: () => quitGame(),
+                      ButtonTheme(
+                        minWidth: deviceState.getUseMobileLayout ? 88 : 150,
+                        height: deviceState.getUseMobileLayout ? 36 : 60,
+                        buttonColor: Colors.white,
+                        child: RaisedButton(
+                          elevation: 3,
+                          child: Icon(Icons.close),
+                          onPressed: () => quitGame(),
+                        ),
                       ),
                     ],
                   ),
