@@ -7,10 +7,10 @@ class GameStateProvider with ChangeNotifier {
   static List<Map<String, dynamic>> _piecePositions = [];
   static double _screenWidth;
   static double _screenHeight;
+  static int _gridSideSize = 4;
   static double _singlePieceWidth = _screenWidth / _gridSideSize;
   static int _totalGridSize = 16;
   static int _blankSquare = _totalGridSize;
-  static int _gridSideSize = sqrt(_totalGridSize).toInt();
   static int _moves = 0;
   static List<int> _gridPositions;
 
