@@ -6,10 +6,10 @@ class GameStateProvider with ChangeNotifier {
   static Map<String, String> _image;
   static List<Map<String, dynamic>> _piecePositions = [];
   static double _screenWidth;
-  static double _screenHeight;
-  static int _gridSideSize = 4;
-  static double _singlePieceWidth = _screenWidth / _gridSideSize;
+  static int _gridColumns = 4;
   static int _totalGridSize = 16;
+  static double _singlePieceWidth = _screenWidth / _gridColumns;
+
   static int _blankSquare = _totalGridSize;
   static int _moves = 0;
   static List<int> _gridPositions;
@@ -18,11 +18,10 @@ class GameStateProvider with ChangeNotifier {
   Map<String, String> get getImage => _image;
   List<Map<String, dynamic>> get getPiecePositions => _piecePositions;
   double get getScreenWidth => _screenWidth;
-  double get getScreenHeight => _screenHeight;
   double get getSinglePieceWidth => _singlePieceWidth;
   int get getTotalGridSize => _totalGridSize;
   int get getBlankSquare => _blankSquare;
-  int get getGridSideSize => _gridSideSize;
+  int get getGridColumns => _gridColumns;
   int get getMoves => _moves;
   List<int> get getGridPositions => _gridPositions;
 
@@ -51,10 +50,6 @@ class GameStateProvider with ChangeNotifier {
 
   void setScreenWidth({double width}) {
     _screenWidth = width;
-  }
-
-  void setScreenHeight({double height}) {
-    _screenHeight = height;
   }
 
   // Check if the piece number matches its position
@@ -104,9 +99,9 @@ class GameStateProvider with ChangeNotifier {
 
   double setStartingLeftPosition(int pieceNumber) {
     double leftPosition;
-    int modulo = pieceNumber % getGridSideSize;
+    int modulo = pieceNumber % getGridColumns;
     if (modulo == 0) {
-      leftPosition = getSinglePieceWidth * (getGridSideSize - 1);
+      leftPosition = getSinglePieceWidth * (getGridColumns - 1);
     } else if (modulo == 1) {
       leftPosition = 0;
     } else if (modulo == 2) {
@@ -122,16 +117,16 @@ class GameStateProvider with ChangeNotifier {
 
   double setStartingTopPosition(int pieceNumber) {
     double topPosition;
-    if (pieceNumber <= getGridSideSize) {
+    if (pieceNumber <= getGridColumns) {
       topPosition = 0;
-    } else if (pieceNumber > getGridSideSize &&
-        pieceNumber <= (getGridSideSize * 2)) {
+    } else if (pieceNumber > getGridColumns &&
+        pieceNumber <= (getGridColumns * 2)) {
       topPosition = getSinglePieceWidth;
-    } else if (pieceNumber > (getGridSideSize * 2) &&
-        pieceNumber <= (getGridSideSize * 3)) {
+    } else if (pieceNumber > (getGridColumns * 2) &&
+        pieceNumber <= (getGridColumns * 3)) {
       topPosition = getSinglePieceWidth * 2;
-    } else if (pieceNumber > (getGridSideSize * 3) &&
-        pieceNumber <= (getGridSideSize * 4)) {
+    } else if (pieceNumber > (getGridColumns * 3) &&
+        pieceNumber <= (getGridColumns * 4)) {
       topPosition = getSinglePieceWidth * 3;
     } else {
       topPosition = getSinglePieceWidth * 4;

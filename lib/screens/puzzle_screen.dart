@@ -4,6 +4,7 @@ import '../components/puzzle_complete_alert.dart';
 import '../screens/hint_screen.dart';
 import '../providers/game_state_provider.dart';
 import '../providers/image_piece_provider.dart';
+import '../providers/device_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
@@ -103,7 +104,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<GameStateProvider>(context, listen: true);
+    GameStateProvider state = Provider.of<GameStateProvider>(context);
+    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
 
     state.setGridPositions();
 
@@ -268,73 +270,81 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           ),
           child: Scaffold(
             backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
-            body: Column(
+            body: Flex(
+              direction:
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? Axis.vertical
+                      : Axis.horizontal,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Spacer(),
-                Card(
-                  color: Colors.white,
-                  elevation: 4,
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          widget.readableName,
-                          style:
-                              CustomTextTheme.puzzleScreenImageTitle(context),
+                Container(
+                  width: state.getScreenWidth + 20,
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 4,
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            widget.readableName,
+                            style:
+                                CustomTextTheme.puzzleScreenImageTitle(context),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: Text(
-                          widget.title != null ? widget.title : "",
-                          style:
-                              CustomTextTheme.puzzleScreenPictureTitle(context),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Text(
+                            widget.title != null ? widget.title : "",
+                            style: CustomTextTheme.puzzleScreenPictureTitle(
+                                context),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Text(
-                              'Moves: ${state.getMoves}',
-                            ),
-                            FutureBuilder(
-                              future: getSingleRecord(),
-                              initialData: 0,
-                              builder: (context, AsyncSnapshot<int> snapshot) {
-                                Widget bestMoves;
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(
+                                'Moves: ${state.getMoves}',
+                              ),
+                              FutureBuilder(
+                                future: getSingleRecord(),
+                                initialData: 0,
+                                builder:
+                                    (context, AsyncSnapshot<int> snapshot) {
+                                  Widget bestMoves;
 
-                                if (snapshot.hasData) {
-                                  int moves = snapshot.data;
-                                  bestMoves = Text('Best moves: $moves');
-                                } else {
-                                  bestMoves = Text('Best moves: 0');
-                                }
-                                return bestMoves;
-                              },
-                            ),
-                          ],
+                                  if (snapshot.hasData) {
+                                    int moves = snapshot.data;
+                                    bestMoves = Text('Best moves: $moves');
+                                  } else {
+                                    bestMoves = Text('Best moves: 0');
+                                  }
+                                  return bestMoves;
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          width: state.getScreenWidth,
-                          height: state.getScreenWidth,
-                          color: Colors.grey,
-                          child: state.getPuzzleComplete
-                              ? Stack(
-                                  children: generateImagePieces(16, true),
-                                )
-                              : Stack(
-                                  children: generateImagePieces(15, false),
-                                ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            width: state.getScreenWidth,
+                            height: state.getScreenWidth,
+                            color: Colors.grey,
+                            child: state.getPuzzleComplete
+                                ? Stack(
+                                    children: generateImagePieces(16, true),
+                                  )
+                                : Stack(
+                                    children: generateImagePieces(15, false),
+                                  ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Padding(

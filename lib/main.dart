@@ -20,6 +20,11 @@ class MyApp extends StatelessWidget {
 
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => GameStateProvider()),

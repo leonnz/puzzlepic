@@ -83,7 +83,7 @@ class _ImagePieceState extends State<ImagePiece>
                     yDistance: 0.0,
                     piecePositions: state.getPiecePositions,
                     blankSquare: state.getBlankSquare,
-                    gridSideSize: state.getGridSideSize,
+                    gridSideSize: state.getGridColumns,
                     gridSize: state.getTotalGridSize,
                   ) &&
                   !state.getPuzzleComplete) {
@@ -117,7 +117,7 @@ class _ImagePieceState extends State<ImagePiece>
                     yDistance: yDistance,
                     piecePositions: state.getPiecePositions,
                     blankSquare: state.getBlankSquare,
-                    gridSideSize: state.getGridSideSize,
+                    gridSideSize: state.getGridColumns,
                     gridSize: state.getTotalGridSize,
                   ) &&
                   !state.getPuzzleComplete) {
