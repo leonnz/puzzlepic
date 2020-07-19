@@ -304,6 +304,9 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                             children: <Widget>[
                               Text(
                                 'Moves: ${state.getMoves}',
+                                style:
+                                    CustomTextTheme(deviceProvider: deviceState)
+                                        .puzzleScreenMovesCounter(),
                               ),
                               FutureBuilder(
                                 future: getSingleRecord(),
@@ -314,9 +317,19 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
                                   if (snapshot.hasData) {
                                     int moves = snapshot.data;
-                                    bestMoves = Text('Best moves: $moves');
+                                    bestMoves = Text(
+                                      'Best moves: $moves',
+                                      style: CustomTextTheme(
+                                              deviceProvider: deviceState)
+                                          .puzzleScreenMovesCounter(),
+                                    );
                                   } else {
-                                    bestMoves = Text('Best moves: 0');
+                                    bestMoves = Text(
+                                      'Best moves: 0',
+                                      style: CustomTextTheme(
+                                              deviceProvider: deviceState)
+                                          .puzzleScreenMovesCounter(),
+                                    );
                                   }
                                   return bestMoves;
                                 },

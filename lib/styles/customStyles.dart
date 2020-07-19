@@ -67,4 +67,12 @@ class CustomTextTheme {
       color: Colors.black,
     );
   }
+
+  TextStyle puzzleScreenMovesCounter() {
+    return GoogleFonts.roboto(
+      fontSize: deviceProvider.getUseMobileLayout ? 14 : 20,
+      letterSpacing: 1,
+      color: Colors.black,
+    );
+  }
 }
