@@ -276,6 +276,11 @@ class Images {
           "readableName": "Chinese Dumplings",
         },
         {
+          "assetName": "kebab",
+          "readableName": "Doner Kebab",
+          "title": "from Turkey"
+        },
+        {
           "assetName": "laksa",
           "readableName": "Malaysian Laksa",
         },
