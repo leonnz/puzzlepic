@@ -226,6 +226,18 @@ class Images {
       ]
     },
     {
+      "categoryName": "cities",
+      "categoryReadableName": "City Scenes",
+      "categoryImages": [
+        {
+          "assetName": "london",
+          "readableName": "London",
+          "readableFullname": "London",
+          "title": "Easter Island, Chile",
+        },
+      ],
+    },
+    {
       "categoryName": "flowers",
       "categoryReadableName": "Pretty Flowers",
       "categoryImages": [
