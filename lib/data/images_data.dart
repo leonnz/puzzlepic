@@ -45,6 +45,10 @@ class Images {
           "readableName": "Parrot",
         },
         {
+          "assetName": "sloth",
+          "readableName": "Sloth",
+        },
+        {
           "assetName": "tiger",
           "readableName": "Tiger",
         },
