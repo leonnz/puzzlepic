@@ -410,6 +410,10 @@ class Images {
           "assetName": "starfish",
           "readableName": "Starfish",
         },
+        {
+          "assetName": "stingray",
+          "readableName": "Stingray",
+        },
       ],
     }
   ];
