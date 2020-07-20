@@ -206,6 +206,10 @@ class Images {
       "categoryReadableName": "Pretty Flowers",
       "categoryImages": [
         {
+          "assetName": "carnations",
+          "readableName": "Carnations",
+        },
+        {
           "assetName": "daffodils",
           "readableName": "Daffodils",
         },
