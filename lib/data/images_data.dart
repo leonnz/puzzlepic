@@ -233,7 +233,7 @@ class Images {
           "assetName": "london",
           "readableName": "London",
           "readableFullname": "London",
-          "title": "Easter Island, Chile",
+          "title": "Oxford Street, Westminster, London",
         },
       ],
     },
