@@ -153,6 +153,10 @@ class Images {
           "readableName": "Eiffel Tower",
         },
         {
+          "assetName": "golden_gate_bridge",
+          "readableName": "Golden Gate Bridge",
+        },
+        {
           "assetName": "great_wall",
           "readableName": "Great Wall",
         },
