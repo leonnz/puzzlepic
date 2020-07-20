@@ -145,6 +145,10 @@ class Images {
           "readableName": "Colosseum",
         },
         {
+          "assetName": "easter_island",
+          "readableName": "Easter Island",
+        },
+        {
           "assetName": "eiffel_tower",
           "readableName": "Eiffel Tower",
         },
