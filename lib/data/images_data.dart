@@ -307,6 +307,12 @@ class Images {
           "title": "from Italy",
         },
         {
+          "assetName": "pie",
+          "readableName": "Pie",
+          "readableFullname": "Meat Pie",
+          "title": "from Australia",
+        },
+        {
           "assetName": "sausages",
           "readableName": "Sausages",
           "readableFullname": "Bratwurst Sausages",
