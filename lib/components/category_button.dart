@@ -43,13 +43,18 @@ class CategoryButton extends StatelessWidget {
                 ),
               ),
               Align(
-                alignment: Alignment.center,
+                alignment: Alignment.bottomCenter,
                 child: Container(
                   padding: EdgeInsets.all(5),
-                  height: 50,
+                  height: deviceProvider.getUseMobileLayout ? 50 : 70,
                   width: double.infinity,
-                  decoration:
-                      BoxDecoration(color: Color.fromRGBO(255, 255, 255, 0.80)),
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(255, 255, 255, 0.80),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                  ),
                   child: Center(
                     child: Text(
                       categoryReadableName,
