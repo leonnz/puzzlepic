@@ -139,50 +139,65 @@ class Images {
         {
           "assetName": "big_ben",
           "readableName": "Big Ben",
+          "title": "London, Engalnd"
         },
         {
           "assetName": "colosseum",
           "readableName": "Colosseum",
+          "title": "Rome, Italy",
         },
         {
           "assetName": "easter_island",
           "readableName": "Easter Island",
+          "readableFullname": "Easter Island Statues",
+          "title": "Easter Island, Chile",
         },
         {
           "assetName": "eiffel_tower",
           "readableName": "Eiffel Tower",
+          "title": "Paris, France"
         },
         {
           "assetName": "golden_gate_bridge",
           "readableName": "Golden Gate Bridge",
+          "title": "San Francisco, United States"
         },
         {
           "assetName": "great_wall",
           "readableName": "Great Wall",
+          "readableFullname": "Great Wall of China",
+          "title": "China"
         },
         {
           "assetName": "machu_picchu",
           "readableName": "Machu Picchu",
+          "title": "Cuzco Region, Peru"
         },
         {
           "assetName": "parthenon",
           "readableName": "Parthenon",
+          "title": "Athens, Greece"
         },
         {
           "assetName": "petra",
           "readableName": "Petra",
+          "title": "Jordan",
         },
         {
           "assetName": "pyramids",
           "readableName": "Pyramids",
+          "readableFullname": "Pyramids of Giza",
+          "title": "Cairo, Egypt",
         },
         {
           "assetName": "statue_of_liberty",
           "readableName": "Statue of Liberty",
+          "title": "New York, United States",
         },
         {
           "assetName": "taj_mahal",
           "readableName": "Taj Mahal",
+          "title": "Agra, India",
         },
       ]
     },
