@@ -233,7 +233,7 @@ class Images {
           "assetName": "london",
           "readableName": "London",
           "readableFullname": "London",
-          "title": "Oxford Street, Westminster, London",
+          "title": "Black cab on Oxford Street, Westminster",
         },
       ],
     },
