@@ -230,6 +230,12 @@ class Images {
       "categoryReadableName": "City Scenes",
       "categoryImages": [
         {
+          "assetName": "los_angeles",
+          "readableName": "Los Angeles",
+          "readableFullname": "Los Angeles",
+          "title": "Downtown skyline at sunset",
+        },
+        {
           "assetName": "london",
           "readableName": "London",
           "readableFullname": "London",
