@@ -75,6 +75,12 @@ class Images {
           "title": "Elizabeth And Thomas Linley (Ca. 1768)",
         },
         {
+          "assetName": "gerome",
+          "readableName": "Gerome",
+          "readableFullname": "Jean-Léon Gérôme",
+          "title": "The Colossus Of Memnon",
+        },
+        {
           "assetName": "lawrence",
           "readableName": "Lawrence",
           "readableFullname": "Thomas Lawrence",
