@@ -214,6 +214,10 @@ class Images {
           "readableName": "Daffodils",
         },
         {
+          "assetName": "dahlias",
+          "readableName": "Dahlias",
+        },
+        {
           "assetName": "daisies",
           "readableName": "Daisies",
         },
