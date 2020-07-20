@@ -96,6 +96,7 @@ flutter:
     - assets/images/cities/
     - assets/images/cities/london/
     - assets/images/cities/new_york/
+    - assets/images/cities/tokyo/
     - assets/images/flowers/
     - assets/images/flowers/carnations/
     - assets/images/flowers/daffodils/

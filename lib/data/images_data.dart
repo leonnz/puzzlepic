@@ -241,6 +241,12 @@ class Images {
           "readableFullname": "New York",
           "title": "Rainy night in Times Square",
         },
+        {
+          "assetName": "tokyo",
+          "readableName": "Tokyo",
+          "readableFullname": "Tokyo",
+          "title": "Shibuya district crossing",
+        },
       ],
     },
     {
