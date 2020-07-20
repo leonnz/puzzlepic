@@ -254,6 +254,12 @@ class Images {
           "title": "Bukchon Hanok Village",
         },
         {
+          "assetName": "stockholm",
+          "readableName": "Stockholm",
+          "readableFullname": "Stockholm, Sweden",
+          "title": "Stortorget place in Gamla stan (Old Town)",
+        },
+        {
           "assetName": "tokyo",
           "readableName": "Tokyo",
           "readableFullname": "Tokyo, Japan",
