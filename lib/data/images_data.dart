@@ -104,6 +104,12 @@ class Images {
           "readableFullname": "Vincent van Gogh",
           "title": "Le Café De Nuit (The Night Café) (1888)",
         },
+        {
+          "assetName": "west",
+          "readableName": "West",
+          "readableFullname": "Benjamin West",
+          "title": "The Artist And His Son Raphael (1773)",
+        },
       ]
     },
     {
