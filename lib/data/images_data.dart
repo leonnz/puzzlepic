@@ -81,6 +81,12 @@ class Images {
           "title": "Lady Maria Conyngham (Ca. 1824–25)",
         },
         {
+          "assetName": "morland",
+          "readableName": "Morland",
+          "readableFullname": "George Morland",
+          "title": "Winter Landscape With Figures (Ca. 1785)",
+        },
+        {
           "assetName": "rembrandt",
           "readableName": "Rembrandt",
           "readableFullname": null,
