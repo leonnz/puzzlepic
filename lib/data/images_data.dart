@@ -453,6 +453,12 @@ class Images {
           "title": "Lake Wakatipu and the road from Queenstown to Glenorchy",
         },
         {
+          "assetName": "monument_valley",
+          "readableName": "Monument Valley",
+          "readableFullname": "Monument Valley, USA",
+          "title": "Rock formations in Hunts Mesa",
+        },
+        {
           "assetName": "rice_fields",
           "readableName": "Rice Fields",
           "readableFullname": "Rice Fields, Vietnam",
