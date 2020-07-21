@@ -90,4 +90,10 @@ class CustomTextTheme {
       color: Colors.black,
     );
   }
+
+  TextStyle puzzleScreenQuitAlertButtonText() {
+    return TextStyle(
+      fontSize: deviceProvider.getUseMobileLayout ? 16 : 20,
+    );
+  }
 }

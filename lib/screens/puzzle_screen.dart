@@ -132,22 +132,48 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           width: 500,
           child: AlertDialog(
             title: Text('Leave this game'),
-            content: Text('Progress will be lost, are you sure?'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: Text('No'),
-                textColor: Color(0xff501E5D),
-              ),
-              FlatButton(
-                onPressed: () {
-                  resetGameState();
-                  Navigator.pop(context, true);
-                },
-                child: Text('Yes'),
-                textColor: Color(0xff501E5D),
-              )
-            ],
+            titleTextStyle: CustomTextTheme(deviceProvider: deviceState)
+                .puzzleScreenQuitAlertTitle(),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(
+                    bottom: 40,
+                  ),
+                  child: Text('Progress will be lost, are you sure?'),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    FlatButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: Text(
+                        'No',
+                        style: CustomTextTheme(deviceProvider: deviceState)
+                            .puzzleScreenQuitAlertButtonText(),
+                      ),
+                      textColor: Color(0xff501E5D),
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        resetGameState();
+                        Navigator.pop(context, true);
+                      },
+                      child: Text(
+                        'Yes',
+                        style: CustomTextTheme(deviceProvider: deviceState)
+                            .puzzleScreenQuitAlertButtonText(),
+                      ),
+                      textColor: Color(0xff501E5D),
+                    )
+                  ],
+                )
+              ],
+            ),
+            contentTextStyle: CustomTextTheme(deviceProvider: deviceState)
+                .puzzleScreenQuitAlertContent(),
           ),
         ),
       );
@@ -158,9 +184,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       await showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(
-            'Leave this game',
-          ),
+          title: Text('Leave this game'),
           titleTextStyle: CustomTextTheme(deviceProvider: deviceState)
               .puzzleScreenQuitAlertTitle(),
           content: Column(
@@ -171,21 +195,27 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   bottom: 40,
                 ),
                 width: deviceState.getUseMobileLayout ? null : 300,
-                child: Text(
-                  'Progress will be lost, are you sure?',
-                ),
+                child: Text('Progress will be lost, are you sure?'),
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   FlatButton(
-                    child: Text("No"),
+                    child: Text(
+                      "No",
+                      style: CustomTextTheme(deviceProvider: deviceState)
+                          .puzzleScreenQuitAlertButtonText(),
+                    ),
                     textColor: Color(0xff501E5D),
                     onPressed: () => Navigator.pop(context),
                   ),
                   FlatButton(
-                    child: Text("Yes"),
+                    child: Text(
+                      "Yes",
+                      style: CustomTextTheme(deviceProvider: deviceState)
+                          .puzzleScreenQuitAlertButtonText(),
+                    ),
                     textColor: Color(0xff501E5D),
                     onPressed: () {
                       quit = true;
