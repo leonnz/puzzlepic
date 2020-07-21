@@ -230,6 +230,12 @@ class Images {
       "categoryReadableName": "City Scenes",
       "categoryImages": [
         {
+          "assetName": "bangkok",
+          "readableName": "Bangkok",
+          "readableFullname": "Bangkok, Thailand",
+          "title": "Market on Ratchadaphisek Road",
+        },
+        {
           "assetName": "los_angeles",
           "readableName": "Los Angeles",
           "readableFullname": "Los Angeles, USA",
