@@ -236,6 +236,12 @@ class Images {
           "title": "Market on Ratchadaphisek Road",
         },
         {
+          "assetName": "barcelona",
+          "readableName": "Barcelona",
+          "readableFullname": "Barcelona, Spain",
+          "title": "View of city from Park Guell",
+        },
+        {
           "assetName": "hong_kong",
           "readableName": "Hong Kong",
           "readableFullname": "Hong Kong, China",
