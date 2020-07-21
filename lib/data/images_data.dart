@@ -452,6 +452,12 @@ class Images {
           "readableFullname": "Lake Wakatipu, New Zealand",
           "title": "Lake Wakatipu and the road from Queenstown to Glenorchy",
         },
+        {
+          "assetName": "sahara_desert",
+          "readableName": "Sahara Desert",
+          "readableFullname": "Sahara Desert",
+          "title": "Caravan in the Sahara Desert, Morocco",
+        },
       ],
     },
     // Natural Wonders
