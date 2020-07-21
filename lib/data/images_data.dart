@@ -357,6 +357,7 @@ class Images {
         }
       ]
     },
+    // Foods
     {
       "categoryName": "foods",
       "categoryReadableName": "Foods of the world",
@@ -434,6 +435,20 @@ class Images {
         },
       ]
     },
+    // Landscapes
+    {
+      "categoryName": "landscapes",
+      "categoryReadableName": "Landscapes",
+      "categoryImages": [
+        {
+          "assetName": "lake_tahoe",
+          "readableName": "Lake Tahoe",
+          "readableFullname": "Lake Tahoe",
+          "title": "Shoreline sunset at Lake Tahoe, Nevada, USA",
+        },
+      ],
+    },
+    // Natural Wonders
     {
       "categoryName": "natural_wonders",
       "categoryReadableName": "7 Natural Wonders",
@@ -464,6 +479,7 @@ class Images {
         },
       ],
     },
+    // Under the Sea
     {
       "categoryName": "under_the_sea",
       "categoryReadableName": "Under the Sea",
