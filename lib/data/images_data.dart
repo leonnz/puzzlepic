@@ -236,6 +236,12 @@ class Images {
           "title": "Market on Ratchadaphisek Road",
         },
         {
+          "assetName": "hong_kong",
+          "readableName": "Hong Kong",
+          "readableFullname": "Hong Kong, China",
+          "title": "Nan Lian Garden in Diamond Hill",
+        },
+        {
           "assetName": "istanbul",
           "readableName": "Istanbul",
           "readableFullname": "Istanbul, Turkey",
