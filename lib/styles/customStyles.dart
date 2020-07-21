@@ -63,6 +63,7 @@ class CustomTextTheme {
   TextStyle puzzleScreenPictureSubTitle() {
     return GoogleFonts.roboto(
       fontSize: deviceProvider.getUseMobileLayout ? 14 : 20,
+      fontStyle: FontStyle.italic,
       letterSpacing: 1,
       color: Colors.black,
     );
