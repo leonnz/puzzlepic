@@ -361,10 +361,12 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                             color: Colors.grey,
                             child: state.getPuzzleComplete
                                 ? Stack(
-                                    children: generateImagePieces(16, true),
+                                    children: generateImagePieces(
+                                        state.getTotalGridSize, true),
                                   )
                                 : Stack(
-                                    children: generateImagePieces(15, false),
+                                    children: generateImagePieces(
+                                        state.getTotalGridSize - 1, false),
                                   ),
                           ),
                         ),
