@@ -236,6 +236,12 @@ class Images {
           "title": "Market on Ratchadaphisek Road",
         },
         {
+          "assetName": "istanbul",
+          "readableName": "Istanbul",
+          "readableFullname": "Istanbul, Turkey",
+          "title": "View of Galata Tower from narrow street",
+        },
+        {
           "assetName": "los_angeles",
           "readableName": "Los Angeles",
           "readableFullname": "Los Angeles, USA",
