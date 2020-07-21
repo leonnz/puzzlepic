@@ -76,4 +76,18 @@ class CustomTextTheme {
       color: Colors.black,
     );
   }
+
+  TextStyle puzzleScreenQuitAlertTitle() {
+    return TextStyle(
+      fontSize: deviceProvider.getUseMobileLayout ? 20 : 25,
+      color: Colors.black,
+    );
+  }
+
+  TextStyle puzzleScreenQuitAlertContent() {
+    return TextStyle(
+      fontSize: deviceProvider.getUseMobileLayout ? 16 : 20,
+      color: Colors.black,
+    );
+  }
 }

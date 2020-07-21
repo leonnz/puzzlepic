@@ -26,9 +26,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     bgImage = AssetImage('assets/images/checker_background.png');
-    _initAdMob().then((_) {
-      print('Admob loaded');
-    }, onError: (error) => print(error));
+    // _initAdMob().then((_) {
+    //   print('Admob loaded');
+    // }, onError: (error) => print(error));
     super.initState();
   }
 

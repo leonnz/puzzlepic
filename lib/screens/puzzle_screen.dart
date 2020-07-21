@@ -94,8 +94,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       size: AdSize.fullBanner,
     );
 
-    _loadBannerAd();
-    _loadInterstitialAd();
+    // _loadBannerAd();
+    // _loadInterstitialAd();
 
     super.initState();
   }
@@ -128,24 +128,27 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     Future<bool> _backPressed() {
       return showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Leave this game'),
-          content: Text('Progress will be lost, are you sure?'),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text('No'),
-              textColor: Color(0xff501E5D),
-            ),
-            FlatButton(
-              onPressed: () {
-                resetGameState();
-                Navigator.pop(context, true);
-              },
-              child: Text('Yes'),
-              textColor: Color(0xff501E5D),
-            )
-          ],
+        builder: (context) => Container(
+          width: 500,
+          child: AlertDialog(
+            title: Text('Leave this game'),
+            content: Text('Progress will be lost, are you sure?'),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: Text('No'),
+                textColor: Color(0xff501E5D),
+              ),
+              FlatButton(
+                onPressed: () {
+                  resetGameState();
+                  Navigator.pop(context, true);
+                },
+                child: Text('Yes'),
+                textColor: Color(0xff501E5D),
+              )
+            ],
+          ),
         ),
       );
     }
@@ -155,23 +158,46 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       await showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Leave this game'),
-          content: Text('Progress will be lost, are you sure?'),
-          actions: [
-            FlatButton(
-              child: Text("No"),
-              textColor: Color(0xff501E5D),
-              onPressed: () => Navigator.pop(context),
-            ),
-            FlatButton(
-              child: Text("Yes"),
-              textColor: Color(0xff501E5D),
-              onPressed: () {
-                quit = true;
-                Navigator.pop(context);
-              },
-            ),
-          ],
+          title: Text(
+            'Leave this game',
+          ),
+          titleTextStyle: CustomTextTheme(deviceProvider: deviceState)
+              .puzzleScreenQuitAlertTitle(),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(
+                  bottom: 40,
+                ),
+                width: deviceState.getUseMobileLayout ? null : 300,
+                child: Text(
+                  'Progress will be lost, are you sure?',
+                ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  FlatButton(
+                    child: Text("No"),
+                    textColor: Color(0xff501E5D),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  FlatButton(
+                    child: Text("Yes"),
+                    textColor: Color(0xff501E5D),
+                    onPressed: () {
+                      quit = true;
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          contentTextStyle: CustomTextTheme(deviceProvider: deviceState)
+              .puzzleScreenQuitAlertContent(),
         ),
       );
       if (quit) {
