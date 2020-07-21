@@ -284,6 +284,12 @@ class Images {
           "title": "Shibuya district crossing",
         },
         {
+          "assetName": "venice",
+          "readableName": "Venice",
+          "readableFullname": "Venice, Italy",
+          "title": "Gondola ride on the Grande Canal",
+        },
+        {
           "assetName": "wellington",
           "readableName": "Wellington",
           "readableFullname": "Wellington, New Zealand",
