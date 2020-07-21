@@ -453,6 +453,12 @@ class Images {
           "title": "Lake Wakatipu and the road from Queenstown to Glenorchy",
         },
         {
+          "assetName": "rice_fields",
+          "readableName": "Rice Fields",
+          "readableFullname": "Rice Fields, Vietnam",
+          "title": "Terraced rice field in Mu Cang Chai district",
+        },
+        {
           "assetName": "sahara_desert",
           "readableName": "Sahara Desert",
           "readableFullname": "Sahara Desert",
