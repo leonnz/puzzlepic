@@ -443,8 +443,14 @@ class Images {
         {
           "assetName": "lake_tahoe",
           "readableName": "Lake Tahoe",
-          "readableFullname": "Lake Tahoe",
-          "title": "Shoreline sunset at Lake Tahoe, Nevada, USA",
+          "readableFullname": "Lake Tahoe, USA",
+          "title": "Shoreline sunset at Lake Tahoe in Nevada",
+        },
+        {
+          "assetName": "lake_wakatipu",
+          "readableName": "Lake Wakatipu",
+          "readableFullname": "Lake Wakatipu, New Zealand",
+          "title": "Lake Wakatipu and the road from Queenstown to Glenorchy",
         },
       ],
     },
