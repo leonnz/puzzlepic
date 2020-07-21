@@ -188,6 +188,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           readableFullname: widget.readableFullname,
           fullAd: _interstitialAd,
           fullAdReady: _isInterstitialAdReady,
+          moves: state.getMoves,
+          bestMoves: state.getBestMoves,
         ),
       ).then((value) {
         if (value) {
@@ -210,11 +212,14 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         int existingRecordBestMoves = existingRecord[0]['bestMoves'];
 
         if (state.getMoves < existingRecordBestMoves) {
+          // Sets the best moves to the previous best moves, so the complete puzzle alert can calculate if it is a new best.
+          state.setBestMoves(moves: existingRecordBestMoves);
           dbProvider.updateRecord(
               moves: state.getMoves, puzzleName: widget.readableName);
           setState(() {});
         }
       } else {
+        state.setBestMoves(moves: state.getMoves);
         final record = PuzzleRecord(
           puzzleName: widget.readableName,
           puzzleCategory: widget.category,
@@ -255,7 +260,9 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       List<Map<String, dynamic>> record =
           await dbProvider.getSingleRecord(puzzleName: widget.readableName);
 
-      if (record.length > 0) best = record[0]['bestMoves'];
+      if (record.length > 0) {
+        best = record[0]['bestMoves'];
+      }
       return best;
     }
 

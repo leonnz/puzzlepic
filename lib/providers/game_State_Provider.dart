@@ -12,6 +12,7 @@ class GameStateProvider with ChangeNotifier {
 
   static int _blankSquare = _totalGridSize;
   static int _moves = 0;
+  static int _bestMoves;
   static List<int> _gridPositions;
 
   bool get getPuzzleComplete => _puzzleComplete;
@@ -23,10 +24,16 @@ class GameStateProvider with ChangeNotifier {
   int get getBlankSquare => _blankSquare;
   int get getGridColumns => _gridColumns;
   int get getMoves => _moves;
+  int get getBestMoves => _bestMoves;
   List<int> get getGridPositions => _gridPositions;
 
   void setMoves() {
     _moves += 1;
+    notifyListeners();
+  }
+
+  void setBestMoves({int moves}) {
+    _bestMoves = moves;
     notifyListeners();
   }
 
