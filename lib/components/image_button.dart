@@ -43,7 +43,7 @@ class ImageButton extends StatelessWidget {
                 ? Icon(
                     Icons.check,
                     color: Colors.lightGreenAccent[400],
-                    size: 40,
+                    size: deviceProvider.getUseMobileLayout ? 40 : 60,
                   )
                 : Container(),
           ),
