@@ -441,6 +441,12 @@ class Images {
       "categoryReadableName": "Landscapes",
       "categoryImages": [
         {
+          "assetName": "highlands",
+          "readableName": "Highlands",
+          "readableFullname": "Highlands, Scotland",
+          "title": "Autumn in the Scottish Highlands",
+        },
+        {
           "assetName": "lake_tahoe",
           "readableName": "Lake Tahoe",
           "readableFullname": "Lake Tahoe, USA",

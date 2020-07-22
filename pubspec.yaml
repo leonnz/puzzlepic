@@ -133,6 +133,7 @@ flutter:
     - assets/images/foods/sushi/
     - assets/images/foods/tacos/
     - assets/images/landscapes/
+    - assets/images/landscapes/highlands/
     - assets/images/landscapes/lake_tahoe/
     - assets/images/landscapes/lake_wakatipu/
     - assets/images/landscapes/monument_valley/
