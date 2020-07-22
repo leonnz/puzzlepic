@@ -459,6 +459,12 @@ class Images {
           "title": "Rock formations in Hunts Mesa",
         },
         {
+          "assetName": "piedmont",
+          "readableName": "Piedmont",
+          "readableFullname": "Piedmont, Italy",
+          "title": "Vineyards in Piedmont region, Nothern Italy",
+        },
+        {
           "assetName": "plitvice",
           "readableName": "Plitvice",
           "readableFullname": "Plitvice, Croatia",
