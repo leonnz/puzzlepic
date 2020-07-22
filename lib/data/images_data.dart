@@ -459,6 +459,12 @@ class Images {
           "title": "Rock formations in Hunts Mesa",
         },
         {
+          "assetName": "plitvice",
+          "readableName": "Plitvice",
+          "readableFullname": "Plitvice, Croatia",
+          "title": "Waterfalls at Plitvice Lakes National Park",
+        },
+        {
           "assetName": "rice_fields",
           "readableName": "Rice Fields",
           "readableFullname": "Rice Fields, Vietnam",
