@@ -500,6 +500,12 @@ class Images {
           "readableFullname": "Wulingyuan, China",
           "title": "Sandstone pillars, scenic world heritage site",
         },
+        {
+          "assetName": "yellowstone",
+          "readableName": "Yellowstone",
+          "readableFullname": "Yellowstone National Park, USA",
+          "title": "The Grand Prismatic Spring",
+        },
       ],
     },
     // Natural Wonders
