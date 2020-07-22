@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../screens/select_picture_screen.dart';
+import '../styles/customStyles.dart';
+import '../providers/device_provider.dart';
+import 'package:provider/provider.dart';
 
 class CategoryButton extends StatelessWidget {
   const CategoryButton(
@@ -11,6 +14,8 @@ class CategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+
     return Container(
       child: GestureDetector(
         onTap: () => Navigator.push(
@@ -38,17 +43,23 @@ class CategoryButton extends StatelessWidget {
                 ),
               ),
               Align(
-                alignment: Alignment.center,
+                alignment: Alignment.bottomCenter,
                 child: Container(
                   padding: EdgeInsets.all(5),
-                  height: 50,
+                  height: deviceProvider.getUseMobileLayout ? 50 : 70,
                   width: double.infinity,
-                  decoration:
-                      BoxDecoration(color: Color.fromRGBO(255, 255, 255, 0.80)),
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(255, 255, 255, 0.80),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                  ),
                   child: Center(
                     child: Text(
                       categoryReadableName,
-                      style: Theme.of(context).textTheme.headline2,
+                      style: CustomTextTheme(deviceProvider: deviceProvider)
+                          .selectPictureButtonTextStyle(),
                       textAlign: TextAlign.center,
                     ),
                   ),

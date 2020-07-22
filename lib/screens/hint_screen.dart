@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../providers/device_provider.dart';
+import 'package:provider/provider.dart';
 
 class HintScreen extends StatelessWidget {
   const HintScreen({Key key, this.category, this.imageAssetname})
@@ -9,6 +11,8 @@ class HintScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
@@ -22,7 +26,7 @@ class HintScreen extends StatelessWidget {
             icon: Icon(
               Icons.cancel,
               color: Colors.white,
-              size: 40,
+              size: deviceState.getUseMobileLayout ? 40 : 60,
             ),
             onPressed: () => Navigator.pop(context),
           ),

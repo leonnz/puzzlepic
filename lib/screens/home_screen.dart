@@ -4,6 +4,7 @@ import 'select_category_screen.dart';
 import '../components/button.dart';
 import 'package:provider/provider.dart';
 import 'package:PuzzlePic/providers/game_state_provider.dart';
+import '../providers/device_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'dart:async';
@@ -25,9 +26,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     bgImage = AssetImage('assets/images/checker_background.png');
-    _initAdMob().then((_) {
-      print('Admob loaded');
-    }, onError: (error) => print(error));
+    // _initAdMob().then((_) {
+    //   print('Admob loaded');
+    // }, onError: (error) => print(error));
     super.initState();
   }
 
@@ -39,9 +40,18 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    var state = Provider.of<GameStateProvider>(context);
+    final double shortestSide = MediaQuery.of(context).size.shortestSide;
+    final bool useMobileLayout = shortestSide < 600;
+    final double deviceHeight = MediaQuery.of(context).size.height;
 
-    state.setScreenWidth(screenwidth: MediaQuery.of(context).size.width - 20);
+    GameStateProvider state = Provider.of<GameStateProvider>(context);
+    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
+
+    state.setScreenWidth(width: MediaQuery.of(context).size.width - 20);
+
+    deviceState.setUseMobileLayout(useMobileLayout: useMobileLayout);
+    deviceState.setDeviceHeight(height: deviceHeight);
+    deviceState.setGridSize(useMobile: useMobileLayout);
 
     return Scaffold(
       body: Container(
@@ -57,7 +67,8 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             Center(
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 50),
+                padding:
+                    EdgeInsets.only(bottom: deviceState.getDeviceHeight * 0.2),
                 child: Button(
                   buttonText: 'Play!',
                   action: () {

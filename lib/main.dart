@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:PuzzlePic/providers/game_state_provider.dart';
+import './providers/device_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import './screens/home_screen.dart';
@@ -20,8 +20,16 @@ class MyApp extends StatelessWidget {
 
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 
-    return ChangeNotifierProvider(
-      create: (_) => GameStateProvider(),
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => GameStateProvider()),
+        ChangeNotifierProvider(create: (_) => DeviceProvider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Puzzle Pic',
@@ -30,56 +38,6 @@ class MyApp extends StatelessWidget {
           buttonTheme: ButtonThemeData(
             buttonColor: Colors.blue,
             textTheme: ButtonTextTheme.primary,
-          ),
-          textTheme: TextTheme(
-            button: GoogleFonts.roboto(letterSpacing: 1),
-            // Puzzle select screen title
-            headline1: GoogleFonts.solway(
-                fontSize: 24,
-                letterSpacing: 1,
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
-                shadows: [
-                  Shadow(
-                      blurRadius: 1,
-                      color: Colors.white70,
-                      offset: Offset(1, 1))
-                ]),
-            // Buttons
-            headline2: GoogleFonts.solway(
-              fontSize: 16,
-              color: Colors.black,
-            ),
-            // Puzzle Screen title
-            headline3: GoogleFonts.solway(
-              fontSize: 30,
-              letterSpacing: 1,
-              color: Colors.black,
-            ),
-            // Puzzle select screen title complete counter
-            headline4: GoogleFonts.roboto(
-              fontSize: 14,
-              letterSpacing: 1,
-              fontWeight: FontWeight.w700,
-              color: Colors.black,
-              shadows: [
-                Shadow(
-                  blurRadius: 1,
-                  color: Colors.white,
-                  offset: Offset(1, 1),
-                )
-              ],
-            ),
-            headline5: GoogleFonts.roboto(
-              fontSize: 24,
-              letterSpacing: 1,
-              color: Colors.black,
-            ),
-            headline6: GoogleFonts.roboto(
-              fontSize: 14,
-              letterSpacing: 1,
-              color: Colors.black,
-            ),
           ),
         ),
         home: Home(),

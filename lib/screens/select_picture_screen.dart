@@ -5,6 +5,9 @@ import '../data/images_data.dart';
 import '../components/image_button.dart';
 import '../data/db_provider.dart';
 import '../screens/puzzle_screen.dart';
+import '../providers/device_provider.dart';
+import 'package:provider/provider.dart';
+import '../styles/customStyles.dart';
 
 class SelectPicture extends StatefulWidget {
   const SelectPicture(
@@ -21,6 +24,9 @@ class SelectPicture extends StatefulWidget {
 class _SelectPictureState extends State<SelectPicture> {
   @override
   Widget build(BuildContext context) {
+    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
+    deviceState.setGridSize(useMobile: deviceState.getUseMobileLayout);
+
     DBProviderDb dbProvider = DBProviderDb();
 
     // dbProvider.deleteTable();
@@ -45,53 +51,66 @@ class _SelectPictureState extends State<SelectPicture> {
         child: Scaffold(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(90),
-            child: AppBar(
-              flexibleSpace: Opacity(
-                opacity: 0.8,
-                child: Image(
+            preferredSize: Size.fromHeight(deviceState.getDeviceHeight * 0.10),
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
                   image: AssetImage(
                       'assets/images/categories/${widget.category}_banner.png'),
                   fit: BoxFit.cover,
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black45,
+                    blurRadius: 5.0,
+                    offset: Offset(0.0, 3.0),
+                  ),
+                ],
               ),
-              title: Text(
-                widget.categoryReadableName,
-                style: Theme.of(context).textTheme.headline1,
-              ),
-              backgroundColor: Color(0xffffffff),
-              iconTheme: IconThemeData(
-                color: Colors.black,
-              ),
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: () => Navigator.pop(context),
-              ),
-              elevation: 4,
-              centerTitle: true,
-              bottom: PreferredSize(
-                child: FutureBuilder(
-                  future: dbProvider.getRecordsByCategory(
-                      category: widget.category),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<String>> snapshot) {
-                    Widget grid;
-                    if (snapshot.hasData) {
-                      grid = Padding(
-                        padding: const EdgeInsets.only(bottom: 15.0),
-                        child: Text(
-                          'Completed ${snapshot.data.length} / ${images.length}',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
-                      );
-                    } else {
-                      grid = Container();
-                    }
-                    return grid;
-                  },
-                ),
-                preferredSize: Size.zero,
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      iconSize: deviceState.getUseMobileLayout ? 25 : 50,
+                      icon: Icon(Icons.arrow_back_ios),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ),
+                  Text(
+                    widget.categoryReadableName,
+                    style: CustomTextTheme(deviceProvider: deviceState)
+                        .selectScreenTitleTextStyle(context),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: FutureBuilder(
+                      future: dbProvider.getRecordsByCategory(
+                          category: widget.category),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<String>> snapshot) {
+                        Widget grid;
+                        if (snapshot.hasData) {
+                          grid = Padding(
+                            padding: EdgeInsets.only(
+                                bottom: deviceState.getUseMobileLayout ? 4 : 8),
+                            child: Text(
+                              'Completed ${snapshot.data.length} / ${images.length}',
+                              textAlign: TextAlign.center,
+                              style:
+                                  CustomTextTheme(deviceProvider: deviceState)
+                                      .selectPictureScreenCompletedTextStyle(),
+                            ),
+                          );
+                        } else {
+                          grid = Container();
+                        }
+                        return grid;
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -113,7 +132,7 @@ class _SelectPictureState extends State<SelectPicture> {
                             itemCount: images.length,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
+                              crossAxisCount: deviceState.getGridSize,
                               childAspectRatio: 1,
                               crossAxisSpacing: 5,
                               mainAxisSpacing: 5,
@@ -128,6 +147,8 @@ class _SelectPictureState extends State<SelectPicture> {
                                         category: widget.category,
                                         assetName: images[i]["assetName"],
                                         readableName: images[i]["readableName"],
+                                        readableFullname: images[i]
+                                            ["readableFullname"],
                                         title: images[i]["title"],
                                       ),
                                     ),

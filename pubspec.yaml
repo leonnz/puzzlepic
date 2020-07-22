@@ -59,22 +59,33 @@ flutter:
     - assets/images/animals/elephant/
     - assets/images/animals/frog/
     - assets/images/animals/giraffe/
+    - assets/images/animals/hedgehog/
     - assets/images/animals/hippopotamus/
     - assets/images/animals/horse/
     - assets/images/animals/lion/
     - assets/images/animals/monkey/
     - assets/images/animals/parrot/
+    - assets/images/animals/sloth/
     - assets/images/animals/tiger/
     - assets/images/art/
     - assets/images/art/claude_monet/
     - assets/images/art/da_vinci/
     - assets/images/art/edgar_degas/
+    - assets/images/art/gainsborough/
+    - assets/images/art/gerome/
+    - assets/images/art/lawrence/
+    - assets/images/art/morland/
     - assets/images/art/rembrandt/
+    - assets/images/art/renoir/
+    - assets/images/art/van_dyck/
     - assets/images/art/van_gogh/
+    - assets/images/art/west/
     - assets/images/buildings/
     - assets/images/buildings/big_ben/
     - assets/images/buildings/colosseum/
+    - assets/images/buildings/easter_island/
     - assets/images/buildings/eiffel_tower/
+    - assets/images/buildings/golden_gate_bridge/
     - assets/images/buildings/great_wall/
     - assets/images/buildings/machu_picchu/
     - assets/images/buildings/parthenon/
@@ -82,8 +93,23 @@ flutter:
     - assets/images/buildings/pyramids/
     - assets/images/buildings/statue_of_liberty/
     - assets/images/buildings/taj_mahal/
+    - assets/images/cities/
+    - assets/images/cities/bangkok/
+    - assets/images/cities/barcelona/
+    - assets/images/cities/hong_kong/
+    - assets/images/cities/istanbul/
+    - assets/images/cities/los_angeles/
+    - assets/images/cities/london/
+    - assets/images/cities/new_york/
+    - assets/images/cities/seoul/
+    - assets/images/cities/stockholm/
+    - assets/images/cities/tokyo/
+    - assets/images/cities/venice/
+    - assets/images/cities/wellington/
     - assets/images/flowers/
+    - assets/images/flowers/carnations/
     - assets/images/flowers/daffodils/
+    - assets/images/flowers/dahlias/
     - assets/images/flowers/daisies/
     - assets/images/flowers/lavender/
     - assets/images/flowers/lilies/
@@ -98,12 +124,27 @@ flutter:
     - assets/images/foods/croissants/
     - assets/images/foods/curry/
     - assets/images/foods/dumplings/
+    - assets/images/foods/kebab/
     - assets/images/foods/laksa/
     - assets/images/foods/paella/
+    - assets/images/foods/pie/
     - assets/images/foods/pizza/
     - assets/images/foods/sausages/
     - assets/images/foods/sushi/
     - assets/images/foods/tacos/
+    - assets/images/landscapes/
+    - assets/images/landscapes/baobab/
+    - assets/images/landscapes/highlands/
+    - assets/images/landscapes/lake_tahoe/
+    - assets/images/landscapes/lake_wakatipu/
+    - assets/images/landscapes/monument_valley/
+    - assets/images/landscapes/moraine_lake/
+    - assets/images/landscapes/piedmont/
+    - assets/images/landscapes/plitvice/
+    - assets/images/landscapes/rice_fields/
+    - assets/images/landscapes/sahara_desert/
+    - assets/images/landscapes/wulingyuan/
+    - assets/images/landscapes/yellowstone/
     - assets/images/natural_wonders/
     - assets/images/natural_wonders/aurora_borealis/
     - assets/images/natural_wonders/grand_canyon/
@@ -115,6 +156,7 @@ flutter:
     - assets/images/under_the_sea/
     - assets/images/under_the_sea/clown_fish/
     - assets/images/under_the_sea/coral_reef/
+    - assets/images/under_the_sea/cuttlefish/
     - assets/images/under_the_sea/dolphin/
     - assets/images/under_the_sea/jellyfish/
     - assets/images/under_the_sea/octopus/
@@ -123,6 +165,7 @@ flutter:
     - assets/images/under_the_sea/sea_otter/
     - assets/images/under_the_sea/sea_turtle/
     - assets/images/under_the_sea/starfish/
+    - assets/images/under_the_sea/stingray/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

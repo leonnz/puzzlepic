@@ -5,23 +5,31 @@ class PuzzleCompleteAlert extends StatelessWidget {
   const PuzzleCompleteAlert({
     Key key,
     this.readableName,
+    this.readableFullname,
     this.fullAd,
     this.fullAdReady,
+    this.moves,
+    this.bestMoves,
   }) : super(key: key);
 
   final String readableName;
+  final String readableFullname;
   final InterstitialAd fullAd;
   final bool fullAdReady;
+  final int moves;
+  final int bestMoves;
 
   @override
   Widget build(BuildContext context) {
+    print(bestMoves);
     return AlertDialog(
       title: Center(child: Text('Congratulations!')),
       content: Container(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text('You completed $readableName.'),
+            Text(
+                'You completed ${readableFullname != null ? readableFullname : readableName} in $moves moves${moves < bestMoves ? ", a new personal best!" : "."}'),
             Container(
               margin: EdgeInsets.all(20.0),
               child: FlatButton(

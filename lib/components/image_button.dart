@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../styles/customStyles.dart';
+import '../providers/device_provider.dart';
+import 'package:provider/provider.dart';
 
 class ImageButton extends StatelessWidget {
   const ImageButton({
@@ -18,6 +21,7 @@ class ImageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     return Card(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -39,24 +43,27 @@ class ImageButton extends StatelessWidget {
                 ? Icon(
                     Icons.check,
                     color: Colors.lightGreenAccent[400],
-                    size: 40,
+                    size: deviceProvider.getUseMobileLayout ? 40 : 60,
                   )
                 : Container(),
           ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: 50,
+              height: deviceProvider.getUseMobileLayout ? 50 : 70,
               width: double.infinity,
               decoration: BoxDecoration(
-                  color: Color.fromRGBO(255, 255, 255, 0.80),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10))),
+                color: Color.fromRGBO(255, 255, 255, 0.80),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                ),
+              ),
               child: Center(
                 child: Text(
                   readableName,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: CustomTextTheme(deviceProvider: deviceProvider)
+                      .selectPictureButtonTextStyle(),
                   textAlign: TextAlign.center,
                 ),
               ),

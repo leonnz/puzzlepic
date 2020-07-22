@@ -4,19 +4,27 @@ import '../components/puzzle_complete_alert.dart';
 import '../screens/hint_screen.dart';
 import '../providers/game_state_provider.dart';
 import '../providers/image_piece_provider.dart';
+import '../providers/device_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
 import '../data/db_provider.dart';
 import '../data/puzzle_record_model.dart';
+import '../styles/customStyles.dart';
 
 class PuzzleScreen extends StatefulWidget {
   const PuzzleScreen(
-      {Key key, this.assetName, this.readableName, this.title, this.category})
+      {Key key,
+      this.assetName,
+      this.readableName,
+      this.readableFullname,
+      this.title,
+      this.category})
       : super(key: key);
 
   final String assetName;
   final String readableName;
+  final String readableFullname;
   final String title;
   final String category;
 
@@ -86,8 +94,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       size: AdSize.fullBanner,
     );
 
-    _loadBannerAd();
-    _loadInterstitialAd();
+    // _loadBannerAd();
+    // _loadInterstitialAd();
 
     super.initState();
   }
@@ -102,7 +110,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<GameStateProvider>(context, listen: true);
+    GameStateProvider state = Provider.of<GameStateProvider>(context);
+    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
 
     state.setGridPositions();
 
@@ -119,24 +128,53 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     Future<bool> _backPressed() {
       return showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Leave this game'),
-          content: Text('Progress will be lost, are you sure?'),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text('No'),
-              textColor: Color(0xff501E5D),
+        builder: (context) => Container(
+          width: 500,
+          child: AlertDialog(
+            title: Text('Leave this game'),
+            titleTextStyle: CustomTextTheme(deviceProvider: deviceState)
+                .puzzleScreenQuitAlertTitle(),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(
+                    bottom: 40,
+                  ),
+                  child: Text('Progress will be lost, are you sure?'),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    FlatButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: Text(
+                        'No',
+                        style: CustomTextTheme(deviceProvider: deviceState)
+                            .puzzleScreenQuitAlertButtonText(),
+                      ),
+                      textColor: Color(0xff501E5D),
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        resetGameState();
+                        Navigator.pop(context, true);
+                      },
+                      child: Text(
+                        'Yes',
+                        style: CustomTextTheme(deviceProvider: deviceState)
+                            .puzzleScreenQuitAlertButtonText(),
+                      ),
+                      textColor: Color(0xff501E5D),
+                    )
+                  ],
+                )
+              ],
             ),
-            FlatButton(
-              onPressed: () {
-                resetGameState();
-                Navigator.pop(context, true);
-              },
-              child: Text('Yes'),
-              textColor: Color(0xff501E5D),
-            )
-          ],
+            contentTextStyle: CustomTextTheme(deviceProvider: deviceState)
+                .puzzleScreenQuitAlertContent(),
+          ),
         ),
       );
     }
@@ -147,22 +185,49 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         context: context,
         builder: (context) => AlertDialog(
           title: Text('Leave this game'),
-          content: Text('Progress will be lost, are you sure?'),
-          actions: [
-            FlatButton(
-              child: Text("No"),
-              textColor: Color(0xff501E5D),
-              onPressed: () => Navigator.pop(context),
-            ),
-            FlatButton(
-              child: Text("Yes"),
-              textColor: Color(0xff501E5D),
-              onPressed: () {
-                quit = true;
-                Navigator.pop(context);
-              },
-            ),
-          ],
+          titleTextStyle: CustomTextTheme(deviceProvider: deviceState)
+              .puzzleScreenQuitAlertTitle(),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(
+                  bottom: 40,
+                ),
+                width: deviceState.getUseMobileLayout ? null : 300,
+                child: Text('Progress will be lost, are you sure?'),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  FlatButton(
+                    child: Text(
+                      "No",
+                      style: CustomTextTheme(deviceProvider: deviceState)
+                          .puzzleScreenQuitAlertButtonText(),
+                    ),
+                    textColor: Color(0xff501E5D),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  FlatButton(
+                    child: Text(
+                      "Yes",
+                      style: CustomTextTheme(deviceProvider: deviceState)
+                          .puzzleScreenQuitAlertButtonText(),
+                    ),
+                    textColor: Color(0xff501E5D),
+                    onPressed: () {
+                      quit = true;
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          contentTextStyle: CustomTextTheme(deviceProvider: deviceState)
+              .puzzleScreenQuitAlertContent(),
         ),
       );
       if (quit) {
@@ -176,8 +241,11 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         context: context,
         builder: (context) => PuzzleCompleteAlert(
           readableName: widget.readableName,
+          readableFullname: widget.readableFullname,
           fullAd: _interstitialAd,
           fullAdReady: _isInterstitialAdReady,
+          moves: state.getMoves,
+          bestMoves: state.getBestMoves,
         ),
       ).then((value) {
         if (value) {
@@ -200,11 +268,14 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         int existingRecordBestMoves = existingRecord[0]['bestMoves'];
 
         if (state.getMoves < existingRecordBestMoves) {
+          // Sets the best moves to the previous best moves, so the complete puzzle alert can calculate if it is a new best.
+          state.setBestMoves(moves: existingRecordBestMoves);
           dbProvider.updateRecord(
               moves: state.getMoves, puzzleName: widget.readableName);
           setState(() {});
         }
       } else {
+        state.setBestMoves(moves: state.getMoves);
         final record = PuzzleRecord(
           puzzleName: widget.readableName,
           puzzleCategory: widget.category,
@@ -245,7 +316,9 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       List<Map<String, dynamic>> record =
           await dbProvider.getSingleRecord(puzzleName: widget.readableName);
 
-      if (record.length > 0) best = record[0]['bestMoves'];
+      if (record.length > 0) {
+        best = record[0]['bestMoves'];
+      }
       return best;
     }
 
@@ -271,67 +344,90 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Spacer(),
-                Card(
-                  color: Colors.white,
-                  elevation: 4,
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          widget.readableName,
-                          style: Theme.of(context).textTheme.headline3,
+                Container(
+                  width: state.getScreenWidth + 20,
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 4,
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            widget.readableFullname != null
+                                ? widget.readableFullname
+                                : widget.readableName,
+                            style: CustomTextTheme(deviceProvider: deviceState)
+                                .puzzleScreenImageTitle(),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: Text(
-                          widget.title != null ? widget.title : "",
-                          style: Theme.of(context).textTheme.headline6,
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Text(
+                            widget.title != null ? widget.title : "",
+                            style: CustomTextTheme(deviceProvider: deviceState)
+                                .puzzleScreenPictureSubTitle(),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Text(
-                              'Moves: ${state.getMoves}',
-                            ),
-                            FutureBuilder(
-                              future: getSingleRecord(),
-                              initialData: 0,
-                              builder: (context, AsyncSnapshot<int> snapshot) {
-                                Widget bestMoves;
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(
+                                'Moves: ${state.getMoves}',
+                                style:
+                                    CustomTextTheme(deviceProvider: deviceState)
+                                        .puzzleScreenMovesCounter(),
+                              ),
+                              FutureBuilder(
+                                future: getSingleRecord(),
+                                initialData: 0,
+                                builder:
+                                    (context, AsyncSnapshot<int> snapshot) {
+                                  Widget bestMoves;
 
-                                if (snapshot.hasData) {
-                                  int moves = snapshot.data;
-                                  bestMoves = Text('Best moves: $moves');
-                                } else {
-                                  bestMoves = Text('Best moves: 0');
-                                }
-                                return bestMoves;
-                              },
-                            ),
-                          ],
+                                  if (snapshot.hasData) {
+                                    int moves = snapshot.data;
+                                    bestMoves = Text(
+                                      'Best moves: $moves',
+                                      style: CustomTextTheme(
+                                              deviceProvider: deviceState)
+                                          .puzzleScreenMovesCounter(),
+                                    );
+                                  } else {
+                                    bestMoves = Text(
+                                      'Best moves: 0',
+                                      style: CustomTextTheme(
+                                              deviceProvider: deviceState)
+                                          .puzzleScreenMovesCounter(),
+                                    );
+                                  }
+                                  return bestMoves;
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          width: state.getScreenWidth,
-                          height: state.getScreenWidth,
-                          color: Colors.grey,
-                          child: state.getPuzzleComplete
-                              ? Stack(
-                                  children: generateImagePieces(16, true),
-                                )
-                              : Stack(
-                                  children: generateImagePieces(15, false),
-                                ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            width: state.getScreenWidth,
+                            height: state.getScreenWidth,
+                            color: Colors.grey,
+                            child: state.getPuzzleComplete
+                                ? Stack(
+                                    children: generateImagePieces(
+                                        state.getTotalGridSize, true),
+                                  )
+                                : Stack(
+                                    children: generateImagePieces(
+                                        state.getTotalGridSize - 1, false),
+                                  ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
@@ -339,20 +435,32 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      RaisedButton(
-                        elevation: 3,
-                        color: Color(0xff000000),
-                        // child: Text("Hint"),
-                        child: Icon(Icons.search),
-                        onPressed: () =>
-                            Navigator.of(context).push(_customScaleRoute()),
+                      ButtonTheme(
+                        minWidth: deviceState.getUseMobileLayout ? 88 : 150,
+                        height: deviceState.getUseMobileLayout ? 36 : 60,
+                        buttonColor: Colors.white,
+                        child: RaisedButton(
+                          elevation: 3,
+                          child: Icon(
+                            Icons.search,
+                            size: deviceState.getUseMobileLayout ? 24 : 40,
+                          ),
+                          onPressed: () =>
+                              Navigator.of(context).push(_customScaleRoute()),
+                        ),
                       ),
-                      RaisedButton(
-                        elevation: 3,
-                        color: Color(0xff000000),
-                        // child: Text("Quit"),
-                        child: Icon(Icons.close),
-                        onPressed: () => quitGame(),
+                      ButtonTheme(
+                        minWidth: deviceState.getUseMobileLayout ? 88 : 150,
+                        height: deviceState.getUseMobileLayout ? 36 : 60,
+                        buttonColor: Colors.white,
+                        child: RaisedButton(
+                          elevation: 3,
+                          child: Icon(
+                            Icons.close,
+                            size: deviceState.getUseMobileLayout ? 24 : 40,
+                          ),
+                          onPressed: () => quitGame(),
+                        ),
                       ),
                     ],
                   ),

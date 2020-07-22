@@ -6,11 +6,13 @@ class GameStateProvider with ChangeNotifier {
   static Map<String, String> _image;
   static List<Map<String, dynamic>> _piecePositions = [];
   static double _screenWidth;
-  static double _singlePieceWidth = _screenWidth / _gridSideSize;
+  static int _gridColumns = 4;
   static int _totalGridSize = 16;
+  static double _singlePieceWidth = _screenWidth / _gridColumns;
+
   static int _blankSquare = _totalGridSize;
-  static int _gridSideSize = sqrt(_totalGridSize).toInt();
   static int _moves = 0;
+  static int _bestMoves;
   static List<int> _gridPositions;
 
   bool get getPuzzleComplete => _puzzleComplete;
@@ -20,12 +22,18 @@ class GameStateProvider with ChangeNotifier {
   double get getSinglePieceWidth => _singlePieceWidth;
   int get getTotalGridSize => _totalGridSize;
   int get getBlankSquare => _blankSquare;
-  int get getGridSideSize => _gridSideSize;
+  int get getGridColumns => _gridColumns;
   int get getMoves => _moves;
+  int get getBestMoves => _bestMoves;
   List<int> get getGridPositions => _gridPositions;
 
   void setMoves() {
     _moves += 1;
+    notifyListeners();
+  }
+
+  void setBestMoves({int moves}) {
+    _bestMoves = moves;
     notifyListeners();
   }
 
@@ -47,8 +55,8 @@ class GameStateProvider with ChangeNotifier {
     _gridPositions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   }
 
-  void setScreenWidth({double screenwidth}) {
-    _screenWidth = screenwidth;
+  void setScreenWidth({double width}) {
+    _screenWidth = width;
   }
 
   // Check if the piece number matches its position
@@ -98,9 +106,9 @@ class GameStateProvider with ChangeNotifier {
 
   double setStartingLeftPosition(int pieceNumber) {
     double leftPosition;
-    int modulo = pieceNumber % getGridSideSize;
+    int modulo = pieceNumber % getGridColumns;
     if (modulo == 0) {
-      leftPosition = getSinglePieceWidth * (getGridSideSize - 1);
+      leftPosition = getSinglePieceWidth * (getGridColumns - 1);
     } else if (modulo == 1) {
       leftPosition = 0;
     } else if (modulo == 2) {
@@ -116,16 +124,16 @@ class GameStateProvider with ChangeNotifier {
 
   double setStartingTopPosition(int pieceNumber) {
     double topPosition;
-    if (pieceNumber <= getGridSideSize) {
+    if (pieceNumber <= getGridColumns) {
       topPosition = 0;
-    } else if (pieceNumber > getGridSideSize &&
-        pieceNumber <= (getGridSideSize * 2)) {
+    } else if (pieceNumber > getGridColumns &&
+        pieceNumber <= (getGridColumns * 2)) {
       topPosition = getSinglePieceWidth;
-    } else if (pieceNumber > (getGridSideSize * 2) &&
-        pieceNumber <= (getGridSideSize * 3)) {
+    } else if (pieceNumber > (getGridColumns * 2) &&
+        pieceNumber <= (getGridColumns * 3)) {
       topPosition = getSinglePieceWidth * 2;
-    } else if (pieceNumber > (getGridSideSize * 3) &&
-        pieceNumber <= (getGridSideSize * 4)) {
+    } else if (pieceNumber > (getGridColumns * 3) &&
+        pieceNumber <= (getGridColumns * 4)) {
       topPosition = getSinglePieceWidth * 3;
     } else {
       topPosition = getSinglePieceWidth * 4;
