@@ -441,6 +441,12 @@ class Images {
       "categoryReadableName": "Landscapes",
       "categoryImages": [
         {
+          "assetName": "baobab",
+          "readableName": "Baobab Alley",
+          "readableFullname": "Baobab Alley, Madagascar",
+          "title": "Alley of the Baobab trees",
+        },
+        {
           "assetName": "highlands",
           "readableName": "Highlands",
           "readableFullname": "Highlands, Scotland",
