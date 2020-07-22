@@ -470,6 +470,12 @@ class Images {
           "readableFullname": "Sahara Desert",
           "title": "Caravan in the Sahara Desert, Morocco",
         },
+        {
+          "assetName": "wulingyuan",
+          "readableName": "Wulingyuan",
+          "readableFullname": "Wulingyuan, China",
+          "title": "Sandstone pillars, scenic world heritage site",
+        },
       ],
     },
     // Natural Wonders
