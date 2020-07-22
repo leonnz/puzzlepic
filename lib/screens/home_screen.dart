@@ -16,8 +16,12 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with TickerProviderStateMixin {
   AssetImage bgImage;
+
+  AnimationController _controller;
+  Animation<Offset> _offsetAnimation;
+  Animation<Offset> _offsetAnimation1;
 
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
@@ -29,6 +33,33 @@ class _HomeState extends State<Home> {
     // _initAdMob().then((_) {
     //   print('Admob loaded');
     // }, onError: (error) => print(error));
+
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 3000),
+      vsync: this,
+    )..forward();
+
+    // Top left corner
+    _offsetAnimation = Tween<Offset>(
+      begin: Offset(-1, -1),
+      end: Offset(0, 0.2),
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Interval(0.8, 1.0, curve: Curves.elasticOut),
+      ),
+    );
+
+    _offsetAnimation1 = Tween<Offset>(
+      begin: Offset(-1, -1),
+      end: Offset(0, 0.2),
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Interval(0.3, 1.0, curve: Curves.elasticOut),
+      ),
+    );
+
     super.initState();
   }
 
@@ -53,6 +84,10 @@ class _HomeState extends State<Home> {
     deviceState.setDeviceHeight(height: deviceHeight);
     deviceState.setGridSize(useMobile: useMobileLayout);
 
+    // var w = MediaQuery.of(context).size.width;
+    // var h = MediaQuery.of(context).size.height;
+    // print("width: $w height:$h");
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -61,11 +96,10 @@ class _HomeState extends State<Home> {
             image: bgImage,
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.end,
+        child: Stack(
           children: <Widget>[
-            Center(
+            Align(
+              alignment: Alignment.bottomCenter,
               child: Padding(
                 padding:
                     EdgeInsets.only(bottom: deviceState.getDeviceHeight * 0.2),
@@ -86,6 +120,51 @@ class _HomeState extends State<Home> {
             //   width: state.getScreenWidth * 0.7,
             //   image: AssetImage('assets/images/puzzlepiclogo.png'),
             // ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: SlideTransition(
+                position: _offsetAnimation,
+                child: Transform.rotate(
+                  angle: 225,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black45,
+                          blurRadius: 5.0,
+                          offset: Offset(0.0, 3.0),
+                        ),
+                      ],
+                    ),
+                    // color: Colors.red,
+                    // width: state.getScreenWidth * 0.7,
+                    // height: state.getScreenWidth * 0.7,
+                    child: Image(
+                      image: AssetImage(
+                          'assets/images/polaroids/polaroid_eiffel_tower.jpg'),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: SlideTransition(
+                position: _offsetAnimation1,
+                child: Transform.rotate(
+                  angle: 70,
+                  child: Container(
+                    // color: Colors.red,
+                    width: state.getScreenWidth * 0.3,
+                    height: state.getScreenWidth * 0.3,
+                    child: Image(
+                      image: AssetImage(
+                          'assets/images/buildings/pyramids_full.jpg'),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
