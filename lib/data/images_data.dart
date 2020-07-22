@@ -471,6 +471,12 @@ class Images {
           "title": "Rock formations in Hunts Mesa",
         },
         {
+          "assetName": "moraine_lake",
+          "readableName": "Moraine Lake",
+          "readableFullname": "Moraine Lake, Canada",
+          "title": "Moraine Lake and the Rocky Mountains",
+        },
+        {
           "assetName": "piedmont",
           "readableName": "Piedmont",
           "readableFullname": "Piedmont, Italy",
