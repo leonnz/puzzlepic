@@ -472,9 +472,9 @@ class Images {
         },
         {
           "assetName": "rice_fields",
-          "readableName": "Rice Fields",
-          "readableFullname": "Rice Fields, Vietnam",
-          "title": "Terraced rice field in Mu Cang Chai district",
+          "readableName": "Mu Cang Chai",
+          "readableFullname": "Mu Cang Chai, Vietnam",
+          "title": "Terraced rice fields in Mu Cang Chai district",
         },
         {
           "assetName": "sahara_desert",
