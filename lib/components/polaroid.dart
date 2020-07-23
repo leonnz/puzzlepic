@@ -60,8 +60,8 @@ class _PolaroidState extends State<Polaroid>
     return Align(
       alignment: widget.alignment,
       child: Container(
-        width: state.getScreenWidth * 0.6,
-        height: state.getScreenWidth * 0.666,
+        width: state.getScreenWidth * 0.7,
+        height: state.getScreenWidth * 0.777,
         child: SlideTransition(
           position: _offsetAnimation,
           child: Transform.rotate(

@@ -17,7 +17,7 @@ class SelectCategory extends StatelessWidget {
     return GestureDetector(
       onPanUpdate: (details) {
         if (details.delta.dx > 0) {
-          Navigator.pop(context);
+          Navigator.pop(context, true);
         }
       },
       child: Container(
@@ -51,7 +51,7 @@ class SelectCategory extends StatelessWidget {
                       child: IconButton(
                         iconSize: deviceState.getUseMobileLayout ? 25 : 50,
                         icon: Icon(Icons.arrow_back_ios),
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () => Navigator.pop(context, true),
                       ),
                     ),
                     Text(

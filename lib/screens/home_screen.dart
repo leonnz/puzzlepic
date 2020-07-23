@@ -19,7 +19,7 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   AssetImage bgImage;
   List<AssetImage> imageAssetCats;
   List<AssetImage> polaroidImages;
@@ -44,7 +44,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     // _initAdMob().then((_) {
     //   print('Admob loaded');
     // }, onError: (error) => print(error));
-
     super.initState();
   }
 
@@ -83,7 +82,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     // print("width: $w height:$h");
 
     AnimationController _controller = AnimationController(
-      duration: const Duration(milliseconds: 3000),
+      duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
 
@@ -104,8 +103,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               angle: -math.pi / 6,
               beginPosition: Offset(-1, -1),
               endPosition: Offset(0, 0),
-              image: "eiffel_tower",
+              image: "grand_canyon",
               startInterval: 0.1,
+            ),
+            Polaroid(
+              testController: _controller,
+              alignment: Alignment.topRight,
+              angle: math.pi / 8,
+              beginPosition: Offset(1.5, -1),
+              endPosition: Offset(0, 0),
+              image: "eiffel_tower",
+              startInterval: 0.3,
             ),
             Polaroid(
               testController: _controller,
@@ -114,7 +122,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               beginPosition: Offset(1, 1),
               endPosition: Offset(0, 0),
               image: "elephant",
-              startInterval: 0.3,
+              startInterval: 0.4,
             ),
             Polaroid(
               testController: _controller,
@@ -123,16 +131,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               beginPosition: Offset(-1, 0),
               endPosition: Offset(0, 0),
               image: "daisies",
-              startInterval: 0.0,
+              startInterval: 0.2,
             ),
-            // Polaroid(
-            //   alignment: Alignment.bottomRight,
-            //   angle: 0,
-            //   beginPosition: Offset(1, 1),
-            //   endPosition: Offset(1, 1),
-            //   image: "daisies",
-            //   startInterval: 0.5,
-            // ),
+
             // Polaroid(
             //   alignment: Alignment.topLeft,
             //   angle: 20,
@@ -147,17 +148,30 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 padding:
                     EdgeInsets.only(bottom: deviceState.getDeviceHeight * 0.2),
                 child: Button(
-                  buttonText: 'Play!',
-                  action: () => _controller
-                    ..reset()
-                    ..forward(),
-                  // action: () => Navigator.push(
-                  //   context,
-                  //   CupertinoPageRoute(
-                  //     builder: (context) => SelectCategory(),
-                  //   ),
-                  // ),
-                ),
+                    buttonText: 'Play!',
+                    // action: () => _controller
+                    //   ..reset()
+                    //   ..forward(),
+                    action: () {
+                      _controller.reverse().then((_) async {
+                        var result = await Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => SelectCategory(),
+                          ),
+                        );
+
+                        if (result) {
+                          _controller.forward();
+                        }
+                      });
+                      // Navigator.push(
+                      //   context,
+                      //   CupertinoPageRoute(
+                      //     builder: (context) => SelectCategory(),
+                      //   ),
+                      // );
+                    }),
               ),
             ),
           ],
