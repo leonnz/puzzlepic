@@ -15,27 +15,27 @@ class SelectCategory extends StatefulWidget {
 }
 
 class _SelectCategoryState extends State<SelectCategory> {
-  void _initPictureButtonImages() async {
+  void precacheImages() async {
     final manifestContent =
         await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
-
     final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+    final imagePaths =
+        manifestMap.keys.where((String key) => key.contains('full')).toList();
+    final bannerImagePaths =
+        manifestMap.keys.where((String key) => key.contains('banner')).toList();
 
-    final imagePaths = manifestMap.keys
-        .where((String key) => key.contains('images/'))
-        .where((String key) => key.contains('full'))
-        .toList();
-    imagePaths.forEach((element) {
-      precacheImage(AssetImage(element), context);
+    imagePaths.forEach((image) {
+      precacheImage(AssetImage(image), context);
+    });
+
+    bannerImagePaths.forEach((image) {
+      precacheImage(AssetImage(image), context);
     });
   }
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _initPictureButtonImages();
-    });
-
+    precacheImages();
     super.initState();
   }
 
