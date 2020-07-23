@@ -50,6 +50,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     // _initAdMob().then((_) {
     //   print('Admob loaded');
     // }, onError: (error) => print(error));
+
     super.initState();
   }
 
