@@ -83,22 +83,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
         body: Stack(
           children: <Widget>[
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding:
-                    EdgeInsets.only(bottom: deviceState.getDeviceHeight * 0.2),
-                child: Button(
-                  buttonText: 'Play!',
-                  action: () => Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => SelectCategory(),
-                    ),
-                  ),
-                ),
-              ),
-            ),
             Polaroid(
               alignment: Alignment.topLeft,
               angle: -math.pi / 6,
@@ -115,13 +99,21 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               image: "elephant",
               startInterval: 0.3,
             ),
+            Polaroid(
+              alignment: Alignment.bottomLeft,
+              angle: -math.pi / 4,
+              beginPosition: Offset(-1, 0),
+              endPosition: Offset(0, 0),
+              image: "daisies",
+              startInterval: 0.0,
+            ),
             // Polaroid(
-            //   alignment: Alignment.topLeft,
-            //   angle: 20,
-            //   beginPosition: Offset(-1, -1),
-            //   endPosition: Offset(0, 0.2),
-            //   image: "eiffel_tower",
-            //   startInterval: 0.1,
+            //   alignment: Alignment.bottomRight,
+            //   angle: 0,
+            //   beginPosition: Offset(1, 1),
+            //   endPosition: Offset(1, 1),
+            //   image: "daisies",
+            //   startInterval: 0.5,
             // ),
             // Polaroid(
             //   alignment: Alignment.topLeft,
@@ -131,6 +123,22 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             //   image: "eiffel_tower",
             //   startInterval: 0.1,
             // ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding:
+                    EdgeInsets.only(bottom: deviceState.getDeviceHeight * 0.2),
+                child: Button(
+                  buttonText: 'Play!',
+                  action: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => SelectCategory(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
