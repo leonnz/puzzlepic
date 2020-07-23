@@ -25,7 +25,6 @@ class _SelectCategoryState extends State<SelectCategory> {
         .where((String key) => key.contains('images/'))
         .where((String key) => key.contains('full'))
         .toList();
-
     imagePaths.forEach((element) {
       precacheImage(AssetImage(element), context);
     });
@@ -33,7 +32,9 @@ class _SelectCategoryState extends State<SelectCategory> {
 
   @override
   void initState() {
-    _initPictureButtonImages();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _initPictureButtonImages();
+    });
 
     super.initState();
   }
