@@ -10,6 +10,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'dart:async';
 import '../data/images_data.dart';
 import '../components/polaroid.dart';
+import 'dart:math' as math;
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -28,7 +29,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    bgImage = AssetImage('assets/images/checker_background.png');
+    bgImage = AssetImage('assets/images/background.png');
     imageAssetCats = Images.imageList
         .map((e) =>
             AssetImage('assets/images/categories/${e["categoryName"]}_cat.png'))
@@ -71,15 +72,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     // var h = MediaQuery.of(context).size.height;
     // print("width: $w height:$h");
 
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: bgImage,
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: bgImage,
         ),
-        child: Stack(
+      ),
+      child: Scaffold(
+        backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
+        body: Stack(
           children: <Widget>[
             Align(
               alignment: Alignment.bottomCenter,
@@ -99,36 +101,36 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ),
             Polaroid(
               alignment: Alignment.topLeft,
-              angle: 20,
+              angle: -math.pi / 6,
               beginPosition: Offset(-1, -1),
-              endPosition: Offset(0, 0.2),
+              endPosition: Offset(0, 0),
               image: "eiffel_tower",
               startInterval: 0.1,
             ),
             Polaroid(
-              alignment: Alignment.topLeft,
-              angle: 20,
-              beginPosition: Offset(-1, -1),
-              endPosition: Offset(0, 0.2),
-              image: "eiffel_tower",
-              startInterval: 0.1,
+              alignment: Alignment.bottomRight,
+              angle: math.pi / 6,
+              beginPosition: Offset(1, 1),
+              endPosition: Offset(0, 0),
+              image: "elephant",
+              startInterval: 0.3,
             ),
-            Polaroid(
-              alignment: Alignment.topLeft,
-              angle: 20,
-              beginPosition: Offset(-1, -1),
-              endPosition: Offset(0, 0.2),
-              image: "eiffel_tower",
-              startInterval: 0.1,
-            ),
-            Polaroid(
-              alignment: Alignment.topLeft,
-              angle: 20,
-              beginPosition: Offset(-1, -1),
-              endPosition: Offset(0, 0.2),
-              image: "eiffel_tower",
-              startInterval: 0.1,
-            ),
+            // Polaroid(
+            //   alignment: Alignment.topLeft,
+            //   angle: 20,
+            //   beginPosition: Offset(-1, -1),
+            //   endPosition: Offset(0, 0.2),
+            //   image: "eiffel_tower",
+            //   startInterval: 0.1,
+            // ),
+            // Polaroid(
+            //   alignment: Alignment.topLeft,
+            //   angle: 20,
+            //   beginPosition: Offset(-1, -1),
+            //   endPosition: Offset(0, 0.2),
+            //   image: "eiffel_tower",
+            //   startInterval: 0.1,
+            // ),
           ],
         ),
       ),
