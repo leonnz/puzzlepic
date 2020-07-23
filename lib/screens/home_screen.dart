@@ -135,7 +135,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               animationController: _controller,
               alignment: Alignment.bottomLeft,
               angle: -math.pi / 4,
-              beginPosition: Offset(-1, 0),
+              beginPosition: Offset(-1.5, 0),
               endPosition: Offset(0, 0),
               image: "daisies",
               startInterval: 0.2,
