@@ -9,6 +9,7 @@ import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'dart:async';
 import '../data/images_data.dart';
+import '../components/polaroid.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -20,10 +21,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   AssetImage bgImage;
   List<AssetImage> imageAssetCats;
-
-  AnimationController _controller;
-  Animation<Offset> _offsetAnimation;
-  Animation<Offset> _offsetAnimation1;
 
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
@@ -40,32 +37,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     // _initAdMob().then((_) {
     //   print('Admob loaded');
     // }, onError: (error) => print(error));
-
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 1000),
-      vsync: this,
-    )..forward();
-
-    // Top left corner
-    _offsetAnimation = Tween<Offset>(
-      begin: Offset(-1, -1),
-      end: Offset(0, 0.2),
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Interval(0.3, 1.0, curve: Curves.elasticOut),
-      ),
-    );
-
-    _offsetAnimation1 = Tween<Offset>(
-      begin: Offset(-1, -1.5),
-      end: Offset(0, 0.2),
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Interval(0.35, 1.0, curve: Curves.elasticOut),
-      ),
-    );
 
     super.initState();
   }
@@ -117,67 +88,46 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     EdgeInsets.only(bottom: deviceState.getDeviceHeight * 0.2),
                 child: Button(
                   buttonText: 'Play!',
-                  action: () {
-                    _controller.reverse().then(
-                          (_) => Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => SelectCategory(),
-                            ),
-                          ),
-                        );
-                  },
+                  action: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => SelectCategory(),
+                    ),
+                  ),
                 ),
               ),
             ),
-            // Image(
-            //   width: state.getScreenWidth * 0.7,
-            //   image: AssetImage('assets/images/puzzlepiclogo.png'),
-            // ),
-            Align(
+            Polaroid(
               alignment: Alignment.topLeft,
-              child: SlideTransition(
-                position: _offsetAnimation,
-                child: Transform.rotate(
-                  angle: 225,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black45,
-                          blurRadius: 5.0,
-                          offset: Offset(0.0, 3.0),
-                        ),
-                      ],
-                    ),
-                    // color: Colors.red,
-                    // width: state.getScreenWidth * 0.7,
-                    // height: state.getScreenWidth * 0.7,
-                    child: Image(
-                      image: AssetImage(
-                          'assets/images/polaroids/polaroid_eiffel_tower.jpg'),
-                    ),
-                  ),
-                ),
-              ),
+              angle: 20,
+              beginPosition: Offset(-1, -1),
+              endPosition: Offset(0, 0.2),
+              image: "eiffel_tower",
+              startInterval: 0.1,
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: SlideTransition(
-                position: _offsetAnimation1,
-                child: Transform.rotate(
-                  angle: 70,
-                  child: Container(
-                    // color: Colors.red,
-                    width: state.getScreenWidth * 0.3,
-                    height: state.getScreenWidth * 0.3,
-                    child: Image(
-                      image: AssetImage(
-                          'assets/images/buildings/pyramids_full.jpg'),
-                    ),
-                  ),
-                ),
-              ),
+            Polaroid(
+              alignment: Alignment.topLeft,
+              angle: 20,
+              beginPosition: Offset(-1, -1),
+              endPosition: Offset(0, 0.2),
+              image: "eiffel_tower",
+              startInterval: 0.1,
+            ),
+            Polaroid(
+              alignment: Alignment.topLeft,
+              angle: 20,
+              beginPosition: Offset(-1, -1),
+              endPosition: Offset(0, 0.2),
+              image: "eiffel_tower",
+              startInterval: 0.1,
+            ),
+            Polaroid(
+              alignment: Alignment.topLeft,
+              angle: 20,
+              beginPosition: Offset(-1, -1),
+              endPosition: Offset(0, 0.2),
+              image: "eiffel_tower",
+              startInterval: 0.1,
             ),
           ],
         ),
