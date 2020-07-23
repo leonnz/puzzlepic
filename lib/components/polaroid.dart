@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../providers/game_state_provider.dart';
+import 'package:provider/provider.dart';
 
 class Polaroid extends StatefulWidget {
   Polaroid({
@@ -48,6 +50,8 @@ class _PolaroidState extends State<Polaroid>
 
   @override
   Widget build(BuildContext context) {
+    GameStateProvider state = Provider.of<GameStateProvider>(context);
+
     return Container(
       child: Align(
         alignment: widget.alignment,
@@ -65,9 +69,8 @@ class _PolaroidState extends State<Polaroid>
                   ),
                 ],
               ),
-              // color: Colors.red,
-              // width: state.getScreenWidth * 0.7,
-              // height: state.getScreenWidth * 0.7,
+              width: state.getScreenWidth * 0.7,
+              height: state.getScreenWidth * 0.7,
               child: Image(
                 image: AssetImage(
                     'assets/images/polaroids/polaroid_${widget.image}.jpg'),
