@@ -53,6 +53,8 @@ class _PolaroidState extends State<Polaroid>
     GameStateProvider state = Provider.of<GameStateProvider>(context);
 
     return Container(
+      width: state.getScreenWidth * 0.6,
+      height: state.getScreenWidth * 0.6,
       child: Align(
         alignment: widget.alignment,
         child: SlideTransition(
@@ -69,8 +71,6 @@ class _PolaroidState extends State<Polaroid>
                   ),
                 ],
               ),
-              width: state.getScreenWidth * 0.7,
-              height: state.getScreenWidth * 0.7,
               child: Image(
                 image: AssetImage(
                     'assets/images/polaroids/polaroid_${widget.image}.jpg'),
