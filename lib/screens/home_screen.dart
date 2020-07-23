@@ -72,6 +72,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     // var h = MediaQuery.of(context).size.height;
     // print("width: $w height:$h");
 
+    AnimationController _controller = AnimationController(
+      duration: const Duration(milliseconds: 1000),
+      vsync: this,
+    );
+
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -84,6 +89,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         body: Stack(
           children: <Widget>[
             Polaroid(
+              testController: _controller,
               alignment: Alignment.topLeft,
               angle: -math.pi / 6,
               beginPosition: Offset(-1, -1),
@@ -92,6 +98,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               startInterval: 0.1,
             ),
             Polaroid(
+              testController: _controller,
               alignment: Alignment.bottomRight,
               angle: math.pi / 6,
               beginPosition: Offset(1, 1),
@@ -100,6 +107,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               startInterval: 0.3,
             ),
             Polaroid(
+              testController: _controller,
               alignment: Alignment.bottomLeft,
               angle: -math.pi / 4,
               beginPosition: Offset(-1, 0),
@@ -130,12 +138,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     EdgeInsets.only(bottom: deviceState.getDeviceHeight * 0.2),
                 child: Button(
                   buttonText: 'Play!',
-                  action: () => Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => SelectCategory(),
-                    ),
-                  ),
+                  action: () => _controller
+                    ..reset()
+                    ..forward(),
+                  // action: () => Navigator.push(
+                  //   context,
+                  //   CupertinoPageRoute(
+                  //     builder: (context) => SelectCategory(),
+                  //   ),
+                  // ),
                 ),
               ),
             ),

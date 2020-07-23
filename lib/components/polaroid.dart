@@ -3,15 +3,16 @@ import '../providers/game_state_provider.dart';
 import 'package:provider/provider.dart';
 
 class Polaroid extends StatefulWidget {
-  Polaroid({
-    Key key,
-    this.alignment,
-    this.angle,
-    this.image,
-    this.startInterval,
-    this.beginPosition,
-    this.endPosition,
-  }) : super(key: key);
+  Polaroid(
+      {Key key,
+      this.alignment,
+      this.angle,
+      this.image,
+      this.startInterval,
+      this.beginPosition,
+      this.endPosition,
+      this.testController})
+      : super(key: key);
 
   final Alignment alignment;
   final double angle;
@@ -19,6 +20,7 @@ class Polaroid extends StatefulWidget {
   final double startInterval;
   final Offset beginPosition;
   final Offset endPosition;
+  final AnimationController testController;
 
   @override
   _PolaroidState createState() => _PolaroidState();
@@ -31,17 +33,20 @@ class _PolaroidState extends State<Polaroid>
 
   @override
   void initState() {
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 1000),
-      vsync: this,
-    )..forward();
+    // _controller = AnimationController(
+    //   duration: const Duration(milliseconds: 1000),
+    //   vsync: this,
+    // )..forward();
+
+    widget.testController..forward();
 
     _offsetAnimation = Tween<Offset>(
       begin: widget.beginPosition,
       end: widget.endPosition,
     ).animate(
       CurvedAnimation(
-        parent: _controller,
+        // parent: _controller,
+        parent: widget.testController,
         curve: Interval(widget.startInterval, 1.0, curve: Curves.elasticOut),
       ),
     );
