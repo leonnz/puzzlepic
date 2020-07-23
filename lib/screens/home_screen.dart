@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'select_category_screen.dart';
@@ -86,7 +83,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     // print("width: $w height:$h");
 
     AnimationController _controller = AnimationController(
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 3000),
       vsync: this,
     );
 

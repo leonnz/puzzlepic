@@ -67,15 +67,6 @@ class _PolaroidState extends State<Polaroid>
           child: Transform.rotate(
             angle: widget.angle,
             child: Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black45,
-                    blurRadius: 5.0,
-                    offset: Offset(0.0, 3.0),
-                  ),
-                ],
-              ),
               child: Image(
                 width: double.infinity,
                 image: AssetImage(
