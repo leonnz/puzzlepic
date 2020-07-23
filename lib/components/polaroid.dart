@@ -39,7 +39,6 @@ class _PolaroidState extends State<Polaroid>
       end: widget.endPosition,
     ).animate(
       CurvedAnimation(
-        // parent: _controller,
         parent: widget.animationController,
         curve: Interval(
           widget.startInterval,
