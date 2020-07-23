@@ -54,12 +54,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   void didChangeDependencies() {
     precacheImage(bgImage, context);
 

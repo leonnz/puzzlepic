@@ -52,6 +52,12 @@ class _PolaroidState extends State<Polaroid>
   }
 
   @override
+  void dispose() {
+    widget.animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     GameStateProvider state = Provider.of<GameStateProvider>(context);
     DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
