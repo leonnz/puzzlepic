@@ -11,7 +11,7 @@ class Polaroid extends StatefulWidget {
       this.startInterval,
       this.beginPosition,
       this.endPosition,
-      this.testController})
+      this.animationController})
       : super(key: key);
 
   final Alignment alignment;
@@ -20,7 +20,7 @@ class Polaroid extends StatefulWidget {
   final double startInterval;
   final Offset beginPosition;
   final Offset endPosition;
-  final AnimationController testController;
+  final AnimationController animationController;
 
   @override
   _PolaroidState createState() => _PolaroidState();
@@ -28,17 +28,11 @@ class Polaroid extends StatefulWidget {
 
 class _PolaroidState extends State<Polaroid>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
   Animation<Offset> _offsetAnimation;
 
   @override
   void initState() {
-    // _controller = AnimationController(
-    //   duration: const Duration(milliseconds: 1000),
-    //   vsync: this,
-    // )..forward();
-
-    widget.testController..forward();
+    widget.animationController.forward();
 
     _offsetAnimation = Tween<Offset>(
       begin: widget.beginPosition,
@@ -46,8 +40,12 @@ class _PolaroidState extends State<Polaroid>
     ).animate(
       CurvedAnimation(
         // parent: _controller,
-        parent: widget.testController,
-        curve: Interval(widget.startInterval, 1.0, curve: Curves.elasticOut),
+        parent: widget.animationController,
+        curve: Interval(
+          widget.startInterval,
+          1.0,
+          curve: Curves.fastLinearToSlowEaseIn,
+        ),
       ),
     );
     super.initState();

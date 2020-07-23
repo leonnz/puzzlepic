@@ -54,6 +54,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   void didChangeDependencies() {
     precacheImage(bgImage, context);
 
@@ -99,7 +105,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         body: Stack(
           children: <Widget>[
             Polaroid(
-              testController: _controller,
+              animationController: _controller,
               alignment: Alignment.topLeft,
               angle: -math.pi / 6,
               beginPosition: Offset(-1, -1),
@@ -108,7 +114,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               startInterval: 0.1,
             ),
             Polaroid(
-              testController: _controller,
+              animationController: _controller,
               alignment: Alignment.topRight,
               angle: math.pi / 8,
               beginPosition: Offset(1.5, -1),
@@ -117,7 +123,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               startInterval: 0.3,
             ),
             Polaroid(
-              testController: _controller,
+              animationController: _controller,
               alignment: Alignment.bottomRight,
               angle: math.pi / 6,
               beginPosition: Offset(1, 1),
@@ -126,7 +132,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               startInterval: 0.4,
             ),
             Polaroid(
-              testController: _controller,
+              animationController: _controller,
               alignment: Alignment.bottomLeft,
               angle: -math.pi / 4,
               beginPosition: Offset(-1, 0),
