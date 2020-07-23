@@ -5,9 +5,38 @@ import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import 'package:provider/provider.dart';
 import '../styles/customStyles.dart';
+import 'dart:convert';
 
-class SelectCategory extends StatelessWidget {
+class SelectCategory extends StatefulWidget {
   const SelectCategory({Key key}) : super(key: key);
+
+  @override
+  _SelectCategoryState createState() => _SelectCategoryState();
+}
+
+class _SelectCategoryState extends State<SelectCategory> {
+  void _initPictureButtonImages() async {
+    final manifestContent =
+        await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
+
+    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+
+    final imagePaths = manifestMap.keys
+        .where((String key) => key.contains('images/'))
+        .where((String key) => key.contains('full'))
+        .toList();
+
+    imagePaths.forEach((element) {
+      precacheImage(AssetImage(element), context);
+    });
+  }
+
+  @override
+  void initState() {
+    _initPictureButtonImages();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

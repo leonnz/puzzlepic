@@ -102,8 +102,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
   @override
   void dispose() {
-    _interstitialAd?.dispose();
-    _bannerAd?.dispose();
+    // _interstitialAd?.dispose();
+    // _bannerAd?.dispose();
 
     super.dispose();
   }
