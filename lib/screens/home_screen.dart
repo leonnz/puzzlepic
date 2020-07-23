@@ -19,10 +19,11 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class _HomeState extends State<Home> with TickerProviderStateMixin {
   AssetImage bgImage;
   List<AssetImage> imageAssetCats;
   List<AssetImage> polaroidImages;
+  AnimationController _controller;
 
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
@@ -40,6 +41,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       AssetImage('assets/images/polaroids/polaroid_daisies.jpg'),
       AssetImage('assets/images/polaroids/polaroid_elephant.jpg'),
     ];
+
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
 
     // _initAdMob().then((_) {
     //   print('Admob loaded');
@@ -80,11 +86,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     // var w = MediaQuery.of(context).size.width;
     // var h = MediaQuery.of(context).size.height;
     // print("width: $w height:$h");
-
-    AnimationController _controller = AnimationController(
-      duration: const Duration(milliseconds: 1500),
-      vsync: this,
-    );
 
     return Container(
       decoration: BoxDecoration(
@@ -149,9 +150,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     EdgeInsets.only(bottom: deviceState.getDeviceHeight * 0.2),
                 child: Button(
                     buttonText: 'Play!',
-                    // action: () => _controller
-                    //   ..reset()
-                    //   ..forward(),
                     action: () {
                       _controller.reverse().then((_) async {
                         var result = await Navigator.push(
@@ -165,12 +163,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                           _controller.forward();
                         }
                       });
-                      // Navigator.push(
-                      //   context,
-                      //   CupertinoPageRoute(
-                      //     builder: (context) => SelectCategory(),
-                      //   ),
-                      // );
                     }),
               ),
             ),
