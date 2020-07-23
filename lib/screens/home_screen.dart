@@ -8,6 +8,7 @@ import '../providers/device_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'dart:async';
+import '../data/images_data.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -18,6 +19,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   AssetImage bgImage;
+  List<AssetImage> imageAssetCats;
 
   AnimationController _controller;
   Animation<Offset> _offsetAnimation;
@@ -30,12 +32,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   void initState() {
     bgImage = AssetImage('assets/images/checker_background.png');
+    imageAssetCats = Images.imageList
+        .map((e) =>
+            AssetImage('assets/images/categories/${e["categoryName"]}_cat.png'))
+        .toList();
+
     // _initAdMob().then((_) {
     //   print('Admob loaded');
     // }, onError: (error) => print(error));
 
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 3000),
+      duration: const Duration(milliseconds: 1000),
       vsync: this,
     )..forward();
 
@@ -46,17 +53,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     ).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(0.8, 1.0, curve: Curves.elasticOut),
+        curve: Interval(0.3, 1.0, curve: Curves.elasticOut),
       ),
     );
 
     _offsetAnimation1 = Tween<Offset>(
-      begin: Offset(-1, -1),
+      begin: Offset(-1, -1.5),
       end: Offset(0, 0.2),
     ).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(0.3, 1.0, curve: Curves.elasticOut),
+        curve: Interval(0.35, 1.0, curve: Curves.elasticOut),
       ),
     );
 
@@ -66,6 +73,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     precacheImage(bgImage, context);
+
+    imageAssetCats.forEach((image) {
+      precacheImage(image, context);
+    });
+
     super.didChangeDependencies();
   }
 
@@ -106,12 +118,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 child: Button(
                   buttonText: 'Play!',
                   action: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder: (context) => SelectCategory(),
-                      ),
-                    );
+                    _controller.reverse().then(
+                          (_) => Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => SelectCategory(),
+                            ),
+                          ),
+                        );
                   },
                 ),
               ),
