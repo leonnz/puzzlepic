@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'select_category_screen.dart';
@@ -22,6 +25,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   AssetImage bgImage;
   List<AssetImage> imageAssetCats;
+  List<AssetImage> polaroidImages;
 
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
@@ -34,6 +38,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         .map((e) =>
             AssetImage('assets/images/categories/${e["categoryName"]}_cat.png'))
         .toList();
+    polaroidImages = [
+      AssetImage('assets/images/polaroids/polaroid_eiffel_tower.jpg'),
+      AssetImage('assets/images/polaroids/polaroid_daisies.jpg'),
+      AssetImage('assets/images/polaroids/polaroid_elephant.jpg'),
+    ];
 
     // _initAdMob().then((_) {
     //   print('Admob loaded');
@@ -47,6 +56,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     precacheImage(bgImage, context);
 
     imageAssetCats.forEach((image) {
+      precacheImage(image, context);
+    });
+
+    polaroidImages.forEach((image) {
       precacheImage(image, context);
     });
 
