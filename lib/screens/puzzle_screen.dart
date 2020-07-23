@@ -357,6 +357,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                             widget.readableFullname != null
                                 ? widget.readableFullname
                                 : widget.readableName,
+                            textAlign: TextAlign.center,
                             style: CustomTextTheme(deviceProvider: deviceState)
                                 .puzzleScreenImageTitle(),
                           ),
