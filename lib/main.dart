@@ -7,9 +7,9 @@ import './screens/home_screen.dart';
 import './screens/splash_screen.dart';
 import './data/db_provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(PuzzlePicApp());
 
-class MyApp extends StatelessWidget {
+class PuzzlePicApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Init the database
