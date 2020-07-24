@@ -54,11 +54,11 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
 
   void _onTapDown(TapDownDetails details) {
     _controller.forward();
+    widget.action();
   }
 
   void _onTapUp(TapUpDetails details) {
     _controller.reverse();
-    widget.action();
   }
 
   @override
