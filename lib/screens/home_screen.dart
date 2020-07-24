@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'select_category_screen.dart';
-import '../components/button.dart';
+import '../components/play_button.dart';
 import 'package:provider/provider.dart';
 import 'package:PuzzlePic/providers/game_state_provider.dart';
 import '../providers/device_provider.dart';
@@ -24,6 +24,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   List<AssetImage> imageAssetCats;
   List<AssetImage> polaroidImages;
   AnimationController _controller;
+  AnimationController _slideAnimationController;
 
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
@@ -43,6 +44,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     ];
 
     _controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+
+    _slideAnimationController = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
@@ -158,9 +164,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               child: Padding(
                 padding:
                     EdgeInsets.only(bottom: deviceState.getDeviceHeight * 0.2),
-                child: Button(
+                child: PlayButton(
+                    slideAnimationController: _slideAnimationController,
                     buttonText: 'Play!',
                     action: () {
+                      _slideAnimationController.reverse();
                       _controller.reverse().then((_) async {
                         var result = await Navigator.push(
                           context,
@@ -171,6 +179,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
                         if (result) {
                           _controller.forward();
+                          _slideAnimationController.forward();
                         }
                       });
                     }),
