@@ -33,7 +33,7 @@ class ImageButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             child: Image(
               image: AssetImage(
-                  'assets/images/$categoryName/${assetName}_full.jpg'),
+                  'assets/images/$categoryName/${assetName}_full_mini.jpg'),
             ),
           ),
           Positioned(

@@ -29,7 +29,7 @@ class _SelectCategoryState extends State<SelectCategory> {
       (imageCategory) {
         List<dynamic>.from(imageCategory['categoryImages']).forEach((image) {
           fullImages.add(AssetImage(
-              'assets/images/${imageCategory['categoryName']}/${image['assetName']}_full.jpg'));
+              'assets/images/${imageCategory['categoryName']}/${image['assetName']}_full_mini.jpg'));
         });
       },
     );
