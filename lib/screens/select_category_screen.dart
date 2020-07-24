@@ -43,9 +43,9 @@ class _SelectCategoryState extends State<SelectCategory> {
       precacheImage(image, context);
     });
 
-    // fullImages.forEach((image) {
-    //   precacheImage(image, context);
-    // });
+    fullMiniImages.forEach((image) {
+      precacheImage(image, context);
+    });
     super.didChangeDependencies();
   }
 
