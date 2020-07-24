@@ -14,34 +14,15 @@ class SelectCategory extends StatefulWidget {
 }
 
 class _SelectCategoryState extends State<SelectCategory> {
-  List<AssetImage> bannerImages = [];
   List<AssetImage> fullMiniImages = [];
 
   @override
   void initState() {
-    bannerImages = Images.imageList
-        .map((e) => AssetImage(
-            'assets/images/categories/${e["categoryName"]}_banner.png'))
-        .toList();
-
-    Images.imageList.forEach(
-      (imageCategory) {
-        List<dynamic>.from(imageCategory['categoryImages']).forEach((image) {
-          fullMiniImages.add(AssetImage(
-              'assets/images/${imageCategory['categoryName']}/${image['assetName']}_full_mini.jpg'));
-        });
-      },
-    );
-
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    bannerImages.forEach((image) {
-      precacheImage(image, context);
-    });
-
     fullMiniImages.forEach((image) {
       precacheImage(image, context);
     });

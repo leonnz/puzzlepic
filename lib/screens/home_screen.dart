@@ -20,9 +20,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
-  AssetImage bgImage;
-  List<AssetImage> imageAssetCats;
-  List<AssetImage> polaroidImages;
+  List<AssetImage> imagesToPrecache;
+
   AnimationController _controller;
   AnimationController _slideAnimationController;
   bool precacheImagesCompleted = false;
@@ -33,16 +32,34 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    bgImage = AssetImage('assets/images/background.png');
-    imageAssetCats = Images.imageList
-        .map((e) =>
-            AssetImage('assets/images/categories/${e["categoryName"]}_cat.png'))
-        .toList();
-    polaroidImages = [
+    imagesToPrecache = [
+      AssetImage('assets/images/background.png'),
       AssetImage('assets/images/polaroids/polaroid_eiffel_tower.jpg'),
       AssetImage('assets/images/polaroids/polaroid_daisies.jpg'),
-      AssetImage('assets/images/polaroids/polaroid_elephant.jpg'),
+      AssetImage('assets/images/polaroids/polaroid_sea_turtle.jpg'),
+      AssetImage('assets/images/polaroids/polaroid_taj_mahal.jpg'),
+      AssetImage('assets/images/polaroids/polaroid_pyramids.jpg'),
+      AssetImage('assets/images/polaroids/polaroid_grand_canyon.jpg'),
     ];
+
+    Images.imageList.forEach((imageCategory) {
+      // Category images
+      imagesToPrecache.add(
+        AssetImage(
+            'assets/images/categories/${imageCategory["categoryName"]}_cat.png'),
+      );
+      // Category banners
+      imagesToPrecache.add(
+        AssetImage(
+            'assets/images/categories/${imageCategory["categoryName"]}_banner.png'),
+      );
+
+      // Select picture screen thumbnails
+      List<dynamic>.from(imageCategory['categoryImages']).forEach((image) {
+        imagesToPrecache.add(AssetImage(
+            'assets/images/${imageCategory['categoryName']}/${image['assetName']}_full_mini.jpg'));
+      });
+    });
 
     _controller = AnimationController(
       duration: const Duration(milliseconds: 500),
@@ -63,23 +80,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void didChangeDependencies() {
-    precacheImage(bgImage, context);
-
-    imageAssetCats.forEach((image) {
-      precacheImage(image, context);
-    });
-
-    polaroidImages.forEach((image) {
-      precacheImage(image, context);
-      print('1');
-    });
-    print('2');
-
-    Future.delayed(const Duration(milliseconds: 0)).then((value) {
-      setState(() {
-        precacheImagesCompleted = true;
+    for (var i = 0; i < imagesToPrecache.length; i++) {
+      precacheImage(imagesToPrecache[i], context).then((_) {
+        if (i == imagesToPrecache.length - 1) {
+          setState(() {
+            precacheImagesCompleted = true;
+          });
+        }
       });
-    });
+    }
 
     super.didChangeDependencies();
   }
@@ -107,7 +116,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: bgImage,
+          image: AssetImage('assets/images/background.png'),
         ),
       ),
       child: Scaffold(
