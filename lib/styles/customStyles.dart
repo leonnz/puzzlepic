@@ -9,6 +9,30 @@ class CustomTextTheme {
 
   CustomTextTheme({this.deviceProvider});
 
+  TextStyle homeScreenAppName(BuildContext context) {
+    return GoogleFonts.satisfy(
+      fontSize: deviceProvider.getUseMobileLayout ? 88 : 70,
+      letterSpacing: 0,
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+      shadows: [
+        Shadow(
+          blurRadius: 5,
+          color: Colors.purple,
+          offset: Offset(1, 1),
+        )
+      ],
+    );
+  }
+
+  TextStyle playButtonText(BuildContext context) {
+    return GoogleFonts.solway(
+      fontSize: deviceProvider.getUseMobileLayout ? 24 : 40,
+      letterSpacing: 3,
+      color: Colors.purple,
+    );
+  }
+
   TextStyle selectScreenTitleTextStyle(BuildContext context) {
     return GoogleFonts.solway(
       fontSize: deviceProvider.getUseMobileLayout ? 24 : 40,

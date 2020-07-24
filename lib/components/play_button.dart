@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../providers/device_provider.dart';
 import 'package:provider/provider.dart';
+import '../styles/customStyles.dart';
 
 class PlayButton extends StatefulWidget {
   PlayButton(
@@ -96,11 +97,13 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
             child: Center(
               child: Text(
                 widget.buttonText,
-                style: TextStyle(
-                  color: Colors.purple,
-                  fontSize: deviceProvider.getUseMobileLayout ? 25 : 40,
-                  letterSpacing: 1,
-                ),
+                // style: TextStyle(
+                //   color: Colors.purple,
+                //   fontSize: deviceProvider.getUseMobileLayout ? 25 : 40,
+                //   letterSpacing: 1,
+                // ),
+                style: CustomTextTheme(deviceProvider: deviceProvider)
+                    .playButtonText(context),
               ),
             ),
           ),
