@@ -255,10 +255,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             : Container(
                 color: Colors.white,
                 child: Center(
-                    child: SpinKitRing(
-                  color: Colors.purple,
-                  size: deviceState.getUseMobileLayout ? 50 : 80,
-                )),
+                  child: SpinKitFadingFour(
+                    color: Colors.purple,
+                    size: deviceState.getUseMobileLayout ? 50 : 80,
+                  ),
+                ),
               ),
       ),
     );
