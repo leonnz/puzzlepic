@@ -5,7 +5,6 @@ import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import 'package:provider/provider.dart';
 import '../styles/customStyles.dart';
-import 'dart:convert';
 
 class SelectCategory extends StatefulWidget {
   const SelectCategory({Key key}) : super(key: key);
