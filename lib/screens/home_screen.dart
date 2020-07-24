@@ -10,6 +10,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'dart:async';
 import '../data/images_data.dart';
 import '../components/polaroid.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:math' as math;
 
 class Home extends StatefulWidget {
@@ -207,12 +208,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 ],
               )
             : Center(
-                child: SizedBox(
-                  child: CircularProgressIndicator(),
-                  height: 200,
-                  width: 200,
-                ),
-              ),
+                child: SpinKitRing(
+                color: Colors.white,
+                size: deviceState.getUseMobileLayout ? 50 : 80,
+              )),
       ),
     );
   }
