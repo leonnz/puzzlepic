@@ -144,6 +144,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   ),
                   Polaroid(
                     animationController: _controller,
+                    alignment: Alignment.topLeft,
+                    angle: -math.pi / 6,
+                    beginPosition: Offset(-1, -1),
+                    endPosition: Offset(0, 0),
+                    image: "daisies",
+                    startInterval: 0.1,
+                  ),
+                  Polaroid(
+                    animationController: _controller,
                     alignment: Alignment.centerLeft,
                     angle: math.pi / 7,
                     beginPosition: Offset(-1.5, 0),
@@ -158,15 +167,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     beginPosition: Offset(1.5, 0),
                     endPosition: Offset(0, 0),
                     image: "taj_mahal",
-                    startInterval: 0.1,
-                  ),
-                  Polaroid(
-                    animationController: _controller,
-                    alignment: Alignment.topLeft,
-                    angle: -math.pi / 6,
-                    beginPosition: Offset(-1, -1),
-                    endPosition: Offset(0, 0),
-                    image: "daisies",
                     startInterval: 0.1,
                   ),
                   Polaroid(
