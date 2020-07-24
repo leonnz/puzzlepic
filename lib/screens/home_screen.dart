@@ -158,7 +158,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     alignment: Alignment.bottomLeft,
                     angle: -math.pi / 10,
                     beginPosition: Offset(-1.5, 1.5),
-                    endPosition: Offset(-0.2, 0),
+                    endPosition: Offset(-0.2, 0.1),
                     image: "pyramids",
                     startInterval: 0.2,
                   ),
@@ -231,7 +231,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     child: SlideTransition(
                       position: _puzzlePicAnimation,
                       child: Container(
-                        color: Color.fromRGBO(255, 255, 255, 0.5),
+                        color: Color.fromRGBO(147, 112, 219, 0.2),
                         margin: EdgeInsets.only(
                           top: deviceState.getDeviceHeight * 0.2,
                         ),
