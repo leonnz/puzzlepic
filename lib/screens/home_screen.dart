@@ -25,6 +25,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   List<AssetImage> polaroidImages;
   AnimationController _controller;
   AnimationController _slideAnimationController;
+  bool precacheImagesCompleted = false;
 
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
@@ -70,6 +71,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
     polaroidImages.forEach((image) {
       precacheImage(image, context);
+      print('1');
+    });
+    print('2');
+
+    Future.delayed(const Duration(milliseconds: 0)).then((value) {
+      setState(() {
+        precacheImagesCompleted = true;
+      });
     });
 
     super.didChangeDependencies();
@@ -103,90 +112,98 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
       child: Scaffold(
         backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
-        body: Stack(
-          children: <Widget>[
-            Polaroid(
-              animationController: _controller,
-              alignment: Alignment.bottomLeft,
-              angle: -math.pi / 10,
-              beginPosition: Offset(-1.5, 1.5),
-              endPosition: Offset(0, 0),
-              image: "pyramids",
-              startInterval: 0.2,
-            ),
-            Polaroid(
-              animationController: _controller,
-              alignment: Alignment.bottomRight,
-              angle: math.pi / 6,
-              beginPosition: Offset(1, 1),
-              endPosition: Offset(0, 0),
-              image: "grand_canyon",
-              startInterval: 0.4,
-            ),
-            Polaroid(
-              animationController: _controller,
-              alignment: Alignment.centerLeft,
-              angle: math.pi / 7,
-              beginPosition: Offset(-1.5, 0),
-              endPosition: Offset(0, 0),
-              image: "sea_turtle",
-              startInterval: 0.3,
-            ),
-            Polaroid(
-              animationController: _controller,
-              alignment: Alignment.centerRight,
-              angle: -math.pi / 9,
-              beginPosition: Offset(1.5, 0),
-              endPosition: Offset(0, 0),
-              image: "taj_mahal",
-              startInterval: 0.1,
-            ),
-            Polaroid(
-              animationController: _controller,
-              alignment: Alignment.topLeft,
-              angle: -math.pi / 6,
-              beginPosition: Offset(-1, -1),
-              endPosition: Offset(0, 0),
-              image: "daisies",
-              startInterval: 0.1,
-            ),
-            Polaroid(
-              animationController: _controller,
-              alignment: Alignment.topRight,
-              angle: math.pi / 8,
-              beginPosition: Offset(1.5, -1),
-              endPosition: Offset(0, 0),
-              image: "eiffel_tower",
-              startInterval: 0.3,
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding:
-                    EdgeInsets.only(bottom: deviceState.getDeviceHeight * 0.2),
-                child: PlayButton(
-                    slideAnimationController: _slideAnimationController,
-                    buttonText: 'Play!',
-                    action: () {
-                      _slideAnimationController.reverse();
-                      _controller.reverse().then((_) async {
-                        var result = await Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => SelectCategory(),
-                          ),
-                        );
+        body: precacheImagesCompleted
+            ? Stack(
+                children: <Widget>[
+                  Polaroid(
+                    animationController: _controller,
+                    alignment: Alignment.bottomLeft,
+                    angle: -math.pi / 10,
+                    beginPosition: Offset(-1.5, 1.5),
+                    endPosition: Offset(0, 0),
+                    image: "pyramids",
+                    startInterval: 0.2,
+                  ),
+                  Polaroid(
+                    animationController: _controller,
+                    alignment: Alignment.bottomRight,
+                    angle: math.pi / 6,
+                    beginPosition: Offset(1, 1),
+                    endPosition: Offset(0, 0),
+                    image: "grand_canyon",
+                    startInterval: 0.4,
+                  ),
+                  Polaroid(
+                    animationController: _controller,
+                    alignment: Alignment.centerLeft,
+                    angle: math.pi / 7,
+                    beginPosition: Offset(-1.5, 0),
+                    endPosition: Offset(0, 0),
+                    image: "sea_turtle",
+                    startInterval: 0.3,
+                  ),
+                  Polaroid(
+                    animationController: _controller,
+                    alignment: Alignment.centerRight,
+                    angle: -math.pi / 9,
+                    beginPosition: Offset(1.5, 0),
+                    endPosition: Offset(0, 0),
+                    image: "taj_mahal",
+                    startInterval: 0.1,
+                  ),
+                  Polaroid(
+                    animationController: _controller,
+                    alignment: Alignment.topLeft,
+                    angle: -math.pi / 6,
+                    beginPosition: Offset(-1, -1),
+                    endPosition: Offset(0, 0),
+                    image: "daisies",
+                    startInterval: 0.1,
+                  ),
+                  Polaroid(
+                    animationController: _controller,
+                    alignment: Alignment.topRight,
+                    angle: math.pi / 8,
+                    beginPosition: Offset(1.5, -1),
+                    endPosition: Offset(0, 0),
+                    image: "eiffel_tower",
+                    startInterval: 0.3,
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          bottom: deviceState.getDeviceHeight * 0.2),
+                      child: PlayButton(
+                          slideAnimationController: _slideAnimationController,
+                          buttonText: 'Play!',
+                          action: () {
+                            _slideAnimationController.reverse();
+                            _controller.reverse().then((_) async {
+                              var result = await Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => SelectCategory(),
+                                ),
+                              );
 
-                        if (result) {
-                          _controller.forward();
-                          _slideAnimationController.forward();
-                        }
-                      });
-                    }),
+                              if (result) {
+                                _controller.forward();
+                                _slideAnimationController.forward();
+                              }
+                            });
+                          }),
+                    ),
+                  ),
+                ],
+              )
+            : Center(
+                child: SizedBox(
+                  child: CircularProgressIndicator(),
+                  height: 200,
+                  width: 200,
+                ),
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
