@@ -33,8 +33,6 @@ class _PolaroidState extends State<Polaroid>
 
   @override
   void initState() {
-    // widget.animationController.forward();
-
     _offsetAnimation = Tween<Offset>(
       begin: widget.beginPosition,
       end: widget.endPosition,
