@@ -6,28 +6,8 @@ import '../providers/device_provider.dart';
 import 'package:provider/provider.dart';
 import '../styles/customStyles.dart';
 
-class SelectCategory extends StatefulWidget {
+class SelectCategory extends StatelessWidget {
   const SelectCategory({Key key}) : super(key: key);
-
-  @override
-  _SelectCategoryState createState() => _SelectCategoryState();
-}
-
-class _SelectCategoryState extends State<SelectCategory> {
-  List<AssetImage> fullMiniImages = [];
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    fullMiniImages.forEach((image) {
-      precacheImage(image, context);
-    });
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
