@@ -72,7 +72,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     );
 
     _slideAnimationController = AnimationController(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 350),
       vsync: this,
     );
 
