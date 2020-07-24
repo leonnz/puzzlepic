@@ -40,11 +40,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
       ),
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(milliseconds: 500), () {
-        widget.slideAnimationController.forward();
-      });
-    });
+    widget.slideAnimationController.forward();
 
     super.initState();
   }

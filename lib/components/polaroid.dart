@@ -47,11 +47,7 @@ class _PolaroidState extends State<Polaroid>
       ),
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(milliseconds: 500), () {
-        widget.animationController.forward();
-      });
-    });
+    widget.animationController.forward();
 
     super.initState();
   }
