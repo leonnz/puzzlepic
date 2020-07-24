@@ -127,21 +127,21 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 children: <Widget>[
                   Polaroid(
                     animationController: _controller,
-                    alignment: Alignment.bottomLeft,
-                    angle: -math.pi / 10,
-                    beginPosition: Offset(-1.5, 1.5),
-                    endPosition: Offset(0, 0),
-                    image: "pyramids",
-                    startInterval: 0.2,
-                  ),
-                  Polaroid(
-                    animationController: _controller,
                     alignment: Alignment.bottomRight,
                     angle: math.pi / 6,
                     beginPosition: Offset(1, 1),
-                    endPosition: Offset(0, 0),
+                    endPosition: Offset(0.3, 0),
                     image: "grand_canyon",
                     startInterval: 0.4,
+                  ),
+                  Polaroid(
+                    animationController: _controller,
+                    alignment: Alignment.bottomLeft,
+                    angle: -math.pi / 10,
+                    beginPosition: Offset(-1.5, 1.5),
+                    endPosition: Offset(-0.2, 0),
+                    image: "pyramids",
+                    startInterval: 0.2,
                   ),
                   Polaroid(
                     animationController: _controller,
@@ -166,7 +166,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     alignment: Alignment.centerRight,
                     angle: -math.pi / 9,
                     beginPosition: Offset(1.5, 0),
-                    endPosition: Offset(0, 0),
+                    endPosition: Offset(0.2, 0),
                     image: "taj_mahal",
                     startInterval: 0.1,
                   ),
@@ -175,7 +175,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     alignment: Alignment.topRight,
                     angle: math.pi / 8,
                     beginPosition: Offset(1.5, -1),
-                    endPosition: Offset(0, 0),
+                    endPosition: Offset(0.2, -0.2),
                     image: "eiffel_tower",
                     startInterval: 0.3,
                   ),
@@ -207,11 +207,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   ),
                 ],
               )
-            : Center(
-                child: SpinKitRing(
+            : Container(
                 color: Colors.white,
-                size: deviceState.getUseMobileLayout ? 50 : 80,
-              )),
+                child: Center(
+                    child: SpinKitRing(
+                  color: Colors.purple,
+                  size: deviceState.getUseMobileLayout ? 50 : 80,
+                )),
+              ),
       ),
     );
   }
