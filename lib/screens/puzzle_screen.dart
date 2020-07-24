@@ -131,7 +131,10 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         builder: (context) => Container(
           width: 500,
           child: AlertDialog(
-            title: Text('Leave this game'),
+            title: Text(
+              'Leave this game',
+              textAlign: TextAlign.center,
+            ),
             titleTextStyle: CustomTextTheme(deviceProvider: deviceState)
                 .puzzleScreenQuitAlertTitle(),
             content: Column(
@@ -141,7 +144,10 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   padding: EdgeInsets.only(
                     bottom: 40,
                   ),
-                  child: Text('Progress will be lost, are you sure?'),
+                  child: Text(
+                    'Progress will be lost, are you sure?',
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -184,7 +190,10 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       await showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Leave this game'),
+          title: Text(
+            'Leave this game',
+            textAlign: TextAlign.center,
+          ),
           titleTextStyle: CustomTextTheme(deviceProvider: deviceState)
               .puzzleScreenQuitAlertTitle(),
           content: Column(
@@ -195,7 +204,10 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   bottom: 40,
                 ),
                 width: deviceState.getUseMobileLayout ? null : 300,
-                child: Text('Progress will be lost, are you sure?'),
+                child: Text(
+                  'Progress will be lost, are you sure?',
+                  textAlign: TextAlign.center,
+                ),
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
