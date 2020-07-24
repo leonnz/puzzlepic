@@ -24,7 +24,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   List<AssetImage> imageAssetCats;
   List<AssetImage> polaroidImages;
   AnimationController _controller;
-  List<String> pictureButtonImages;
 
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);

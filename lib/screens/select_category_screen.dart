@@ -15,28 +15,38 @@ class SelectCategory extends StatefulWidget {
 }
 
 class _SelectCategoryState extends State<SelectCategory> {
-  void precacheImages() async {
-    final manifestContent =
-        await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
-    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
-    final imagePaths =
-        manifestMap.keys.where((String key) => key.contains('full')).toList();
-    final bannerImagePaths =
-        manifestMap.keys.where((String key) => key.contains('banner')).toList();
-
-    imagePaths.forEach((image) {
-      precacheImage(AssetImage(image), context);
-    });
-
-    bannerImagePaths.forEach((image) {
-      precacheImage(AssetImage(image), context);
-    });
-  }
+  List<AssetImage> bannerImages = [];
+  List<AssetImage> fullImages = [];
 
   @override
   void initState() {
-    precacheImages();
+    bannerImages = Images.imageList
+        .map((e) => AssetImage(
+            'assets/images/categories/${e["categoryName"]}_banner.png'))
+        .toList();
+
+    Images.imageList.forEach(
+      (imageCategory) {
+        List<dynamic>.from(imageCategory['categoryImages']).forEach((image) {
+          fullImages.add(AssetImage(
+              'assets/images/${imageCategory['categoryName']}/${image['assetName']}_full.jpg'));
+        });
+      },
+    );
+
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    bannerImages.forEach((image) {
+      precacheImage(image, context);
+    });
+
+    fullImages.forEach((image) {
+      precacheImage(image, context);
+    });
+    super.didChangeDependencies();
   }
 
   @override
