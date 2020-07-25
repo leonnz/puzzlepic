@@ -11,7 +11,7 @@ class CustomTextTheme {
 
   TextStyle homeScreenAppName(BuildContext context) {
     return GoogleFonts.satisfy(
-      fontSize: deviceProvider.getUseMobileLayout ? 88 : 70,
+      fontSize: deviceProvider.getUseMobileLayout ? 80 : 150,
       letterSpacing: 0,
       color: Colors.white,
       fontWeight: FontWeight.bold,
