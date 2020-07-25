@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../providers/game_provider.dart';
-import '../providers/device_provider.dart';
 import 'package:provider/provider.dart';
 
 class Polaroid extends StatefulWidget {
@@ -60,16 +59,13 @@ class _PolaroidState extends State<Polaroid>
 
   @override
   Widget build(BuildContext context) {
-    GameProvider state = Provider.of<GameProvider>(context);
-    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
+    GameProvider gameState = Provider.of<GameProvider>(context);
 
     return Align(
       alignment: widget.alignment,
       child: Container(
-        width: state.getScreenWidth *
-            (deviceState.getUseMobileLayout ? 0.7 : 0.55),
-        height: state.getScreenWidth *
-            (deviceState.getUseMobileLayout ? 0.777 : 0.6105),
+        width: gameState.getScreenWidth * 0.7,
+        height: gameState.getScreenWidth * 0.777,
         child: SlideTransition(
           position: _offsetAnimation,
           child: Transform.rotate(
