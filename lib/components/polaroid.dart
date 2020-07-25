@@ -11,7 +11,7 @@ class Polaroid extends StatefulWidget {
       this.startInterval,
       this.beginPosition,
       this.endPosition,
-      this.animationController})
+      this.polaroidSlideController})
       : super(key: key);
 
   final Alignment alignment;
@@ -20,7 +20,7 @@ class Polaroid extends StatefulWidget {
   final double startInterval;
   final Offset beginPosition;
   final Offset endPosition;
-  final AnimationController animationController;
+  final AnimationController polaroidSlideController;
 
   @override
   _PolaroidState createState() => _PolaroidState();
@@ -28,16 +28,16 @@ class Polaroid extends StatefulWidget {
 
 class _PolaroidState extends State<Polaroid>
     with SingleTickerProviderStateMixin {
-  Animation<Offset> _offsetAnimation;
+  Animation<Offset> _slideAnimation;
 
   @override
   void initState() {
-    _offsetAnimation = Tween<Offset>(
+    _slideAnimation = Tween<Offset>(
       begin: widget.beginPosition,
       end: widget.endPosition,
     ).animate(
       CurvedAnimation(
-        parent: widget.animationController,
+        parent: widget.polaroidSlideController,
         curve: Interval(
           widget.startInterval,
           1.0,
@@ -46,20 +46,20 @@ class _PolaroidState extends State<Polaroid>
       ),
     );
 
-    widget.animationController.forward();
+    widget.polaroidSlideController.forward();
 
     super.initState();
   }
 
   @override
   void dispose() {
-    widget.animationController.dispose();
+    widget.polaroidSlideController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    GameProvider gameState = Provider.of<GameProvider>(context);
+    GameProvider gameState = Provider.of<GameProvider>(context, listen: false);
 
     return Align(
       alignment: widget.alignment,
@@ -67,12 +67,11 @@ class _PolaroidState extends State<Polaroid>
         width: gameState.getScreenWidth * 0.7,
         height: gameState.getScreenWidth * 0.777,
         child: SlideTransition(
-          position: _offsetAnimation,
+          position: _slideAnimation,
           child: Transform.rotate(
             angle: widget.angle,
             child: Container(
               child: Image(
-                width: double.infinity,
                 image: AssetImage(
                     'assets/images/_polaroids/polaroid_${widget.image}.jpg'),
               ),
