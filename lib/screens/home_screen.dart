@@ -27,7 +27,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Animation<Offset> _puzzlePicAnimation;
 
   AnimationController _polaroidController;
-  AnimationController _playButtonController;
+  AnimationController _playButtonSlideController;
   AnimationController _puzzlePicAnimationController;
   bool precacheImagesCompleted = false;
 
@@ -71,7 +71,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       vsync: this,
     );
 
-    _playButtonController = AnimationController(
+    _playButtonSlideController = AnimationController(
       duration: const Duration(milliseconds: 350),
       vsync: this,
     );
@@ -204,10 +204,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       padding: EdgeInsets.only(
                           bottom: deviceState.getDeviceHeight * 0.2),
                       child: PlayButton(
-                          slideAnimationController: _playButtonController,
+                          playButtonSlideController: _playButtonSlideController,
                           buttonText: 'Play!',
                           action: () {
-                            _playButtonController.reverse();
+                            _playButtonSlideController.reverse();
                             _puzzlePicAnimationController.reverse();
                             _polaroidController.reverse().then((_) async {
                               var result = await Navigator.push(
@@ -219,7 +219,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
                               if (result) {
                                 _polaroidController.forward();
-                                _playButtonController.forward();
+                                _playButtonSlideController.forward();
                                 _puzzlePicAnimationController.forward();
                               }
                             });

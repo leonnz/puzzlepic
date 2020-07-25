@@ -5,11 +5,11 @@ import '../styles/customStyles.dart';
 
 class PlayButton extends StatefulWidget {
   PlayButton(
-      {Key key, this.buttonText, this.action, this.slideAnimationController})
+      {Key key, this.buttonText, this.action, this.playButtonSlideController})
       : super(key: key);
   final String buttonText;
   final Function action;
-  final AnimationController slideAnimationController;
+  final AnimationController playButtonSlideController;
 
   @override
   _PlayButtonState createState() => _PlayButtonState();
@@ -36,12 +36,12 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
       end: Offset(0, 0),
     ).animate(
       CurvedAnimation(
-        parent: widget.slideAnimationController,
+        parent: widget.playButtonSlideController,
         curve: Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
       ),
     );
 
-    widget.slideAnimationController.forward();
+    widget.playButtonSlideController.forward();
 
     super.initState();
   }
@@ -97,11 +97,6 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
             child: Center(
               child: Text(
                 widget.buttonText,
-                // style: TextStyle(
-                //   color: Colors.purple,
-                //   fontSize: deviceProvider.getUseMobileLayout ? 25 : 40,
-                //   letterSpacing: 1,
-                // ),
                 style: CustomTextTheme(deviceProvider: deviceProvider)
                     .playButtonText(context),
               ),
