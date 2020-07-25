@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../providers/device_provider.dart';
 import 'package:provider/provider.dart';
-import '../styles/customStyles.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../providers/device_provider.dart';
+import '../styles/customStyles.dart';
 import '../screens/select_category_screen.dart';
 
 class PlayButton extends StatefulWidget {
@@ -118,7 +119,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
                       end: Alignment.bottomCenter,
                       colors: [
                         Colors.white,
-                        Colors.white,
+                        Colors.grey[350],
                       ]),
                 ),
                 child: Center(
