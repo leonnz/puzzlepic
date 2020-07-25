@@ -144,12 +144,13 @@ class _SelectPictureState extends State<SelectPicture> {
                                     context,
                                     CupertinoPageRoute(
                                       builder: (context) => PuzzleScreen(
-                                        category: widget.category,
-                                        assetName: images[i]["assetName"],
-                                        readableName: images[i]["readableName"],
-                                        readableFullname: images[i]
+                                        imageCategory: widget.category,
+                                        imageAssetName: images[i]["assetName"],
+                                        imageReadableName: images[i]
+                                            ["readableName"],
+                                        imageReadableFullname: images[i]
                                             ["readableFullname"],
-                                        title: images[i]["title"],
+                                        imageTitle: images[i]["title"],
                                       ),
                                     ),
                                   );

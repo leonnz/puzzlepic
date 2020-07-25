@@ -1,32 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:PuzzlePic/components/image_piece.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+import 'package:provider/provider.dart';
+
+import '../data/db_provider.dart';
+import '../data/puzzle_record_model.dart';
+import '../styles/customStyles.dart';
 import '../components/puzzle_complete_alert.dart';
-import '../screens/hint_screen.dart';
+import '../components/puzzle_screen_hint_button.dart';
+import '../components/puzzle_screen_quit_button.dart';
 import '../providers/game_provider.dart';
 import '../providers/image_piece_provider.dart';
 import '../providers/device_provider.dart';
 import '../ad_manager.dart';
-import 'package:firebase_admob/firebase_admob.dart';
-import 'package:provider/provider.dart';
-import '../data/db_provider.dart';
-import '../data/puzzle_record_model.dart';
-import '../styles/customStyles.dart';
 
 class PuzzleScreen extends StatefulWidget {
   const PuzzleScreen(
       {Key key,
-      this.assetName,
-      this.readableName,
-      this.readableFullname,
-      this.title,
-      this.category})
+      this.imageAssetName,
+      this.imageReadableName,
+      this.imageReadableFullname,
+      this.imageTitle,
+      this.imageCategory})
       : super(key: key);
 
-  final String assetName;
-  final String readableName;
-  final String readableFullname;
-  final String title;
-  final String category;
+  final String imageAssetName;
+  final String imageReadableName;
+  final String imageReadableFullname;
+  final String imageTitle;
+  final String imageCategory;
 
   @override
   _PuzzleScreenState createState() => _PuzzleScreenState();
@@ -36,21 +38,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
   BannerAd _bannerAd;
   InterstitialAd _interstitialAd;
   bool _isInterstitialAdReady;
-
-  Route _customScaleRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => HintScreen(
-        category: widget.category,
-        imageAssetname: widget.assetName,
-      ),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return ScaleTransition(
-          scale: CurvedAnimation(parent: animation, curve: Curves.ease),
-          child: child,
-        );
-      },
-    );
-  }
 
   void _loadBannerAd() {
     _bannerAd
@@ -110,19 +97,17 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    GameProvider state = Provider.of<GameProvider>(context);
-    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
+    GameProvider gameProvider = Provider.of<GameProvider>(context);
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
-    state.setGridPositions();
-
-    List<ImagePiece> imagePieceList = <ImagePiece>[];
+    gameProvider.setGridPositions();
 
     DBProviderDb dbProvider = DBProviderDb();
 
     void resetGameState() {
-      state.setPuzzleComplete(false);
-      state.resetPiecePositions();
-      state.resetMoves();
+      gameProvider.setPuzzleComplete(false);
+      gameProvider.resetPiecePositions();
+      gameProvider.resetMoves();
     }
 
     Future<bool> _backPressed() {
@@ -135,7 +120,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               'Leave this game',
               textAlign: TextAlign.center,
             ),
-            titleTextStyle: CustomTextTheme(deviceProvider: deviceState)
+            titleTextStyle: CustomTextTheme(deviceProvider: deviceProvider)
                 .puzzleScreenQuitAlertTitle(),
             content: Column(
               mainAxisSize: MainAxisSize.min,
@@ -157,7 +142,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                       onPressed: () => Navigator.pop(context, false),
                       child: Text(
                         'No',
-                        style: CustomTextTheme(deviceProvider: deviceState)
+                        style: CustomTextTheme(deviceProvider: deviceProvider)
                             .puzzleScreenQuitAlertButtonText(),
                       ),
                       textColor: Color(0xff501E5D),
@@ -169,7 +154,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                       },
                       child: Text(
                         'Yes',
-                        style: CustomTextTheme(deviceProvider: deviceState)
+                        style: CustomTextTheme(deviceProvider: deviceProvider)
                             .puzzleScreenQuitAlertButtonText(),
                       ),
                       textColor: Color(0xff501E5D),
@@ -178,86 +163,23 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                 )
               ],
             ),
-            contentTextStyle: CustomTextTheme(deviceProvider: deviceState)
+            contentTextStyle: CustomTextTheme(deviceProvider: deviceProvider)
                 .puzzleScreenQuitAlertContent(),
           ),
         ),
       );
     }
 
-    quitGame() async {
-      bool quit = false;
-      await showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(
-            'Leave this game',
-            textAlign: TextAlign.center,
-          ),
-          titleTextStyle: CustomTextTheme(deviceProvider: deviceState)
-              .puzzleScreenQuitAlertTitle(),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(
-                  bottom: 40,
-                ),
-                width: deviceState.getUseMobileLayout ? null : 300,
-                child: Text(
-                  'Progress will be lost, are you sure?',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  FlatButton(
-                    child: Text(
-                      "No",
-                      style: CustomTextTheme(deviceProvider: deviceState)
-                          .puzzleScreenQuitAlertButtonText(),
-                    ),
-                    textColor: Color(0xff501E5D),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  FlatButton(
-                    child: Text(
-                      "Yes",
-                      style: CustomTextTheme(deviceProvider: deviceState)
-                          .puzzleScreenQuitAlertButtonText(),
-                    ),
-                    textColor: Color(0xff501E5D),
-                    onPressed: () {
-                      quit = true;
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-          contentTextStyle: CustomTextTheme(deviceProvider: deviceState)
-              .puzzleScreenQuitAlertContent(),
-        ),
-      );
-      if (quit) {
-        resetGameState();
-        Navigator.pop(context, true);
-      }
-    }
-
     Future<dynamic> showPuzzleCompleteAlert() {
       return showDialog(
         context: context,
         builder: (context) => PuzzleCompleteAlert(
-          readableName: widget.readableName,
-          readableFullname: widget.readableFullname,
+          readableName: widget.imageReadableName,
+          readableFullname: widget.imageReadableFullname,
           fullAd: _interstitialAd,
           fullAdReady: _isInterstitialAdReady,
-          moves: state.getMoves,
-          bestMoves: state.getBestMoves,
+          moves: gameProvider.getMoves,
+          bestMoves: gameProvider.getBestMoves,
         ),
       ).then((value) {
         if (value) {
@@ -267,32 +189,33 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     }
 
     void puzzleCompleteDb() async {
-      state.setPuzzleComplete(true);
+      gameProvider.setPuzzleComplete(true);
 
       DBProviderDb dbProvider = DBProviderDb();
 
       List<String> currentRecords = await dbProvider.getRecords();
 
-      if (currentRecords.contains(widget.readableName)) {
-        List<Map<String, dynamic>> existingRecord =
-            await dbProvider.getSingleRecord(puzzleName: widget.readableName);
+      if (currentRecords.contains(widget.imageReadableName)) {
+        List<Map<String, dynamic>> existingRecord = await dbProvider
+            .getSingleRecord(puzzleName: widget.imageReadableName);
 
         int existingRecordBestMoves = existingRecord[0]['bestMoves'];
 
-        if (state.getMoves < existingRecordBestMoves) {
+        if (gameProvider.getMoves < existingRecordBestMoves) {
           // Sets the best moves to the previous best moves, so the complete puzzle alert can calculate if it is a new best.
-          state.setBestMoves(moves: existingRecordBestMoves);
+          gameProvider.setBestMoves(moves: existingRecordBestMoves);
           dbProvider.updateRecord(
-              moves: state.getMoves, puzzleName: widget.readableName);
+              moves: gameProvider.getMoves,
+              puzzleName: widget.imageReadableName);
           setState(() {});
         }
       } else {
-        state.setBestMoves(moves: state.getMoves);
+        gameProvider.setBestMoves(moves: gameProvider.getMoves);
         final record = PuzzleRecord(
-          puzzleName: widget.readableName,
-          puzzleCategory: widget.category,
+          puzzleName: widget.imageReadableName,
+          puzzleCategory: widget.imageCategory,
           complete: 'true',
-          moves: state.getMoves,
+          moves: gameProvider.getMoves,
         );
 
         dbProvider.insertRecord(record: record);
@@ -301,22 +224,23 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     }
 
     List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {
+      List<ImagePiece> imagePieceList = <ImagePiece>[];
       // Always produce 1 less image piece that the grid size
       for (int i = 1; i <= numberOfPieces; i++) {
         imagePieceList.add(
           ImagePiece(
-            category: widget.category,
-            assetName: widget.assetName,
+            category: widget.imageCategory,
+            assetName: widget.imageAssetName,
             pieceNumber: i,
             lastPiece: complete ? true : false,
             puzzleCompleteAlertCallback: showPuzzleCompleteAlert,
           ),
         );
-        state.setInitialPuzzlePiecePosition(i);
+        gameProvider.setInitialPuzzlePiecePosition(i);
       }
 
       if (complete) {
-        state.setPuzzleComplete(complete);
+        gameProvider.setPuzzleComplete(complete);
         puzzleCompleteDb();
       }
 
@@ -325,8 +249,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
     getSingleRecord() async {
       int best = 0;
-      List<Map<String, dynamic>> record =
-          await dbProvider.getSingleRecord(puzzleName: widget.readableName);
+      List<Map<String, dynamic>> record = await dbProvider.getSingleRecord(
+          puzzleName: widget.imageReadableName);
 
       if (record.length > 0) {
         best = record[0]['bestMoves'];
@@ -340,7 +264,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         onWillPop: () async {
           bool confirmQuit = await _backPressed();
           if (confirmQuit) Navigator.pop(context, true);
-
           return confirmQuit;
         },
         child: Container(
@@ -357,7 +280,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               children: <Widget>[
                 Spacer(),
                 Container(
-                  width: state.getScreenWidth + 20,
+                  width: gameProvider.getScreenWidth + 20,
                   child: Card(
                     color: Colors.white,
                     elevation: 4,
@@ -366,20 +289,22 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Text(
-                            widget.readableFullname != null
-                                ? widget.readableFullname
-                                : widget.readableName,
+                            widget.imageReadableFullname != null
+                                ? widget.imageReadableFullname
+                                : widget.imageReadableName,
                             textAlign: TextAlign.center,
-                            style: CustomTextTheme(deviceProvider: deviceState)
-                                .puzzleScreenImageTitle(),
+                            style:
+                                CustomTextTheme(deviceProvider: deviceProvider)
+                                    .puzzleScreenImageTitle(),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10.0),
                           child: Text(
-                            widget.title != null ? widget.title : "",
-                            style: CustomTextTheme(deviceProvider: deviceState)
-                                .puzzleScreenPictureSubTitle(),
+                            widget.imageTitle != null ? widget.imageTitle : "",
+                            style:
+                                CustomTextTheme(deviceProvider: deviceProvider)
+                                    .puzzleScreenPictureSubTitle(),
                           ),
                         ),
                         Padding(
@@ -388,10 +313,10 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
                               Text(
-                                'Moves: ${state.getMoves}',
-                                style:
-                                    CustomTextTheme(deviceProvider: deviceState)
-                                        .puzzleScreenMovesCounter(),
+                                'Moves: ${gameProvider.getMoves}',
+                                style: CustomTextTheme(
+                                        deviceProvider: deviceProvider)
+                                    .puzzleScreenMovesCounter(),
                               ),
                               FutureBuilder(
                                 future: getSingleRecord(),
@@ -405,14 +330,14 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                                     bestMoves = Text(
                                       'Best moves: $moves',
                                       style: CustomTextTheme(
-                                              deviceProvider: deviceState)
+                                              deviceProvider: deviceProvider)
                                           .puzzleScreenMovesCounter(),
                                     );
                                   } else {
                                     bestMoves = Text(
                                       'Best moves: 0',
                                       style: CustomTextTheme(
-                                              deviceProvider: deviceState)
+                                              deviceProvider: deviceProvider)
                                           .puzzleScreenMovesCounter(),
                                     );
                                   }
@@ -425,17 +350,18 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Container(
-                            width: state.getScreenWidth,
-                            height: state.getScreenWidth,
+                            width: gameProvider.getScreenWidth,
+                            height: gameProvider.getScreenWidth,
                             color: Colors.grey,
-                            child: state.getPuzzleComplete
+                            child: gameProvider.getPuzzleComplete
                                 ? Stack(
                                     children: generateImagePieces(
-                                        state.getTotalGridSize, true),
+                                        gameProvider.getTotalGridSize, true),
                                   )
                                 : Stack(
                                     children: generateImagePieces(
-                                        state.getTotalGridSize - 1, false),
+                                        gameProvider.getTotalGridSize - 1,
+                                        false),
                                   ),
                           ),
                         ),
@@ -448,33 +374,13 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      ButtonTheme(
-                        minWidth: deviceState.getUseMobileLayout ? 88 : 150,
-                        height: deviceState.getUseMobileLayout ? 36 : 60,
-                        buttonColor: Colors.white,
-                        child: RaisedButton(
-                          elevation: 3,
-                          child: Icon(
-                            Icons.search,
-                            size: deviceState.getUseMobileLayout ? 24 : 40,
-                          ),
-                          onPressed: () =>
-                              Navigator.of(context).push(_customScaleRoute()),
-                        ),
+                      PuzzleScreenHintButton(
+                        imageCategory: widget.imageCategory,
+                        imageAssetName: widget.imageAssetName,
                       ),
-                      ButtonTheme(
-                        minWidth: deviceState.getUseMobileLayout ? 88 : 150,
-                        height: deviceState.getUseMobileLayout ? 36 : 60,
-                        buttonColor: Colors.white,
-                        child: RaisedButton(
-                          elevation: 3,
-                          child: Icon(
-                            Icons.close,
-                            size: deviceState.getUseMobileLayout ? 24 : 40,
-                          ),
-                          onPressed: () => quitGame(),
-                        ),
-                      ),
+                      PuzzleScreenQuitButton(
+                        resetGameState: resetGameState,
+                      )
                     ],
                   ),
                 ),

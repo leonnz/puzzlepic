@@ -111,10 +111,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     final bool useMobileLayout = shortestSide < 600;
     final double deviceHeight = MediaQuery.of(context).size.height;
 
-    GameProvider state = Provider.of<GameProvider>(context);
+    GameProvider gameProvider = Provider.of<GameProvider>(context);
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
-    state.setScreenWidth(width: MediaQuery.of(context).size.width - 20);
+    gameProvider.setScreenWidth(width: MediaQuery.of(context).size.width - 20);
 
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
     deviceProvider.setDeviceScreenHeight(height: deviceHeight);
