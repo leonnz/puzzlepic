@@ -51,7 +51,8 @@ class _SelectPictureState extends State<SelectPicture> {
         child: Scaffold(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(deviceState.getDeviceHeight * 0.10),
+            preferredSize:
+                Size.fromHeight(deviceState.getDeviceScreenHeight * 0.10),
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(

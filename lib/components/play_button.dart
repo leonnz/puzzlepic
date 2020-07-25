@@ -95,8 +95,8 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
         onTapDown: _onTapDown,
         onTapUp: _onTapUp,
         child: Padding(
-          padding:
-              EdgeInsets.only(bottom: deviceProvider.getDeviceHeight * 0.2),
+          padding: EdgeInsets.only(
+              bottom: deviceProvider.getDeviceScreenHeight * 0.2),
           child: SlideTransition(
             position: _playButtonSlideAnimation,
             child: Transform.scale(

@@ -22,7 +22,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   List<AssetImage> imagesToPrecache;
-  bool precacheImagesCompleted = false;
+  bool precacheImagesCompleted;
 
   AnimationController _polaroidSlideController;
   AnimationController _playButtonSlideController;
@@ -34,6 +34,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    precacheImagesCompleted = false;
     imagesToPrecache = [
       AssetImage('assets/images/background.png'),
       AssetImage('assets/images/_polaroids/polaroid_eiffel_tower.jpg'),
@@ -116,7 +117,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     state.setScreenWidth(width: MediaQuery.of(context).size.width - 20);
 
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
-    deviceProvider.setDeviceHeight(height: deviceHeight);
+    deviceProvider.setDeviceScreenHeight(height: deviceHeight);
     deviceProvider.setGridSize(useMobile: useMobileLayout);
 
     // var w = MediaQuery.of(context).size.width;

@@ -43,7 +43,7 @@ class _PuzzlePicLogoState extends State<PuzzlePicLogo>
           child: Container(
             color: Color.fromRGBO(147, 112, 219, 0.2),
             margin: EdgeInsets.only(
-              top: deviceProvider.getDeviceHeight * 0.2,
+              top: deviceProvider.getDeviceScreenHeight * 0.2,
             ),
             child: Padding(
               padding: EdgeInsets.only(
