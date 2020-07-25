@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../data/images_data.dart';
 import '../data/db_provider.dart';
 import '../components/image_button.dart';
-import '../screens/puzzle_screen.dart';
 import '../providers/device_provider.dart';
 import '../styles/customStyles.dart';
 
@@ -33,6 +32,10 @@ class _SelectPictureState extends State<SelectPicture> {
     List<Map<String, dynamic>> images = Images.imageList.firstWhere(
         (imageList) =>
             imageList["categoryName"] == widget.category)["categoryImages"];
+
+    void refreshScreen() {
+      setState(() {});
+    }
 
     return GestureDetector(
       onPanUpdate: (details) {
@@ -138,35 +141,18 @@ class _SelectPictureState extends State<SelectPicture> {
                               mainAxisSpacing: 5,
                             ),
                             itemBuilder: (BuildContext context, int i) {
-                              return GestureDetector(
-                                onTap: () async {
-                                  final result = await Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                      builder: (context) => PuzzleScreen(
-                                        imageCategory: widget.category,
-                                        imageAssetName: images[i]["assetName"],
-                                        imageReadableName: images[i]
-                                            ["readableName"],
-                                        imageReadableFullname: images[i]
-                                            ["readableFullname"],
-                                        imageTitle: images[i]["title"],
-                                      ),
-                                    ),
-                                  );
-                                  // Refreshes the pictures to show complete ticks from database
-                                  if (result) setState(() {});
-                                },
-                                child: ImageButton(
-                                  imgNumber: i,
-                                  categoryName: widget.category,
-                                  assetName: images[i]["assetName"],
-                                  readableName: images[i]["readableName"],
-                                  complete: (snapshot.data
-                                          .contains(images[i]["readableName"]))
-                                      ? true
-                                      : false,
-                                ),
+                              return ImageButton(
+                                imgNumber: i,
+                                categoryName: widget.category,
+                                assetName: images[i]["assetName"],
+                                readableName: images[i]["readableName"],
+                                readableFullName: images[i]["readableFullname"],
+                                title: images[i]["title"],
+                                complete: (snapshot.data
+                                        .contains(images[i]["readableName"]))
+                                    ? true
+                                    : false,
+                                refreshPictureSelectScreen: refreshScreen,
                               );
                             },
                           ),
