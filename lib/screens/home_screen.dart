@@ -10,7 +10,7 @@ import 'dart:async';
 import '../data/images_data.dart';
 import '../components/polaroid.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '../styles/customStyles.dart';
+import '../components/puzzle_pic_logo.dart';
 import 'dart:math' as math;
 
 class Home extends StatefulWidget {
@@ -22,13 +22,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   List<AssetImage> imagesToPrecache;
-
-  Animation<Offset> _puzzlePicAnimation;
+  bool precacheImagesCompleted = false;
 
   AnimationController _polaroidSlideController;
   AnimationController _playButtonSlideController;
   AnimationController _puzzlePicSlideController;
-  bool precacheImagesCompleted = false;
 
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
@@ -78,21 +76,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _puzzlePicSlideController = AnimationController(
       duration: const Duration(milliseconds: 350),
       vsync: this,
-    )..forward();
-
-    _puzzlePicAnimation = Tween<Offset>(
-      begin: Offset(0, -2),
-      end: Offset(0, 0),
-    ).animate(
-      CurvedAnimation(
-        parent: _puzzlePicSlideController,
-        curve: Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
-      ),
     );
-
-    // _initAdMob().then((_) {
-    //   print('Admob loaded');
-    // }, onError: (error) => print(error));
 
     super.initState();
   }
@@ -127,13 +111,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     final double deviceHeight = MediaQuery.of(context).size.height;
 
     GameStateProvider state = Provider.of<GameStateProvider>(context);
-    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     state.setScreenWidth(width: MediaQuery.of(context).size.width - 20);
 
-    deviceState.setUseMobileLayout(useMobileLayout: useMobileLayout);
-    deviceState.setDeviceHeight(height: deviceHeight);
-    deviceState.setGridSize(useMobile: useMobileLayout);
+    deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
+    deviceProvider.setDeviceHeight(height: deviceHeight);
+    deviceProvider.setGridSize(useMobile: useMobileLayout);
 
     // var w = MediaQuery.of(context).size.width;
     // var h = MediaQuery.of(context).size.height;
@@ -211,29 +195,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     polaroidSlideController: _polaroidSlideController,
                     buttonText: 'Play!',
                   ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: SlideTransition(
-                      position: _puzzlePicAnimation,
-                      child: Container(
-                        color: Color.fromRGBO(147, 112, 219, 0.2),
-                        margin: EdgeInsets.only(
-                          top: deviceState.getDeviceHeight * 0.2,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: 50,
-                            right: 50,
-                          ),
-                          child: Text(
-                            'Puzzle Pic',
-                            textAlign: TextAlign.center,
-                            style: CustomTextTheme(deviceProvider: deviceState)
-                                .homeScreenAppName(context),
-                          ),
-                        ),
-                      ),
-                    ),
+                  PuzzlePicLogo(
+                    puzzlePicSlideController: _puzzlePicSlideController,
                   ),
                 ],
               )
@@ -242,7 +205,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 child: Center(
                   child: SpinKitFadingFour(
                     color: Colors.purple,
-                    size: deviceState.getUseMobileLayout ? 50 : 80,
+                    size: deviceProvider.getUseMobileLayout ? 50 : 80,
                   ),
                 ),
               ),
