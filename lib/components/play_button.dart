@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 import '../providers/device_provider.dart';
 import 'package:provider/provider.dart';
 import '../styles/customStyles.dart';
+import 'package:flutter/cupertino.dart';
+import '../screens/select_category_screen.dart';
 
 class PlayButton extends StatefulWidget {
-  PlayButton(
-      {Key key, this.buttonText, this.action, this.playButtonSlideController})
-      : super(key: key);
+  PlayButton({
+    Key key,
+    this.buttonText,
+    this.playButtonSlideController,
+    this.puzzlePicSlideController,
+    this.polaroidSlideController,
+  }) : super(key: key);
   final String buttonText;
-  final Function action;
   final AnimationController playButtonSlideController;
+  final AnimationController puzzlePicSlideController;
+  final AnimationController polaroidSlideController;
 
   @override
   _PlayButtonState createState() => _PlayButtonState();
@@ -17,12 +24,12 @@ class PlayButton extends StatefulWidget {
 
 class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   double _scale;
-  AnimationController _controller;
-  Animation<Offset> _slideAnimation;
+  AnimationController _playButtonBounceController;
+  Animation<Offset> _playButtonSlideAnimation;
 
   @override
   void initState() {
-    _controller = AnimationController(
+    _playButtonBounceController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 200),
       lowerBound: 0.0,
@@ -31,7 +38,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
         setState(() {});
       });
 
-    _slideAnimation = Tween<Offset>(
+    _playButtonSlideAnimation = Tween<Offset>(
       begin: Offset(0, 10),
       end: Offset(0, 0),
     ).animate(
@@ -48,22 +55,37 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _playButtonBounceController.dispose();
     super.dispose();
   }
 
   void _onTapDown(TapDownDetails details) {
-    _controller.forward();
-    widget.action();
+    _playButtonBounceController.forward();
+    widget.playButtonSlideController.reverse();
+    widget.puzzlePicSlideController.reverse();
+    widget.polaroidSlideController.reverse().then((_) async {
+      var result = await Navigator.push(
+        context,
+        CupertinoPageRoute(
+          builder: (context) => SelectCategory(),
+        ),
+      );
+
+      if (result) {
+        widget.polaroidSlideController.forward();
+        widget.playButtonSlideController.forward();
+        widget.puzzlePicSlideController.forward();
+      }
+    });
   }
 
   void _onTapUp(TapUpDetails details) {
-    _controller.reverse();
+    _playButtonBounceController.reverse();
   }
 
   @override
   Widget build(BuildContext context) {
-    _scale = 1 - _controller.value;
+    _scale = 1 - _playButtonBounceController.value;
 
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
@@ -71,7 +93,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
       child: SlideTransition(
-        position: _slideAnimation,
+        position: _playButtonSlideAnimation,
         child: Transform.scale(
           scale: _scale,
           child: Container(

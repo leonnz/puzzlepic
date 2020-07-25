@@ -26,9 +26,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   Animation<Offset> _puzzlePicAnimation;
 
-  AnimationController _polaroidController;
+  AnimationController _polaroidSlideController;
   AnimationController _playButtonSlideController;
-  AnimationController _puzzlePicAnimationController;
+  AnimationController _puzzlePicSlideController;
   bool precacheImagesCompleted = false;
 
   Future<void> _initAdMob() {
@@ -66,7 +66,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       });
     });
 
-    _polaroidController = AnimationController(
+    _polaroidSlideController = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
@@ -76,7 +76,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       vsync: this,
     );
 
-    _puzzlePicAnimationController = AnimationController(
+    _puzzlePicSlideController = AnimationController(
       duration: const Duration(milliseconds: 350),
       vsync: this,
     )..forward();
@@ -86,7 +86,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       end: Offset(0, 0),
     ).animate(
       CurvedAnimation(
-        parent: _puzzlePicAnimationController,
+        parent: _puzzlePicSlideController,
         curve: Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
       ),
     );
@@ -96,6 +96,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     // }, onError: (error) => print(error));
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _playButtonSlideController.dispose();
+    _puzzlePicSlideController.dispose();
+    _polaroidSlideController.dispose();
+    super.dispose();
   }
 
   @override
@@ -145,7 +153,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ? Stack(
                 children: <Widget>[
                   Polaroid(
-                    animationController: _polaroidController,
+                    animationController: _polaroidSlideController,
                     alignment: Alignment.bottomRight,
                     angle: math.pi / 6,
                     beginPosition: Offset(1, 1),
@@ -154,7 +162,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     startInterval: 0.4,
                   ),
                   Polaroid(
-                    animationController: _polaroidController,
+                    animationController: _polaroidSlideController,
                     alignment: Alignment.bottomLeft,
                     angle: -math.pi / 10,
                     beginPosition: Offset(-1.5, 1.5),
@@ -163,7 +171,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     startInterval: 0.2,
                   ),
                   Polaroid(
-                    animationController: _polaroidController,
+                    animationController: _polaroidSlideController,
                     alignment: Alignment.topLeft,
                     angle: -math.pi / 6,
                     beginPosition: Offset(-1, -1),
@@ -172,7 +180,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     startInterval: 0.1,
                   ),
                   Polaroid(
-                    animationController: _polaroidController,
+                    animationController: _polaroidSlideController,
                     alignment: Alignment.centerLeft,
                     angle: math.pi / 7,
                     beginPosition: Offset(-1.5, 0),
@@ -181,7 +189,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     startInterval: 0.3,
                   ),
                   Polaroid(
-                    animationController: _polaroidController,
+                    animationController: _polaroidSlideController,
                     alignment: Alignment.centerRight,
                     angle: -math.pi / 9,
                     beginPosition: Offset(1.5, 0),
@@ -190,7 +198,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     startInterval: 0.1,
                   ),
                   Polaroid(
-                    animationController: _polaroidController,
+                    animationController: _polaroidSlideController,
                     alignment: Alignment.topRight,
                     angle: math.pi / 8,
                     beginPosition: Offset(1.5, -1),
@@ -204,26 +212,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       padding: EdgeInsets.only(
                           bottom: deviceState.getDeviceHeight * 0.2),
                       child: PlayButton(
-                          playButtonSlideController: _playButtonSlideController,
-                          buttonText: 'Play!',
-                          action: () {
-                            _playButtonSlideController.reverse();
-                            _puzzlePicAnimationController.reverse();
-                            _polaroidController.reverse().then((_) async {
-                              var result = await Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) => SelectCategory(),
-                                ),
-                              );
-
-                              if (result) {
-                                _polaroidController.forward();
-                                _playButtonSlideController.forward();
-                                _puzzlePicAnimationController.forward();
-                              }
-                            });
-                          }),
+                        playButtonSlideController: _playButtonSlideController,
+                        puzzlePicSlideController: _puzzlePicSlideController,
+                        polaroidSlideController: _polaroidSlideController,
+                        buttonText: 'Play!',
+                      ),
                     ),
                   ),
                   Align(
