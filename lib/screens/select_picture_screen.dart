@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../data/images_data.dart';
-import '../components/image_button.dart';
 import '../data/db_provider.dart';
+import '../components/image_button.dart';
 import '../screens/puzzle_screen.dart';
 import '../providers/device_provider.dart';
-import 'package:provider/provider.dart';
 import '../styles/customStyles.dart';
 
 class SelectPicture extends StatefulWidget {

@@ -1,16 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../components/play_button.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+
 import '../providers/game_provider.dart';
 import '../providers/device_provider.dart';
 import '../ad_manager.dart';
-import 'package:firebase_admob/firebase_admob.dart';
-import 'dart:async';
 import '../data/images_data.dart';
 import '../components/polaroid.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../components/puzzle_pic_logo.dart';
+import '../components/play_button.dart';
+import 'dart:async';
 import 'dart:math' as math;
 
 class Home extends StatefulWidget {
