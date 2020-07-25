@@ -11,18 +11,11 @@ class DeviceProvider extends ChangeNotifier {
 
   void setUseMobileLayout({bool useMobileLayout}) {
     _useMobileLayout = useMobileLayout;
-  }
-
-  void setGridSize({bool useMobile}) {
-    int columns;
-
-    if (useMobile) {
-      columns = 2;
+    if (useMobileLayout) {
+      _gridSize = 2;
     } else {
-      columns = 3;
+      _gridSize = 3;
     }
-
-    _gridSize = columns;
   }
 
   void setDeviceScreenHeight({double height}) {

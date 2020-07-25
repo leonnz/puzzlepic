@@ -11,8 +11,7 @@ class SelectCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
-    deviceState.setGridSize(useMobile: deviceState.getUseMobileLayout);
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     return WillPopScope(
       onWillPop: () async {
@@ -35,8 +34,8 @@ class SelectCategory extends StatelessWidget {
           child: Scaffold(
             backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
             appBar: PreferredSize(
-                preferredSize:
-                    Size.fromHeight(deviceState.getDeviceScreenHeight * 0.10),
+                preferredSize: Size.fromHeight(
+                    deviceProvider.getDeviceScreenHeight * 0.10),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -54,14 +53,14 @@ class SelectCategory extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: IconButton(
-                          iconSize: deviceState.getUseMobileLayout ? 25 : 50,
+                          iconSize: deviceProvider.getUseMobileLayout ? 25 : 50,
                           icon: Icon(Icons.arrow_back_ios),
                           onPressed: () => Navigator.pop(context, true),
                         ),
                       ),
                       Text(
                         'Categories',
-                        style: CustomTextTheme(deviceProvider: deviceState)
+                        style: CustomTextTheme(deviceProvider: deviceProvider)
                             .selectScreenTitleTextStyle(context),
                       ),
                     ],
@@ -71,7 +70,7 @@ class SelectCategory extends StatelessWidget {
               padding: EdgeInsets.all(10),
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: deviceState.getGridSize,
+                  crossAxisCount: deviceProvider.getGridSize,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                 ),

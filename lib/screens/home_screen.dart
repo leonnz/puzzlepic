@@ -118,7 +118,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
     deviceProvider.setDeviceScreenHeight(height: deviceHeight);
-    deviceProvider.setGridSize(useMobile: useMobileLayout);
 
     // var w = MediaQuery.of(context).size.width;
     // var h = MediaQuery.of(context).size.height;
