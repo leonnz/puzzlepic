@@ -21,7 +21,6 @@ class PuzzleCompleteAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(bestMoves);
     return AlertDialog(
       title: Text(
         'Congratulations!',
