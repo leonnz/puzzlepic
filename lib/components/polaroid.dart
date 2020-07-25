@@ -78,7 +78,7 @@ class _PolaroidState extends State<Polaroid>
               child: Image(
                 width: double.infinity,
                 image: AssetImage(
-                    'assets/images/polaroids/polaroid_${widget.image}.jpg'),
+                    'assets/images/_polaroids/polaroid_${widget.image}.jpg'),
               ),
             ),
           ),

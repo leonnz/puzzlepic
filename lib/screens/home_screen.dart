@@ -36,12 +36,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   void initState() {
     imagesToPrecache = [
       AssetImage('assets/images/background.png'),
-      AssetImage('assets/images/polaroids/polaroid_eiffel_tower.jpg'),
-      AssetImage('assets/images/polaroids/polaroid_daisies.jpg'),
-      AssetImage('assets/images/polaroids/polaroid_sea_turtle.jpg'),
-      AssetImage('assets/images/polaroids/polaroid_taj_mahal.jpg'),
-      AssetImage('assets/images/polaroids/polaroid_pyramids.jpg'),
-      AssetImage('assets/images/polaroids/polaroid_grand_canyon.jpg'),
+      AssetImage('assets/images/_polaroids/polaroid_eiffel_tower.jpg'),
+      AssetImage('assets/images/_polaroids/polaroid_daisies.jpg'),
+      AssetImage('assets/images/_polaroids/polaroid_sea_turtle.jpg'),
+      AssetImage('assets/images/_polaroids/polaroid_taj_mahal.jpg'),
+      AssetImage('assets/images/_polaroids/polaroid_pyramids.jpg'),
+      AssetImage('assets/images/_polaroids/polaroid_grand_canyon.jpg'),
     ];
 
     Images.imageList.forEach((imageCategory) {
