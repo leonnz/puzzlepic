@@ -55,7 +55,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/polaroids/
-    - assets/images/categories/
+    - assets/images/_categories/
     - assets/images/animals/
     - assets/images/animals/bear/
     - assets/images/animals/elephant/

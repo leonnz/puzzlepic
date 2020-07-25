@@ -39,7 +39,7 @@ class CategoryButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: Image(
                   image: AssetImage(
-                      'assets/images/categories/${categoryName}_cat.png'),
+                      'assets/images/_categories/${categoryName}_cat.png'),
                 ),
               ),
               Align(

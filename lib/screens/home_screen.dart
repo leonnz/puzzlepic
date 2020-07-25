@@ -48,12 +48,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       // Category images
       imagesToPrecache.add(
         AssetImage(
-            'assets/images/categories/${imageCategory["categoryName"]}_cat.png'),
+            'assets/images/_categories/${imageCategory["categoryName"]}_cat.png'),
       );
       // Category banners
       imagesToPrecache.add(
         AssetImage(
-            'assets/images/categories/${imageCategory["categoryName"]}_banner.png'),
+            'assets/images/_categories/${imageCategory["categoryName"]}_banner.png'),
       );
 
       // Select picture screen thumbnails

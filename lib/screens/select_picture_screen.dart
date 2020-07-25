@@ -56,7 +56,7 @@ class _SelectPictureState extends State<SelectPicture> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                      'assets/images/categories/${widget.category}_banner.png'),
+                      'assets/images/_categories/${widget.category}_banner.png'),
                   fit: BoxFit.cover,
                 ),
                 boxShadow: [
