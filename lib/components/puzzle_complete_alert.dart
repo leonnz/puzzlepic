@@ -23,13 +23,18 @@ class PuzzleCompleteAlert extends StatelessWidget {
   Widget build(BuildContext context) {
     print(bestMoves);
     return AlertDialog(
-      title: Center(child: Text('Congratulations!')),
+      title: Text(
+        'Congratulations!',
+        textAlign: TextAlign.center,
+      ),
       content: Container(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-                'You completed ${readableFullname != null ? readableFullname : readableName} in $moves moves${moves < bestMoves ? ", a new personal best!" : "."}'),
+              'You completed ${readableFullname != null ? readableFullname : readableName} in $moves moves${moves < bestMoves ? ", a new personal best!" : "."}',
+              textAlign: TextAlign.center,
+            ),
             Container(
               margin: EdgeInsets.all(20.0),
               child: FlatButton(
