@@ -89,38 +89,45 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
 
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
-    return GestureDetector(
-      onTapDown: _onTapDown,
-      onTapUp: _onTapUp,
-      child: SlideTransition(
-        position: _playButtonSlideAnimation,
-        child: Transform.scale(
-          scale: _scale,
-          child: Container(
-            width: deviceProvider.getUseMobileLayout ? 170 : 300,
-            height: deviceProvider.getUseMobileLayout ? 50 : 80,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black45,
-                  blurRadius: 5.0,
-                  offset: Offset(0.0, 5.0),
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: GestureDetector(
+        onTapDown: _onTapDown,
+        onTapUp: _onTapUp,
+        child: Padding(
+          padding:
+              EdgeInsets.only(bottom: deviceProvider.getDeviceHeight * 0.2),
+          child: SlideTransition(
+            position: _playButtonSlideAnimation,
+            child: Transform.scale(
+              scale: _scale,
+              child: Container(
+                width: deviceProvider.getUseMobileLayout ? 170 : 300,
+                height: deviceProvider.getUseMobileLayout ? 50 : 80,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 5.0,
+                      offset: Offset(0.0, 5.0),
+                    ),
+                  ],
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.white,
+                        Colors.white,
+                      ]),
                 ),
-              ],
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.white,
-                    Colors.white,
-                  ]),
-            ),
-            child: Center(
-              child: Text(
-                widget.buttonText,
-                style: CustomTextTheme(deviceProvider: deviceProvider)
-                    .playButtonText(context),
+                child: Center(
+                  child: Text(
+                    widget.buttonText,
+                    style: CustomTextTheme(deviceProvider: deviceProvider)
+                        .playButtonText(context),
+                  ),
+                ),
               ),
             ),
           ),

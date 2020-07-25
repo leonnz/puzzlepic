@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'select_category_screen.dart';
 import '../components/play_button.dart';
 import 'package:provider/provider.dart';
 import 'package:PuzzlePic/providers/game_state_provider.dart';
@@ -206,18 +205,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     image: "eiffel_tower",
                     startInterval: 0.3,
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          bottom: deviceState.getDeviceHeight * 0.2),
-                      child: PlayButton(
-                        playButtonSlideController: _playButtonSlideController,
-                        puzzlePicSlideController: _puzzlePicSlideController,
-                        polaroidSlideController: _polaroidSlideController,
-                        buttonText: 'Play!',
-                      ),
-                    ),
+                  PlayButton(
+                    playButtonSlideController: _playButtonSlideController,
+                    puzzlePicSlideController: _puzzlePicSlideController,
+                    polaroidSlideController: _polaroidSlideController,
+                    buttonText: 'Play!',
                   ),
                   Align(
                     alignment: Alignment.topCenter,
