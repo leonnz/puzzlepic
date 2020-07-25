@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:PuzzlePic/providers/game_state_provider.dart';
 import './providers/device_provider.dart';
+import './providers/game_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import './screens/home_screen.dart';
@@ -27,7 +27,7 @@ class PuzzlePicApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => GameStateProvider()),
+        ChangeNotifierProvider(create: (_) => GameProvider()),
         ChangeNotifierProvider(create: (_) => DeviceProvider()),
       ],
       child: MaterialApp(

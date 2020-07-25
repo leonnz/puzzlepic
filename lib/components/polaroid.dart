@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../providers/game_state_provider.dart';
+import '../providers/game_provider.dart';
 import '../providers/device_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -60,7 +60,7 @@ class _PolaroidState extends State<Polaroid>
 
   @override
   Widget build(BuildContext context) {
-    GameStateProvider state = Provider.of<GameStateProvider>(context);
+    GameProvider state = Provider.of<GameProvider>(context);
     DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
 
     return Align(

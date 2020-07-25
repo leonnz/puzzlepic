@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:PuzzlePic/components/image_piece.dart';
 import '../components/puzzle_complete_alert.dart';
 import '../screens/hint_screen.dart';
-import '../providers/game_state_provider.dart';
+import '../providers/game_provider.dart';
 import '../providers/image_piece_provider.dart';
 import '../providers/device_provider.dart';
 import '../ad_manager.dart';
@@ -110,7 +110,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    GameStateProvider state = Provider.of<GameStateProvider>(context);
+    GameProvider state = Provider.of<GameProvider>(context);
     DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
 
     state.setGridPositions();

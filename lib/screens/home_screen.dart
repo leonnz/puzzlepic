@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../components/play_button.dart';
 import 'package:provider/provider.dart';
-import 'package:PuzzlePic/providers/game_state_provider.dart';
+import '../providers/game_provider.dart';
 import '../providers/device_provider.dart';
 import '../ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
@@ -111,7 +111,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     final bool useMobileLayout = shortestSide < 600;
     final double deviceHeight = MediaQuery.of(context).size.height;
 
-    GameStateProvider state = Provider.of<GameStateProvider>(context);
+    GameProvider state = Provider.of<GameProvider>(context);
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     state.setScreenWidth(width: MediaQuery.of(context).size.width - 20);

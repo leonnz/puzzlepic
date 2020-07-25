@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/game_state_provider.dart';
+import '../providers/game_provider.dart';
 import '../providers/image_piece_provider.dart';
 
 class ImagePiece extends StatefulWidget {
@@ -55,7 +55,7 @@ class _ImagePieceState extends State<ImagePiece>
   }
 
   Widget build(BuildContext context) {
-    final state = Provider.of<GameStateProvider>(context);
+    final state = Provider.of<GameProvider>(context);
     final imagePieceProvider = Provider.of<ImagePieceProvider>(context);
 
     bool dragged = false;

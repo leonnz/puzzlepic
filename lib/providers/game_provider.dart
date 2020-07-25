@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
-class GameStateProvider with ChangeNotifier {
+class GameProvider with ChangeNotifier {
   static bool _puzzleComplete = false;
   static Map<String, String> _image;
   static List<Map<String, dynamic>> _piecePositions = [];
