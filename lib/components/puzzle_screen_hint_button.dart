@@ -41,7 +41,9 @@ class PuzzleScreenHintButton extends StatelessWidget {
           Icons.search,
           size: deviceProvider.getUseMobileLayout ? 24 : 40,
         ),
-        onPressed: () => Navigator.of(context).push(_customScaleRoute()),
+        onPressed: () {
+          Navigator.of(context).push(_customScaleRoute());
+        },
       ),
     );
   }
