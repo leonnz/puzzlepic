@@ -175,7 +175,11 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           moves: gameProvider.getMoves,
           bestMoves: gameProvider.getBestMoves,
         ),
-      );
+      ).then((value) {
+        if (value) {
+          setState(() {});
+        }
+      });
     }
 
     void puzzleCompleteDb() async {

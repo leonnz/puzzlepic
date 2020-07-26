@@ -95,7 +95,7 @@ class _ImagePieceState extends State<ImagePiece>
                   ) &&
                   !state.getPuzzleComplete) {
                 pieceMoveAudio.play('click.wav',
-                    volume: 0.5, mode: PlayerMode.LOW_LATENCY);
+                    volume: 0.1, mode: PlayerMode.LOW_LATENCY);
                 state.setMoves();
                 imagePieceProvider.setPieceLeftPosition(
                   getBlankSquare: state.getBlankSquare,
@@ -131,7 +131,7 @@ class _ImagePieceState extends State<ImagePiece>
                   ) &&
                   !state.getPuzzleComplete) {
                 pieceMoveAudio.play('click.wav',
-                    volume: 0.5, mode: PlayerMode.LOW_LATENCY);
+                    volume: 0.1, mode: PlayerMode.LOW_LATENCY);
                 state.setMoves();
                 imagePieceProvider.setPieceTopPosition(
                     getBlankSquare: state.getBlankSquare,
