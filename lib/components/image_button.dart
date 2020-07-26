@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import '../styles/customStyles.dart';
 import '../providers/device_provider.dart';
@@ -33,11 +35,23 @@ class ImageButton extends StatefulWidget {
 }
 
 class _ImageButtonState extends State<ImageButton> {
+  AudioCache imageButtonClickAudio = AudioCache(prefix: 'audio/');
+
+  @override
+  void initState() {
+    imageButtonClickAudio.load('fast_click.wav');
+    imageButtonClickAudio.disableLog();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     return GestureDetector(
       onTap: () async {
+        imageButtonClickAudio.play('fast_click.wav',
+            mode: PlayerMode.LOW_LATENCY);
         final result = await Navigator.push(
           context,
           CupertinoPageRoute(
