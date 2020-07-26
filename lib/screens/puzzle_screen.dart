@@ -104,12 +104,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
     DBProviderDb dbProvider = DBProviderDb();
 
-    void resetGameState() {
-      gameProvider.setPuzzleComplete(false);
-      gameProvider.resetPiecePositions();
-      gameProvider.resetMoves();
-    }
-
     Future<bool> _backPressed() {
       return showDialog(
         context: context,
@@ -149,7 +143,9 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                     ),
                     FlatButton(
                       onPressed: () {
-                        resetGameState();
+                        gameProvider.setPuzzleComplete(false);
+                        gameProvider.resetPiecePositions();
+                        gameProvider.resetMoves();
                         Navigator.pop(context, true);
                       },
                       child: Text(
@@ -378,9 +374,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                         imageCategory: widget.imageCategory,
                         imageAssetName: widget.imageAssetName,
                       ),
-                      PuzzleScreenQuitButton(
-                        resetGameState: resetGameState,
-                      )
+                      PuzzleScreenQuitButton()
                     ],
                   ),
                 ),
