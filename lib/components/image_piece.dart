@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 import '../providers/game_provider.dart';
 import '../providers/image_piece_provider.dart';
 
@@ -27,10 +30,13 @@ class _ImagePieceState extends State<ImagePiece>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation _animation;
+  AudioCache audioClick = AudioCache(prefix: 'audio/');
 
   @override
   void initState() {
-    super.initState();
+    audioClick.load('click.wav');
+    audioClick.disableLog();
+
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 1),
@@ -46,6 +52,7 @@ class _ImagePieceState extends State<ImagePiece>
         widget.puzzleCompleteAlertCallback();
       }
     });
+    super.initState();
   }
 
   @protected
@@ -87,6 +94,9 @@ class _ImagePieceState extends State<ImagePiece>
                     gridSize: state.getTotalGridSize,
                   ) &&
                   !state.getPuzzleComplete) {
+                audioClick.play('click.wav',
+                    volume: 0.5, mode: PlayerMode.LOW_LATENCY);
+                state.setMoves();
                 imagePieceProvider.setPieceLeftPosition(
                   getBlankSquare: state.getBlankSquare,
                   getPiecePositions: state.getPiecePositions,
@@ -96,7 +106,6 @@ class _ImagePieceState extends State<ImagePiece>
                   checkComplete: state.checkComplete,
                   xDistance: xDistance,
                 );
-                state.setMoves();
               }
               dragged = false;
             }
@@ -121,6 +130,9 @@ class _ImagePieceState extends State<ImagePiece>
                     gridSize: state.getTotalGridSize,
                   ) &&
                   !state.getPuzzleComplete) {
+                audioClick.play('click.wav',
+                    volume: 0.5, mode: PlayerMode.LOW_LATENCY);
+                state.setMoves();
                 imagePieceProvider.setPieceTopPosition(
                     getBlankSquare: state.getBlankSquare,
                     getPiecePositions: state.getPiecePositions,
@@ -129,7 +141,6 @@ class _ImagePieceState extends State<ImagePiece>
                     setBlankSquare: state.setBlankSquare,
                     checkComplete: state.checkComplete,
                     yDistance: yDistance);
-                state.setMoves();
               }
               dragged = false;
             }
