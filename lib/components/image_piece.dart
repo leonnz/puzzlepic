@@ -30,12 +30,12 @@ class _ImagePieceState extends State<ImagePiece>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation _animation;
-  AudioCache audioClick = AudioCache(prefix: 'audio/');
+  AudioCache pieceMoveAudio = AudioCache(prefix: 'audio/');
 
   @override
   void initState() {
-    audioClick.load('click.wav');
-    audioClick.disableLog();
+    pieceMoveAudio.load('click.wav');
+    pieceMoveAudio.disableLog();
 
     _controller = AnimationController(
       vsync: this,
@@ -94,7 +94,7 @@ class _ImagePieceState extends State<ImagePiece>
                     gridSize: state.getTotalGridSize,
                   ) &&
                   !state.getPuzzleComplete) {
-                audioClick.play('click.wav',
+                pieceMoveAudio.play('click.wav',
                     volume: 0.5, mode: PlayerMode.LOW_LATENCY);
                 state.setMoves();
                 imagePieceProvider.setPieceLeftPosition(
@@ -130,7 +130,7 @@ class _ImagePieceState extends State<ImagePiece>
                     gridSize: state.getTotalGridSize,
                   ) &&
                   !state.getPuzzleComplete) {
-                audioClick.play('click.wav',
+                pieceMoveAudio.play('click.wav',
                     volume: 0.5, mode: PlayerMode.LOW_LATENCY);
                 state.setMoves();
                 imagePieceProvider.setPieceTopPosition(
