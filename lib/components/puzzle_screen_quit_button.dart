@@ -87,7 +87,7 @@ class PuzzleScreenQuitButton extends StatelessWidget {
             size: deviceProvider.getUseMobileLayout ? 24 : 40,
           ),
           onPressed: () {
-            if (gameProvider.getPuzzleComplete) {
+            if (gameProvider.getPuzzleComplete || gameProvider.getMoves == 0) {
               gameProvider.resetGameState();
               Navigator.pop(context, true);
             } else {
