@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import '../providers/device_provider.dart';
 import '../styles/customStyles.dart';
@@ -27,9 +29,13 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   double _scale;
   AnimationController _playButtonBounceController;
   Animation<Offset> _playButtonSlideAnimation;
+  AudioCache buttonClickAudio = AudioCache(prefix: 'audio/');
 
   @override
   void initState() {
+    buttonClickAudio.load('fast_click.wav');
+    buttonClickAudio.disableLog();
+
     _playButtonBounceController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 200),
@@ -61,6 +67,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   }
 
   void _onTapDown(TapDownDetails details) {
+    buttonClickAudio.play('fast_click.wav', mode: PlayerMode.LOW_LATENCY);
     _playButtonBounceController.forward();
     widget.playButtonSlideController.reverse();
     widget.puzzlePicSlideController.reverse();
