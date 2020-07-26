@@ -143,9 +143,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                     ),
                     FlatButton(
                       onPressed: () {
-                        gameProvider.setPuzzleComplete(false);
-                        gameProvider.resetPiecePositions();
-                        gameProvider.resetMoves();
+                        gameProvider.resetGameState();
                         Navigator.pop(context, true);
                       },
                       child: Text(
@@ -177,11 +175,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           moves: gameProvider.getMoves,
           bestMoves: gameProvider.getBestMoves,
         ),
-      ).then((value) {
-        if (value) {
-          // setState(() {});
-        }
-      });
+      );
     }
 
     void puzzleCompleteDb() async {

@@ -70,6 +70,12 @@ class GameProvider with ChangeNotifier {
     }
   }
 
+  void resetGameState() {
+    setPuzzleComplete(false);
+    resetPiecePositions();
+    resetMoves();
+  }
+
   void setInitialPuzzlePiecePosition(int pieceNumber) {
     Map<String, dynamic> imgPiece = new Map();
 

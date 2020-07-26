@@ -13,7 +13,7 @@ class PuzzleScreenQuitButton extends StatelessWidget {
     GameProvider gameProvider = Provider.of(context, listen: false);
 
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
-    quitGame() async {
+    quitGameAlert() async {
       bool quit = false;
       await showDialog(
         context: context,
@@ -71,9 +71,7 @@ class PuzzleScreenQuitButton extends StatelessWidget {
         ),
       );
       if (quit) {
-        gameProvider.setPuzzleComplete(false);
-        gameProvider.resetPiecePositions();
-        gameProvider.resetMoves();
+        gameProvider.resetGameState();
         Navigator.pop(context, true);
       }
     }
@@ -83,13 +81,19 @@ class PuzzleScreenQuitButton extends StatelessWidget {
       height: deviceProvider.getUseMobileLayout ? 36 : 60,
       buttonColor: Colors.white,
       child: RaisedButton(
-        elevation: 3,
-        child: Icon(
-          Icons.close,
-          size: deviceProvider.getUseMobileLayout ? 24 : 40,
-        ),
-        onPressed: () => quitGame(),
-      ),
+          elevation: 3,
+          child: Icon(
+            Icons.close,
+            size: deviceProvider.getUseMobileLayout ? 24 : 40,
+          ),
+          onPressed: () {
+            if (gameProvider.getPuzzleComplete) {
+              gameProvider.resetGameState();
+              Navigator.pop(context, true);
+            } else {
+              quitGameAlert();
+            }
+          }),
     );
   }
 }
