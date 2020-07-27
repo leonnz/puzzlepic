@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import '../data/images_data.dart';
 import '../data/db_provider.dart';
@@ -23,7 +24,7 @@ class SelectPicture extends StatefulWidget {
 class _SelectPictureState extends State<SelectPicture> {
   @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     DBProviderDb dbProvider = DBProviderDb();
 
@@ -54,7 +55,7 @@ class _SelectPictureState extends State<SelectPicture> {
           backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
           appBar: PreferredSize(
             preferredSize:
-                Size.fromHeight(deviceState.getDeviceScreenHeight * 0.10),
+                Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -76,14 +77,20 @@ class _SelectPictureState extends State<SelectPicture> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: IconButton(
-                      iconSize: deviceState.getUseMobileLayout ? 25 : 50,
+                      iconSize: deviceProvider.getUseMobileLayout ? 25 : 50,
                       icon: Icon(Icons.arrow_back_ios),
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () {
+                        deviceProvider.getAudioCache.play(
+                          'fast_click.wav',
+                          mode: PlayerMode.LOW_LATENCY,
+                        );
+                        Navigator.pop(context);
+                      },
                     ),
                   ),
                   Text(
                     widget.categoryReadableName,
-                    style: CustomTextTheme(deviceProvider: deviceState)
+                    style: CustomTextTheme(deviceProvider: deviceProvider)
                         .selectScreenTitleTextStyle(context),
                   ),
                   Align(
@@ -97,13 +104,14 @@ class _SelectPictureState extends State<SelectPicture> {
                         if (snapshot.hasData) {
                           grid = Padding(
                             padding: EdgeInsets.only(
-                                bottom: deviceState.getUseMobileLayout ? 4 : 8),
+                                bottom:
+                                    deviceProvider.getUseMobileLayout ? 4 : 8),
                             child: Text(
                               'Completed ${snapshot.data.length} / ${images.length}',
                               textAlign: TextAlign.center,
-                              style:
-                                  CustomTextTheme(deviceProvider: deviceState)
-                                      .selectPictureScreenCompletedTextStyle(),
+                              style: CustomTextTheme(
+                                      deviceProvider: deviceProvider)
+                                  .selectPictureScreenCompletedTextStyle(),
                             ),
                           );
                         } else {
@@ -135,7 +143,7 @@ class _SelectPictureState extends State<SelectPicture> {
                             itemCount: images.length,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: deviceState.getGridSize,
+                              crossAxisCount: deviceProvider.getGridSize,
                               childAspectRatio: 1,
                               crossAxisSpacing: 5,
                               mainAxisSpacing: 5,

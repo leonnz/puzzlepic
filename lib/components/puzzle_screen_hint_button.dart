@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import '../providers/device_provider.dart';
 import '../screens/hint_screen.dart';
@@ -42,6 +43,10 @@ class PuzzleScreenHintButton extends StatelessWidget {
           size: deviceProvider.getUseMobileLayout ? 24 : 40,
         ),
         onPressed: () {
+          deviceProvider.getAudioCache.play(
+            'play_button_click.wav',
+            mode: PlayerMode.LOW_LATENCY,
+          );
           Navigator.of(context).push(_customScaleRoute());
         },
       ),

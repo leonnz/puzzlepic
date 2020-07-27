@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../providers/device_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:audioplayers/audioplayers.dart';
+
+import '../providers/device_provider.dart';
 
 class HintScreen extends StatelessWidget {
   const HintScreen({Key key, this.category, this.imageAssetname})
@@ -11,7 +13,7 @@ class HintScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceState = Provider.of<DeviceProvider>(context);
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -26,9 +28,15 @@ class HintScreen extends StatelessWidget {
             icon: Icon(
               Icons.cancel,
               color: Colors.white,
-              size: deviceState.getUseMobileLayout ? 40 : 60,
+              size: deviceProvider.getUseMobileLayout ? 40 : 60,
             ),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              deviceProvider.getAudioCache.play(
+                'fast_click.wav',
+                mode: PlayerMode.LOW_LATENCY,
+              );
+              Navigator.pop(context);
+            },
           ),
         ],
       ),

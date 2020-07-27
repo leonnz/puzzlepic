@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 import '../providers/device_provider.dart';
@@ -29,13 +28,9 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   double _scale;
   AnimationController _playButtonBounceController;
   Animation<Offset> _playButtonSlideAnimation;
-  AudioCache buttonClickAudio = AudioCache(prefix: 'audio/');
 
   @override
   void initState() {
-    buttonClickAudio.load('play_button_click.wav');
-    buttonClickAudio.disableLog();
-
     _playButtonBounceController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 200),
@@ -67,8 +62,6 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   }
 
   void _onTapUp(TapUpDetails details) {
-    buttonClickAudio.play('play_button_click.wav',
-        mode: PlayerMode.LOW_LATENCY);
     _playButtonBounceController.forward();
     widget.playButtonSlideController.reverse();
     widget.puzzlePicSlideController.reverse();
@@ -98,6 +91,10 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
     return Align(
       alignment: Alignment.bottomCenter,
       child: GestureDetector(
+        onTap: () {
+          deviceProvider.getAudioCache
+              .play('play_button_click.wav', mode: PlayerMode.LOW_LATENCY);
+        },
         onTapUp: _onTapUp,
         child: Padding(
           padding: EdgeInsets.only(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import '../providers/device_provider.dart';
 import '../providers/game_provider.dart';
@@ -48,7 +49,13 @@ class PuzzleScreenQuitButton extends StatelessWidget {
                           .puzzleScreenQuitAlertButtonText(),
                     ),
                     textColor: Color(0xff501E5D),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      deviceProvider.getAudioCache.play(
+                        'fast_click.wav',
+                        mode: PlayerMode.LOW_LATENCY,
+                      );
+                      Navigator.pop(context);
+                    },
                   ),
                   FlatButton(
                     child: Text(
@@ -58,6 +65,10 @@ class PuzzleScreenQuitButton extends StatelessWidget {
                     ),
                     textColor: Color(0xff501E5D),
                     onPressed: () {
+                      deviceProvider.getAudioCache.play(
+                        'fast_click.wav',
+                        mode: PlayerMode.LOW_LATENCY,
+                      );
                       quit = true;
                       Navigator.pop(context);
                     },
@@ -87,6 +98,10 @@ class PuzzleScreenQuitButton extends StatelessWidget {
             size: deviceProvider.getUseMobileLayout ? 24 : 40,
           ),
           onPressed: () {
+            deviceProvider.getAudioCache.play(
+              'play_button_click.wav',
+              mode: PlayerMode.LOW_LATENCY,
+            );
             if (gameProvider.getPuzzleComplete || gameProvider.getMoves == 0) {
               gameProvider.resetGameState();
               Navigator.pop(context, true);

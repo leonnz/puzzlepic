@@ -1,8 +1,12 @@
+import 'dart:async';
+import 'dart:math' as math;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_admob/firebase_admob.dart';
+import 'package:audioplayers/audio_cache.dart';
 
 import '../providers/game_provider.dart';
 import '../providers/device_provider.dart';
@@ -11,8 +15,6 @@ import '../data/images_data.dart';
 import '../components/polaroid.dart';
 import '../components/puzzle_pic_logo.dart';
 import '../components/play_button.dart';
-import 'dart:async';
-import 'dart:math' as math;
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -29,12 +31,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   AnimationController _playButtonSlideController;
   AnimationController _puzzlePicSlideController;
 
+  AudioCache _audioCache;
+
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
   }
 
   @override
   void initState() {
+    _audioCache = AudioCache(prefix: 'audio/');
+
     precacheImagesCompleted = false;
     imagesToPrecache = [
       AssetImage('assets/images/background.png'),
@@ -119,6 +125,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
     deviceProvider.setDeviceScreenHeight(height: deviceHeight);
+    deviceProvider.setAudioCache(audioCache: _audioCache);
 
     // var w = MediaQuery.of(context).size.width;
     // var h = MediaQuery.of(context).size.height;

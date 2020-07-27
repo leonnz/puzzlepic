@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 import '../providers/game_provider.dart';
 import '../providers/image_piece_provider.dart';
+import '../providers/device_provider.dart';
 
 class ImagePiece extends StatefulWidget {
   const ImagePiece({
@@ -30,13 +30,9 @@ class _ImagePieceState extends State<ImagePiece>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation _animation;
-  AudioCache pieceMoveAudio = AudioCache(prefix: 'audio/');
 
   @override
   void initState() {
-    pieceMoveAudio.load('click.wav');
-    pieceMoveAudio.disableLog();
-
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 1),
@@ -62,8 +58,10 @@ class _ImagePieceState extends State<ImagePiece>
   }
 
   Widget build(BuildContext context) {
-    final state = Provider.of<GameProvider>(context);
-    final imagePieceProvider = Provider.of<ImagePieceProvider>(context);
+    GameProvider gameProvider = Provider.of<GameProvider>(context);
+    ImagePieceProvider imagePieceProvider =
+        Provider.of<ImagePieceProvider>(context);
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     bool dragged = false;
     double initial = 0.0;
@@ -88,22 +86,22 @@ class _ImagePieceState extends State<ImagePiece>
                     pieceNumber: widget.pieceNumber,
                     xDistance: xDistance,
                     yDistance: 0.0,
-                    piecePositions: state.getPiecePositions,
-                    blankSquare: state.getBlankSquare,
-                    gridSideSize: state.getGridColumns,
-                    gridSize: state.getTotalGridSize,
+                    piecePositions: gameProvider.getPiecePositions,
+                    blankSquare: gameProvider.getBlankSquare,
+                    gridSideSize: gameProvider.getGridColumns,
+                    gridSize: gameProvider.getTotalGridSize,
                   ) &&
-                  !state.getPuzzleComplete) {
-                pieceMoveAudio.play('click.wav',
-                    volume: 0.5, mode: PlayerMode.LOW_LATENCY);
-                state.setMoves();
+                  !gameProvider.getPuzzleComplete) {
+                deviceProvider.getAudioCache.play('image_piece_slide.wav',
+                    volume: 0.3, mode: PlayerMode.LOW_LATENCY);
+                gameProvider.setMoves();
                 imagePieceProvider.setPieceLeftPosition(
-                  getBlankSquare: state.getBlankSquare,
-                  getPiecePositions: state.getPiecePositions,
-                  getSinglePieceWidth: state.getSinglePieceWidth,
+                  getBlankSquare: gameProvider.getBlankSquare,
+                  getPiecePositions: gameProvider.getPiecePositions,
+                  getSinglePieceWidth: gameProvider.getSinglePieceWidth,
                   pieceNumber: widget.pieceNumber,
-                  setBlankSquare: state.setBlankSquare,
-                  checkComplete: state.checkComplete,
+                  setBlankSquare: gameProvider.setBlankSquare,
+                  checkComplete: gameProvider.checkComplete,
                   xDistance: xDistance,
                 );
               }
@@ -124,22 +122,22 @@ class _ImagePieceState extends State<ImagePiece>
                     pieceNumber: widget.pieceNumber,
                     xDistance: 0.0,
                     yDistance: yDistance,
-                    piecePositions: state.getPiecePositions,
-                    blankSquare: state.getBlankSquare,
-                    gridSideSize: state.getGridColumns,
-                    gridSize: state.getTotalGridSize,
+                    piecePositions: gameProvider.getPiecePositions,
+                    blankSquare: gameProvider.getBlankSquare,
+                    gridSideSize: gameProvider.getGridColumns,
+                    gridSize: gameProvider.getTotalGridSize,
                   ) &&
-                  !state.getPuzzleComplete) {
-                pieceMoveAudio.play('click.wav',
-                    volume: 0.1, mode: PlayerMode.LOW_LATENCY);
-                state.setMoves();
+                  !gameProvider.getPuzzleComplete) {
+                deviceProvider.getAudioCache.play('image_piece_slide.wav',
+                    volume: 0.3, mode: PlayerMode.LOW_LATENCY);
+                gameProvider.setMoves();
                 imagePieceProvider.setPieceTopPosition(
-                    getBlankSquare: state.getBlankSquare,
-                    getPiecePositions: state.getPiecePositions,
-                    getSinglePieceWidth: state.getSinglePieceWidth,
+                    getBlankSquare: gameProvider.getBlankSquare,
+                    getPiecePositions: gameProvider.getPiecePositions,
+                    getSinglePieceWidth: gameProvider.getSinglePieceWidth,
                     pieceNumber: widget.pieceNumber,
-                    setBlankSquare: state.setBlankSquare,
-                    checkComplete: state.checkComplete,
+                    setBlankSquare: gameProvider.setBlankSquare,
+                    checkComplete: gameProvider.checkComplete,
                     yDistance: yDistance);
               }
               dragged = false;
@@ -150,12 +148,12 @@ class _ImagePieceState extends State<ImagePiece>
           },
           child: Container(
             decoration: BoxDecoration(
-              border: state.getPuzzleComplete
+              border: gameProvider.getPuzzleComplete
                   ? null
                   : Border.all(width: 0.7, color: Colors.grey),
             ),
-            width: state.getSinglePieceWidth,
-            height: state.getSinglePieceWidth,
+            width: gameProvider.getSinglePieceWidth,
+            height: gameProvider.getSinglePieceWidth,
             child: Center(
               child: Image(
                 image: AssetImage(
@@ -167,10 +165,10 @@ class _ImagePieceState extends State<ImagePiece>
       ),
       left: imagePieceProvider.getLeftPosition(
           pieceNumber: widget.pieceNumber,
-          piecePositions: state.getPiecePositions),
+          piecePositions: gameProvider.getPiecePositions),
       top: imagePieceProvider.getTopPosition(
         pieceNumber: widget.pieceNumber,
-        piecePositions: state.getPiecePositions,
+        piecePositions: gameProvider.getPiecePositions,
       ),
       duration: Duration(milliseconds: 100),
       curve: Curves.linear,
