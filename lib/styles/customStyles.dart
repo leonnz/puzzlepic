@@ -26,9 +26,10 @@ class CustomTextTheme {
   }
 
   TextStyle playButtonText(BuildContext context) {
-    return GoogleFonts.solway(
+    return GoogleFonts.satisfy(
       fontSize: deviceProvider.getUseMobileLayout ? 24 : 40,
-      letterSpacing: 3,
+      letterSpacing: 10,
+      fontWeight: FontWeight.bold,
       color: Colors.purple,
     );
   }
