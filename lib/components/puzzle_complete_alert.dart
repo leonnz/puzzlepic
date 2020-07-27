@@ -1,5 +1,9 @@
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/device_provider.dart';
+import '../styles/customStyles.dart';
 
 class PuzzleCompleteAlert extends StatelessWidget {
   const PuzzleCompleteAlert({
@@ -21,25 +25,41 @@ class PuzzleCompleteAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(bestMoves);
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+
     return AlertDialog(
       title: Text(
         'Congratulations!',
         textAlign: TextAlign.center,
+        style: CustomTextTheme(deviceProvider: deviceProvider)
+            .puzzleScreenCompleteAlertTitle(),
       ),
-      content: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(
+              bottom: 40,
+            ),
+            width: deviceProvider.getUseMobileLayout ? null : 300,
+            child: Text(
               'You completed ${readableFullname != null ? readableFullname : readableName} in $moves moves${moves < bestMoves ? ", a new personal best!" : "."}',
               textAlign: TextAlign.center,
+              style: CustomTextTheme(deviceProvider: deviceProvider)
+                  .puzzleScreenCompleteAlertContent(),
             ),
-            Container(
-              margin: EdgeInsets.all(20.0),
-              child: FlatButton(
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              FlatButton(
                 textColor: Color(0xff501E5D),
-                child: Text("Close"),
+                child: Text(
+                  "Close",
+                  style: CustomTextTheme(deviceProvider: deviceProvider)
+                      .puzzleScreenCompleteAlertButtonText(),
+                ),
                 onPressed: () {
                   Navigator.pop(context, true);
 
@@ -48,9 +68,9 @@ class PuzzleCompleteAlert extends StatelessWidget {
                   }
                 },
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }

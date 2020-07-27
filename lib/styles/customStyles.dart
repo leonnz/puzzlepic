@@ -121,4 +121,24 @@ class CustomTextTheme {
       fontSize: deviceProvider.getUseMobileLayout ? 16 : 20,
     );
   }
+
+  TextStyle puzzleScreenCompleteAlertTitle() {
+    return TextStyle(
+      fontSize: deviceProvider.getUseMobileLayout ? 20 : 25,
+      color: Colors.black,
+    );
+  }
+
+  TextStyle puzzleScreenCompleteAlertContent() {
+    return TextStyle(
+      fontSize: deviceProvider.getUseMobileLayout ? 16 : 20,
+      color: Colors.black,
+    );
+  }
+
+  TextStyle puzzleScreenCompleteAlertButtonText() {
+    return TextStyle(
+      fontSize: deviceProvider.getUseMobileLayout ? 16 : 20,
+    );
+  }
 }
