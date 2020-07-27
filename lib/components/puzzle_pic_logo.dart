@@ -29,7 +29,9 @@ class _PuzzlePicLogoState extends State<PuzzlePicLogo>
       ),
     );
 
-    widget.puzzlePicSlideController.forward();
+    Future.delayed(Duration(milliseconds: 500))
+        .then((_) => widget.puzzlePicSlideController.forward());
+
     super.initState();
   }
 

@@ -50,7 +50,8 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
       ),
     );
 
-    widget.playButtonSlideController.forward();
+    Future.delayed(Duration(milliseconds: 500))
+        .then((_) => widget.playButtonSlideController.forward());
 
     super.initState();
   }

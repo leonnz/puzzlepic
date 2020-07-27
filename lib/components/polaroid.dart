@@ -47,7 +47,8 @@ class _PolaroidState extends State<Polaroid>
       ),
     );
 
-    widget.polaroidSlideController.forward();
+    Future.delayed(Duration(milliseconds: 500))
+        .then((_) => widget.polaroidSlideController.forward());
 
     super.initState();
   }
