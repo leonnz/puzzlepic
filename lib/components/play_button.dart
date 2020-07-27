@@ -33,7 +33,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    buttonClickAudio.load('fast_click.wav');
+    buttonClickAudio.load('play_button_click.wav');
     buttonClickAudio.disableLog();
 
     _playButtonBounceController = AnimationController(
@@ -66,8 +66,9 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  void _onTapDown(TapDownDetails details) {
-    buttonClickAudio.play('fast_click.wav', mode: PlayerMode.LOW_LATENCY);
+  void _onTapUp(TapUpDetails details) {
+    buttonClickAudio.play('play_button_click.wav',
+        mode: PlayerMode.LOW_LATENCY);
     _playButtonBounceController.forward();
     widget.playButtonSlideController.reverse();
     widget.puzzlePicSlideController.reverse();
@@ -85,9 +86,6 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
         widget.puzzlePicSlideController.forward();
       }
     });
-  }
-
-  void _onTapUp(TapUpDetails details) {
     _playButtonBounceController.reverse();
   }
 
@@ -100,7 +98,6 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
     return Align(
       alignment: Alignment.bottomCenter,
       child: GestureDetector(
-        onTapDown: _onTapDown,
         onTapUp: _onTapUp,
         child: Padding(
           padding: EdgeInsets.only(
