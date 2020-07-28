@@ -73,19 +73,31 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
     gameProvider.setGridPositions();
 
-    Future<bool> _backPressed() {
-      return showDialog(
-        context: context,
-        builder: (context) => QuitAlert(),
-      );
+    quitGameAlert() async {
+      bool quit = false;
+
+      if (gameProvider.getPuzzleComplete || gameProvider.getMoves == 0) {
+        gameProvider.resetGameState();
+        Navigator.pop(context, true);
+      } else {
+        quit = await showDialog(
+          context: context,
+          builder: (context) => QuitAlert(),
+        );
+        if (quit) {
+          gameProvider.resetGameState();
+          Navigator.pop(context, true);
+        }
+      }
+
+      return quit;
     }
 
     return ChangeNotifierProvider(
       create: (_) => ImagePieceProvider(),
       child: WillPopScope(
         onWillPop: () async {
-          bool confirmQuit = await _backPressed();
-          if (confirmQuit) Navigator.pop(context, true);
+          bool confirmQuit = await quitGameAlert();
           return confirmQuit;
         },
         child: Container(
