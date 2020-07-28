@@ -36,7 +36,7 @@ class MuteButton extends StatelessWidget {
               deviceProvider.getMuteSounds
                   ? Icons.volume_off
                   : Icons.volume_mute,
-              size: 50,
+              size: deviceProvider.getUseMobileLayout ? 35 : 50,
               color: Colors.black45,
             ),
           ),
