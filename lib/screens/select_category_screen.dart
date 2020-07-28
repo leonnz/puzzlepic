@@ -1,14 +1,46 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 
 import '../components/buttons/category_button.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../styles/customStyles.dart';
+import '../ad_manager.dart';
 
-class SelectCategory extends StatelessWidget {
+class SelectCategory extends StatefulWidget {
   const SelectCategory({Key key}) : super(key: key);
+
+  @override
+  _SelectCategoryState createState() => _SelectCategoryState();
+}
+
+class _SelectCategoryState extends State<SelectCategory> {
+  BannerAd _bannerAd;
+
+  void _loadBannerAd() {
+    _bannerAd
+      ..load()
+      ..show(anchorType: AnchorType.bottom);
+  }
+
+  @override
+  void initState() {
+    _bannerAd = BannerAd(
+      adUnitId: AdManager.bannerAdUnitId,
+      size: AdSize.fullBanner,
+    );
+    _loadBannerAd();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

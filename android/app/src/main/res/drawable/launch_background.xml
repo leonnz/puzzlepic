@@ -3,9 +3,9 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- <item android:drawable="@color/red" /> -->
     <item android:drawable="@color/white" />
-    <item>
+    <!-- <item>
         <bitmap android:gravity= "center" android:src= "@drawable/puzzlepiclogo_nowords" />
-    </item>
+    </item> -->
     <!-- You can insert your own image assets here -->
     <!-- <item>
         <bitmap android:gravity="center" android:src="@mipmap/launch_image" />
