@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 import '../styles/customStyles.dart';
 import '../providers/device_provider.dart';
@@ -45,8 +44,7 @@ class _ImageButtonState extends State<ImageButton> {
 
     return GestureDetector(
       onTap: () async {
-        deviceProvider.getAudioCache
-            .play('fast_click.wav', mode: PlayerMode.LOW_LATENCY);
+        deviceProvider.playSound(sound: 'fast_click.wav');
         final result = await Navigator.push(
           context,
           CupertinoPageRoute(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 import '../providers/device_provider.dart';
 
@@ -31,10 +30,7 @@ class HintScreen extends StatelessWidget {
               size: deviceProvider.getUseMobileLayout ? 40 : 60,
             ),
             onPressed: () {
-              deviceProvider.getAudioCache.play(
-                'fast_click.wav',
-                mode: PlayerMode.LOW_LATENCY,
-              );
+              deviceProvider.playSound(sound: 'fast_click.wav');
               Navigator.pop(context);
             },
           ),

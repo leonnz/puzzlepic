@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 import '../data/images_data.dart';
 import '../data/db_provider.dart';
@@ -80,10 +79,7 @@ class _SelectPictureState extends State<SelectPicture> {
                       iconSize: deviceProvider.getUseMobileLayout ? 25 : 50,
                       icon: Icon(Icons.arrow_back_ios),
                       onPressed: () {
-                        deviceProvider.getAudioCache.play(
-                          'fast_click.wav',
-                          mode: PlayerMode.LOW_LATENCY,
-                        );
+                        deviceProvider.playSound(sound: 'fast_click.wav');
                         Navigator.pop(context);
                       },
                     ),

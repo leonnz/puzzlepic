@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 import '../providers/game_provider.dart';
 import '../providers/image_piece_provider.dart';
@@ -92,8 +91,7 @@ class _ImagePieceState extends State<ImagePiece>
                     gridSize: gameProvider.getTotalGridSize,
                   ) &&
                   !gameProvider.getPuzzleComplete) {
-                deviceProvider.getAudioCache.play('image_piece_slide.wav',
-                    volume: 0.3, mode: PlayerMode.LOW_LATENCY);
+                deviceProvider.playSound(sound: 'image_piece_slide.wav');
                 gameProvider.setMoves();
                 imagePieceProvider.setPieceLeftPosition(
                   getBlankSquare: gameProvider.getBlankSquare,
@@ -128,8 +126,7 @@ class _ImagePieceState extends State<ImagePiece>
                     gridSize: gameProvider.getTotalGridSize,
                   ) &&
                   !gameProvider.getPuzzleComplete) {
-                deviceProvider.getAudioCache.play('image_piece_slide.wav',
-                    volume: 0.3, mode: PlayerMode.LOW_LATENCY);
+                deviceProvider.playSound(sound: 'image_piece_slide.wav');
                 gameProvider.setMoves();
                 imagePieceProvider.setPieceTopPosition(
                     getBlankSquare: gameProvider.getBlankSquare,

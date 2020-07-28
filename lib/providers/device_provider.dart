@@ -26,6 +26,9 @@ class DeviceProvider extends ChangeNotifier {
 
   void setMuteSounds() {
     _muteSounds = !_muteSounds;
+    if (!_muteSounds) {
+      playSound(sound: 'fast_click.wav');
+    }
     notifyListeners();
   }
 

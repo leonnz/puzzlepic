@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 import '../components/category_button.dart';
 import '../data/images_data.dart';
@@ -58,10 +57,7 @@ class SelectCategory extends StatelessWidget {
                         iconSize: deviceProvider.getUseMobileLayout ? 25 : 50,
                         icon: Icon(Icons.arrow_back_ios),
                         onPressed: () {
-                          deviceProvider.getAudioCache.play(
-                            'fast_click.wav',
-                            mode: PlayerMode.LOW_LATENCY,
-                          );
+                          deviceProvider.playSound(sound: 'fast_click.wav');
                           Navigator.pop(context, true);
                         },
                       ),

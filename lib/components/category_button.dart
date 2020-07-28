@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 import '../screens/select_picture_screen.dart';
 import '../styles/customStyles.dart';
@@ -21,8 +20,7 @@ class CategoryButton extends StatelessWidget {
     return Container(
       child: GestureDetector(
         onTap: () {
-          deviceProvider.getAudioCache
-              .play('fast_click.wav', mode: PlayerMode.LOW_LATENCY, volume: 1);
+          deviceProvider.playSound(sound: 'fast_click.wav');
           Navigator.push(
             context,
             CupertinoPageRoute(

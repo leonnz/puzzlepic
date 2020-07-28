@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 import '../providers/device_provider.dart';
 import '../styles/customStyles.dart';
@@ -93,8 +92,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
       alignment: Alignment.bottomCenter,
       child: GestureDetector(
         onTap: () {
-          deviceProvider.getAudioCache
-              .play('play_button_click.wav', mode: PlayerMode.LOW_LATENCY);
+          deviceProvider.playSound(sound: 'play_button_click.wav');
         },
         onTapUp: _onTapUp,
         child: Padding(
