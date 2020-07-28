@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';
 import '../providers/image_piece_provider.dart';
 import '../providers/device_provider.dart';
+import 'puzzle_complete_alert.dart';
 
 class ImagePiece extends StatefulWidget {
   const ImagePiece({
@@ -12,14 +13,12 @@ class ImagePiece extends StatefulWidget {
     this.category,
     this.assetName,
     this.lastPiece,
-    this.puzzleCompleteAlertCallback,
   }) : super(key: key);
 
   final String category;
   final String assetName;
   final int pieceNumber;
   final bool lastPiece;
-  final Function puzzleCompleteAlertCallback;
 
   @override
   _ImagePieceState createState() => _ImagePieceState();
@@ -29,6 +28,16 @@ class _ImagePieceState extends State<ImagePiece>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation _animation;
+
+  Future<dynamic> showPuzzleCompleteAlert() {
+    return showDialog(
+      context: context,
+      builder: (context) => PuzzleCompleteAlert(
+          // fullAd: interstitialAd,
+          // fullAdReady: isInterstitialAdReady,
+          ),
+    );
+  }
 
   @override
   void initState() {
@@ -44,7 +53,7 @@ class _ImagePieceState extends State<ImagePiece>
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed && widget.lastPiece == true) {
-        widget.puzzleCompleteAlertCallback();
+        showPuzzleCompleteAlert();
       }
     });
     super.initState();
