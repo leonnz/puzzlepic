@@ -3,9 +3,9 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
 
 import '../styles/customStyles.dart';
-import '../components/puzzle_screen_hint_button.dart';
-import '../components/puzzle_screen_quit_button.dart';
-import '../components/mute_button.dart';
+import '../components/buttons/puzzle_screen_hint_button.dart';
+import '../components/buttons/puzzle_screen_quit_button.dart';
+import '../components/buttons/mute_button.dart';
 import '../components/puzzle_card.dart';
 import '../providers/game_provider.dart';
 import '../providers/image_piece_provider.dart';
@@ -183,7 +183,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                 MuteButton(),
                 Spacer(),
                 PuzzleCard(
-                  gameProvider: gameProvider,
                   widget: widget,
                   interstitialAd: _interstitialAd,
                   isInterstitialAdReady: _isInterstitialAdReady,

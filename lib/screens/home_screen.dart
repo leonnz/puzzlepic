@@ -14,7 +14,7 @@ import '../ad_manager.dart';
 import '../data/images_data.dart';
 import '../components/polaroid.dart';
 import '../components/puzzle_pic_logo.dart';
-import '../components/play_button.dart';
+import '../components/buttons/play_button.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);

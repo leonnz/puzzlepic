@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../data/images_data.dart';
 import '../data/db_provider.dart';
-import '../components/image_button.dart';
+import '../components/buttons/image_button.dart';
 import '../providers/device_provider.dart';
 import '../styles/customStyles.dart';
 
@@ -146,7 +146,6 @@ class _SelectPictureState extends State<SelectPicture> {
                             ),
                             itemBuilder: (BuildContext context, int i) {
                               return ImageButton(
-                                imgNumber: i,
                                 categoryName: widget.category,
                                 assetName: images[i]["assetName"],
                                 readableName: images[i]["readableName"],

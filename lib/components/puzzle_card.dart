@@ -14,13 +14,11 @@ import '../screens/puzzle_screen.dart';
 class PuzzleCard extends StatelessWidget {
   const PuzzleCard(
       {Key key,
-      @required this.gameProvider,
       @required this.widget,
       @required this.interstitialAd,
       @required this.isInterstitialAdReady})
       : super(key: key);
 
-  final GameProvider gameProvider;
   final PuzzleScreen widget;
   final InterstitialAd interstitialAd;
   final bool isInterstitialAdReady;
@@ -37,43 +35,45 @@ class PuzzleCard extends StatelessWidget {
     return best;
   }
 
-  void puzzleCompleteDb() async {
-    gameProvider.setPuzzleComplete(true);
-
-    DBProviderDb dbProvider = DBProviderDb();
-
-    List<String> currentRecords = await dbProvider.getRecords();
-
-    if (currentRecords.contains(widget.imageReadableName)) {
-      List<Map<String, dynamic>> existingRecord = await dbProvider
-          .getSingleRecord(puzzleName: widget.imageReadableName);
-
-      int existingRecordBestMoves = existingRecord[0]['bestMoves'];
-
-      if (gameProvider.getMoves < existingRecordBestMoves) {
-        // Sets the best moves to the previous best moves, so the complete puzzle alert can calculate if it is a new best.
-        gameProvider.setBestMoves(moves: existingRecordBestMoves);
-        dbProvider.updateRecord(
-            moves: gameProvider.getMoves, puzzleName: widget.imageReadableName);
-        // setState(() {});
-      }
-    } else {
-      gameProvider.setBestMoves(moves: gameProvider.getMoves);
-      final record = PuzzleRecord(
-        puzzleName: widget.imageReadableName,
-        puzzleCategory: widget.imageCategory,
-        complete: 'true',
-        moves: gameProvider.getMoves,
-      );
-
-      dbProvider.insertRecord(record: record);
-      // setState(() {});
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    GameProvider gameProvider = Provider.of<GameProvider>(context);
+
+    void puzzleCompleteDb() async {
+      gameProvider.setPuzzleComplete(true);
+
+      DBProviderDb dbProvider = DBProviderDb();
+
+      List<String> currentRecords = await dbProvider.getRecords();
+
+      if (currentRecords.contains(widget.imageReadableName)) {
+        List<Map<String, dynamic>> existingRecord = await dbProvider
+            .getSingleRecord(puzzleName: widget.imageReadableName);
+
+        int existingRecordBestMoves = existingRecord[0]['bestMoves'];
+
+        if (gameProvider.getMoves < existingRecordBestMoves) {
+          // Sets the best moves to the previous best moves, so the complete puzzle alert can calculate if it is a new best.
+          gameProvider.setBestMoves(moves: existingRecordBestMoves);
+          dbProvider.updateRecord(
+              moves: gameProvider.getMoves,
+              puzzleName: widget.imageReadableName);
+          // setState(() {});
+        }
+      } else {
+        gameProvider.setBestMoves(moves: gameProvider.getMoves);
+        final record = PuzzleRecord(
+          puzzleName: widget.imageReadableName,
+          puzzleCategory: widget.imageCategory,
+          complete: 'true',
+          moves: gameProvider.getMoves,
+        );
+
+        dbProvider.insertRecord(record: record);
+        // setState(() {});
+      }
+    }
 
     Future<dynamic> showPuzzleCompleteAlert() {
       return showDialog(

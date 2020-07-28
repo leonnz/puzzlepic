@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/select_picture_screen.dart';
-import '../styles/customStyles.dart';
-import '../providers/device_provider.dart';
+import '../../screens/select_picture_screen.dart';
+import '../../styles/customStyles.dart';
+import '../../providers/device_provider.dart';
 
 class CategoryButton extends StatelessWidget {
   const CategoryButton(

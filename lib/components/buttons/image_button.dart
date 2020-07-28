@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import '../styles/customStyles.dart';
-import '../providers/device_provider.dart';
-import '../screens/puzzle_screen.dart';
+import '../../styles/customStyles.dart';
+import '../../providers/device_provider.dart';
+import '../../screens/puzzle_screen.dart';
 
 class ImageButton extends StatefulWidget {
   const ImageButton({
@@ -15,11 +15,9 @@ class ImageButton extends StatefulWidget {
     this.title,
     this.categoryName,
     this.complete,
-    this.imgNumber,
     this.refreshPictureSelectScreen,
   }) : super(key: key);
 
-  final int imgNumber;
   final String categoryName;
   final String assetName;
   final String readableName;
@@ -45,6 +43,8 @@ class _ImageButtonState extends State<ImageButton> {
     return GestureDetector(
       onTap: () async {
         deviceProvider.playSound(sound: 'fast_click.wav');
+        // TODO set image data in game provider.
+
         final result = await Navigator.push(
           context,
           CupertinoPageRoute(
