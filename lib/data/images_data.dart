@@ -1,5 +1,6 @@
 class Images {
   static List<Map<String, dynamic>> imageList = [
+    // Animals
     {
       "categoryName": "animals",
       "categoryReadableName": "Animal Kingdom",
@@ -78,6 +79,7 @@ class Images {
         },
       ]
     },
+    // Art
     {
       "categoryName": "art",
       "categoryReadableName": "Art World",
@@ -156,6 +158,7 @@ class Images {
         },
       ]
     },
+    // Buildings
     {
       "categoryName": "buildings",
       "categoryReadableName": "Famous Structures",
@@ -225,6 +228,7 @@ class Images {
         },
       ]
     },
+    // Cities
     {
       "categoryName": "cities",
       "categoryReadableName": "City Scenes",
@@ -303,6 +307,7 @@ class Images {
         },
       ],
     },
+    // FLowers
     {
       "categoryName": "flowers",
       "categoryReadableName": "Pretty Flowers",
