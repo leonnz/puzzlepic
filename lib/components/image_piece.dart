@@ -10,13 +10,9 @@ class ImagePiece extends StatefulWidget {
   const ImagePiece({
     Key key,
     this.pieceNumber,
-    this.category,
-    this.assetName,
     this.lastPiece,
   }) : super(key: key);
 
-  final String category;
-  final String assetName;
   final int pieceNumber;
   final bool lastPiece;
 
@@ -163,7 +159,7 @@ class _ImagePieceState extends State<ImagePiece>
             child: Center(
               child: Image(
                 image: AssetImage(
-                    'assets/images/${widget.category}/${widget.assetName}/${widget.assetName}_${widget.pieceNumber}.jpg'),
+                    'assets/images/${gameProvider.getImageCategory}/${gameProvider.getAssetName}/${gameProvider.getAssetName}_${widget.pieceNumber}.jpg'),
               ),
             ),
           ),

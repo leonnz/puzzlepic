@@ -61,8 +61,6 @@ class PuzzleCardImageBoard extends StatelessWidget {
       for (int i = 1; i <= numberOfPieces; i++) {
         imagePieceList.add(
           ImagePiece(
-            category: gameProvider.getImageCategory,
-            assetName: gameProvider.getAssetName,
             pieceNumber: i,
             lastPiece: complete ? true : false,
           ),

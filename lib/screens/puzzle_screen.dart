@@ -6,7 +6,7 @@ import '../styles/customStyles.dart';
 import '../components/buttons/puzzle_screen_hint_button.dart';
 import '../components/buttons/puzzle_screen_quit_button.dart';
 import '../components/buttons/mute_button.dart';
-import '../components/puzzle_card.dart';
+import '../components/puzzle_card/puzzle_card.dart';
 import '../providers/game_provider.dart';
 import '../providers/image_piece_provider.dart';
 import '../providers/device_provider.dart';
