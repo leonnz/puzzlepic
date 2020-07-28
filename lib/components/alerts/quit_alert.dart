@@ -17,7 +17,7 @@ class QuitAlert extends StatelessWidget {
 
     return AlertDialog(
       title: Text(
-        'Leave this game',
+        'Leave puzzle',
         textAlign: TextAlign.center,
       ),
       titleTextStyle: CustomTextTheme(deviceProvider: deviceProvider)
