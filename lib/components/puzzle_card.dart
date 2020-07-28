@@ -56,7 +56,6 @@ class PuzzleCard extends StatelessWidget {
           dbProvider.updateRecord(
               moves: gameProvider.getMoves,
               puzzleName: gameProvider.getReadableName);
-          // setState(() {});
         }
       } else {
         gameProvider.setBestMoves(moves: gameProvider.getMoves);
@@ -68,7 +67,6 @@ class PuzzleCard extends StatelessWidget {
         );
 
         dbProvider.insertRecord(record: record);
-        // setState(() {});
       }
     }
 
@@ -83,11 +81,7 @@ class PuzzleCard extends StatelessWidget {
           moves: gameProvider.getMoves,
           bestMoves: gameProvider.getBestMoves,
         ),
-      ).then((value) {
-        if (value) {
-          // setState(() {});
-        }
-      });
+      );
     }
 
     List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {

@@ -61,7 +61,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
                       .puzzleScreenCompleteAlertButtonText(),
                 ),
                 onPressed: () {
-                  Navigator.pop(context, true);
+                  Navigator.pop(context);
 
                   if (fullAdReady) {
                     // fullAd.show();
