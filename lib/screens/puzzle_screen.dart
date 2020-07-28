@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:PuzzlePic/components/image_piece.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
 
-import '../data/db_provider.dart';
-import '../data/puzzle_record_model.dart';
 import '../styles/customStyles.dart';
-import '../components/puzzle_complete_alert.dart';
 import '../components/puzzle_screen_hint_button.dart';
 import '../components/puzzle_screen_quit_button.dart';
 import '../components/mute_button.dart';
+import '../components/puzzle_card.dart';
 import '../providers/game_provider.dart';
 import '../providers/image_piece_provider.dart';
 import '../providers/device_provider.dart';
@@ -103,8 +100,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
     gameProvider.setGridPositions();
 
-    DBProviderDb dbProvider = DBProviderDb();
-
     Future<bool> _backPressed() {
       return showDialog(
         context: context,
@@ -165,94 +160,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       );
     }
 
-    Future<dynamic> showPuzzleCompleteAlert() {
-      return showDialog(
-        context: context,
-        builder: (context) => PuzzleCompleteAlert(
-          readableName: widget.imageReadableName,
-          readableFullname: widget.imageReadableFullname,
-          fullAd: _interstitialAd,
-          fullAdReady: _isInterstitialAdReady,
-          moves: gameProvider.getMoves,
-          bestMoves: gameProvider.getBestMoves,
-        ),
-      ).then((value) {
-        if (value) {
-          setState(() {});
-        }
-      });
-    }
-
-    void puzzleCompleteDb() async {
-      gameProvider.setPuzzleComplete(true);
-
-      DBProviderDb dbProvider = DBProviderDb();
-
-      List<String> currentRecords = await dbProvider.getRecords();
-
-      if (currentRecords.contains(widget.imageReadableName)) {
-        List<Map<String, dynamic>> existingRecord = await dbProvider
-            .getSingleRecord(puzzleName: widget.imageReadableName);
-
-        int existingRecordBestMoves = existingRecord[0]['bestMoves'];
-
-        if (gameProvider.getMoves < existingRecordBestMoves) {
-          // Sets the best moves to the previous best moves, so the complete puzzle alert can calculate if it is a new best.
-          gameProvider.setBestMoves(moves: existingRecordBestMoves);
-          dbProvider.updateRecord(
-              moves: gameProvider.getMoves,
-              puzzleName: widget.imageReadableName);
-          setState(() {});
-        }
-      } else {
-        gameProvider.setBestMoves(moves: gameProvider.getMoves);
-        final record = PuzzleRecord(
-          puzzleName: widget.imageReadableName,
-          puzzleCategory: widget.imageCategory,
-          complete: 'true',
-          moves: gameProvider.getMoves,
-        );
-
-        dbProvider.insertRecord(record: record);
-        setState(() {});
-      }
-    }
-
-    List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {
-      List<ImagePiece> imagePieceList = <ImagePiece>[];
-      // Always produce 1 less image piece that the grid size
-      for (int i = 1; i <= numberOfPieces; i++) {
-        imagePieceList.add(
-          ImagePiece(
-            category: widget.imageCategory,
-            assetName: widget.imageAssetName,
-            pieceNumber: i,
-            lastPiece: complete ? true : false,
-            puzzleCompleteAlertCallback: showPuzzleCompleteAlert,
-          ),
-        );
-        gameProvider.setInitialPuzzlePiecePosition(i);
-      }
-
-      if (complete) {
-        gameProvider.setPuzzleComplete(complete);
-        puzzleCompleteDb();
-      }
-
-      return imagePieceList;
-    }
-
-    getSingleRecord() async {
-      int best = 0;
-      List<Map<String, dynamic>> record = await dbProvider.getSingleRecord(
-          puzzleName: widget.imageReadableName);
-
-      if (record.length > 0) {
-        best = record[0]['bestMoves'];
-      }
-      return best;
-    }
-
     return ChangeNotifierProvider(
       create: (_) => ImagePieceProvider(),
       child: WillPopScope(
@@ -275,97 +182,11 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               children: <Widget>[
                 MuteButton(),
                 Spacer(),
-                Container(
-                  width: gameProvider.getScreenWidth + 20,
-                  child: Card(
-                    color: Colors.white,
-                    elevation: 4,
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                            widget.imageReadableFullname != null
-                                ? widget.imageReadableFullname
-                                : widget.imageReadableName,
-                            textAlign: TextAlign.center,
-                            style:
-                                CustomTextTheme(deviceProvider: deviceProvider)
-                                    .puzzleScreenImageTitle(),
-                          ),
-                        ),
-                        widget.imageTitle != null
-                            ? Padding(
-                                padding: const EdgeInsets.only(bottom: 10.0),
-                                child: Text(
-                                  widget.imageTitle,
-                                  style: CustomTextTheme(
-                                          deviceProvider: deviceProvider)
-                                      .puzzleScreenPictureSubTitle(),
-                                ),
-                              )
-                            : Container(),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Text(
-                                'Moves: ${gameProvider.getMoves}',
-                                style: CustomTextTheme(
-                                        deviceProvider: deviceProvider)
-                                    .puzzleScreenMovesCounter(),
-                              ),
-                              FutureBuilder(
-                                future: getSingleRecord(),
-                                initialData: 0,
-                                builder:
-                                    (context, AsyncSnapshot<int> snapshot) {
-                                  Widget bestMoves;
-
-                                  if (snapshot.hasData) {
-                                    int moves = snapshot.data;
-                                    bestMoves = Text(
-                                      'Best moves: $moves',
-                                      style: CustomTextTheme(
-                                              deviceProvider: deviceProvider)
-                                          .puzzleScreenMovesCounter(),
-                                    );
-                                  } else {
-                                    bestMoves = Text(
-                                      'Best moves: 0',
-                                      style: CustomTextTheme(
-                                              deviceProvider: deviceProvider)
-                                          .puzzleScreenMovesCounter(),
-                                    );
-                                  }
-                                  return bestMoves;
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Container(
-                            width: gameProvider.getScreenWidth,
-                            height: gameProvider.getScreenWidth,
-                            color: Colors.grey,
-                            child: gameProvider.getPuzzleComplete
-                                ? Stack(
-                                    children: generateImagePieces(
-                                        gameProvider.getTotalGridSize, true),
-                                  )
-                                : Stack(
-                                    children: generateImagePieces(
-                                        gameProvider.getTotalGridSize - 1,
-                                        false),
-                                  ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                PuzzleCard(
+                  gameProvider: gameProvider,
+                  widget: widget,
+                  interstitialAd: _interstitialAd,
+                  isInterstitialAdReady: _isInterstitialAdReady,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),

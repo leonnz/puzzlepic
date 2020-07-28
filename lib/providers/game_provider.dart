@@ -15,6 +15,8 @@ class GameProvider with ChangeNotifier {
   static int _bestMoves;
   static List<int> _gridPositions;
 
+  // Selected puzzle data
+
   bool get getPuzzleComplete => _puzzleComplete;
   Map<String, String> get getImage => _image;
   List<Map<String, dynamic>> get getPiecePositions => _piecePositions;
