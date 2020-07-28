@@ -21,15 +21,8 @@ class PuzzleScreen extends StatefulWidget {
 }
 
 class _PuzzleScreenState extends State<PuzzleScreen> {
-  BannerAd _bannerAd;
   InterstitialAd _interstitialAd;
   bool _isInterstitialAdReady;
-
-  void _loadBannerAd() {
-    _bannerAd
-      ..load()
-      ..show(anchorType: AnchorType.bottom);
-  }
 
   void _loadInterstitialAd() {
     _interstitialAd.load();
@@ -62,12 +55,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       listener: _onInterstitialAdEvent,
     );
 
-    _bannerAd = BannerAd(
-      adUnitId: AdManager.bannerAdUnitId,
-      size: AdSize.fullBanner,
-    );
-
-    // _loadBannerAd();
     // _loadInterstitialAd();
 
     super.initState();
@@ -76,7 +63,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
   @override
   void dispose() {
     // _interstitialAd?.dispose();
-    // _bannerAd?.dispose();
 
     super.dispose();
   }
