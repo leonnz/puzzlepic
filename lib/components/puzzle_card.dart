@@ -9,36 +9,33 @@ import '../providers/game_provider.dart';
 import '../providers/device_provider.dart';
 import '../data/db_provider.dart';
 import '../styles/customStyles.dart';
-import '../screens/puzzle_screen.dart';
 
 class PuzzleCard extends StatelessWidget {
   const PuzzleCard(
       {Key key,
-      @required this.widget,
       @required this.interstitialAd,
       @required this.isInterstitialAdReady})
       : super(key: key);
 
-  final PuzzleScreen widget;
   final InterstitialAd interstitialAd;
   final bool isInterstitialAdReady;
-
-  Future<int> getSingleRecord() async {
-    DBProviderDb dbProvider = DBProviderDb();
-    int best = 0;
-    List<Map<String, dynamic>> record =
-        await dbProvider.getSingleRecord(puzzleName: widget.imageReadableName);
-
-    if (record.length > 0) {
-      best = record[0]['bestMoves'];
-    }
-    return best;
-  }
 
   @override
   Widget build(BuildContext context) {
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     GameProvider gameProvider = Provider.of<GameProvider>(context);
+
+    Future<int> getSingleRecord() async {
+      DBProviderDb dbProvider = DBProviderDb();
+      int best = 0;
+      List<Map<String, dynamic>> record = await dbProvider.getSingleRecord(
+          puzzleName: gameProvider.getReadableName);
+
+      if (record.length > 0) {
+        best = record[0]['bestMoves'];
+      }
+      return best;
+    }
 
     void puzzleCompleteDb() async {
       gameProvider.setPuzzleComplete(true);
@@ -47,9 +44,9 @@ class PuzzleCard extends StatelessWidget {
 
       List<String> currentRecords = await dbProvider.getRecords();
 
-      if (currentRecords.contains(widget.imageReadableName)) {
+      if (currentRecords.contains(gameProvider.getReadableName)) {
         List<Map<String, dynamic>> existingRecord = await dbProvider
-            .getSingleRecord(puzzleName: widget.imageReadableName);
+            .getSingleRecord(puzzleName: gameProvider.getReadableName);
 
         int existingRecordBestMoves = existingRecord[0]['bestMoves'];
 
@@ -58,14 +55,14 @@ class PuzzleCard extends StatelessWidget {
           gameProvider.setBestMoves(moves: existingRecordBestMoves);
           dbProvider.updateRecord(
               moves: gameProvider.getMoves,
-              puzzleName: widget.imageReadableName);
+              puzzleName: gameProvider.getReadableName);
           // setState(() {});
         }
       } else {
         gameProvider.setBestMoves(moves: gameProvider.getMoves);
         final record = PuzzleRecord(
-          puzzleName: widget.imageReadableName,
-          puzzleCategory: widget.imageCategory,
+          puzzleName: gameProvider.getReadableName,
+          puzzleCategory: gameProvider.getImageCategory,
           complete: 'true',
           moves: gameProvider.getMoves,
         );
@@ -79,8 +76,8 @@ class PuzzleCard extends StatelessWidget {
       return showDialog(
         context: context,
         builder: (context) => PuzzleCompleteAlert(
-          readableName: widget.imageReadableName,
-          readableFullname: widget.imageReadableFullname,
+          readableName: gameProvider.getReadableName,
+          readableFullname: gameProvider.getReadableFullname,
           fullAd: interstitialAd,
           fullAdReady: isInterstitialAdReady,
           moves: gameProvider.getMoves,
@@ -100,8 +97,8 @@ class PuzzleCard extends StatelessWidget {
       for (int i = 1; i <= numberOfPieces; i++) {
         imagePieceList.add(
           ImagePiece(
-            category: widget.imageCategory,
-            assetName: widget.imageAssetName,
+            category: gameProvider.getImageCategory,
+            assetName: gameProvider.getAssetName,
             pieceNumber: i,
             lastPiece: complete ? true : false,
             puzzleCompleteAlertCallback: showPuzzleCompleteAlert,
@@ -128,19 +125,19 @@ class PuzzleCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                widget.imageReadableFullname != null
-                    ? widget.imageReadableFullname
-                    : widget.imageReadableName,
+                gameProvider.getReadableFullname != null
+                    ? gameProvider.getReadableFullname
+                    : gameProvider.getReadableName,
                 textAlign: TextAlign.center,
                 style: CustomTextTheme(deviceProvider: deviceProvider)
                     .puzzleScreenImageTitle(),
               ),
             ),
-            widget.imageTitle != null
+            gameProvider.getTitle != null
                 ? Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: Text(
-                      widget.imageTitle,
+                      gameProvider.getTitle,
                       style: CustomTextTheme(deviceProvider: deviceProvider)
                           .puzzleScreenPictureSubTitle(),
                     ),

@@ -16,6 +16,31 @@ class GameProvider with ChangeNotifier {
   static List<int> _gridPositions;
 
   // Selected puzzle data
+  static String _imageCategory;
+  static String _assetName;
+  static String _readableName;
+  static String _readableFullname;
+  static String _title;
+
+  String get getImageCategory => _imageCategory;
+  String get getAssetName => _assetName;
+  String get getReadableName => _readableName;
+  String get getReadableFullname => _readableFullname;
+  String get getTitle => _title;
+
+  void setImageData({
+    String category,
+    String assetName,
+    String readableName,
+    String readableFullname,
+    String title,
+  }) {
+    _imageCategory = category;
+    _assetName = assetName;
+    _readableName = readableName;
+    _readableFullname = readableFullname;
+    _title = title;
+  }
 
   bool get getPuzzleComplete => _puzzleComplete;
   Map<String, String> get getImage => _image;

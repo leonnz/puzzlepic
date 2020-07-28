@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../styles/customStyles.dart';
 import '../../providers/device_provider.dart';
+import '../../providers/game_provider.dart';
 import '../../screens/puzzle_screen.dart';
 
 class ImageButton extends StatefulWidget {
@@ -39,22 +40,24 @@ class _ImageButtonState extends State<ImageButton> {
   @override
   Widget build(BuildContext context) {
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    GameProvider gameProvider = Provider.of<GameProvider>(context);
 
     return GestureDetector(
       onTap: () async {
         deviceProvider.playSound(sound: 'fast_click.wav');
-        // TODO set image data in game provider.
+
+        gameProvider.setImageData(
+          category: widget.categoryName,
+          assetName: widget.assetName,
+          readableName: widget.readableName,
+          readableFullname: widget.readableFullName,
+          title: widget.title,
+        );
 
         final result = await Navigator.push(
           context,
           CupertinoPageRoute(
-            builder: (context) => PuzzleScreen(
-              imageCategory: widget.categoryName,
-              imageAssetName: widget.assetName,
-              imageReadableName: widget.readableName,
-              imageReadableFullname: widget.readableFullName,
-              imageTitle: widget.title,
-            ),
+            builder: (context) => PuzzleScreen(),
           ),
         );
         // Refreshes the pictures to show complete ticks from database

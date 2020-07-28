@@ -13,20 +13,9 @@ import '../providers/device_provider.dart';
 import '../ad_manager.dart';
 
 class PuzzleScreen extends StatefulWidget {
-  const PuzzleScreen(
-      {Key key,
-      this.imageAssetName,
-      this.imageReadableName,
-      this.imageReadableFullname,
-      this.imageTitle,
-      this.imageCategory})
-      : super(key: key);
-
-  final String imageAssetName;
-  final String imageReadableName;
-  final String imageReadableFullname;
-  final String imageTitle;
-  final String imageCategory;
+  const PuzzleScreen({
+    Key key,
+  }) : super(key: key);
 
   @override
   _PuzzleScreenState createState() => _PuzzleScreenState();
@@ -183,7 +172,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                 MuteButton(),
                 Spacer(),
                 PuzzleCard(
-                  widget: widget,
                   interstitialAd: _interstitialAd,
                   isInterstitialAdReady: _isInterstitialAdReady,
                 ),
@@ -193,8 +181,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       PuzzleScreenHintButton(
-                        imageCategory: widget.imageCategory,
-                        imageAssetName: widget.imageAssetName,
+                        imageCategory: gameProvider.getImageCategory,
+                        imageAssetName: gameProvider.getAssetName,
                       ),
                       PuzzleScreenQuitButton()
                     ],
