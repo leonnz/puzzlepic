@@ -92,8 +92,10 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
   void _buyProduct(ProductDetails prod) {
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: prod);
-    _iap.buyNonConsumable(purchaseParam: purchaseParam);
+    // _iap.buyNonConsumable(purchaseParam: purchaseParam);
+    _iap.buyConsumable(purchaseParam: purchaseParam);
     removedAdsPurchased = true;
+    print('product bought');
   }
 
   @override
