@@ -98,10 +98,11 @@ class PuzzleScreenQuitButton extends StatelessWidget {
             size: deviceProvider.getUseMobileLayout ? 24 : 40,
           ),
           onPressed: () {
-            deviceProvider.getAudioCache.play(
-              'play_button_click.wav',
-              mode: PlayerMode.LOW_LATENCY,
-            );
+            // deviceProvider.getAudioCache.play(
+            //   'play_button_click.wav',
+            //   mode: PlayerMode.LOW_LATENCY,
+            // );
+            deviceProvider.playSound(sound: 'play_button_click.wav');
             if (gameProvider.getPuzzleComplete || gameProvider.getMoves == 0) {
               gameProvider.resetGameState();
               Navigator.pop(context, true);

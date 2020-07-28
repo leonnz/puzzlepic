@@ -272,6 +272,37 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    deviceProvider.setMuteSounds();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20, right: 20),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(100),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black45,
+                                blurRadius: 4,
+                                offset: Offset(1, 1),
+                              )
+                            ]),
+                        child: Icon(
+                          deviceProvider.getMuteSounds
+                              ? Icons.volume_off
+                              : Icons.volume_mute,
+                          size: 50,
+                          color: Colors.black45,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 Spacer(),
                 Container(
                   width: gameProvider.getScreenWidth + 20,

@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class DeviceProvider extends ChangeNotifier {
   static bool _useMobileLayout;
+  static bool _muteSounds = false;
   static int _gridSize;
   static double _deviceScreenHeight;
   static AudioCache _audioCache;
 
   bool get getUseMobileLayout => _useMobileLayout;
+  bool get getMuteSounds => _muteSounds;
   int get getGridSize => _gridSize;
   double get getDeviceScreenHeight => _deviceScreenHeight;
   AudioCache get getAudioCache => _audioCache;
@@ -19,6 +22,11 @@ class DeviceProvider extends ChangeNotifier {
     } else {
       _gridSize = 3;
     }
+  }
+
+  void setMuteSounds() {
+    _muteSounds = !_muteSounds;
+    notifyListeners();
   }
 
   void setDeviceScreenHeight({double height}) {
@@ -33,5 +41,14 @@ class DeviceProvider extends ChangeNotifier {
       'play_button_click.wav',
     ]);
     _audioCache.disableLog();
+  }
+
+  void playSound({String sound}) {
+    if (!getMuteSounds) {
+      _audioCache.play(
+        sound,
+        mode: PlayerMode.LOW_LATENCY,
+      );
+    }
   }
 }
