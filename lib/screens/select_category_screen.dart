@@ -71,7 +71,11 @@ class _SelectCategoryState extends State<SelectCategory> {
                   Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  image: DecorationImage(
+                    image: AssetImage(
+                        'assets/images/_categories/_categories_banner.png'),
+                    fit: BoxFit.cover,
+                  ),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black45,
