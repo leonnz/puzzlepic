@@ -292,15 +292,17 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                                     .puzzleScreenImageTitle(),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: Text(
-                            widget.imageTitle != null ? widget.imageTitle : "",
-                            style:
-                                CustomTextTheme(deviceProvider: deviceProvider)
-                                    .puzzleScreenPictureSubTitle(),
-                          ),
-                        ),
+                        widget.imageTitle != null
+                            ? Padding(
+                                padding: const EdgeInsets.only(bottom: 10.0),
+                                child: Text(
+                                  widget.imageTitle,
+                                  style: CustomTextTheme(
+                                          deviceProvider: deviceProvider)
+                                      .puzzleScreenPictureSubTitle(),
+                                ),
+                              )
+                            : Container(),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
