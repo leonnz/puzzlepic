@@ -2,9 +2,9 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/device_provider.dart';
-import '../providers/game_provider.dart';
-import '../styles/customStyles.dart';
+import '../../providers/device_provider.dart';
+import '../../providers/game_provider.dart';
+import '../../styles/customStyles.dart';
 
 class PuzzleCompleteAlert extends StatelessWidget {
   const PuzzleCompleteAlert({

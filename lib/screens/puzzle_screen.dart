@@ -6,7 +6,7 @@ import '../components/buttons/puzzle_screen_hint_button.dart';
 import '../components/buttons/puzzle_screen_quit_button.dart';
 import '../components/buttons/mute_button.dart';
 import '../components/puzzle_card/puzzle_card.dart';
-import '../components/android_quit_alert.dart';
+import '../components/alerts/quit_alert.dart';
 import '../providers/game_provider.dart';
 import '../providers/image_piece_provider.dart';
 import '../ad_manager.dart';
@@ -90,7 +90,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     Future<bool> _backPressed() {
       return showDialog(
         context: context,
-        builder: (context) => AndroidQuitAlert(),
+        builder: (context) => QuitAlert(),
       );
     }
 

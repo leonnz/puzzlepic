@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
 import '../../providers/game_provider.dart';
-import '../../styles/customStyles.dart';
+import '../alerts/quit_alert.dart';
 
 class PuzzleScreenQuitButton extends StatelessWidget {
   const PuzzleScreenQuitButton({Key key}) : super(key: key);
@@ -16,64 +16,9 @@ class PuzzleScreenQuitButton extends StatelessWidget {
 
     quitGameAlert() async {
       bool quit = false;
-      await showDialog(
+      quit = await showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Text(
-            'Leave this game',
-            textAlign: TextAlign.center,
-          ),
-          titleTextStyle: CustomTextTheme(deviceProvider: deviceProvider)
-              .puzzleScreenQuitAlertTitle(),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(
-                  bottom: 40,
-                ),
-                width: deviceProvider.getUseMobileLayout ? null : 300,
-                child: Text(
-                  'Progress will be lost, are you sure?',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  FlatButton(
-                    child: Text(
-                      "No",
-                      style: CustomTextTheme(deviceProvider: deviceProvider)
-                          .puzzleScreenQuitAlertButtonText(),
-                    ),
-                    textColor: Color(0xff501E5D),
-                    onPressed: () {
-                      deviceProvider.playSound(sound: 'fast_click.wav');
-                      Navigator.pop(context);
-                    },
-                  ),
-                  FlatButton(
-                    child: Text(
-                      "Yes",
-                      style: CustomTextTheme(deviceProvider: deviceProvider)
-                          .puzzleScreenQuitAlertButtonText(),
-                    ),
-                    textColor: Color(0xff501E5D),
-                    onPressed: () {
-                      deviceProvider.playSound(sound: 'fast_click.wav');
-                      quit = true;
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-          contentTextStyle: CustomTextTheme(deviceProvider: deviceProvider)
-              .puzzleScreenQuitAlertContent(),
-        ),
+        builder: (context) => QuitAlert(),
       );
       if (quit) {
         gameProvider.resetGameState();
