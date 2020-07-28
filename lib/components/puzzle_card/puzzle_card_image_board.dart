@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
-import '../components/image_piece.dart';
-import '../data/puzzle_record_model.dart';
-import '../providers/game_provider.dart';
-import '../data/db_provider.dart';
+import '../image_piece.dart';
+import '../../data/puzzle_record_model.dart';
+import '../../providers/game_provider.dart';
+import '../../data/db_provider.dart';
 
 class PuzzleCardImageBoard extends StatelessWidget {
   const PuzzleCardImageBoard({

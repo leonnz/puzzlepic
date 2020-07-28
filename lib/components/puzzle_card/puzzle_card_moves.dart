@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../styles/customStyles.dart';
-import '../providers/game_provider.dart';
-import '../providers/device_provider.dart';
-import '../data/db_provider.dart';
+import '../../styles/customStyles.dart';
+import '../../providers/game_provider.dart';
+import '../../providers/device_provider.dart';
+import '../../data/db_provider.dart';
 
 class PuzzleCardMoves extends StatelessWidget {
   const PuzzleCardMoves({
