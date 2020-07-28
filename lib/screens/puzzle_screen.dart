@@ -180,10 +180,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      PuzzleScreenHintButton(
-                        imageCategory: gameProvider.getImageCategory,
-                        imageAssetName: gameProvider.getAssetName,
-                      ),
+                      PuzzleScreenHintButton(),
                       PuzzleScreenQuitButton()
                     ],
                   ),

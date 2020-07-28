@@ -2,34 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
+import '../../providers/game_provider.dart';
 import '../../screens/hint_screen.dart';
 
 class PuzzleScreenHintButton extends StatelessWidget {
-  const PuzzleScreenHintButton(
-      {Key key, this.imageCategory, this.imageAssetName})
-      : super(key: key);
-
-  final String imageCategory;
-  final String imageAssetName;
-
-  Route _customScaleRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => HintScreen(
-        category: imageCategory,
-        imageAssetname: imageAssetName,
-      ),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return ScaleTransition(
-          scale: CurvedAnimation(parent: animation, curve: Curves.ease),
-          child: child,
-        );
-      },
-    );
-  }
+  const PuzzleScreenHintButton({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    GameProvider gameProvider = Provider.of<GameProvider>(context);
+
+    Route _customScaleRoute() {
+      return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => HintScreen(
+          category: gameProvider.getImageCategory,
+          imageAssetname: gameProvider.getAssetName,
+        ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return ScaleTransition(
+            scale: CurvedAnimation(parent: animation, curve: Curves.ease),
+            child: child,
+          );
+        },
+      );
+    }
 
     return ButtonTheme(
       minWidth: deviceProvider.getUseMobileLayout ? 88 : 150,
