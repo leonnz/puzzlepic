@@ -16,6 +16,7 @@ import '../components/polaroid.dart';
 import '../components/puzzle_pic_logo.dart';
 import '../components/buttons/play_button.dart';
 import '../components/buttons/mute_button.dart';
+import '../components/buttons/shop_button.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -30,6 +31,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   AnimationController _polaroidSlideController;
   AnimationController _playButtonSlideController;
+  AnimationController _shopButtonSlideController;
   AnimationController _puzzlePicSlideController;
 
   AudioCache _audioCache;
@@ -75,6 +77,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
     _polaroidSlideController = AnimationController(
       duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+
+    _shopButtonSlideController = AnimationController(
+      duration: const Duration(milliseconds: 350),
       vsync: this,
     );
 
@@ -204,7 +211,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     playButtonSlideController: _playButtonSlideController,
                     puzzlePicSlideController: _puzzlePicSlideController,
                     polaroidSlideController: _polaroidSlideController,
-                    buttonText: 'Play!',
+                  ),
+                  ShopButton(
+                    shopButtonSlideController: _shopButtonSlideController,
+                    puzzlePicSlideController: _puzzlePicSlideController,
+                    polaroidSlideController: _polaroidSlideController,
                   ),
                   PuzzlePicLogo(
                     puzzlePicSlideController: _puzzlePicSlideController,

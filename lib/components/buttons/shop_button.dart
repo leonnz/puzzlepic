@@ -5,30 +5,31 @@ import 'package:flutter/cupertino.dart';
 import '../../providers/device_provider.dart';
 import '../../styles/customStyles.dart';
 import '../../screens/select_category_screen.dart';
+import '../purchases/purchases.dart';
 
-class PlayButton extends StatefulWidget {
-  PlayButton({
+class ShopButton extends StatefulWidget {
+  ShopButton({
     Key key,
-    this.playButtonSlideController,
+    this.shopButtonSlideController,
     this.puzzlePicSlideController,
     this.polaroidSlideController,
   }) : super(key: key);
-  final AnimationController playButtonSlideController;
+  final AnimationController shopButtonSlideController;
   final AnimationController puzzlePicSlideController;
   final AnimationController polaroidSlideController;
 
   @override
-  _PlayButtonState createState() => _PlayButtonState();
+  _ShopButtonState createState() => _ShopButtonState();
 }
 
-class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
+class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
   double _scale;
-  AnimationController _playButtonBounceController;
-  Animation<Offset> _playButtonSlideAnimation;
+  AnimationController _shopButtonBounceController;
+  Animation<Offset> _shopButtonSlideAnimation;
 
   @override
   void initState() {
-    _playButtonBounceController = AnimationController(
+    _shopButtonBounceController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 200),
       lowerBound: 0.0,
@@ -37,52 +38,58 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
         setState(() {});
       });
 
-    _playButtonSlideAnimation = Tween<Offset>(
+    _shopButtonSlideAnimation = Tween<Offset>(
       begin: Offset(0, 10),
       end: Offset(0, 0),
     ).animate(
       CurvedAnimation(
-        parent: widget.playButtonSlideController,
+        parent: widget.shopButtonSlideController,
         curve: Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
       ),
     );
 
     Future.delayed(Duration(milliseconds: 500))
-        .then((_) => widget.playButtonSlideController.forward());
+        .then((_) => widget.shopButtonSlideController.forward());
 
     super.initState();
   }
 
   @override
   void dispose() {
-    _playButtonBounceController.dispose();
+    _shopButtonBounceController.dispose();
     super.dispose();
   }
 
   void _onTapUp(TapUpDetails details) {
-    _playButtonBounceController.forward();
-    widget.playButtonSlideController.reverse();
-    widget.puzzlePicSlideController.reverse();
-    widget.polaroidSlideController.reverse().then((_) async {
-      var result = await Navigator.push(
-        context,
-        CupertinoPageRoute(
-          builder: (context) => SelectCategory(),
-        ),
-      );
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => PurchaseScreen(),
+      ),
+    );
+    // _shopButtonBounceController.forward();
+    // widget.shopButtonSlideController.reverse();
+    // widget.puzzlePicSlideController.reverse();
+    // widget.polaroidSlideController.reverse().then((_) async {
+    //   var result = await Navigator.push(
+    //     context,
+    //     CupertinoPageRoute(
+    //       builder: (context) => SelectCategory(),
+    //     ),
+    //   );
 
-      if (result) {
-        widget.polaroidSlideController.forward();
-        widget.playButtonSlideController.forward();
-        widget.puzzlePicSlideController.forward();
-      }
-    });
-    _playButtonBounceController.reverse();
+    //   if (result) {
+    //     widget.polaroidSlideController.forward();
+    //     widget.shopButtonSlideController.forward();
+    //     widget.puzzlePicSlideController.forward();
+    //   }
+    // });
+    // _shopButtonBounceController.reverse();
   }
 
   @override
   Widget build(BuildContext context) {
-    _scale = 1 - _playButtonBounceController.value;
+    _scale = 1 - _shopButtonBounceController.value;
 
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
@@ -95,9 +102,9 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
         onTapUp: _onTapUp,
         child: Padding(
           padding: EdgeInsets.only(
-              bottom: deviceProvider.getDeviceScreenHeight * 0.2),
+              bottom: deviceProvider.getDeviceScreenHeight * 0.1),
           child: SlideTransition(
-            position: _playButtonSlideAnimation,
+            position: _shopButtonSlideAnimation,
             child: Transform.scale(
               scale: _scale,
               child: Container(
@@ -122,7 +129,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
                 ),
                 child: Center(
                   child: Text(
-                    'Play!',
+                    'Shop',
                     style: CustomTextTheme(deviceProvider: deviceProvider)
                         .playButtonText(context),
                   ),

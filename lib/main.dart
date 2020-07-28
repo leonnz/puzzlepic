@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 
 import './providers/device_provider.dart';
 import './providers/game_provider.dart';
 import './screens/home_screen.dart';
 import './data/db_provider.dart';
 
-void main() => runApp(PuzzlePicApp());
+void main() {
+  InAppPurchaseConnection.enablePendingPurchases();
+  runApp(PuzzlePicApp());
+}
 
 class PuzzlePicApp extends StatelessWidget {
   @override
