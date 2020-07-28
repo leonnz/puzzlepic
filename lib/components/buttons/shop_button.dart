@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../../providers/device_provider.dart';
 import '../../styles/customStyles.dart';
-import '../../screens/select_category_screen.dart';
 import '../purchases/purchases.dart';
 
 class ShopButton extends StatefulWidget {
