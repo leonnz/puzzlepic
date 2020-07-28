@@ -3,29 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/device_provider.dart';
+import '../providers/game_provider.dart';
 import '../styles/customStyles.dart';
 
 class PuzzleCompleteAlert extends StatelessWidget {
   const PuzzleCompleteAlert({
     Key key,
-    this.readableName,
-    this.readableFullname,
     this.fullAd,
     this.fullAdReady,
-    this.moves,
-    this.bestMoves,
   }) : super(key: key);
 
-  final String readableName;
-  final String readableFullname;
   final InterstitialAd fullAd;
   final bool fullAdReady;
-  final int moves;
-  final int bestMoves;
 
   @override
   Widget build(BuildContext context) {
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    GameProvider gameProvider = Provider.of<GameProvider>(context);
 
     return AlertDialog(
       title: Text(
@@ -43,7 +37,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
             ),
             width: deviceProvider.getUseMobileLayout ? null : 300,
             child: Text(
-              'You completed ${readableFullname != null ? readableFullname : readableName} in $moves moves${moves < bestMoves ? ", a new personal best!" : "."}',
+              'You completed ${gameProvider.getReadableFullname != null ? gameProvider.getReadableFullname : gameProvider.getReadableName} in ${gameProvider.getMoves} moves${gameProvider.getMoves < gameProvider.getBestMoves ? ", a new personal best!" : "."}',
               textAlign: TextAlign.center,
               style: CustomTextTheme(deviceProvider: deviceProvider)
                   .puzzleScreenCompleteAlertContent(),
@@ -61,7 +55,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
                       .puzzleScreenCompleteAlertButtonText(),
                 ),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pop(context, true);
 
                   if (fullAdReady) {
                     // fullAd.show();

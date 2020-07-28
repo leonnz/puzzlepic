@@ -9,6 +9,7 @@ import '../providers/game_provider.dart';
 import '../providers/device_provider.dart';
 import '../data/db_provider.dart';
 import '../styles/customStyles.dart';
+import 'puzzle_card_moves.dart';
 
 class PuzzleCard extends StatelessWidget {
   const PuzzleCard(
@@ -24,18 +25,6 @@ class PuzzleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     GameProvider gameProvider = Provider.of<GameProvider>(context);
-
-    Future<int> getSingleRecord() async {
-      DBProviderDb dbProvider = DBProviderDb();
-      int best = 0;
-      List<Map<String, dynamic>> record = await dbProvider.getSingleRecord(
-          puzzleName: gameProvider.getReadableName);
-
-      if (record.length > 0) {
-        best = record[0]['bestMoves'];
-      }
-      return best;
-    }
 
     void puzzleCompleteDb() async {
       gameProvider.setPuzzleComplete(true);
@@ -74,12 +63,8 @@ class PuzzleCard extends StatelessWidget {
       return showDialog(
         context: context,
         builder: (context) => PuzzleCompleteAlert(
-          readableName: gameProvider.getReadableName,
-          readableFullname: gameProvider.getReadableFullname,
           fullAd: interstitialAd,
           fullAdReady: isInterstitialAdReady,
-          moves: gameProvider.getMoves,
-          bestMoves: gameProvider.getBestMoves,
         ),
       );
     }
@@ -137,42 +122,7 @@ class PuzzleCard extends StatelessWidget {
                     ),
                   )
                 : Container(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Text(
-                    'Moves: ${gameProvider.getMoves}',
-                    style: CustomTextTheme(deviceProvider: deviceProvider)
-                        .puzzleScreenMovesCounter(),
-                  ),
-                  FutureBuilder(
-                    future: getSingleRecord(),
-                    initialData: 0,
-                    builder: (context, AsyncSnapshot<int> snapshot) {
-                      Widget bestMoves;
-
-                      if (snapshot.hasData) {
-                        int moves = snapshot.data;
-                        bestMoves = Text(
-                          'Best moves: $moves',
-                          style: CustomTextTheme(deviceProvider: deviceProvider)
-                              .puzzleScreenMovesCounter(),
-                        );
-                      } else {
-                        bestMoves = Text(
-                          'Best moves: 0',
-                          style: CustomTextTheme(deviceProvider: deviceProvider)
-                              .puzzleScreenMovesCounter(),
-                        );
-                      }
-                      return bestMoves;
-                    },
-                  ),
-                ],
-              ),
-            ),
+            PuzzleCardMoves(),
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: Container(
