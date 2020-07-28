@@ -15,6 +15,7 @@ import '../data/images_data.dart';
 import '../components/polaroid.dart';
 import '../components/puzzle_pic_logo.dart';
 import '../components/buttons/play_button.dart';
+import '../components/buttons/mute_button.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -197,6 +198,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     image: "eiffel_tower",
                     startInterval: 0.3,
                   ),
+                  MuteButton(),
                   PlayButton(
                     playButtonSlideController: _playButtonSlideController,
                     puzzlePicSlideController: _puzzlePicSlideController,
