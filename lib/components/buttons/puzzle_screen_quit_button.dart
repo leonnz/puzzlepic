@@ -13,6 +13,7 @@ class PuzzleScreenQuitButton extends StatelessWidget {
     GameProvider gameProvider = Provider.of(context, listen: false);
 
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+
     quitGameAlert() async {
       bool quit = false;
       await showDialog(

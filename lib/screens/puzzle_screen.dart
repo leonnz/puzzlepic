@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
 
-import '../styles/customStyles.dart';
 import '../components/buttons/puzzle_screen_hint_button.dart';
 import '../components/buttons/puzzle_screen_quit_button.dart';
 import '../components/buttons/mute_button.dart';
 import '../components/puzzle_card/puzzle_card.dart';
+import '../components/android_quit_alert.dart';
 import '../providers/game_provider.dart';
 import '../providers/image_piece_provider.dart';
-import '../providers/device_provider.dart';
 import '../ad_manager.dart';
 
 class PuzzleScreen extends StatefulWidget {
@@ -85,67 +84,13 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
   @override
   Widget build(BuildContext context) {
     GameProvider gameProvider = Provider.of<GameProvider>(context);
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     gameProvider.setGridPositions();
 
     Future<bool> _backPressed() {
       return showDialog(
         context: context,
-        builder: (context) => Container(
-          width: 500,
-          child: AlertDialog(
-            title: Text(
-              'Leave this game',
-              textAlign: TextAlign.center,
-            ),
-            titleTextStyle: CustomTextTheme(deviceProvider: deviceProvider)
-                .puzzleScreenQuitAlertTitle(),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(
-                    bottom: 40,
-                  ),
-                  child: Text(
-                    'Progress will be lost, are you sure?',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    FlatButton(
-                      onPressed: () => Navigator.pop(context, false),
-                      child: Text(
-                        'No',
-                        style: CustomTextTheme(deviceProvider: deviceProvider)
-                            .puzzleScreenQuitAlertButtonText(),
-                      ),
-                      textColor: Color(0xff501E5D),
-                    ),
-                    FlatButton(
-                      onPressed: () {
-                        gameProvider.resetGameState();
-                        Navigator.pop(context, true);
-                      },
-                      child: Text(
-                        'Yes',
-                        style: CustomTextTheme(deviceProvider: deviceProvider)
-                            .puzzleScreenQuitAlertButtonText(),
-                      ),
-                      textColor: Color(0xff501E5D),
-                    )
-                  ],
-                )
-              ],
-            ),
-            contentTextStyle: CustomTextTheme(deviceProvider: deviceProvider)
-                .puzzleScreenQuitAlertContent(),
-          ),
-        ),
+        builder: (context) => AndroidQuitAlert(),
       );
     }
 
