@@ -24,9 +24,9 @@ class ImagePieceProvider with ChangeNotifier {
     double yDistance,
     List<Map<String, dynamic>> piecePositions,
     int blankSquare,
-    int gridSideSize,
-    int gridSize,
   }) {
+    int gridSize = 16;
+    int gridSideSize = 4;
     String direction;
     if (xDistance > 0.0) {
       direction = "right";

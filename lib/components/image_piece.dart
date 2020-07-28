@@ -92,8 +92,6 @@ class _ImagePieceState extends State<ImagePiece>
                     yDistance: 0.0,
                     piecePositions: gameProvider.getPiecePositions,
                     blankSquare: gameProvider.getBlankSquare,
-                    gridSideSize: gameProvider.getGridColumns,
-                    gridSize: gameProvider.getTotalGridSize,
                   ) &&
                   !gameProvider.getPuzzleComplete) {
                 deviceProvider.playSound(sound: 'image_piece_slide.wav');
@@ -127,8 +125,6 @@ class _ImagePieceState extends State<ImagePiece>
                     yDistance: yDistance,
                     piecePositions: gameProvider.getPiecePositions,
                     blankSquare: gameProvider.getBlankSquare,
-                    gridSideSize: gameProvider.getGridColumns,
-                    gridSize: gameProvider.getTotalGridSize,
                   ) &&
                   !gameProvider.getPuzzleComplete) {
                 deviceProvider.playSound(sound: 'image_piece_slide.wav');
