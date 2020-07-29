@@ -22,7 +22,7 @@ class CategoryButton extends StatelessWidget {
         deviceProvider.playSound(sound: 'fast_click.wav');
         Navigator.push(
           context,
-          CupertinoPageRoute<dynamic>(
+          CupertinoPageRoute<bool>(
             builder: (BuildContext context) => SelectPicture(
               category: categoryName,
               categoryReadableName: categoryReadableName,
