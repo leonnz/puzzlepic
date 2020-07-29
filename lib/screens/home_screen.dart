@@ -101,6 +101,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   void dispose() {
     _playButtonSlideController.dispose();
+    _shopButtonSlideController.dispose();
     _puzzlePicSlideController.dispose();
     _polaroidSlideController.dispose();
     super.dispose();
@@ -209,13 +210,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   MuteButton(),
                   PlayButton(
                     playButtonSlideController: _playButtonSlideController,
+                    shopButtonSlideController: _shopButtonSlideController,
                     puzzlePicSlideController: _puzzlePicSlideController,
                     polaroidSlideController: _polaroidSlideController,
                   ),
                   ShopButton(
                     shopButtonSlideController: _shopButtonSlideController,
-                    puzzlePicSlideController: _puzzlePicSlideController,
-                    polaroidSlideController: _polaroidSlideController,
                   ),
                   PuzzlePicLogo(
                     puzzlePicSlideController: _puzzlePicSlideController,

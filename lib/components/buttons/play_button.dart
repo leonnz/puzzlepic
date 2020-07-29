@@ -10,10 +10,12 @@ class PlayButton extends StatefulWidget {
   PlayButton({
     Key key,
     this.playButtonSlideController,
+    this.shopButtonSlideController,
     this.puzzlePicSlideController,
     this.polaroidSlideController,
   }) : super(key: key);
   final AnimationController playButtonSlideController;
+  final AnimationController shopButtonSlideController;
   final AnimationController puzzlePicSlideController;
   final AnimationController polaroidSlideController;
 
@@ -38,7 +40,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
       });
 
     _playButtonSlideAnimation = Tween<Offset>(
-      begin: Offset(0, 10),
+      begin: Offset(10, 0),
       end: Offset(0, 0),
     ).animate(
       CurvedAnimation(
@@ -62,6 +64,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   void _onTapUp(TapUpDetails details) {
     _playButtonBounceController.forward();
     widget.playButtonSlideController.reverse();
+    widget.shopButtonSlideController.reverse();
     widget.puzzlePicSlideController.reverse();
     widget.polaroidSlideController.reverse().then((_) async {
       var result = await Navigator.push(
@@ -74,6 +77,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
       if (result) {
         widget.polaroidSlideController.forward();
         widget.playButtonSlideController.forward();
+        widget.shopButtonSlideController.forward();
         widget.puzzlePicSlideController.forward();
       }
     });

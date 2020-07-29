@@ -10,12 +10,8 @@ class ShopButton extends StatefulWidget {
   ShopButton({
     Key key,
     this.shopButtonSlideController,
-    this.puzzlePicSlideController,
-    this.polaroidSlideController,
   }) : super(key: key);
   final AnimationController shopButtonSlideController;
-  final AnimationController puzzlePicSlideController;
-  final AnimationController polaroidSlideController;
 
   @override
   _ShopButtonState createState() => _ShopButtonState();
@@ -38,7 +34,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
       });
 
     _shopButtonSlideAnimation = Tween<Offset>(
-      begin: Offset(0, 10),
+      begin: Offset(-10, 0),
       end: Offset(0, 0),
     ).animate(
       CurvedAnimation(
@@ -62,28 +58,10 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
   void _onTapUp(TapUpDetails details) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
+      MaterialPageRoute(
         builder: (context) => PurchaseScreen(),
       ),
     );
-    // _shopButtonBounceController.forward();
-    // widget.shopButtonSlideController.reverse();
-    // widget.puzzlePicSlideController.reverse();
-    // widget.polaroidSlideController.reverse().then((_) async {
-    //   var result = await Navigator.push(
-    //     context,
-    //     CupertinoPageRoute(
-    //       builder: (context) => SelectCategory(),
-    //     ),
-    //   );
-
-    //   if (result) {
-    //     widget.polaroidSlideController.forward();
-    //     widget.shopButtonSlideController.forward();
-    //     widget.puzzlePicSlideController.forward();
-    //   }
-    // });
-    // _shopButtonBounceController.reverse();
   }
 
   @override
