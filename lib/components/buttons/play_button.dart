@@ -67,10 +67,10 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
     widget.shopButtonSlideController.reverse();
     widget.puzzlePicSlideController.reverse();
     widget.polaroidSlideController.reverse().then((_) async {
-      var result = await Navigator.push(
+      final bool result = await Navigator.push(
         context,
-        CupertinoPageRoute(
-          builder: (context) => SelectCategory(),
+        CupertinoPageRoute<bool>(
+          builder: (BuildContext context) => const SelectCategory(),
         ),
       );
 

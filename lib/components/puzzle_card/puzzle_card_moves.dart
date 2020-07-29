@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../styles/customStyles.dart';
-import '../../providers/game_provider.dart';
-import '../../providers/device_provider.dart';
 import '../../data/db_provider.dart';
+import '../../providers/device_provider.dart';
+import '../../providers/game_provider.dart';
+import '../../styles/customStyles.dart';
 
 class PuzzleCardMoves extends StatelessWidget {
   const PuzzleCardMoves({
@@ -13,17 +13,17 @@ class PuzzleCardMoves extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
-    GameProvider gameProvider = Provider.of<GameProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
     Future<int> getSingleRecord() async {
-      DBProviderDb dbProvider = DBProviderDb();
+      final DBProviderDb dbProvider = DBProviderDb();
       int best = 0;
-      List<Map<String, dynamic>> record = await dbProvider.getSingleRecord(
-          puzzleName: gameProvider.getReadableName);
+      final List<Map<String, dynamic>> record = await dbProvider
+          .getSingleRecord(puzzleName: gameProvider.getReadableName);
 
-      if (record.length > 0) {
-        best = record[0]['bestMoves'];
+      if (record.isNotEmpty) {
+        best = record[0]['bestMoves'] as int;
       }
       return best;
     }
@@ -38,14 +38,14 @@ class PuzzleCardMoves extends StatelessWidget {
             style: CustomTextTheme(deviceProvider: deviceProvider)
                 .puzzleScreenMovesCounter(),
           ),
-          FutureBuilder(
+          FutureBuilder<int>(
             future: getSingleRecord(),
             initialData: 0,
-            builder: (context, AsyncSnapshot<int> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
               Widget bestMoves;
 
               if (snapshot.hasData) {
-                int moves = snapshot.data;
+                final int moves = snapshot.data;
                 bestMoves = Text(
                   'Best moves: $moves',
                   style: CustomTextTheme(deviceProvider: deviceProvider)

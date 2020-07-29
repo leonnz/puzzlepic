@@ -39,8 +39,8 @@ class _ImageButtonState extends State<ImageButton> {
 
   @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
-    GameProvider gameProvider = Provider.of<GameProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
     return GestureDetector(
       onTap: () async {
@@ -56,8 +56,8 @@ class _ImageButtonState extends State<ImageButton> {
 
         final bool result = await Navigator.push(
           context,
-          CupertinoPageRoute(
-            builder: (context) => PuzzleScreen(),
+          CupertinoPageRoute<bool>(
+            builder: (BuildContext context) => const PuzzleScreen(),
           ),
         );
         // Refreshes the pictures to show complete ticks from database

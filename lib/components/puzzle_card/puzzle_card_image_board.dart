@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
-import 'puzzle_card_image_piece.dart';
+import '../../data/db_provider.dart';
 import '../../data/puzzle_record_model.dart';
 import '../../providers/game_provider.dart';
-import '../../data/db_provider.dart';
+import 'puzzle_card_image_piece.dart';
 
 class PuzzleCardImageBoard extends StatelessWidget {
   const PuzzleCardImageBoard({
@@ -19,20 +19,20 @@ class PuzzleCardImageBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GameProvider gameProvider = Provider.of<GameProvider>(context);
+    final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
     void puzzleCompleteDb() async {
       gameProvider.setPuzzleComplete(true);
 
-      DBProviderDb dbProvider = DBProviderDb();
+      final DBProviderDb dbProvider = DBProviderDb();
 
-      List<String> currentRecords = await dbProvider.getRecords();
+      final List<String> currentRecords = await dbProvider.getRecords();
 
       if (currentRecords.contains(gameProvider.getReadableName)) {
-        List<Map<String, dynamic>> existingRecord = await dbProvider
+        final List<Map<String, dynamic>> existingRecord = await dbProvider
             .getSingleRecord(puzzleName: gameProvider.getReadableName);
-
-        int existingRecordBestMoves = existingRecord[0]['bestMoves'];
+        final int existingRecordBestMoves =
+            existingRecord[0]['bestMoves'] as int;
 
         if (gameProvider.getMoves < existingRecordBestMoves) {
           // Sets the best moves to the previous best moves, so the complete puzzle alert can calculate if it is a new best.
