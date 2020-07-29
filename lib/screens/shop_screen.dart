@@ -66,9 +66,11 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   Future<void> _getProducts() async {
-    final Set<String> removeAdsIDSet = Set.from(<String>[removeAdsID]);
-    final Set<String> imagePackIDSet = Set.from(
-        [imagePackProductIDs].expand((List<String> product) => product));
+    final Set<String> removeAdsIDSet = <String>{removeAdsID};
+
+    final Set<String> imagePackIDSet = Set<String>.from(<List<String>>[
+      imagePackProductIDs
+    ].expand((List<String> product) => product));
 
     final ProductDetailsResponse responseRemoveAd =
         await _iap.queryProductDetails(removeAdsIDSet);

@@ -2,7 +2,9 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 class GameProvider with ChangeNotifier {
-  static bool _puzzleComplete = false;
+  static String test = 'leon';
+
+  static bool puzzleComplete = false;
   static Map<String, String> _image;
   static List<Map<String, dynamic>> _piecePositions = <Map<String, dynamic>>[];
   static double _screenWidth;
@@ -42,7 +44,7 @@ class GameProvider with ChangeNotifier {
     _title = title;
   }
 
-  bool get getPuzzleComplete => _puzzleComplete;
+  bool get getPuzzleComplete => puzzleComplete;
   Map<String, String> get getImage => _image;
   List<Map<String, dynamic>> get getPiecePositions => _piecePositions;
   double get getScreenWidth => _screenWidth;
@@ -69,10 +71,6 @@ class GameProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setPuzzleComplete({bool complete}) {
-    _puzzleComplete = complete;
-  }
-
   void resetPiecePositions() {
     _piecePositions = <Map<String, dynamic>>[];
     setBlankSquare(_totalGridSize);
@@ -92,24 +90,20 @@ class GameProvider with ChangeNotifier {
         (Map<String, dynamic> piece) =>
             piece['pieceNumber'] == piece['gridPosition']);
     if (matching.contains(false)) {
-      setPuzzleComplete(complete: false);
+      puzzleComplete = false;
     } else {
-      setPuzzleComplete(complete: true);
+      puzzleComplete = true;
     }
   }
 
   void resetGameState() {
-    setPuzzleComplete(complete: false);
+    puzzleComplete = false;
     resetPiecePositions();
     resetMoves();
   }
 
   void setInitialPuzzlePiecePosition(int pieceNumber) {
     final Map<String, dynamic> imgPiece = <String, dynamic>{};
-
-    final List<int> allocatedGridPositions = <int>[];
-
-    test(allocatedGridPositions);
 
     int getRandomGridPosition(int min, int max) {
       final Random _random = Random();
@@ -137,12 +131,6 @@ class GameProvider with ChangeNotifier {
     getPiecePositions.add(imgPiece);
   }
 
-  void test(List<int> allocatedGridPositions) {
-    return getPiecePositions.forEach((Map<String, dynamic> piece) {
-      allocatedGridPositions.add(piece['gridPosition'] as int);
-    });
-  }
-
   double setStartingLeftPosition(int pieceNumber) {
     double leftPosition;
     final int modulo = pieceNumber % getGridColumns;
@@ -165,14 +153,11 @@ class GameProvider with ChangeNotifier {
     double topPosition;
     if (pieceNumber <= getGridColumns) {
       topPosition = 0;
-    } else if (pieceNumber > getGridColumns &&
-        pieceNumber <= (getGridColumns * 2)) {
+    } else if (pieceNumber <= (getGridColumns * 2)) {
       topPosition = getSinglePieceWidth;
-    } else if (pieceNumber > (getGridColumns * 2) &&
-        pieceNumber <= (getGridColumns * 3)) {
+    } else if (pieceNumber <= (getGridColumns * 3)) {
       topPosition = getSinglePieceWidth * 2;
-    } else if (pieceNumber > (getGridColumns * 3) &&
-        pieceNumber <= (getGridColumns * 4)) {
+    } else if (pieceNumber <= (getGridColumns * 4)) {
       topPosition = getSinglePieceWidth * 3;
     } else {
       topPosition = getSinglePieceWidth * 4;

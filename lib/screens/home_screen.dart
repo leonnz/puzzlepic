@@ -56,7 +56,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       const AssetImage('assets/images/_polaroids/polaroid_grand_canyon.jpg'),
     ];
 
-    Images.imageList.forEach((Map<String, dynamic> imageCategory) {
+    for (final Map<String, dynamic> imageCategory in Images.imageList) {
       // Category images
       imagesToPrecache.add(
         AssetImage(
@@ -69,13 +69,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       );
 
       // Select picture screen thumbnails
-      List<Map<String, dynamic>>.from(
-              imageCategory['categoryImages'] as Iterable<dynamic>)
-          .forEach((Map<String, dynamic> image) {
+      for (final Map<String, dynamic> image in List<Map<String, dynamic>>.from(
+          imageCategory['categoryImages'] as Iterable<dynamic>)) {
         imagesToPrecache.add(AssetImage(
             'assets/images/${imageCategory['categoryName']}/${image['assetName']}_full_mini.jpg'));
-      });
-    });
+      }
+    }
 
     _polaroidSlideController = AnimationController(
       duration: const Duration(milliseconds: 500),
@@ -128,7 +127,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final double shortestSide = MediaQuery.of(context).size.shortestSide;
     final bool useMobileLayout = shortestSide < 600;
-    final double deviceHeight = MediaQuery.of(context).size.height;
+    DeviceProvider.deviceScreenHeight = MediaQuery.of(context).size.height;
 
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
@@ -136,7 +135,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     gameProvider.setScreenWidth(width: MediaQuery.of(context).size.width - 20);
 
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
-    deviceProvider.setDeviceScreenHeight(height: deviceHeight);
     deviceProvider.setAudioCache(audioCache: _audioCache);
 
     // var w = MediaQuery.of(context).size.width;

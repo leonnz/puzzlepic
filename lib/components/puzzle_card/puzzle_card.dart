@@ -22,7 +22,7 @@ class PuzzleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
-    print(gameProvider.getReadableFullname);
+
     return Container(
       width: gameProvider.getScreenWidth + 20,
       child: Card(

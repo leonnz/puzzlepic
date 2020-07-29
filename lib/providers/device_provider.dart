@@ -6,13 +6,13 @@ class DeviceProvider extends ChangeNotifier {
   static bool _useMobileLayout;
   static bool _muteSounds = false;
   static int _gridSize;
-  static double _deviceScreenHeight;
+  static double deviceScreenHeight;
   static AudioCache _audioCache;
 
   bool get getUseMobileLayout => _useMobileLayout;
   bool get getMuteSounds => _muteSounds;
   int get getGridSize => _gridSize;
-  double get getDeviceScreenHeight => _deviceScreenHeight;
+  double get getDeviceScreenHeight => deviceScreenHeight;
   AudioCache get getAudioCache => _audioCache;
 
   void setUseMobileLayout({bool useMobileLayout}) {
@@ -30,10 +30,6 @@ class DeviceProvider extends ChangeNotifier {
       playSound(sound: 'fast_click.wav');
     }
     notifyListeners();
-  }
-
-  void setDeviceScreenHeight({double height}) {
-    _deviceScreenHeight = height;
   }
 
   void setAudioCache({AudioCache audioCache}) {
