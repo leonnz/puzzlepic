@@ -6,11 +6,11 @@ import 'dart:async';
 
 final String testId = 'remove_ads';
 
-class PurchaseScreen extends StatefulWidget {
-  createState() => _PurchaseScreenState();
+class ShopScreen extends StatefulWidget {
+  createState() => _ShopScreenState();
 }
 
-class _PurchaseScreenState extends State<PurchaseScreen> {
+class _ShopScreenState extends State<ShopScreen> {
   InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> _subscription;
 

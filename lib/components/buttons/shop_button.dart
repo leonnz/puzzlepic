@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../providers/device_provider.dart';
 import '../../styles/customStyles.dart';
-import '../purchases/purchases.dart';
+import '../../screens/shop.dart';
 
 class ShopButton extends StatefulWidget {
   ShopButton({
@@ -59,7 +59,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PurchaseScreen(),
+        builder: (context) => ShopScreen(),
       ),
     );
   }
