@@ -54,7 +54,7 @@ class _ImageButtonState extends State<ImageButton> {
           title: widget.title,
         );
 
-        final result = await Navigator.push(
+        final bool result = await Navigator.push(
           context,
           CupertinoPageRoute(
             builder: (context) => PuzzleScreen(),

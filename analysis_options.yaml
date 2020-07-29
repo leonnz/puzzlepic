@@ -6,7 +6,6 @@ linter:
     #                 ---                   #
     # Turn off what you don't like.         #
     # ------------------------------------- #
-
     # Use parameter order as in json response
     always_put_required_named_parameters_first: false
 
@@ -27,7 +26,7 @@ linter:
     # prefer_double_quotes: true
 
     # Good packages document everything
-    public_member_api_docs: true
+    public_member_api_docs: false
 
     # Blindly follow the Flutter code style, which prefers types everywhere
     always_specify_types: true
