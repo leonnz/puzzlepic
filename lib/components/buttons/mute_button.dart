@@ -23,15 +23,16 @@ class MuteButton extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(100),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black45,
-                    blurRadius: 4,
-                    offset: Offset(1, 1),
-                  )
-                ]),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(100),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black45,
+                  blurRadius: 4,
+                  offset: Offset(1, 1),
+                )
+              ],
+            ),
             child: Icon(
               deviceProvider.getMuteSounds
                   ? Icons.volume_off

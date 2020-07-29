@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../data/images_data.dart';
 import '../data/db_provider.dart';
 import '../components/buttons/image_button.dart';
+import '../components/buttons/appbar_leading_button.dart';
 import '../providers/device_provider.dart';
 import '../styles/customStyles.dart';
 
@@ -73,17 +74,7 @@ class _SelectPictureState extends State<SelectPicture> {
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      iconSize: deviceProvider.getUseMobileLayout ? 25 : 50,
-                      icon: Icon(Icons.arrow_back_ios),
-                      onPressed: () {
-                        deviceProvider.playSound(sound: 'fast_click.wav');
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
+                  AppBarLeadingButton(icon: Icons.arrow_back_ios),
                   Text(
                     widget.categoryReadableName,
                     style: CustomTextTheme(deviceProvider: deviceProvider)

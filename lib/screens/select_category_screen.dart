@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
 import '../components/buttons/category_button.dart';
+import '../components/buttons/appbar_leading_button.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../styles/customStyles.dart';
@@ -87,17 +88,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                 child: Stack(
                   alignment: Alignment.center,
                   children: <Widget>[
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: IconButton(
-                        iconSize: deviceProvider.getUseMobileLayout ? 25 : 50,
-                        icon: Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          deviceProvider.playSound(sound: 'fast_click.wav');
-                          Navigator.pop(context, true);
-                        },
-                      ),
-                    ),
+                    AppBarLeadingButton(icon: Icons.arrow_back_ios),
                     Text(
                       'Categories',
                       style: CustomTextTheme(deviceProvider: deviceProvider)

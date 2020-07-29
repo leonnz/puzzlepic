@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/device_provider.dart';
+import '../components/buttons/appbar_leading_button.dart';
+import '../styles/customStyles.dart';
 
 import 'dart:io';
 import 'dart:async';
@@ -36,7 +41,6 @@ class _ShopScreenState extends State<ShopScreen> {
     _available = await _iap.isAvailable();
 
     if (_available) {
-      print(_available);
       List<Future> futures = [_getProducts(), _getPastPurchases()];
       await Future.wait(futures);
 
@@ -85,22 +89,59 @@ class _ShopScreenState extends State<ShopScreen> {
 
   void _verifyPurchase() {
     PurchaseDetails purchase = _hasPurchased(testId);
+
     if (purchase != null && purchase.status == PurchaseStatus.purchased) {
+      print(purchase.productID);
+      print(purchase.purchaseID);
+      print(purchase.status);
+      print(purchase.verificationData.source);
       removedAdsPurchased = true;
     }
   }
 
   void _buyProduct(ProductDetails prod) {
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: prod);
-    // _iap.buyNonConsumable(purchaseParam: purchaseParam);
-    _iap.buyConsumable(purchaseParam: purchaseParam);
+    _iap.buyNonConsumable(purchaseParam: purchaseParam);
+    // _iap.buyConsumable(purchaseParam: purchaseParam);
     removedAdsPurchased = true;
     print('product bought');
   }
 
   @override
   Widget build(BuildContext context) {
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize:
+            Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                  'assets/images/_categories/_categories_banner.png'),
+              fit: BoxFit.cover,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black45,
+                blurRadius: 5.0,
+                offset: Offset(0.0, 3.0),
+              ),
+            ],
+          ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              AppBarLeadingButton(icon: Icons.close),
+              Text(
+                'Shop',
+                style: CustomTextTheme(deviceProvider: deviceProvider)
+                    .selectScreenTitleTextStyle(context),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: Column(
         children: <Widget>[
           Text('test'),
