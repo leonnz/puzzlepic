@@ -119,40 +119,32 @@ class _SelectPictureState extends State<SelectPicture> {
               Widget grid;
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
-                  grid = Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                            itemCount: images.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: deviceProvider.getGridSize,
-                              childAspectRatio: 1,
-                              crossAxisSpacing: 5,
-                              mainAxisSpacing: 5,
-                            ),
-                            itemBuilder: (BuildContext context, int i) {
-                              return ImageButton(
-                                categoryName: widget.category,
-                                assetName: images[i]["assetName"],
-                                readableName: images[i]["readableName"],
-                                readableFullName: images[i]["readableFullname"],
-                                title: images[i]["title"],
-                                complete: (snapshot.data
-                                        .contains(images[i]["readableName"]))
-                                    ? true
-                                    : false,
-                                refreshPictureSelectScreen: refreshScreen,
-                              );
-                            },
-                          ),
-                        ),
+                  grid = Container(
+                    padding: const EdgeInsets.all(10),
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      itemCount: images.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: deviceProvider.getGridSize,
+                        childAspectRatio: 1,
+                        crossAxisSpacing: 5,
+                        mainAxisSpacing: 5,
                       ),
-                    ],
+                      itemBuilder: (BuildContext context, int i) {
+                        return ImageButton(
+                          categoryName: widget.category,
+                          assetName: images[i]["assetName"],
+                          readableName: images[i]["readableName"],
+                          readableFullName: images[i]["readableFullname"],
+                          title: images[i]["title"],
+                          complete: (snapshot.data
+                                  .contains(images[i]["readableName"]))
+                              ? true
+                              : false,
+                          refreshPictureSelectScreen: refreshScreen,
+                        );
+                      },
+                    ),
                   );
                 }
               } else {
