@@ -9,17 +9,20 @@ import '../styles/customStyles.dart';
 import 'dart:io';
 import 'dart:async';
 
-final String testId = 'remove_ads';
-
 class ShopScreen extends StatefulWidget {
   createState() => _ShopScreenState();
 }
 
 class _ShopScreenState extends State<ShopScreen> {
+  final String removeAdsID = 'remove_ads';
+  final List<String> imagePackProductIDs = ['category_natural_wonders'];
+
   InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> _subscription;
 
-  List<ProductDetails> _products = [];
+  List<ProductDetails> _removeAdProduct = [];
+  List<ProductDetails> _imagePackProducts = [];
+
   List<PurchaseDetails> _purchases = [];
 
   bool _available = false;
@@ -58,11 +61,21 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   Future<void> _getProducts() async {
-    Set<String> ids = Set.from([testId]);
-    ProductDetailsResponse response = await _iap.queryProductDetails(ids);
+    Set<String> removeAdsIDSet = Set.from([removeAdsID]);
+    Set<String> imagePackIDSet =
+        Set.from([imagePackProductIDs].expand((product) => product));
+
+    ProductDetailsResponse responseRemoveAd =
+        await _iap.queryProductDetails(removeAdsIDSet);
+
+    ProductDetailsResponse responseImagePack =
+        await _iap.queryProductDetails(imagePackIDSet);
 
     setState(() {
-      _products = response.productDetails;
+      _removeAdProduct = responseRemoveAd.productDetails;
+      _imagePackProducts = responseImagePack.productDetails;
+      print(_removeAdProduct.length);
+      print(_imagePackProducts.length);
     });
   }
 
@@ -88,7 +101,7 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   void _verifyPurchase() {
-    PurchaseDetails purchase = _hasPurchased(testId);
+    PurchaseDetails purchase = _hasPurchased(removeAdsID);
 
     if (purchase != null && purchase.status == PurchaseStatus.purchased) {
       print(purchase.productID);
@@ -144,20 +157,48 @@ class _ShopScreenState extends State<ShopScreen> {
       ),
       body: Column(
         children: <Widget>[
-          Text('test'),
-          for (var prod in _products)
-            if (_hasPurchased(prod.id) != null) ...[
-              Text('Already purchased'),
-            ] else ...[
-              Text(prod.title),
-              Text(prod.description),
-              Text(prod.price),
-              FlatButton(
-                child: Text('BUY IT!!!'),
-                color: Colors.green,
-                onPressed: () => _buyProduct(prod),
-              )
-            ]
+          Expanded(
+            child: ListView.builder(
+              itemCount: _removeAdProduct.length,
+              padding: EdgeInsets.all(20),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () => _buyProduct(_removeAdProduct[index]),
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    height: deviceProvider.getUseMobileLayout ? 50 : 70,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black45,
+                          blurRadius: 3.0,
+                          offset: Offset(0.0, 2.0),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          _removeAdProduct[index].title,
+                          style: CustomTextTheme(deviceProvider: deviceProvider)
+                              .selectPictureButtonTextStyle(),
+                        ),
+                        Text(
+                          _removeAdProduct[index].price,
+                          style: CustomTextTheme(deviceProvider: deviceProvider)
+                              .selectPictureButtonTextStyle(),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
