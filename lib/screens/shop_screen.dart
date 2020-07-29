@@ -163,7 +163,10 @@ class _ShopScreenState extends State<ShopScreen> {
               padding: EdgeInsets.all(20),
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () => _buyProduct(_removeAdProduct[index]),
+                  onTap: () {
+                    deviceProvider.playSound(sound: 'fast_click.wav');
+                    _buyProduct(_removeAdProduct[index]);
+                  },
                   child: Container(
                     padding: EdgeInsets.all(10),
                     height: deviceProvider.getUseMobileLayout ? 50 : 70,
@@ -188,7 +191,9 @@ class _ShopScreenState extends State<ShopScreen> {
                               .selectPictureButtonTextStyle(),
                         ),
                         Text(
-                          _removeAdProduct[index].price,
+                          _hasPurchased(_removeAdProduct[index].id) == null
+                              ? _removeAdProduct[index].price
+                              : "Purchased",
                           style: CustomTextTheme(deviceProvider: deviceProvider)
                               .selectPictureButtonTextStyle(),
                         ),
@@ -201,6 +206,34 @@ class _ShopScreenState extends State<ShopScreen> {
           ),
         ],
       ),
+
+      // Column(
+      //   children: <Widget>[
+      //     Text('test'),
+
+      // for (var prod in _products)
+      //   if (_hasPurchased(prod.id) != null) ...[
+      //     Text('Already purchased'),
+      //   ] else ...[
+      //     ListView.builder(
+      //       itemCount: _products.length,
+      //       itemBuilder: (context, index) {
+      //         return Container(
+      //           child: Text(_products[index].title),
+      //         );
+      //       },
+      //     ),
+      //     Text(prod.title),
+      //     Text(prod.description),
+      //     Text(prod.price),
+      //     FlatButton(
+      //       child: Text('BUY IT!!!'),
+      //       color: Colors.green,
+      //       onPressed: () => _buyProduct(prod),
+      //     )
+      //   ]
+      //   ],
+      // ),
     );
   }
 }
