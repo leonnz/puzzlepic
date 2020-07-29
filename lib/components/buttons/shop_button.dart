@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../providers/device_provider.dart';
-import '../../styles/customStyles.dart';
 import '../../screens/shop_screen.dart';
+import '../../styles/customStyles.dart';
 
 class ShopButton extends StatefulWidget {
-  ShopButton({
+  const ShopButton({
     Key key,
     this.shopButtonSlideController,
   }) : super(key: key);
@@ -26,7 +26,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
   void initState() {
     _shopButtonBounceController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
       lowerBound: 0.0,
       upperBound: 0.08,
     )..addListener(() {
@@ -34,8 +34,8 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
       });
 
     _shopButtonSlideAnimation = Tween<Offset>(
-      begin: Offset(-10, 0),
-      end: Offset(0, 0),
+      begin: const Offset(-10, 0),
+      end: const Offset(0, 0),
     ).animate(
       CurvedAnimation(
         parent: widget.shopButtonSlideController,
@@ -43,7 +43,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
       ),
     );
 
-    Future.delayed(Duration(milliseconds: 500))
+    Future<TickerFuture>.delayed(const Duration(milliseconds: 500))
         .then((_) => widget.shopButtonSlideController.forward());
 
     super.initState();
@@ -58,8 +58,8 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
   void _onTapUp(TapUpDetails details) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => ShopScreen(),
+      MaterialPageRoute<ShopScreen>(
+        builder: (BuildContext context) => ShopScreen(),
       ),
     );
   }
@@ -68,7 +68,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     _scale = 1 - _shopButtonBounceController.value;
 
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -89,17 +89,17 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
                 height: deviceProvider.getUseMobileLayout ? 50 : 80,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
-                  boxShadow: [
+                  boxShadow: <BoxShadow>[
                     BoxShadow(
                       color: Colors.black45,
                       blurRadius: 5.0,
-                      offset: Offset(0.0, 5.0),
+                      offset: const Offset(0.0, 5.0),
                     ),
                   ],
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [
+                      colors: <Color>[
                         Colors.white,
                         Colors.grey[350],
                       ]),

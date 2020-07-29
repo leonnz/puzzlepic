@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/game_provider.dart';
 import '../../providers/device_provider.dart';
+import '../../providers/game_provider.dart';
 import '../../styles/customStyles.dart';
 
 class QuitAlert extends StatelessWidget {
@@ -12,11 +12,11 @@ class QuitAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GameProvider gameProvider = Provider.of<GameProvider>(context);
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final GameProvider gameProvider = Provider.of<GameProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     return AlertDialog(
-      title: Text(
+      title: const Text(
         'Leave puzzle',
         textAlign: TextAlign.center,
       ),
@@ -26,11 +26,11 @@ class QuitAlert extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               bottom: 40,
             ),
             width: deviceProvider.getUseMobileLayout ? null : 300,
-            child: Text(
+            child: const Text(
               'Progress will be lost, are you sure?',
               textAlign: TextAlign.center,
             ),
@@ -40,29 +40,29 @@ class QuitAlert extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               FlatButton(
-                child: Text(
-                  "No",
-                  style: CustomTextTheme(deviceProvider: deviceProvider)
-                      .puzzleScreenQuitAlertButtonText(),
-                ),
-                textColor: Color(0xff501E5D),
+                textColor: const Color(0xff501E5D),
                 onPressed: () {
                   deviceProvider.playSound(sound: 'fast_click.wav');
                   Navigator.pop(context, false);
                 },
-              ),
-              FlatButton(
                 child: Text(
-                  "Yes",
+                  'No',
                   style: CustomTextTheme(deviceProvider: deviceProvider)
                       .puzzleScreenQuitAlertButtonText(),
                 ),
-                textColor: Color(0xff501E5D),
+              ),
+              FlatButton(
+                textColor: const Color(0xff501E5D),
                 onPressed: () {
                   deviceProvider.playSound(sound: 'fast_click.wav');
                   gameProvider.resetGameState();
                   Navigator.pop(context, true);
                 },
+                child: Text(
+                  'Yes',
+                  style: CustomTextTheme(deviceProvider: deviceProvider)
+                      .puzzleScreenQuitAlertButtonText(),
+                ),
               ),
             ],
           ),

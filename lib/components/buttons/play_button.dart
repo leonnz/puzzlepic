@@ -49,7 +49,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
       ),
     );
 
-    Future<dynamic>.delayed(const Duration(milliseconds: 500))
+    Future<TickerFuture>.delayed(const Duration(milliseconds: 500))
         .then((_) => widget.playButtonSlideController.forward());
 
     super.initState();
@@ -109,7 +109,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
                 height: deviceProvider.getUseMobileLayout ? 50 : 80,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
-                  boxShadow: [
+                  boxShadow: <BoxShadow>[
                     BoxShadow(
                       color: Colors.black45,
                       blurRadius: 5.0,

@@ -15,11 +15,11 @@ class CustomTextTheme {
       letterSpacing: 0,
       color: Colors.white,
       fontWeight: FontWeight.bold,
-      shadows: [
-        Shadow(
+      shadows: <Shadow>[
+        const Shadow(
           blurRadius: 5,
           color: Colors.purple,
-          offset: const Offset(1, 1),
+          offset: Offset(1, 1),
         )
       ],
     );
@@ -40,7 +40,7 @@ class CustomTextTheme {
       letterSpacing: 1,
       color: Colors.black,
       fontWeight: FontWeight.w500,
-      shadows: [
+      shadows: <Shadow>[
         Shadow(
           blurRadius: 1,
           color: Colors.white70,
@@ -75,7 +75,7 @@ class CustomTextTheme {
       letterSpacing: 1,
       fontWeight: FontWeight.w700,
       color: Colors.black,
-      shadows: [
+      shadows: <Shadow>[
         Shadow(
           blurRadius: 1,
           color: Colors.white,

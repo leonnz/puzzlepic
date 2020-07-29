@@ -10,7 +10,7 @@ class MuteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     return GestureDetector(
       onTap: () {
@@ -21,15 +21,15 @@ class MuteButton extends StatelessWidget {
         child: Align(
           alignment: Alignment.topRight,
           child: Container(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(100),
-              boxShadow: [
+              boxShadow: <BoxShadow>[
                 BoxShadow(
                   color: Colors.black45,
                   blurRadius: 4,
-                  offset: Offset(1, 1),
+                  offset: const Offset(1, 1),
                 )
               ],
             ),

@@ -16,15 +16,15 @@ class ShopScreen extends StatefulWidget {
 
 class _ShopScreenState extends State<ShopScreen> {
   final String removeAdsID = 'remove_ads';
-  final List<String> imagePackProductIDs = ['category_natural_wonders'];
+  final List<String> imagePackProductIDs = <String>['category_natural_wonders'];
 
   final InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> _subscription;
 
-  List<ProductDetails> _removeAdProduct = [];
-  List<ProductDetails> _imagePackProducts = [];
+  List<ProductDetails> _removeAdProduct = <ProductDetails>[];
+  List<ProductDetails> _imagePackProducts = <ProductDetails>[];
 
-  List<PurchaseDetails> _purchases = [];
+  List<PurchaseDetails> _purchases = <PurchaseDetails>[];
 
   bool _available = false;
   bool removedAdsPurchased;
@@ -45,7 +45,10 @@ class _ShopScreenState extends State<ShopScreen> {
     _available = await _iap.isAvailable();
 
     if (_available) {
-      final List<Future<void>> futures = [_getProducts(), _getPastPurchases()];
+      final List<Future<void>> futures = <Future<void>>[
+        _getProducts(),
+        _getPastPurchases()
+      ];
       await Future.wait(futures);
 
       _verifyPurchase();
@@ -63,7 +66,7 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   Future<void> _getProducts() async {
-    final Set<String> removeAdsIDSet = Set.from([removeAdsID]);
+    final Set<String> removeAdsIDSet = Set.from(<String>[removeAdsID]);
     final Set<String> imagePackIDSet = Set.from(
         [imagePackProductIDs].expand((List<String> product) => product));
 
@@ -137,7 +140,7 @@ class _ShopScreenState extends State<ShopScreen> {
                   'assets/images/_categories/_categories_banner.png'),
               fit: BoxFit.cover,
             ),
-            boxShadow: [
+            boxShadow: <BoxShadow>[
               BoxShadow(
                 color: Colors.black45,
                 blurRadius: 5.0,
@@ -177,7 +180,7 @@ class _ShopScreenState extends State<ShopScreen> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      boxShadow: [
+                      boxShadow: <BoxShadow>[
                         BoxShadow(
                           color: Colors.black45,
                           blurRadius: 3.0,

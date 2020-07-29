@@ -25,10 +25,10 @@ class _ImagePieceState extends State<ImagePiece>
   AnimationController _controller;
   Animation<double> _animation;
 
-  Future<dynamic> showPuzzleCompleteAlert() {
+  Future<bool> showPuzzleCompleteAlert() {
     return showDialog(
       context: context,
-      builder: (BuildContext context) => PuzzleCompleteAlert(
+      builder: (BuildContext context) => const PuzzleCompleteAlert(
           // fullAd: interstitialAd,
           // fullAdReady: isInterstitialAdReady,
           ),

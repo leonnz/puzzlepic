@@ -35,8 +35,8 @@ class DBProviderDb {
       {String puzzleName}) async {
     final Database db = await database;
 
-    return db.rawQuery(
-        'SELECT * FROM puzzle_record WHERE puzzleName = ?', [puzzleName]);
+    return db.rawQuery('SELECT * FROM puzzle_record WHERE puzzleName = ?',
+        <String>[puzzleName]);
   }
 
   Future<void> insertRecord({PuzzleRecord record}) async {
@@ -53,7 +53,7 @@ class DBProviderDb {
     final Database db = await database;
     await db.rawUpdate(
         'UPDATE puzzle_record SET bestMoves = ? WHERE puzzleName = ?',
-        [moves, puzzleName]);
+        <dynamic>[moves, puzzleName]);
   }
 
   Future<List<String>> getRecords() async {
@@ -62,7 +62,7 @@ class DBProviderDb {
     final List<Map<String, dynamic>> maps =
         await db.rawQuery('SELECT * FROM puzzle_record');
 
-    return List<String>.generate(maps.length, (i) {
+    return List<String>.generate(maps.length, (int i) {
       return maps[i]['puzzleName'] as String;
     });
   }
@@ -71,9 +71,10 @@ class DBProviderDb {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-        'SELECT * FROM puzzle_record WHERE puzzleCategory = ?', [category]);
+        'SELECT * FROM puzzle_record WHERE puzzleCategory = ?',
+        <String>[category]);
 
-    return List<String>.generate(maps.length, (i) {
+    return List<String>.generate(maps.length, (int i) {
       return maps[i]['puzzleName'] as String;
     });
   }

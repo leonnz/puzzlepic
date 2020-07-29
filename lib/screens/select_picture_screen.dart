@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../data/images_data.dart';
-import '../data/db_provider.dart';
-import '../components/buttons/image_button.dart';
 import '../components/buttons/appbar_leading_button.dart';
+import '../components/buttons/image_button.dart';
+import '../data/db_provider.dart';
+import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../styles/customStyles.dart';
 
@@ -24,35 +24,36 @@ class SelectPicture extends StatefulWidget {
 class _SelectPictureState extends State<SelectPicture> {
   @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
-    DBProviderDb dbProvider = DBProviderDb();
+    final DBProviderDb dbProvider = DBProviderDb();
 
     // dbProvider.deleteTable();
 
-    List<Map<String, dynamic>> images = Images.imageList.firstWhere(
-        (imageList) =>
-            imageList["categoryName"] == widget.category)["categoryImages"];
+    final List<Map<String, dynamic>> images = Images.imageList.firstWhere(
+            (Map<String, dynamic> imageList) =>
+                imageList['categoryName'] == widget.category)['categoryImages']
+        as List<Map<String, dynamic>>;
 
     void refreshScreen() {
       setState(() {});
     }
 
     return GestureDetector(
-      onPanUpdate: (details) {
+      onPanUpdate: (DragUpdateDetails details) {
         if (details.delta.dx > 0) {
           Navigator.pop(context);
         }
       },
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage('assets/images/background.png'),
           ),
         ),
         child: Scaffold(
-          backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
+          backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
           appBar: PreferredSize(
             preferredSize:
                 Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
@@ -63,11 +64,11 @@ class _SelectPictureState extends State<SelectPicture> {
                       'assets/images/_categories/${widget.category}_banner.png'),
                   fit: BoxFit.cover,
                 ),
-                boxShadow: [
+                boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: Colors.black45,
                     blurRadius: 5.0,
-                    offset: Offset(0.0, 3.0),
+                    offset: const Offset(0.0, 3.0),
                   ),
                 ],
               ),
@@ -82,7 +83,7 @@ class _SelectPictureState extends State<SelectPicture> {
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: FutureBuilder(
+                    child: FutureBuilder<List<String>>(
                       future: dbProvider.getRecordsByCategory(
                           category: widget.category),
                       builder: (BuildContext context,
@@ -112,7 +113,7 @@ class _SelectPictureState extends State<SelectPicture> {
               ),
             ),
           ),
-          body: FutureBuilder(
+          body: FutureBuilder<List<String>>(
             future: dbProvider.getRecordsByCategory(category: widget.category),
             builder:
                 (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
@@ -133,14 +134,13 @@ class _SelectPictureState extends State<SelectPicture> {
                       itemBuilder: (BuildContext context, int i) {
                         return ImageButton(
                           categoryName: widget.category,
-                          assetName: images[i]["assetName"],
-                          readableName: images[i]["readableName"],
-                          readableFullName: images[i]["readableFullname"],
-                          title: images[i]["title"],
-                          complete: (snapshot.data
-                                  .contains(images[i]["readableName"]))
-                              ? true
-                              : false,
+                          assetName: images[i]['assetName'].toString(),
+                          readableName: images[i]['readableName'].toString(),
+                          readableFullName:
+                              images[i]['readableFullname'].toString(),
+                          title: images[i]['title'].toString(),
+                          complete:
+                              snapshot.data.contains(images[i]['readableName']),
                           refreshPictureSelectScreen: refreshScreen,
                         );
                       },

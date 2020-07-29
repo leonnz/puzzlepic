@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 class GameProvider with ChangeNotifier {
   static bool _puzzleComplete = false;
   static Map<String, String> _image;
-  static List<Map<String, dynamic>> _piecePositions = [];
+  static List<Map<String, dynamic>> _piecePositions = <Map<String, dynamic>>[];
   static double _screenWidth;
-  static int _gridColumns = 4;
-  static int _totalGridSize = 16;
-  static double _singlePieceWidth = _screenWidth / _gridColumns;
+  static const int _gridColumns = 4;
+  static const int _totalGridSize = 16;
+  static final double _singlePieceWidth = _screenWidth / _gridColumns;
 
   static int _blankSquare = _totalGridSize;
   static int _moves = 0;
@@ -69,17 +69,17 @@ class GameProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setPuzzleComplete(bool complete) {
+  void setPuzzleComplete({bool complete}) {
     _puzzleComplete = complete;
   }
 
   void resetPiecePositions() {
-    _piecePositions = [];
+    _piecePositions = <Map<String, dynamic>>[];
     setBlankSquare(_totalGridSize);
   }
 
   void setGridPositions() {
-    _gridPositions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+    _gridPositions = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   }
 
   void setScreenWidth({double width}) {
@@ -88,34 +88,33 @@ class GameProvider with ChangeNotifier {
 
   // Check if the piece number matches its position
   void checkComplete() {
-    var matching = getPiecePositions
-        .map((piece) => piece['pieceNumber'] == piece['gridPosition']);
+    final Iterable<bool> matching = getPiecePositions.map(
+        (Map<String, dynamic> piece) =>
+            piece['pieceNumber'] == piece['gridPosition']);
     if (matching.contains(false)) {
-      setPuzzleComplete(false);
+      setPuzzleComplete(complete: false);
     } else {
-      setPuzzleComplete(true);
+      setPuzzleComplete(complete: true);
     }
   }
 
   void resetGameState() {
-    setPuzzleComplete(false);
+    setPuzzleComplete(complete: false);
     resetPiecePositions();
     resetMoves();
   }
 
   void setInitialPuzzlePiecePosition(int pieceNumber) {
-    Map<String, dynamic> imgPiece = new Map();
+    final Map<String, dynamic> imgPiece = <String, dynamic>{};
 
-    List<int> allocatedGridPositions = [];
+    final List<int> allocatedGridPositions = <int>[];
 
-    getPiecePositions.forEach((piece) {
-      allocatedGridPositions.add(piece['gridPosition']);
-    });
+    test(allocatedGridPositions);
 
     int getRandomGridPosition(int min, int max) {
-      final _random = new Random();
-      int randomPositionIndex = min + _random.nextInt(max - min);
-      int randomNumber = _gridPositions[randomPositionIndex];
+      final Random _random = Random();
+      final int randomPositionIndex = min + _random.nextInt(max - min);
+      final int randomNumber = _gridPositions[randomPositionIndex];
 
       _gridPositions.removeAt(randomPositionIndex);
 
@@ -125,8 +124,9 @@ class GameProvider with ChangeNotifier {
     imgPiece['pieceNumber'] = pieceNumber;
     imgPiece['gridPosition'] = pieceNumber;
     imgPiece['leftPosition'] =
-        setStartingLeftPosition(imgPiece['gridPosition']);
-    imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition']);
+        setStartingLeftPosition(imgPiece['gridPosition'] as int);
+    imgPiece['topPosition'] =
+        setStartingTopPosition(imgPiece['gridPosition'] as int);
 
     // imgPiece['pieceNumber'] = pieceNumber;
     // imgPiece['gridPosition'] = getRandomGridPosition(0, _gridPositions.length);
@@ -137,9 +137,15 @@ class GameProvider with ChangeNotifier {
     getPiecePositions.add(imgPiece);
   }
 
+  void test(List<int> allocatedGridPositions) {
+    return getPiecePositions.forEach((Map<String, dynamic> piece) {
+      allocatedGridPositions.add(piece['gridPosition'] as int);
+    });
+  }
+
   double setStartingLeftPosition(int pieceNumber) {
     double leftPosition;
-    int modulo = pieceNumber % getGridColumns;
+    final int modulo = pieceNumber % getGridColumns;
     if (modulo == 0) {
       leftPosition = getSinglePieceWidth * (getGridColumns - 1);
     } else if (modulo == 1) {

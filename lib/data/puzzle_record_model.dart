@@ -1,10 +1,4 @@
 class PuzzleRecord {
-  final int id;
-  final String puzzleName;
-  final String puzzleCategory;
-  final String complete;
-  final int moves;
-
   PuzzleRecord({
     this.id,
     this.puzzleName,
@@ -13,8 +7,14 @@ class PuzzleRecord {
     this.moves,
   });
 
+  final int id;
+  final String puzzleName;
+  final String puzzleCategory;
+  final String complete;
+  final int moves;
+
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'id': id,
       'puzzleName': puzzleName,
       'puzzleCategory': puzzleCategory,

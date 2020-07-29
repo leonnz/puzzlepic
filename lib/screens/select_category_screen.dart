@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
-import '../components/buttons/category_button.dart';
+import '../ad_manager.dart';
 import '../components/buttons/appbar_leading_button.dart';
+import '../components/buttons/category_button.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../styles/customStyles.dart';
-import '../ad_manager.dart';
 
 class SelectCategory extends StatefulWidget {
   const SelectCategory({Key key}) : super(key: key);
@@ -45,7 +45,7 @@ class _SelectCategoryState extends State<SelectCategory> {
 
   @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     return WillPopScope(
       onWillPop: () async {
@@ -53,31 +53,31 @@ class _SelectCategoryState extends State<SelectCategory> {
         return true;
       },
       child: GestureDetector(
-        onPanUpdate: (details) {
+        onPanUpdate: (DragUpdateDetails details) {
           if (details.delta.dx > 0) {
             Navigator.pop(context, true);
           }
         },
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage('assets/images/background.png'),
             ),
           ),
           child: Scaffold(
-            backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
+            backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
             appBar: PreferredSize(
               preferredSize:
                   Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
                         'assets/images/_categories/_categories_banner.png'),
                     fit: BoxFit.cover,
                   ),
-                  boxShadow: [
+                  boxShadow: <BoxShadow>[
                     BoxShadow(
                       color: Colors.black45,
                       blurRadius: 5.0,
@@ -99,7 +99,7 @@ class _SelectCategoryState extends State<SelectCategory> {
               ),
             ),
             body: Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: deviceProvider.getGridSize,
@@ -109,9 +109,10 @@ class _SelectCategoryState extends State<SelectCategory> {
                 itemCount: Images.imageList.length,
                 itemBuilder: (BuildContext context, int i) {
                   return CategoryButton(
-                    categoryName: Images.imageList[i]["categoryName"],
-                    categoryReadableName: Images.imageList[i]
-                        ["categoryReadableName"],
+                    categoryName:
+                        Images.imageList[i]['categoryName'].toString(),
+                    categoryReadableName:
+                        Images.imageList[i]['categoryReadableName'].toString(),
                   );
                 },
               ),

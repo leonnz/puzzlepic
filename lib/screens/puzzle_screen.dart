@@ -122,9 +122,9 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const PuzzleScreenHintButton(),
-                      const PuzzleScreenQuitButton()
+                    children: const <Widget>[
+                      PuzzleScreenHintButton(),
+                      PuzzleScreenQuitButton()
                     ],
                   ),
                 ),

@@ -1,607 +1,676 @@
 class Images {
-  static List<Map<String, dynamic>> imageList = [
+  static List<Map<String, dynamic>> imageList = <Map<String, dynamic>>[
     // Animals
-    {
-      "categoryName": "animals",
-      "categoryReadableName": "Animal Kingdom",
-      "categoryImages": [
-        {
-          "assetName": "bear",
-          "readableName": "Bear",
-          "readableFullname": "Brown \"Grizzly\" Bear",
-          "title": "Found in North America",
+    <String, dynamic>{
+      'categoryName': 'animals',
+      'categoryReadableName': 'Animal Kingdom',
+      'categoryImages': <Map<String, String>>[
+        <String, String>{
+          'assetName': 'bear',
+          'readableName': 'Bear',
+          'readableFullname': "Brown 'Grizzly' Bear",
+          'title': 'Found in North America',
         },
-        {
-          "assetName": "elephant",
-          "readableName": "Elephant",
-          "readableFullname": "African Elephant",
-          "title": "Found in sub-Saharan Africa",
+        <String, String>{
+          'assetName': 'elephant',
+          'readableName': 'Elephant',
+          'readableFullname': 'African Elephant',
+          'title': 'Found in sub-Saharan Africa',
         },
-        {
-          "assetName": "frog",
-          "readableName": "Frog",
-          "readableFullname": "Red-eyed Tree Frog",
-          "title": "From Central America",
+        <String, String>{
+          'assetName': 'frog',
+          'readableName': 'Frog',
+          'readableFullname': 'Red-eyed Tree Frog',
+          'title': 'From Central America',
         },
-        {
-          "assetName": "giraffe",
-          "readableName": "Giraffe",
-          "readableFullname": "Giraffe",
-          "title": "Found in sub-Saharan Africa",
+        <String, String>{
+          'assetName': 'giraffe',
+          'readableName': 'Giraffe',
+          'readableFullname': 'Giraffe',
+          'title': 'Found in sub-Saharan Africa',
         },
-        {
-          "assetName": "hedgehog",
-          "readableName": "Hedgehog",
-          "readableFullname": "Hedgehog",
-          "title": "Found in Europe, Asia, Africa, and New Zealand",
+        <String, String>{
+          'assetName': 'hedgehog',
+          'readableName': 'Hedgehog',
+          'readableFullname': 'Hedgehog',
+          'title': 'Found in Europe, Asia, Africa, and New Zealand',
         },
-        {
-          "assetName": "hippopotamus",
-          "readableName": "Hippopotamus",
-          "readableFullname": "Hippopotamus",
-          "title": "Found in sub-Saharan Africa",
+        <String, String>{
+          'assetName': 'hippopotamus',
+          'readableName': 'Hippopotamus',
+          'readableFullname': 'Hippopotamus',
+          'title': 'Found in sub-Saharan Africa',
         },
-        {
-          "assetName": "horse",
-          "readableName": "Horse",
-          "readableFullname": "Horse",
-          "title": "Found worldwide",
+        <String, String>{
+          'assetName': 'horse',
+          'readableName': 'Horse',
+          'readableFullname': 'Horse',
+          'title': 'Found worldwide',
         },
-        {
-          "assetName": "lion",
-          "readableName": "Lion",
-          "readableFullname": "Lion",
-          "title": "Found in sub-Saharan Africa",
+        <String, String>{
+          'assetName': 'lion',
+          'readableName': 'Lion',
+          'readableFullname': 'Lion',
+          'title': 'Found in sub-Saharan Africa',
         },
-        {
-          "assetName": "monkey",
-          "readableName": "Monkey",
-          "readableFullname": "Monkey",
-          "title": "Found in Africa, Asia, South and Central America",
+        <String, String>{
+          'assetName': 'monkey',
+          'readableName': 'Monkey',
+          'readableFullname': 'Monkey',
+          'title': 'Found in Africa, Asia, South and Central America',
         },
-        {
-          "assetName": "parrot",
-          "readableName": "Parrot",
-          "readableFullname": "Lovebird Parrot",
-          "title": "Found in Africa and Madagascar",
+        <String, String>{
+          'assetName': 'parrot',
+          'readableName': 'Parrot',
+          'readableFullname': 'Lovebird Parrot',
+          'title': 'Found in Africa and Madagascar',
         },
-        {
-          "assetName": "sloth",
-          "readableName": "Sloth",
-          "readableFullname": "Sloth",
-          "title": "Found in South and Central America",
+        <String, String>{
+          'assetName': 'sloth',
+          'readableName': 'Sloth',
+          'readableFullname': 'Sloth',
+          'title': 'Found in South and Central America',
         },
-        {
-          "assetName": "tiger",
-          "readableName": "Tiger",
-          "readableFullname": "Tiger",
-          "title": "Found in India, Southeast Asia mainland, and Sumatra",
+        <String, String>{
+          'assetName': 'tiger',
+          'readableName': 'Tiger',
+          'readableFullname': 'Tiger',
+          'title': 'Found in India, Southeast Asia mainland, and Sumatra',
         },
       ]
     },
     // Art
-    {
-      "categoryName": "art",
-      "categoryReadableName": "Art World",
-      "categoryImages": [
-        {
-          "assetName": "claude_monet",
-          "readableName": "Claude Monet",
-          "readableFullname": null,
-          "title": "The Bridge At Argenteuil (1874)",
+    <String, dynamic>{
+      'categoryName': 'art',
+      'categoryReadableName': 'Art World',
+      'categoryImages': <Map<String, String>>[
+        <String, String>{
+          'assetName': 'claude_monet',
+          'readableName': 'Claude Monet',
+          'readableFullname': null,
+          'title': 'The Bridge At Argenteuil (1874)',
         },
-        {
-          "assetName": "da_vinci",
-          "readableName": "da Vinci",
-          "readableFullname": "Leonardo da Vinci",
-          "title": "Ginevra De’ Benci (Ca. 1474-1478)",
+        <String, String>{
+          'assetName': 'da_vinci',
+          'readableName': 'da Vinci',
+          'readableFullname': 'Leonardo da Vinci',
+          'title': 'Ginevra De’ Benci (Ca. 1474-1478)',
         },
-        {
-          "assetName": "edgar_degas",
-          "readableName": "Edgar Degas",
-          "readableFullname": null,
-          "title": "The False Start (Ca. 1869–72)",
+        <String, String>{
+          'assetName': 'edgar_degas',
+          'readableName': 'Edgar Degas',
+          'readableFullname': null,
+          'title': 'The False Start (Ca. 1869–72)',
         },
-        {
-          "assetName": "gainsborough",
-          "readableName": "Gainsborough",
-          "readableFullname": "Thomas Gainsborough",
-          "title": "Elizabeth And Thomas Linley (Ca. 1768)",
+        <String, String>{
+          'assetName': 'gainsborough',
+          'readableName': 'Gainsborough',
+          'readableFullname': 'Thomas Gainsborough',
+          'title': 'Elizabeth And Thomas Linley (Ca. 1768)',
         },
-        {
-          "assetName": "gerome",
-          "readableName": "Gerome",
-          "readableFullname": "Jean-Léon Gérôme",
-          "title": "The Colossus Of Memnon",
+        <String, String>{
+          'assetName': 'gerome',
+          'readableName': 'Gerome',
+          'readableFullname': 'Jean-Léon Gérôme',
+          'title': 'The Colossus Of Memnon',
         },
-        {
-          "assetName": "lawrence",
-          "readableName": "Lawrence",
-          "readableFullname": "Thomas Lawrence",
-          "title": "Lady Maria Conyngham (Ca. 1824–25)",
+        <String, String>{
+          'assetName': 'lawrence',
+          'readableName': 'Lawrence',
+          'readableFullname': 'Thomas Lawrence',
+          'title': 'Lady Maria Conyngham (Ca. 1824–25)',
         },
-        {
-          "assetName": "morland",
-          "readableName": "Morland",
-          "readableFullname": "George Morland",
-          "title": "Winter Landscape With Figures (Ca. 1785)",
+        <String, String>{
+          'assetName': 'morland',
+          'readableName': 'Morland',
+          'readableFullname': 'George Morland',
+          'title': 'Winter Landscape With Figures (Ca. 1785)',
         },
-        {
-          "assetName": "rembrandt",
-          "readableName": "Rembrandt",
-          "readableFullname": null,
-          "title": "Night Watch (1642)",
+        <String, String>{
+          'assetName': 'rembrandt',
+          'readableName': 'Rembrandt',
+          'readableFullname': null,
+          'title': 'Night Watch (1642)',
         },
-        {
-          "assetName": "renoir",
-          "readableName": "Renoir",
-          "readableFullname": "Pierre-Auguste Renoir",
-          "title": "In Brittany (1886)",
+        <String, String>{
+          'assetName': 'renoir',
+          'readableName': 'Renoir',
+          'readableFullname': 'Pierre-Auguste Renoir',
+          'title': 'In Brittany (1886)',
         },
-        {
-          "assetName": "van_dyck",
-          "readableName": "van Dyck",
-          "readableFullname": "Anthony van Dyck",
-          "title": "Charles I (1600-49)",
+        <String, String>{
+          'assetName': 'van_dyck',
+          'readableName': 'van Dyck',
+          'readableFullname': 'Anthony van Dyck',
+          'title': 'Charles I (1600-49)',
         },
-        {
-          "assetName": "van_gogh",
-          "readableName": "van Gogh",
-          "readableFullname": "Vincent van Gogh",
-          "title": "Le Café De Nuit (The Night Café) (1888)",
+        <String, String>{
+          'assetName': 'van_gogh',
+          'readableName': 'van Gogh',
+          'readableFullname': 'Vincent van Gogh',
+          'title': 'Le Café De Nuit (The Night Café) (1888)',
         },
-        {
-          "assetName": "west",
-          "readableName": "West",
-          "readableFullname": "Benjamin West",
-          "title": "The Artist And His Son Raphael (1773)",
+        <String, String>{
+          'assetName': 'west',
+          'readableName': 'West',
+          'readableFullname': 'Benjamin West',
+          'title': 'The Artist And His Son Raphael (1773)',
         },
       ]
     },
     // Buildings
-    {
-      "categoryName": "buildings",
-      "categoryReadableName": "Famous Structures",
-      "categoryImages": [
-        {
-          "assetName": "big_ben",
-          "readableName": "Big Ben",
-          "title": "London, Engalnd"
+    <String, dynamic>{
+      'categoryName': 'buildings',
+      'categoryReadableName': 'Famous Structures',
+      'categoryImages': <Map<String, String>>[
+        <String, String>{
+          'assetName': 'big_ben',
+          'readableName': 'Big Ben',
+          'readableFullname': 'Big Ben',
+          'title': 'London, Engalnd'
         },
-        {
-          "assetName": "colosseum",
-          "readableName": "Colosseum",
-          "title": "Rome, Italy",
+        <String, String>{
+          'assetName': 'colosseum',
+          'readableName': 'Colosseum',
+          'readableFullname': 'Colosseum',
+          'title': 'Rome, Italy',
         },
-        {
-          "assetName": "easter_island",
-          "readableName": "Easter Island",
-          "readableFullname": "Easter Island Statues",
-          "title": "Easter Island, Chile",
+        <String, String>{
+          'assetName': 'easter_island',
+          'readableName': 'Easter Island',
+          'readableFullname': 'Easter Island Statues',
+          'title': 'Easter Island, Chile',
         },
-        {
-          "assetName": "eiffel_tower",
-          "readableName": "Eiffel Tower",
-          "title": "Paris, France"
+        <String, String>{
+          'assetName': 'eiffel_tower',
+          'readableName': 'Eiffel Tower',
+          'readableFullname': 'Eiffel Tower',
+          'title': 'Paris, France'
         },
-        {
-          "assetName": "golden_gate_bridge",
-          "readableName": "Golden Gate Bridge",
-          "title": "San Francisco, United States"
+        <String, String>{
+          'assetName': 'golden_gate_bridge',
+          'readableName': 'Golden Gate Bridge',
+          'readableFullname': 'Golden Gate Bridge',
+          'title': 'San Francisco, United States'
         },
-        {
-          "assetName": "great_wall",
-          "readableName": "Great Wall",
-          "readableFullname": "Great Wall of China",
-          "title": "China"
+        <String, String>{
+          'assetName': 'great_wall',
+          'readableName': 'Great Wall',
+          'readableFullname': 'Great Wall of China',
+          'title': 'China'
         },
-        {
-          "assetName": "machu_picchu",
-          "readableName": "Machu Picchu",
-          "title": "Cuzco Region, Peru"
+        <String, String>{
+          'assetName': 'machu_picchu',
+          'readableName': 'Machu Picchu',
+          'readableFullname': 'Machu Picchu',
+          'title': 'Cuzco Region, Peru'
         },
-        {
-          "assetName": "parthenon",
-          "readableName": "Parthenon",
-          "title": "Athens, Greece"
+        <String, String>{
+          'assetName': 'parthenon',
+          'readableName': 'Parthenon',
+          'readableFullname': 'Parthenon',
+          'title': 'Athens, Greece'
         },
-        {
-          "assetName": "petra",
-          "readableName": "Petra",
-          "title": "Jordan",
+        <String, String>{
+          'assetName': 'petra',
+          'readableName': 'Petra',
+          'readableFullname': 'Petra',
+          'title': 'Jordan',
         },
-        {
-          "assetName": "pyramids",
-          "readableName": "Pyramids",
-          "readableFullname": "Pyramids of Giza",
-          "title": "Cairo, Egypt",
+        <String, String>{
+          'assetName': 'pyramids',
+          'readableName': 'Pyramids',
+          'readableFullname': 'Pyramids of Giza',
+          'title': 'Cairo, Egypt',
         },
-        {
-          "assetName": "statue_of_liberty",
-          "readableName": "Statue of Liberty",
-          "title": "New York, United States",
+        <String, String>{
+          'assetName': 'statue_of_liberty',
+          'readableName': 'Statue of Liberty',
+          'readableFullname': 'Statue of Liberty',
+          'title': 'New York, United States',
         },
-        {
-          "assetName": "taj_mahal",
-          "readableName": "Taj Mahal",
-          "title": "Agra, India",
+        <String, String>{
+          'assetName': 'taj_mahal',
+          'readableName': 'Taj Mahal',
+          'readableFullname': 'Taj Mahal',
+          'title': 'Agra, India',
         },
       ]
     },
     // Cities
-    {
-      "categoryName": "cities",
-      "categoryReadableName": "City Scenes",
-      "categoryImages": [
-        {
-          "assetName": "bangkok",
-          "readableName": "Bangkok",
-          "readableFullname": "Bangkok, Thailand",
-          "title": "Market on Ratchadaphisek Road",
+    <String, dynamic>{
+      'categoryName': 'cities',
+      'categoryReadableName': 'City Scenes',
+      'categoryImages': <Map<String, String>>[
+        <String, String>{
+          'assetName': 'bangkok',
+          'readableName': 'Bangkok',
+          'readableFullname': 'Bangkok, Thailand',
+          'title': 'Market on Ratchadaphisek Road',
         },
-        {
-          "assetName": "barcelona",
-          "readableName": "Barcelona",
-          "readableFullname": "Barcelona, Spain",
-          "title": "View of city from Park Guell",
+        <String, String>{
+          'assetName': 'barcelona',
+          'readableName': 'Barcelona',
+          'readableFullname': 'Barcelona, Spain',
+          'title': 'View of city from Park Guell',
         },
-        {
-          "assetName": "hong_kong",
-          "readableName": "Hong Kong",
-          "readableFullname": "Hong Kong, China",
-          "title": "Nan Lian Garden in Diamond Hill",
+        <String, String>{
+          'assetName': 'hong_kong',
+          'readableName': 'Hong Kong',
+          'readableFullname': 'Hong Kong, China',
+          'title': 'Nan Lian Garden in Diamond Hill',
         },
-        {
-          "assetName": "istanbul",
-          "readableName": "Istanbul",
-          "readableFullname": "Istanbul, Turkey",
-          "title": "View of Galata Tower from narrow street",
+        <String, String>{
+          'assetName': 'istanbul',
+          'readableName': 'Istanbul',
+          'readableFullname': 'Istanbul, Turkey',
+          'title': 'View of Galata Tower from narrow street',
         },
-        {
-          "assetName": "los_angeles",
-          "readableName": "Los Angeles",
-          "readableFullname": "Los Angeles, USA",
-          "title": "Downtown skyline at sunset",
+        <String, String>{
+          'assetName': 'los_angeles',
+          'readableName': 'Los Angeles',
+          'readableFullname': 'Los Angeles, USA',
+          'title': 'Downtown skyline at sunset',
         },
-        {
-          "assetName": "london",
-          "readableName": "London",
-          "readableFullname": "London, UK",
-          "title": "Black cabs and buses on Oxford St",
+        <String, String>{
+          'assetName': 'london',
+          'readableName': 'London',
+          'readableFullname': 'London, UK',
+          'title': 'Black cabs and buses on Oxford St',
         },
-        {
-          "assetName": "new_york",
-          "readableName": "New York",
-          "readableFullname": "New York, USA",
-          "title": "Rainy night in Times Square",
+        <String, String>{
+          'assetName': 'new_york',
+          'readableName': 'New York',
+          'readableFullname': 'New York, USA',
+          'title': 'Rainy night in Times Square',
         },
-        {
-          "assetName": "seoul",
-          "readableName": "Seoul",
-          "readableFullname": "Seoul, South Korea",
-          "title": "Bukchon Hanok Village",
+        <String, String>{
+          'assetName': 'seoul',
+          'readableName': 'Seoul',
+          'readableFullname': 'Seoul, South Korea',
+          'title': 'Bukchon Hanok Village',
         },
-        {
-          "assetName": "stockholm",
-          "readableName": "Stockholm",
-          "readableFullname": "Stockholm, Sweden",
-          "title": "Stortorget place in Gamla stan (Old Town)",
+        <String, String>{
+          'assetName': 'stockholm',
+          'readableName': 'Stockholm',
+          'readableFullname': 'Stockholm, Sweden',
+          'title': 'Stortorget place in Gamla stan (Old Town)',
         },
-        {
-          "assetName": "tokyo",
-          "readableName": "Tokyo",
-          "readableFullname": "Tokyo, Japan",
-          "title": "Shibuya district crossing",
+        <String, String>{
+          'assetName': 'tokyo',
+          'readableName': 'Tokyo',
+          'readableFullname': 'Tokyo, Japan',
+          'title': 'Shibuya district crossing',
         },
-        {
-          "assetName": "venice",
-          "readableName": "Venice",
-          "readableFullname": "Venice, Italy",
-          "title": "Gondola ride on the Grande Canal",
+        <String, String>{
+          'assetName': 'venice',
+          'readableName': 'Venice',
+          'readableFullname': 'Venice, Italy',
+          'title': 'Gondola ride on the Grande Canal',
         },
-        {
-          "assetName": "wellington",
-          "readableName": "Wellington",
-          "readableFullname": "Wellington, New Zealand",
-          "title": "Cable car overlooking city",
+        <String, String>{
+          'assetName': 'wellington',
+          'readableName': 'Wellington',
+          'readableFullname': 'Wellington, New Zealand',
+          'title': 'Cable car overlooking city',
         },
       ],
     },
     // FLowers
-    {
-      "categoryName": "flowers",
-      "categoryReadableName": "Pretty Flowers",
-      "categoryImages": [
-        {
-          "assetName": "carnations",
-          "readableName": "Carnations",
+    <String, dynamic>{
+      'categoryName': 'flowers',
+      'categoryReadableName': 'Pretty Flowers',
+      'categoryImages': <Map<String, String>>[
+        <String, String>{
+          'assetName': 'carnations',
+          'readableName': 'Carnations',
+          'readableFullname': 'Carnations',
+          'title': '',
         },
-        {
-          "assetName": "daffodils",
-          "readableName": "Daffodils",
+        <String, String>{
+          'assetName': 'daffodils',
+          'readableName': 'Daffodils',
+          'readableFullname': 'Daffodils',
+          'title': '',
         },
-        {
-          "assetName": "dahlias",
-          "readableName": "Dahlias",
+        <String, String>{
+          'assetName': 'dahlias',
+          'readableName': 'Dahlias',
+          'readableFullname': 'Dahlias',
+          'title': '',
         },
-        {
-          "assetName": "daisies",
-          "readableName": "Daisies",
+        <String, String>{
+          'assetName': 'daisies',
+          'readableName': 'Daisies',
+          'readableFullname': 'Daisies',
+          'title': '',
         },
-        {
-          "assetName": "lavender",
-          "readableName": "Lavender",
+        <String, String>{
+          'assetName': 'lavender',
+          'readableName': 'Lavender',
+          'readableFullname': 'Lavender',
+          'title': '',
         },
-        {
-          "assetName": "lilies",
-          "readableName": "Lilies",
+        <String, String>{
+          'assetName': 'lilies',
+          'readableName': 'Lilies',
+          'readableFullname': 'Lilies',
+          'title': '',
         },
-        {
-          "assetName": "lotus",
-          "readableName": "Lotus",
+        <String, String>{
+          'assetName': 'lotus',
+          'readableName': 'Lotus',
+          'readableFullname': 'Lotus',
+          'title': '',
         },
-        {
-          "assetName": "orchids",
-          "readableName": "Orchids",
+        <String, String>{
+          'assetName': 'orchids',
+          'readableName': 'Orchids',
+          'readableFullname': 'Orchids',
+          'title': '',
         },
-        {
-          "assetName": "pansies",
-          "readableName": "Pansies",
+        <String, String>{
+          'assetName': 'pansies',
+          'readableName': 'Pansies',
+          'readableFullname': 'Pansies',
+          'title': '',
         },
-        {
-          "assetName": "roses",
-          "readableName": "Roses",
+        <String, String>{
+          'assetName': 'roses',
+          'readableName': 'Roses',
+          'readableFullname': 'Roses',
+          'title': '',
         },
-        {
-          "assetName": "sunflowers",
-          "readableName": "Sunflowers",
+        <String, String>{
+          'assetName': 'sunflowers',
+          'readableName': 'Sunflowers',
+          'readableFullname': 'Sunflowers',
+          'title': '',
         },
-        {
-          "assetName": "tulips",
-          "readableName": "Tulips",
+        <String, String>{
+          'assetName': 'tulips',
+          'readableName': 'Tulips',
+          'readableFullname': 'Tulips',
+          'title': '',
         }
       ]
     },
     // Foods
-    {
-      "categoryName": "foods",
-      "categoryReadableName": "Foods of the world",
-      "categoryImages": [
-        {
-          "assetName": "burger",
-          "readableName": "Burger",
-          "readableFullname": "Beef Burger",
-          "title": "from the United States",
+    <String, dynamic>{
+      'categoryName': 'foods',
+      'categoryReadableName': 'Foods of the world',
+      'categoryImages': <Map<String, String>>[
+        <String, String>{
+          'assetName': 'burger',
+          'readableName': 'Burger',
+          'readableFullname': 'Beef Burger',
+          'title': 'from the United States',
         },
-        {
-          "assetName": "croissants",
-          "readableName": "Croissants",
-          "title": "from Austria",
+        <String, String>{
+          'assetName': 'croissants',
+          'readableName': 'Croissants',
+          'title': 'from Austria',
         },
-        {
-          "assetName": "curry",
-          "readableName": "Curry",
-          "readableFullname": "Chicken Curry",
-          "title": "from India",
+        <String, String>{
+          'assetName': 'curry',
+          'readableName': 'Curry',
+          'readableFullname': 'Chicken Curry',
+          'title': 'from India',
         },
-        {
-          "assetName": "dumplings",
-          "readableName": "Dumplings",
-          "readableFullname": "Pork Dumplings",
-          "title": "from China",
+        <String, String>{
+          'assetName': 'dumplings',
+          'readableName': 'Dumplings',
+          'readableFullname': 'Pork Dumplings',
+          'title': 'from China',
         },
-        {
-          "assetName": "kebab",
-          "readableName": "Kebab",
-          "readableFullname": "Doner Kebab",
-          "title": "from Turkey",
+        <String, String>{
+          'assetName': 'kebab',
+          'readableName': 'Kebab',
+          'readableFullname': 'Doner Kebab',
+          'title': 'from Turkey',
         },
-        {
-          "assetName": "laksa",
-          "readableName": "Laksa",
-          "readableFullname": "Laksa Noodle Soup",
-          "title": "from Malaysia",
+        <String, String>{
+          'assetName': 'laksa',
+          'readableName': 'Laksa',
+          'readableFullname': 'Laksa Noodle Soup',
+          'title': 'from Malaysia',
         },
-        {
-          "assetName": "paella",
-          "readableName": "Paella",
-          "readableFullname": "Seafood Paella",
-          "title": "from Spain",
+        <String, String>{
+          'assetName': 'paella',
+          'readableName': 'Paella',
+          'readableFullname': 'Seafood Paella',
+          'title': 'from Spain',
         },
-        {
-          "assetName": "pizza",
-          "readableName": "Pizza",
-          "readableFullname": "Margherita Pizza",
-          "title": "from Italy",
+        <String, String>{
+          'assetName': 'pizza',
+          'readableName': 'Pizza',
+          'readableFullname': 'Margherita Pizza',
+          'title': 'from Italy',
         },
-        {
-          "assetName": "pie",
-          "readableName": "Pie",
-          "readableFullname": "Meat Pie",
-          "title": "from Australia",
+        <String, String>{
+          'assetName': 'pie',
+          'readableName': 'Pie',
+          'readableFullname': 'Meat Pie',
+          'title': 'from Australia',
         },
-        {
-          "assetName": "sausages",
-          "readableName": "Sausages",
-          "readableFullname": "Bratwurst Sausages",
-          "title": "from Germany",
+        <String, String>{
+          'assetName': 'sausages',
+          'readableName': 'Sausages',
+          'readableFullname': 'Bratwurst Sausages',
+          'title': 'from Germany',
         },
-        {
-          "assetName": "sushi",
-          "readableName": "Sushi",
-          "readableFullname": "Salmon Sushi",
-          "title": "from Japan",
+        <String, String>{
+          'assetName': 'sushi',
+          'readableName': 'Sushi',
+          'readableFullname': 'Salmon Sushi',
+          'title': 'from Japan',
         },
-        {
-          "assetName": "tacos",
-          "readableName": "Tacos",
-          "readableFullname": "Pulled Pork Tacos",
-          "title": "from Mexico",
+        <String, String>{
+          'assetName': 'tacos',
+          'readableName': 'Tacos',
+          'readableFullname': 'Pulled Pork Tacos',
+          'title': 'from Mexico',
         },
       ]
     },
     // Landscapes
-    {
-      "categoryName": "landscapes",
-      "categoryReadableName": "Landscapes",
-      "categoryImages": [
-        {
-          "assetName": "baobab",
-          "readableName": "Baobab Alley",
-          "readableFullname": "Baobab Alley, Madagascar",
-          "title": "Alley of the Baobab trees",
+    <String, dynamic>{
+      'categoryName': 'landscapes',
+      'categoryReadableName': 'Landscapes',
+      'categoryImages': <Map<String, String>>[
+        <String, String>{
+          'assetName': 'baobab',
+          'readableName': 'Baobab Alley',
+          'readableFullname': 'Baobab Alley, Madagascar',
+          'title': 'Alley of the Baobab trees',
         },
-        {
-          "assetName": "highlands",
-          "readableName": "Highlands",
-          "readableFullname": "Highlands, Scotland",
-          "title": "Autumn in the Scottish Highlands",
+        <String, String>{
+          'assetName': 'highlands',
+          'readableName': 'Highlands',
+          'readableFullname': 'Highlands, Scotland',
+          'title': 'Autumn in the Scottish Highlands',
         },
-        {
-          "assetName": "lake_tahoe",
-          "readableName": "Lake Tahoe",
-          "readableFullname": "Lake Tahoe, USA",
-          "title": "Shoreline sunset at Lake Tahoe in Nevada",
+        <String, String>{
+          'assetName': 'lake_tahoe',
+          'readableName': 'Lake Tahoe',
+          'readableFullname': 'Lake Tahoe, USA',
+          'title': 'Shoreline sunset at Lake Tahoe in Nevada',
         },
-        {
-          "assetName": "lake_wakatipu",
-          "readableName": "Lake Wakatipu",
-          "readableFullname": "Lake Wakatipu, New Zealand",
-          "title": "Lake Wakatipu and the road from Queenstown to Glenorchy",
+        <String, String>{
+          'assetName': 'lake_wakatipu',
+          'readableName': 'Lake Wakatipu',
+          'readableFullname': 'Lake Wakatipu, New Zealand',
+          'title': 'Lake Wakatipu and the road from Queenstown to Glenorchy',
         },
-        {
-          "assetName": "monument_valley",
-          "readableName": "Monument Valley",
-          "readableFullname": "Monument Valley, USA",
-          "title": "Rock formations in Hunts Mesa",
+        <String, String>{
+          'assetName': 'monument_valley',
+          'readableName': 'Monument Valley',
+          'readableFullname': 'Monument Valley, USA',
+          'title': 'Rock formations in Hunts Mesa',
         },
-        {
-          "assetName": "moraine_lake",
-          "readableName": "Moraine Lake",
-          "readableFullname": "Moraine Lake, Canada",
-          "title": "Moraine Lake and the Rocky Mountains",
+        <String, String>{
+          'assetName': 'moraine_lake',
+          'readableName': 'Moraine Lake',
+          'readableFullname': 'Moraine Lake, Canada',
+          'title': 'Moraine Lake and the Rocky Mountains',
         },
-        {
-          "assetName": "piedmont",
-          "readableName": "Piedmont",
-          "readableFullname": "Piedmont, Italy",
-          "title": "Vineyards in Piedmont region, Nothern Italy",
+        <String, String>{
+          'assetName': 'piedmont',
+          'readableName': 'Piedmont',
+          'readableFullname': 'Piedmont, Italy',
+          'title': 'Vineyards in Piedmont region, Nothern Italy',
         },
-        {
-          "assetName": "plitvice",
-          "readableName": "Plitvice",
-          "readableFullname": "Plitvice, Croatia",
-          "title": "Waterfalls at Plitvice Lakes National Park",
+        <String, String>{
+          'assetName': 'plitvice',
+          'readableName': 'Plitvice',
+          'readableFullname': 'Plitvice, Croatia',
+          'title': 'Waterfalls at Plitvice Lakes National Park',
         },
-        {
-          "assetName": "rice_fields",
-          "readableName": "Mu Cang Chai",
-          "readableFullname": "Mu Cang Chai, Vietnam",
-          "title": "Terraced rice fields in Mu Cang Chai district",
+        <String, String>{
+          'assetName': 'rice_fields',
+          'readableName': 'Mu Cang Chai',
+          'readableFullname': 'Mu Cang Chai, Vietnam',
+          'title': 'Terraced rice fields in Mu Cang Chai district',
         },
-        {
-          "assetName": "sahara_desert",
-          "readableName": "Sahara Desert",
-          "readableFullname": "Sahara Desert",
-          "title": "Caravan in the Sahara Desert, Morocco",
+        <String, String>{
+          'assetName': 'sahara_desert',
+          'readableName': 'Sahara Desert',
+          'readableFullname': 'Sahara Desert',
+          'title': 'Caravan in the Sahara Desert, Morocco',
         },
-        {
-          "assetName": "wulingyuan",
-          "readableName": "Wulingyuan",
-          "readableFullname": "Wulingyuan, China",
-          "title": "Sandstone pillars, scenic world heritage site",
+        <String, String>{
+          'assetName': 'wulingyuan',
+          'readableName': 'Wulingyuan',
+          'readableFullname': 'Wulingyuan, China',
+          'title': 'Sandstone pillars, scenic world heritage site',
         },
-        {
-          "assetName": "yellowstone",
-          "readableName": "Yellowstone",
-          "readableFullname": "Yellowstone National Park, USA",
-          "title": "The Grand Prismatic Spring",
+        <String, String>{
+          'assetName': 'yellowstone',
+          'readableName': 'Yellowstone',
+          'readableFullname': 'Yellowstone National Park, USA',
+          'title': 'The Grand Prismatic Spring',
         },
       ],
     },
     // Natural Wonders
-    {
-      "categoryName": "natural_wonders",
-      "categoryReadableName": "7 Natural Wonders",
-      "categoryImages": [
-        {
-          "assetName": "aurora_borealis",
-          "readableName": "Aurora Borealis",
+    <String, dynamic>{
+      'categoryName': 'natural_wonders',
+      'categoryReadableName': '7 Natural Wonders',
+      'categoryImages': <Map<String, String>>[
+        <String, String>{
+          'assetName': 'aurora_borealis',
+          'readableName': 'Aurora Borealis',
+          'readableFullname': 'Aurora Borealis',
+          'title': '',
         },
-        {
-          "assetName": "grand_canyon",
-          "readableName": "Grand Canyon",
+        <String, String>{
+          'assetName': 'grand_canyon',
+          'readableName': 'Grand Canyon',
+          'readableFullname': 'Grand Canyon',
+          'title': '',
         },
-        {
-          "assetName": "guanabara_bay",
-          "readableName": "Guanabara Bay",
+        <String, String>{
+          'assetName': 'guanabara_bay',
+          'readableName': 'Guanabara Bay',
+          'readableFullname': 'Guanabara Bay',
+          'title': '',
         },
-        {
-          "assetName": "great_barrier_reef",
-          "readableName": "Great Barrier Reef",
+        <String, String>{
+          'assetName': 'great_barrier_reef',
+          'readableName': 'Great Barrier Reef',
+          'readableFullname': 'Great Barrier Reef',
+          'title': '',
         },
-        {
-          "assetName": "mount_everest",
-          "readableName": "Mount Everest",
+        <String, String>{
+          'assetName': 'mount_everest',
+          'readableName': 'Mount Everest',
+          'readableFullname': 'Mount Everest',
+          'title': '',
         },
-        {
-          "assetName": "victoria_falls",
-          "readableName": "Victoria Falls",
+        <String, String>{
+          'assetName': 'victoria_falls',
+          'readableName': 'Victoria Falls',
+          'readableFullname': 'Victoria Falls',
+          'title': '',
         },
       ],
     },
     // Under the Sea
-    {
-      "categoryName": "under_the_sea",
-      "categoryReadableName": "Under the Sea",
-      "categoryImages": [
-        {
-          "assetName": "clown_fish",
-          "readableName": "Clown Fish",
+    <String, dynamic>{
+      'categoryName': 'under_the_sea',
+      'categoryReadableName': 'Under the Sea',
+      'categoryImages': <Map<String, String>>[
+        <String, String>{
+          'assetName': 'clown_fish',
+          'readableName': 'Clown Fish',
+          'readableFullname': 'Clown Fish',
+          'title': '',
         },
-        {
-          "assetName": "coral_reef",
-          "readableName": "Coral Reef",
+        <String, String>{
+          'assetName': 'coral_reef',
+          'readableName': 'Coral Reef',
+          'readableFullname': 'Coral Reef',
+          'title': '',
         },
-        {
-          "assetName": "cuttlefish",
-          "readableName": "Cuttlefish",
+        <String, String>{
+          'assetName': 'cuttlefish',
+          'readableName': 'Cuttlefish',
+          'readableFullname': 'Cuttlefish',
+          'title': '',
         },
-        {
-          "assetName": "dolphin",
-          "readableName": "Dolphin",
+        <String, String>{
+          'assetName': 'dolphin',
+          'readableName': 'Dolphin',
+          'readableFullname': 'Dolphin',
+          'title': '',
         },
-        {
-          "assetName": "jellyfish",
-          "readableName": "Jellyfish",
+        <String, String>{
+          'assetName': 'jellyfish',
+          'readableName': 'Jellyfish',
+          'readablreadableFullnameeName': 'Jellyfish',
+          'title': '',
         },
-        {
-          "assetName": "octopus",
-          "readableName": "Octopus",
+        <String, String>{
+          'assetName': 'octopus',
+          'readableName': 'Octopus',
+          'readableFullname': 'Octopus',
+          'title': '',
         },
-        {
-          "assetName": "orca",
-          "readableName": "Orca",
+        <String, String>{
+          'assetName': 'orca',
+          'readableName': 'Orca',
+          'readableFullname': 'Orca',
+          'title': '',
         },
-        {
-          "assetName": "seahorse",
-          "readableName": "Seahorse",
+        <String, String>{
+          'assetName': 'seahorse',
+          'readableName': 'Seahorse',
+          'readableFullname': 'Seahorse',
+          'title': '',
         },
-        {
-          "assetName": "sea_otter",
-          "readableName": "Sea Otter",
+        <String, String>{
+          'assetName': 'sea_otter',
+          'readableName': 'Sea Otter',
+          'readableFullname': 'Sea Otter',
+          'title': '',
         },
-        {
-          "assetName": "sea_turtle",
-          "readableName": "Sea Turtle",
+        <String, String>{
+          'assetName': 'sea_turtle',
+          'readableName': 'Sea Turtle',
+          'readableFullname': 'Sea Turtle',
+          'title': '',
         },
-        {
-          "assetName": "starfish",
-          "readableName": "Starfish",
+        <String, String>{
+          'assetName': 'starfish',
+          'readableName': 'Starfish',
+          'readableFullname': 'Starfish',
+          'title': '',
         },
-        {
-          "assetName": "stingray",
-          "readableName": "Stingray",
+        <String, String>{
+          'assetName': 'stingray',
+          'readableName': 'Stingray',
+          'readableFullname': 'Stingray',
+          'title': '',
         },
       ],
     }

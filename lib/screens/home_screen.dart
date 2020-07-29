@@ -8,15 +8,15 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:audioplayers/audio_cache.dart';
 
-import '../providers/game_provider.dart';
-import '../providers/device_provider.dart';
 import '../ad_manager.dart';
-import '../data/images_data.dart';
+import '../components/buttons/mute_button.dart';
+import '../components/buttons/play_button.dart';
+import '../components/buttons/shop_button.dart';
 import '../components/polaroid.dart';
 import '../components/puzzle_pic_logo.dart';
-import '../components/buttons/play_button.dart';
-import '../components/buttons/mute_button.dart';
-import '../components/buttons/shop_button.dart';
+import '../data/images_data.dart';
+import '../providers/device_provider.dart';
+import '../providers/game_provider.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -45,18 +45,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _audioCache = AudioCache(prefix: 'audio/');
 
     precacheImagesCompleted = false;
-    imagesToPrecache = [
-      AssetImage('assets/images/background.png'),
-      AssetImage('assets/images/_categories/_categories_banner.png'),
-      AssetImage('assets/images/_polaroids/polaroid_eiffel_tower.jpg'),
-      AssetImage('assets/images/_polaroids/polaroid_daisies.jpg'),
-      AssetImage('assets/images/_polaroids/polaroid_sea_turtle.jpg'),
-      AssetImage('assets/images/_polaroids/polaroid_taj_mahal.jpg'),
-      AssetImage('assets/images/_polaroids/polaroid_pyramids.jpg'),
-      AssetImage('assets/images/_polaroids/polaroid_grand_canyon.jpg'),
+    imagesToPrecache = <AssetImage>[
+      const AssetImage('assets/images/background.png'),
+      const AssetImage('assets/images/_categories/_categories_banner.png'),
+      const AssetImage('assets/images/_polaroids/polaroid_eiffel_tower.jpg'),
+      const AssetImage('assets/images/_polaroids/polaroid_daisies.jpg'),
+      const AssetImage('assets/images/_polaroids/polaroid_sea_turtle.jpg'),
+      const AssetImage('assets/images/_polaroids/polaroid_taj_mahal.jpg'),
+      const AssetImage('assets/images/_polaroids/polaroid_pyramids.jpg'),
+      const AssetImage('assets/images/_polaroids/polaroid_grand_canyon.jpg'),
     ];
 
-    Images.imageList.forEach((imageCategory) {
+    Images.imageList.forEach((Map<String, dynamic> imageCategory) {
       // Category images
       imagesToPrecache.add(
         AssetImage(
@@ -69,7 +69,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       );
 
       // Select picture screen thumbnails
-      List<dynamic>.from(imageCategory['categoryImages']).forEach((image) {
+      List<Map<String, dynamic>>.from(
+              imageCategory['categoryImages'] as Iterable<dynamic>)
+          .forEach((Map<String, dynamic> image) {
         imagesToPrecache.add(AssetImage(
             'assets/images/${imageCategory['categoryName']}/${image['assetName']}_full_mini.jpg'));
       });
@@ -109,7 +111,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void didChangeDependencies() {
-    for (var i = 0; i < imagesToPrecache.length; i++) {
+    for (int i = 0; i < imagesToPrecache.length; i++) {
       precacheImage(imagesToPrecache[i], context).then((_) {
         if (i == imagesToPrecache.length - 1) {
           setState(() {
@@ -128,8 +130,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     final bool useMobileLayout = shortestSide < 600;
     final double deviceHeight = MediaQuery.of(context).size.height;
 
-    GameProvider gameProvider = Provider.of<GameProvider>(context);
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final GameProvider gameProvider = Provider.of<GameProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     gameProvider.setScreenWidth(width: MediaQuery.of(context).size.width - 20);
 
@@ -142,14 +144,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     // print("width: $w height:$h");
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
           image: AssetImage('assets/images/background.png'),
         ),
       ),
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
+        backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
         body: precacheImagesCompleted
             ? Stack(
                 children: <Widget>[
@@ -157,57 +159,57 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     polaroidSlideController: _polaroidSlideController,
                     alignment: Alignment.bottomRight,
                     angle: math.pi / 6,
-                    beginPosition: Offset(1, 1),
-                    endPosition: Offset(0.3, 0),
-                    image: "grand_canyon",
+                    beginPosition: const Offset(1, 1),
+                    endPosition: const Offset(0.3, 0),
+                    image: 'grand_canyon',
                     startInterval: 0.4,
                   ),
                   Polaroid(
                     polaroidSlideController: _polaroidSlideController,
                     alignment: Alignment.bottomLeft,
                     angle: -math.pi / 10,
-                    beginPosition: Offset(-1.5, 1.5),
-                    endPosition: Offset(-0.2, 0.1),
-                    image: "pyramids",
+                    beginPosition: const Offset(-1.5, 1.5),
+                    endPosition: const Offset(-0.2, 0.1),
+                    image: 'pyramids',
                     startInterval: 0.2,
                   ),
                   Polaroid(
                     polaroidSlideController: _polaroidSlideController,
                     alignment: Alignment.topLeft,
                     angle: -math.pi / 6,
-                    beginPosition: Offset(-1, -1),
-                    endPosition: Offset(0, 0),
-                    image: "daisies",
+                    beginPosition: const Offset(-1, -1),
+                    endPosition: const Offset(0, 0),
+                    image: 'daisies',
                     startInterval: 0.1,
                   ),
                   Polaroid(
                     polaroidSlideController: _polaroidSlideController,
                     alignment: Alignment.centerLeft,
                     angle: math.pi / 7,
-                    beginPosition: Offset(-1.5, 0),
-                    endPosition: Offset(0, 0),
-                    image: "sea_turtle",
+                    beginPosition: const Offset(-1.5, 0),
+                    endPosition: const Offset(0, 0),
+                    image: 'sea_turtle',
                     startInterval: 0.3,
                   ),
                   Polaroid(
                     polaroidSlideController: _polaroidSlideController,
                     alignment: Alignment.centerRight,
                     angle: -math.pi / 9,
-                    beginPosition: Offset(1.5, 0),
-                    endPosition: Offset(0.2, 0),
-                    image: "taj_mahal",
+                    beginPosition: const Offset(1.5, 0),
+                    endPosition: const Offset(0.2, 0),
+                    image: 'taj_mahal',
                     startInterval: 0.1,
                   ),
                   Polaroid(
                     polaroidSlideController: _polaroidSlideController,
                     alignment: Alignment.topRight,
                     angle: math.pi / 8,
-                    beginPosition: Offset(1.5, -1),
-                    endPosition: Offset(0.2, -0.2),
-                    image: "eiffel_tower",
+                    beginPosition: const Offset(1.5, -1),
+                    endPosition: const Offset(0.2, -0.2),
+                    image: 'eiffel_tower',
                     startInterval: 0.3,
                   ),
-                  MuteButton(),
+                  const MuteButton(),
                   PlayButton(
                     playButtonSlideController: _playButtonSlideController,
                     shopButtonSlideController: _shopButtonSlideController,

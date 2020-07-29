@@ -38,7 +38,7 @@ class DeviceProvider extends ChangeNotifier {
 
   void setAudioCache({AudioCache audioCache}) {
     _audioCache = audioCache;
-    _audioCache.loadAll([
+    _audioCache.loadAll(<String>[
       'fast_click.wav',
       'image_piece_slide.wav',
       'play_button_click.wav',

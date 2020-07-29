@@ -18,19 +18,20 @@ class PuzzlePicApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // Init the database
     DBProviderDb().database;
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Color(0xff501E5D), //or set color with: Color(0xFF0000FF)
     ));
 
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIOverlays(
+        <SystemUiOverlay>[SystemUiOverlay.bottom]);
 
-    SystemChrome.setPreferredOrientations([
+    SystemChrome.setPreferredOrientations(<DeviceOrientation>[
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
 
     return MultiProvider(
-      providers: [
+      providers: <ChangeNotifierProvider<ChangeNotifier>>[
         ChangeNotifierProvider<GameProvider>(create: (_) => GameProvider()),
         ChangeNotifierProvider<DeviceProvider>(create: (_) => DeviceProvider()),
       ],

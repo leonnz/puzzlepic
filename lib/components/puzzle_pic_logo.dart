@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../styles/customStyles.dart';
 import '../providers/device_provider.dart';
+import '../styles/customStyles.dart';
 
 class PuzzlePicLogo extends StatefulWidget {
   const PuzzlePicLogo({Key key, this.puzzlePicSlideController})
@@ -20,8 +20,8 @@ class _PuzzlePicLogoState extends State<PuzzlePicLogo>
   @override
   void initState() {
     _puzzlePicSlideAnimation = Tween<Offset>(
-      begin: Offset(0, -2),
-      end: Offset(0, 0),
+      begin: const Offset(0, -2),
+      end: const Offset(0, 0),
     ).animate(
       CurvedAnimation(
         parent: widget.puzzlePicSlideController,
@@ -29,14 +29,15 @@ class _PuzzlePicLogoState extends State<PuzzlePicLogo>
       ),
     );
 
-    Future.delayed(Duration(milliseconds: 500))
+    Future<TickerFuture>.delayed(const Duration(milliseconds: 500))
         .then((_) => widget.puzzlePicSlideController.forward());
 
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     return Align(
       alignment: Alignment.topCenter,
@@ -44,7 +45,7 @@ class _PuzzlePicLogoState extends State<PuzzlePicLogo>
         position: _puzzlePicSlideAnimation,
         child: Container(
           width: double.infinity,
-          color: Color.fromRGBO(147, 112, 219, 0.2),
+          color: const Color.fromRGBO(147, 112, 219, 0.2),
           margin: EdgeInsets.only(
             top: deviceProvider.getDeviceScreenHeight * 0.2,
           ),

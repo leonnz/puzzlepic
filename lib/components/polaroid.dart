@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';
 
 class Polaroid extends StatefulWidget {
-  Polaroid(
+  const Polaroid(
       {Key key,
       this.alignment,
       this.angle,
@@ -47,7 +47,7 @@ class _PolaroidState extends State<Polaroid>
       ),
     );
 
-    Future.delayed(Duration(milliseconds: 500))
+    Future<TickerFuture>.delayed(const Duration(milliseconds: 500))
         .then((_) => widget.polaroidSlideController.forward());
 
     super.initState();
@@ -61,7 +61,8 @@ class _PolaroidState extends State<Polaroid>
 
   @override
   Widget build(BuildContext context) {
-    GameProvider gameState = Provider.of<GameProvider>(context, listen: false);
+    final GameProvider gameState =
+        Provider.of<GameProvider>(context, listen: false);
 
     return Align(
       alignment: widget.alignment,
@@ -72,11 +73,9 @@ class _PolaroidState extends State<Polaroid>
           position: _slideAnimation,
           child: Transform.rotate(
             angle: widget.angle,
-            child: Container(
-              child: Image(
-                image: AssetImage(
-                    'assets/images/_polaroids/polaroid_${widget.image}.jpg'),
-              ),
+            child: Image(
+              image: AssetImage(
+                  'assets/images/_polaroids/polaroid_${widget.image}.jpg'),
             ),
           ),
         ),

@@ -68,10 +68,10 @@ class _ImageButtonState extends State<ImageButton> {
       child: Card(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-            side: BorderSide(width: 1, color: Colors.white)),
+            side: BorderSide(color: Colors.white)),
         elevation: 5,
         child: Stack(
-          children: [
+          children: <Widget>[
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image(

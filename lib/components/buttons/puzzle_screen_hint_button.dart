@@ -12,16 +12,19 @@ class PuzzleScreenHintButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
-    GameProvider gameProvider = Provider.of<GameProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
-    Route _customScaleRoute() {
-      return PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => HintScreen(
+    Route<dynamic> _customScaleRoute() {
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (BuildContext context, Animation<double> animation,
+                Animation<double> secondaryAnimation) =>
+            HintScreen(
           category: gameProvider.getImageCategory,
           imageAssetname: gameProvider.getAssetName,
         ),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        transitionsBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation, Widget child) {
           return ScaleTransition(
             scale: CurvedAnimation(parent: animation, curve: Curves.ease),
             child: child,
@@ -36,14 +39,14 @@ class PuzzleScreenHintButton extends StatelessWidget {
       buttonColor: Colors.white,
       child: RaisedButton(
         elevation: 3,
-        child: Icon(
-          Icons.search,
-          size: deviceProvider.getUseMobileLayout ? 24 : 40,
-        ),
         onPressed: () {
           deviceProvider.playSound(sound: 'play_button_click.wav');
           Navigator.of(context).push(_customScaleRoute());
         },
+        child: Icon(
+          Icons.search,
+          size: deviceProvider.getUseMobileLayout ? 24 : 40,
+        ),
       ),
     );
   }

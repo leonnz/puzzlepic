@@ -10,15 +10,15 @@ class PuzzleScreenQuitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GameProvider gameProvider = Provider.of(context, listen: false);
+    final GameProvider gameProvider = Provider.of(context, listen: false);
 
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
-    quitGameAlert() async {
+    Future<void> quitGameAlert() async {
       bool quit = false;
       quit = await showDialog(
         context: context,
-        builder: (context) => QuitAlert(),
+        builder: (BuildContext context) => const QuitAlert(),
       );
       if (quit) {
         gameProvider.resetGameState();
@@ -31,20 +31,21 @@ class PuzzleScreenQuitButton extends StatelessWidget {
       height: deviceProvider.getUseMobileLayout ? 36 : 60,
       buttonColor: Colors.white,
       child: RaisedButton(
-          elevation: 3,
-          child: Icon(
-            Icons.close,
-            size: deviceProvider.getUseMobileLayout ? 24 : 40,
-          ),
-          onPressed: () {
-            deviceProvider.playSound(sound: 'play_button_click.wav');
-            if (gameProvider.getPuzzleComplete || gameProvider.getMoves == 0) {
-              gameProvider.resetGameState();
-              Navigator.pop(context, true);
-            } else {
-              quitGameAlert();
-            }
-          }),
+        elevation: 3,
+        onPressed: () {
+          deviceProvider.playSound(sound: 'play_button_click.wav');
+          if (gameProvider.getPuzzleComplete || gameProvider.getMoves == 0) {
+            gameProvider.resetGameState();
+            Navigator.pop(context, true);
+          } else {
+            quitGameAlert();
+          }
+        },
+        child: Icon(
+          Icons.close,
+          size: deviceProvider.getUseMobileLayout ? 24 : 40,
+        ),
+      ),
     );
   }
 }

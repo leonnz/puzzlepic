@@ -22,7 +22,7 @@ class PuzzleCardImageBoard extends StatelessWidget {
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
     Future<void> puzzleCompleteDb() async {
-      gameProvider.setPuzzleComplete(true);
+      gameProvider.setPuzzleComplete(complete: true);
 
       final DBProviderDb dbProvider = DBProviderDb();
 
@@ -69,7 +69,7 @@ class PuzzleCardImageBoard extends StatelessWidget {
       }
 
       if (complete) {
-        gameProvider.setPuzzleComplete(complete);
+        gameProvider.setPuzzleComplete(complete: complete);
         puzzleCompleteDb();
       }
 
