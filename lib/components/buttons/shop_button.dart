@@ -58,7 +58,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
   void _onTapUp(TapUpDetails details) {
     Navigator.push(
       context,
-      MaterialPageRoute<ShopScreen>(
+      MaterialPageRoute<bool>(
         builder: (BuildContext context) => ShopScreen(),
       ),
     );
