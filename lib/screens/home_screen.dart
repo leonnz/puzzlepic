@@ -127,12 +127,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final double shortestSide = MediaQuery.of(context).size.shortestSide;
     final bool useMobileLayout = shortestSide < 600;
+
     DeviceProvider.deviceScreenHeight = MediaQuery.of(context).size.height;
-
-    final GameProvider gameProvider = Provider.of<GameProvider>(context);
+    GameProvider.screenWidth = MediaQuery.of(context).size.width - 20;
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
-
-    gameProvider.setScreenWidth(width: MediaQuery.of(context).size.width - 20);
 
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
     deviceProvider.setAudioCache(audioCache: _audioCache);

@@ -2,15 +2,13 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 class GameProvider with ChangeNotifier {
-  static String test = 'leon';
-
   static bool puzzleComplete = false;
   static Map<String, String> _image;
   static List<Map<String, dynamic>> _piecePositions = <Map<String, dynamic>>[];
-  static double _screenWidth;
+  static double screenWidth;
   static const int _gridColumns = 4;
   static const int _totalGridSize = 16;
-  static final double _singlePieceWidth = _screenWidth / _gridColumns;
+  static final double _singlePieceWidth = screenWidth / _gridColumns;
 
   static int _blankSquare = _totalGridSize;
   static int _moves = 0;
@@ -47,7 +45,7 @@ class GameProvider with ChangeNotifier {
   bool get getPuzzleComplete => puzzleComplete;
   Map<String, String> get getImage => _image;
   List<Map<String, dynamic>> get getPiecePositions => _piecePositions;
-  double get getScreenWidth => _screenWidth;
+  double get getScreenWidth => screenWidth;
   double get getSinglePieceWidth => _singlePieceWidth;
   int get getTotalGridSize => _totalGridSize;
   int get getBlankSquare => _blankSquare;
@@ -78,10 +76,6 @@ class GameProvider with ChangeNotifier {
 
   void setGridPositions() {
     _gridPositions = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-  }
-
-  void setScreenWidth({double width}) {
-    _screenWidth = width;
   }
 
   // Check if the piece number matches its position
