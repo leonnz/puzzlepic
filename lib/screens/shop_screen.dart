@@ -206,34 +206,34 @@ class _ShopScreenState extends State<ShopScreen> {
           ),
         ],
       ),
-
-      // Column(
-      //   children: <Widget>[
-      //     Text('test'),
-
-      // for (var prod in _products)
-      //   if (_hasPurchased(prod.id) != null) ...[
-      //     Text('Already purchased'),
-      //   ] else ...[
-      //     ListView.builder(
-      //       itemCount: _products.length,
-      //       itemBuilder: (context, index) {
-      //         return Container(
-      //           child: Text(_products[index].title),
-      //         );
-      //       },
-      //     ),
-      //     Text(prod.title),
-      //     Text(prod.description),
-      //     Text(prod.price),
-      //     FlatButton(
-      //       child: Text('BUY IT!!!'),
-      //       color: Colors.green,
-      //       onPressed: () => _buyProduct(prod),
-      //     )
-      //   ]
-      //   ],
-      // ),
     );
   }
 }
+
+// Column(
+//   children: <Widget>[
+//     Text('test'),
+
+// for (var prod in _products)
+//   if (_hasPurchased(prod.id) != null) ...[
+//     Text('Already purchased'),
+//   ] else ...[
+//     ListView.builder(
+//       itemCount: _products.length,
+//       itemBuilder: (context, index) {
+//         return Container(
+//           child: Text(_products[index].title),
+//         );
+//       },
+//     ),
+//     Text(prod.title),
+//     Text(prod.description),
+//     Text(prod.price),
+//     FlatButton(
+//       child: Text('BUY IT!!!'),
+//       color: Colors.green,
+//       onPressed: () => _buyProduct(prod),
+//     )
+//   ]
+//   ],
+// ),
