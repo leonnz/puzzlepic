@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../providers/device_provider.dart';
-import '../../styles/customStyles.dart';
 import '../../screens/select_category_screen.dart';
+import '../../styles/customStyles.dart';
 
 class PlayButton extends StatefulWidget {
-  PlayButton({
+  const PlayButton({
     Key key,
     this.playButtonSlideController,
     this.shopButtonSlideController,
@@ -32,7 +32,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   void initState() {
     _playButtonBounceController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
       lowerBound: 0.0,
       upperBound: 0.08,
     )..addListener(() {
@@ -40,8 +40,8 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
       });
 
     _playButtonSlideAnimation = Tween<Offset>(
-      begin: Offset(10, 0),
-      end: Offset(0, 0),
+      begin: const Offset(10, 0),
+      end: const Offset(0, 0),
     ).animate(
       CurvedAnimation(
         parent: widget.playButtonSlideController,
@@ -49,7 +49,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
       ),
     );
 
-    Future.delayed(Duration(milliseconds: 500))
+    Future<dynamic>.delayed(const Duration(milliseconds: 500))
         .then((_) => widget.playButtonSlideController.forward());
 
     super.initState();
@@ -88,7 +88,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     _scale = 1 - _playButtonBounceController.value;
 
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -113,13 +113,13 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
                     BoxShadow(
                       color: Colors.black45,
                       blurRadius: 5.0,
-                      offset: Offset(0.0, 5.0),
+                      offset: const Offset(0.0, 5.0),
                     ),
                   ],
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [
+                      colors: <Color>[
                         Colors.white,
                         Colors.grey[350],
                       ]),

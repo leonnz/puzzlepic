@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import '../../styles/customStyles.dart';
 import '../../providers/device_provider.dart';
 import '../../providers/game_provider.dart';
 import '../../screens/puzzle_screen.dart';
+import '../../styles/customStyles.dart';
 
 class ImageButton extends StatefulWidget {
   const ImageButton({
@@ -95,7 +95,7 @@ class _ImageButtonState extends State<ImageButton> {
               child: Container(
                 height: deviceProvider.getUseMobileLayout ? 50 : 70,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color.fromRGBO(255, 255, 255, 0.80),
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(10),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/device_provider.dart';
 import '../../providers/game_provider.dart';
 import '../../providers/image_piece_provider.dart';
-import '../../providers/device_provider.dart';
 import '../alerts/puzzle_complete_alert.dart';
 
 class ImagePiece extends StatefulWidget {
@@ -23,12 +23,12 @@ class ImagePiece extends StatefulWidget {
 class _ImagePieceState extends State<ImagePiece>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
-  Animation _animation;
+  Animation<double> _animation;
 
   Future<dynamic> showPuzzleCompleteAlert() {
     return showDialog(
       context: context,
-      builder: (context) => PuzzleCompleteAlert(
+      builder: (BuildContext context) => PuzzleCompleteAlert(
           // fullAd: interstitialAd,
           // fullAdReady: isInterstitialAdReady,
           ),
@@ -36,18 +36,19 @@ class _ImagePieceState extends State<ImagePiece>
   }
 
   @override
+  @protected
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
 
-    _animation = Tween(
+    _animation = Tween<double>(
       begin: 0.0,
       end: 1.0,
     ).animate(_controller);
 
-    _controller.addStatusListener((status) {
+    _controller.addStatusListener((AnimationStatus status) {
       if (status == AnimationStatus.completed && widget.lastPiece == true) {
         showPuzzleCompleteAlert();
       }
@@ -55,17 +56,19 @@ class _ImagePieceState extends State<ImagePiece>
     super.initState();
   }
 
+  @override
   @protected
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
-    GameProvider gameProvider = Provider.of<GameProvider>(context);
-    ImagePieceProvider imagePieceProvider =
+    final GameProvider gameProvider = Provider.of<GameProvider>(context);
+    final ImagePieceProvider imagePieceProvider =
         Provider.of<ImagePieceProvider>(context);
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     bool dragged = false;
     double initial = 0.0;
@@ -74,10 +77,19 @@ class _ImagePieceState extends State<ImagePiece>
 
     _controller.forward();
     return AnimatedPositioned(
+      left: imagePieceProvider.getLeftPosition(
+          pieceNumber: widget.pieceNumber,
+          piecePositions: gameProvider.getPiecePositions),
+      top: imagePieceProvider.getTopPosition(
+        pieceNumber: widget.pieceNumber,
+        piecePositions: gameProvider.getPiecePositions,
+      ),
+      duration: const Duration(milliseconds: 100),
+      curve: Curves.linear,
       child: FadeTransition(
         opacity: widget.lastPiece
             ? _animation
-            : Tween(begin: 1.0, end: 1.0).animate(_controller),
+            : Tween<double>(begin: 1.0, end: 1.0).animate(_controller),
         child: GestureDetector(
           onHorizontalDragStart: (DragStartDetails details) {
             initial = details.globalPosition.dx;
@@ -161,15 +173,6 @@ class _ImagePieceState extends State<ImagePiece>
           ),
         ),
       ),
-      left: imagePieceProvider.getLeftPosition(
-          pieceNumber: widget.pieceNumber,
-          piecePositions: gameProvider.getPiecePositions),
-      top: imagePieceProvider.getTopPosition(
-        pieceNumber: widget.pieceNumber,
-        piecePositions: gameProvider.getPiecePositions,
-      ),
-      duration: Duration(milliseconds: 100),
-      curve: Curves.linear,
     );
   }
 }

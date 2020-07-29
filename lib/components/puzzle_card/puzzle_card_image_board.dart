@@ -21,7 +21,7 @@ class PuzzleCardImageBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
-    void puzzleCompleteDb() async {
+    Future<void> puzzleCompleteDb() async {
       gameProvider.setPuzzleComplete(true);
 
       final DBProviderDb dbProvider = DBProviderDb();
@@ -43,7 +43,7 @@ class PuzzleCardImageBoard extends StatelessWidget {
         }
       } else {
         gameProvider.setBestMoves(moves: gameProvider.getMoves);
-        final record = PuzzleRecord(
+        final PuzzleRecord record = PuzzleRecord(
           puzzleName: gameProvider.getReadableName,
           puzzleCategory: gameProvider.getImageCategory,
           complete: 'true',
@@ -54,15 +54,15 @@ class PuzzleCardImageBoard extends StatelessWidget {
       }
     }
 
-    List<ImagePiece> generateImagePieces(int numberOfPieces, bool complete) {
-      List<ImagePiece> imagePieceList = <ImagePiece>[];
+    List<ImagePiece> generateImagePieces({int numberOfPieces, bool complete}) {
+      final List<ImagePiece> imagePieceList = <ImagePiece>[];
 
       // Always produce 1 less image piece that the grid size
       for (int i = 1; i <= numberOfPieces; i++) {
         imagePieceList.add(
           ImagePiece(
             pieceNumber: i,
-            lastPiece: complete ? true : false,
+            lastPiece: complete,
           ),
         );
         gameProvider.setInitialPuzzlePiecePosition(i);
@@ -84,12 +84,16 @@ class PuzzleCardImageBoard extends StatelessWidget {
         color: Colors.grey,
         child: gameProvider.getPuzzleComplete
             ? Stack(
-                children:
-                    generateImagePieces(gameProvider.getTotalGridSize, true),
+                children: generateImagePieces(
+                  numberOfPieces: gameProvider.getTotalGridSize,
+                  complete: true,
+                ),
               )
             : Stack(
                 children: generateImagePieces(
-                    gameProvider.getTotalGridSize - 1, false),
+                  numberOfPieces: gameProvider.getTotalGridSize - 1,
+                  complete: false,
+                ),
               ),
       ),
     );
