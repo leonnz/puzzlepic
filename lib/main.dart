@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
+import './data/db_provider.dart';
 import './providers/device_provider.dart';
 import './providers/game_provider.dart';
 import './screens/home_screen.dart';
-import './data/db_provider.dart';
 
 void main() {
   InAppPurchaseConnection.enablePendingPurchases();
@@ -31,10 +31,10 @@ class PuzzlePicApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => GameProvider()),
-        ChangeNotifierProvider(create: (_) => DeviceProvider()),
+        ChangeNotifierProvider<GameProvider>(create: (_) => GameProvider()),
+        ChangeNotifierProvider<DeviceProvider>(create: (_) => DeviceProvider()),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Puzzle Pic',
         home: Home(),

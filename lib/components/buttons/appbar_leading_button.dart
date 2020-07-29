@@ -13,7 +13,7 @@ class AppBarLeadingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     return Align(
       alignment: Alignment.centerLeft,

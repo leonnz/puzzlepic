@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../providers/device_provider.dart';
 
 class CustomTextTheme {
 // Select Category Screen and Select Picture Screen
+  CustomTextTheme({this.deviceProvider});
 
   DeviceProvider deviceProvider;
-
-  CustomTextTheme({this.deviceProvider});
 
   TextStyle homeScreenAppName(BuildContext context) {
     return GoogleFonts.satisfy(
@@ -19,7 +19,7 @@ class CustomTextTheme {
         Shadow(
           blurRadius: 5,
           color: Colors.purple,
-          offset: Offset(1, 1),
+          offset: const Offset(1, 1),
         )
       ],
     );
@@ -44,7 +44,7 @@ class CustomTextTheme {
         Shadow(
           blurRadius: 1,
           color: Colors.white70,
-          offset: Offset(1, 1),
+          offset: const Offset(1, 1),
         )
       ],
     );
@@ -79,7 +79,7 @@ class CustomTextTheme {
         Shadow(
           blurRadius: 1,
           color: Colors.white,
-          offset: Offset(1, 1),
+          offset: const Offset(1, 1),
         )
       ],
     );

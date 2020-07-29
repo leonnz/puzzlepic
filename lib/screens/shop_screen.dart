@@ -1,23 +1,24 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/device_provider.dart';
 import '../components/buttons/appbar_leading_button.dart';
+import '../providers/device_provider.dart';
 import '../styles/customStyles.dart';
 
-import 'dart:io';
-import 'dart:async';
-
 class ShopScreen extends StatefulWidget {
-  createState() => _ShopScreenState();
+  @override
+  _ShopScreenState createState() => _ShopScreenState();
 }
 
 class _ShopScreenState extends State<ShopScreen> {
   final String removeAdsID = 'remove_ads';
   final List<String> imagePackProductIDs = ['category_natural_wonders'];
 
-  InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
+  final InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> _subscription;
 
   List<ProductDetails> _removeAdProduct = [];
@@ -40,16 +41,17 @@ class _ShopScreenState extends State<ShopScreen> {
     super.dispose();
   }
 
-  void _initialize() async {
+  Future<void> _initialize() async {
     _available = await _iap.isAvailable();
 
     if (_available) {
-      List<Future> futures = [_getProducts(), _getPastPurchases()];
+      final List<Future<void>> futures = [_getProducts(), _getPastPurchases()];
       await Future.wait(futures);
 
       _verifyPurchase();
 
-      _subscription = _iap.purchaseUpdatedStream.listen((data) {
+      _subscription =
+          _iap.purchaseUpdatedStream.listen((List<PurchaseDetails> data) {
         setState(() {
           print('NEW PURCHASE');
           _purchases.addAll(data);
@@ -61,14 +63,14 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   Future<void> _getProducts() async {
-    Set<String> removeAdsIDSet = Set.from([removeAdsID]);
-    Set<String> imagePackIDSet =
-        Set.from([imagePackProductIDs].expand((product) => product));
+    final Set<String> removeAdsIDSet = Set.from([removeAdsID]);
+    final Set<String> imagePackIDSet = Set.from(
+        [imagePackProductIDs].expand((List<String> product) => product));
 
-    ProductDetailsResponse responseRemoveAd =
+    final ProductDetailsResponse responseRemoveAd =
         await _iap.queryProductDetails(removeAdsIDSet);
 
-    ProductDetailsResponse responseImagePack =
+    final ProductDetailsResponse responseImagePack =
         await _iap.queryProductDetails(imagePackIDSet);
 
     setState(() {
@@ -80,9 +82,10 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   Future<void> _getPastPurchases() async {
-    QueryPurchaseDetailsResponse response = await _iap.queryPastPurchases();
+    final QueryPurchaseDetailsResponse response =
+        await _iap.queryPastPurchases();
 
-    for (PurchaseDetails purchase in response.pastPurchases) {
+    for (final PurchaseDetails purchase in response.pastPurchases) {
       if (Platform.isIOS) {
         InAppPurchaseConnection.instance.completePurchase(purchase);
       }
@@ -95,13 +98,13 @@ class _ShopScreenState extends State<ShopScreen> {
 
   PurchaseDetails _hasPurchased(String productID) {
     return _purchases.firstWhere(
-      (purchase) => purchase.productID == productID,
+      (PurchaseDetails purchase) => purchase.productID == productID,
       orElse: () => null,
     );
   }
 
   void _verifyPurchase() {
-    PurchaseDetails purchase = _hasPurchased(removeAdsID);
+    final PurchaseDetails purchase = _hasPurchased(removeAdsID);
 
     if (purchase != null && purchase.status == PurchaseStatus.purchased) {
       print(purchase.productID);
@@ -122,14 +125,14 @@ class _ShopScreenState extends State<ShopScreen> {
 
   @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
             Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
         child: Container(
           decoration: BoxDecoration(
-            image: DecorationImage(
+            image: const DecorationImage(
               image: AssetImage(
                   'assets/images/_categories/_categories_banner.png'),
               fit: BoxFit.cover,
@@ -138,7 +141,7 @@ class _ShopScreenState extends State<ShopScreen> {
               BoxShadow(
                 color: Colors.black45,
                 blurRadius: 5.0,
-                offset: Offset(0.0, 3.0),
+                offset: const Offset(0.0, 3.0),
               ),
             ],
           ),
@@ -160,25 +163,25 @@ class _ShopScreenState extends State<ShopScreen> {
           Expanded(
             child: ListView.builder(
               itemCount: _removeAdProduct.length,
-              padding: EdgeInsets.all(20),
-              itemBuilder: (context, index) {
+              padding: const EdgeInsets.all(20),
+              itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
                     deviceProvider.playSound(sound: 'fast_click.wav');
                     _buyProduct(_removeAdProduct[index]);
                   },
                   child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     height: deviceProvider.getUseMobileLayout ? 50 : 70,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black45,
                           blurRadius: 3.0,
-                          offset: Offset(0.0, 2.0),
+                          offset: const Offset(0.0, 2.0),
                         ),
                       ],
                     ),
@@ -193,7 +196,7 @@ class _ShopScreenState extends State<ShopScreen> {
                         Text(
                           _hasPurchased(_removeAdProduct[index].id) == null
                               ? _removeAdProduct[index].price
-                              : "Purchased",
+                              : 'Purchased',
                           style: CustomTextTheme(deviceProvider: deviceProvider)
                               .selectPictureButtonTextStyle(),
                         ),

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
 
+import '../ad_manager.dart';
+import '../components/alerts/quit_alert.dart';
+import '../components/buttons/mute_button.dart';
 import '../components/buttons/puzzle_screen_hint_button.dart';
 import '../components/buttons/puzzle_screen_quit_button.dart';
-import '../components/buttons/mute_button.dart';
 import '../components/puzzle_card/puzzle_card.dart';
-import '../components/alerts/quit_alert.dart';
 import '../providers/game_provider.dart';
 import '../providers/image_piece_provider.dart';
-import '../ad_manager.dart';
 
 class PuzzleScreen extends StatefulWidget {
   const PuzzleScreen({
@@ -69,11 +69,11 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    GameProvider gameProvider = Provider.of<GameProvider>(context);
+    final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
     gameProvider.setGridPositions();
 
-    quitGameAlert() async {
+    Future<bool> quitGameAlert() async {
       bool quit = false;
 
       if (gameProvider.getPuzzleComplete || gameProvider.getMoves == 0) {
@@ -82,7 +82,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       } else {
         quit = await showDialog(
           context: context,
-          builder: (context) => QuitAlert(),
+          builder: (BuildContext context) => const QuitAlert(),
         );
         if (quit) {
           gameProvider.resetGameState();
@@ -93,27 +93,27 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       return quit;
     }
 
-    return ChangeNotifierProvider(
+    return ChangeNotifierProvider<ImagePieceProvider>(
       create: (_) => ImagePieceProvider(),
       child: WillPopScope(
         onWillPop: () async {
-          bool confirmQuit = await quitGameAlert();
+          final bool confirmQuit = await quitGameAlert();
           return confirmQuit;
         },
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage('assets/images/background.png'),
             ),
           ),
           child: Scaffold(
-            backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
+            backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
             body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MuteButton(),
-                Spacer(),
+                const MuteButton(),
+                const Spacer(),
                 PuzzleCard(
                   interstitialAd: _interstitialAd,
                   isInterstitialAdReady: _isInterstitialAdReady,
@@ -122,13 +122,13 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      PuzzleScreenHintButton(),
-                      PuzzleScreenQuitButton()
+                    children: [
+                      const PuzzleScreenHintButton(),
+                      const PuzzleScreenQuitButton()
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
               ],
             ),
           ),
