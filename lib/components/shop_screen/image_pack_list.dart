@@ -23,12 +23,12 @@ class ImagePackList extends StatelessWidget {
           imagePackList = Expanded(
             child: Container(
               padding: const EdgeInsets.all(10),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: deviceProvider.getGridSize,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
+              child: ListView.builder(
+                // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                //   crossAxisCount: deviceProvider.getGridSize,
+                //   crossAxisSpacing: 10,
+                //   mainAxisSpacing: 10,
+                // ),
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ImagePackShopButton(

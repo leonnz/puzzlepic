@@ -26,7 +26,7 @@ class ImagePackShopButton extends StatelessWidget {
       },
       child: Container(
         margin: const EdgeInsets.all(10),
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         height: deviceProvider.getUseMobileLayout ? 50 : 70,
         width: double.infinity,
         decoration: BoxDecoration(
@@ -40,7 +40,7 @@ class ImagePackShopButton extends StatelessWidget {
             ),
           ],
         ),
-        child: Column(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
