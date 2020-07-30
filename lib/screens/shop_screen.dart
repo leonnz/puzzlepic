@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../components/buttons/appbar_leading_button.dart';
-import '../components/buttons/remove_ad_shop_button.dart';
+import '../components/shop_screen/image_pack_list.dart';
+import '../components/shop_screen/remove_ad_shop_button.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
 import '../styles/custom_styles.dart';
@@ -35,13 +36,11 @@ class _ShopScreenState extends State<ShopScreen> {
       create: (BuildContext context) => ShopProvider(),
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize:
-              Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
+          preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
           child: Container(
             decoration: BoxDecoration(
               image: const DecorationImage(
-                image: AssetImage(
-                    'assets/images/_categories/_categories_banner.png'),
+                image: AssetImage('assets/images/_categories/_categories_banner.png'),
                 fit: BoxFit.cover,
               ),
               boxShadow: <BoxShadow>[
@@ -66,8 +65,11 @@ class _ShopScreenState extends State<ShopScreen> {
           ),
         ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: const <Widget>[
             RemoveAdShopButton(),
+            ImagePackList(),
+            Spacer(),
           ],
         ),
       ),
