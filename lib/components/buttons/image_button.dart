@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../providers/device_provider.dart';
 import '../../providers/game_provider.dart';
 import '../../screens/puzzle_screen.dart';
-import '../../styles/customStyles.dart';
+import '../../styles/custom_styles.dart';
 
 class ImageButton extends StatefulWidget {
   const ImageButton({

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../providers/device_provider.dart';
 import '../../screens/select_category_screen.dart';
-import '../../styles/customStyles.dart';
+import '../../styles/custom_styles.dart';
 
 class PlayButton extends StatefulWidget {
   const PlayButton({

@@ -36,3 +36,6 @@ linter:
 
     # I want to print dammit
     avoid_print: false
+
+    # Warning on customStyles.dart for some reason
+    file_names: true

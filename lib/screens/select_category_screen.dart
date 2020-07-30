@@ -8,7 +8,7 @@ import '../components/buttons/appbar_leading_button.dart';
 import '../components/buttons/category_button.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
-import '../styles/customStyles.dart';
+import '../styles/custom_styles.dart';
 
 class SelectCategory extends StatefulWidget {
   const SelectCategory({Key key}) : super(key: key);

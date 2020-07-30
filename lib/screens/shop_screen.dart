@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../components/buttons/appbar_leading_button.dart';
 import '../providers/device_provider.dart';
-import '../styles/customStyles.dart';
+import '../styles/custom_styles.dart';
 
 class ShopScreen extends StatefulWidget {
   @override

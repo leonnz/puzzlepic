@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../providers/device_provider.dart';
 import '../../screens/shop_screen.dart';
-import '../../styles/customStyles.dart';
+import '../../styles/custom_styles.dart';
 
 class ShopButton extends StatefulWidget {
   const ShopButton({
