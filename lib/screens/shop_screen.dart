@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 
 import '../components/buttons/appbar_leading_button.dart';
 import '../components/buttons/remove_ad_shop_button.dart';
@@ -31,7 +30,6 @@ class _ShopScreenState extends State<ShopScreen> {
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
-    final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
 
     return ChangeNotifierProvider<ShopProvider>(
       create: (BuildContext context) => ShopProvider(),
@@ -68,23 +66,8 @@ class _ShopScreenState extends State<ShopScreen> {
           ),
         ),
         body: Column(
-          children: <Widget>[
-            FutureBuilder<List<ProductDetails>>(
-              future: shopProvider.setRemoveAdsProducts(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<ProductDetails>> snapshot) {
-                Widget removeAdShopButton;
-                if (snapshot.connectionState == ConnectionState.done &&
-                    snapshot.hasData) {
-                  removeAdShopButton = RemoveAdShopButton(
-                    removeAdProduct: snapshot.data,
-                  );
-                } else {
-                  removeAdShopButton = Container();
-                }
-                return removeAdShopButton;
-              },
-            )
+          children: const <Widget>[
+            RemoveAdShopButton(),
           ],
         ),
       ),

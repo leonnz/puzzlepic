@@ -13,9 +13,8 @@ class ShopProvider extends ChangeNotifier {
   static StreamSubscription<List<PurchaseDetails>> subscription;
 
   List<ProductDetails> _removeAdsProduct = <ProductDetails>[];
-  List<ProductDetails> get getRemoveAdsProduct => _removeAdsProduct;
 
-  static List<ProductDetails> imagePackProducts = <ProductDetails>[];
+  static List<ProductDetails> _imagePackProducts = <ProductDetails>[];
 
   static List<PurchaseDetails> purchases = <PurchaseDetails>[];
 
@@ -27,11 +26,7 @@ class ShopProvider extends ChangeNotifier {
 
     if (ShopProvider.available) {
       print(ShopProvider.available);
-      final List<Future<void>> futures = <Future<void>>[
-        // getProducts(),
-        // setRemoveAdsProducts(),
-        // getPastPurchases()
-      ];
+      final List<Future<void>> futures = <Future<void>>[getPastPurchases()];
       await Future.wait(futures);
 
       verifyPurchase();
@@ -50,24 +45,31 @@ class ShopProvider extends ChangeNotifier {
     subscription.cancel();
   }
 
-  Future<List<ProductDetails>> setRemoveAdsProducts() async {
+  Future<List<ProductDetails>> setRemoveAdsProduct() async {
     final Set<String> removeAdsIDSet = <String>{removeAdsID};
-
-    final Set<String> imagePackIDSet = Set<String>.from(<List<String>>[
-      imagePackProductIDs
-    ].expand((List<String> product) => product));
 
     final ProductDetailsResponse responseRemoveAd =
         await iap.queryProductDetails(removeAdsIDSet);
 
+    _removeAdsProduct = responseRemoveAd.productDetails;
+
+    print(_removeAdsProduct.length);
+
+    return _removeAdsProduct;
+  }
+
+  Future<List<ProductDetails>> setImagePackProducts() async {
+    final Set<String> imagePackIDSet = Set<String>.from(<List<String>>[
+      imagePackProductIDs
+    ].expand((List<String> product) => product));
+
     final ProductDetailsResponse responseImagePack =
         await iap.queryProductDetails(imagePackIDSet);
 
-    _removeAdsProduct = responseRemoveAd.productDetails;
+    _imagePackProducts = responseImagePack.productDetails;
+    print(_imagePackProducts.length);
 
-    imagePackProducts = responseImagePack.productDetails;
-    print(_removeAdsProduct.length);
-    return _removeAdsProduct;
+    return _imagePackProducts;
   }
 
   static Future<void> getPastPurchases() async {
