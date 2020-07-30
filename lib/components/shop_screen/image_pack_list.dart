@@ -3,7 +3,6 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/shop_screen/image_pack_shop_button.dart';
-import '../../providers/device_provider.dart';
 import '../../providers/shop_provider.dart';
 
 class ImagePackList extends StatelessWidget {
@@ -11,7 +10,6 @@ class ImagePackList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
 
     return FutureBuilder<List<ProductDetails>>(
@@ -24,11 +22,6 @@ class ImagePackList extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(10),
               child: ListView.builder(
-                // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                //   crossAxisCount: deviceProvider.getGridSize,
-                //   crossAxisSpacing: 10,
-                //   mainAxisSpacing: 10,
-                // ),
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ImagePackShopButton(

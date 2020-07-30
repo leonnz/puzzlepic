@@ -32,11 +32,11 @@ class ImagePackShopButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
-          boxShadow: <BoxShadow>[
+          boxShadow: const <BoxShadow>[
             BoxShadow(
               color: Colors.black45,
               blurRadius: 3.0,
-              offset: const Offset(0.0, 2.0),
+              offset: Offset(0.0, 2.0),
             ),
           ],
         ),
