@@ -44,7 +44,7 @@ class ImagePackShopButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              imagePackProduct.title,
+              imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
               style: CustomTextTheme(deviceProvider: deviceProvider).selectPictureButtonTextStyle(),
             ),
             Text(
