@@ -68,6 +68,7 @@ class _ShopScreenState extends State<ShopScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: const <Widget>[
             RemoveAdShopButton(),
+            Text('Image Packs'),
             ImagePackList(),
             Spacer(),
           ],

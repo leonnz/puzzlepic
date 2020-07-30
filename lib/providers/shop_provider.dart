@@ -6,7 +6,8 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 class ShopProvider extends ChangeNotifier {
   static const String removeAdsID = 'remove_ads';
   static final List<String> imagePackProductIDs = <String>[
-    'category_natural_wonders'
+    'category_natural_wonders',
+    'category_sports',
   ];
 
   static final InAppPurchaseConnection iap = InAppPurchaseConnection.instance;
@@ -31,8 +32,8 @@ class ShopProvider extends ChangeNotifier {
 
       verifyPurchase();
 
-      ShopProvider.subscription = ShopProvider.iap.purchaseUpdatedStream
-          .listen((List<PurchaseDetails> data) {
+      ShopProvider.subscription =
+          ShopProvider.iap.purchaseUpdatedStream.listen((List<PurchaseDetails> data) {
         print('NEW PURCHASE');
         ShopProvider.purchases.addAll(data);
       });
@@ -48,8 +49,7 @@ class ShopProvider extends ChangeNotifier {
   Future<List<ProductDetails>> setRemoveAdsProduct() async {
     final Set<String> removeAdsIDSet = <String>{removeAdsID};
 
-    final ProductDetailsResponse responseRemoveAd =
-        await iap.queryProductDetails(removeAdsIDSet);
+    final ProductDetailsResponse responseRemoveAd = await iap.queryProductDetails(removeAdsIDSet);
 
     _removeAdsProduct = responseRemoveAd.productDetails;
 
@@ -59,12 +59,10 @@ class ShopProvider extends ChangeNotifier {
   }
 
   Future<List<ProductDetails>> setImagePackProducts() async {
-    final Set<String> imagePackIDSet = Set<String>.from(<List<String>>[
-      imagePackProductIDs
-    ].expand((List<String> product) => product));
+    final Set<String> imagePackIDSet = Set<String>.from(
+        <List<String>>[imagePackProductIDs].expand((List<String> product) => product));
 
-    final ProductDetailsResponse responseImagePack =
-        await iap.queryProductDetails(imagePackIDSet);
+    final ProductDetailsResponse responseImagePack = await iap.queryProductDetails(imagePackIDSet);
 
     _imagePackProducts = responseImagePack.productDetails;
     print(_imagePackProducts.length);
@@ -73,8 +71,7 @@ class ShopProvider extends ChangeNotifier {
   }
 
   static Future<void> getPastPurchases() async {
-    final QueryPurchaseDetailsResponse response =
-        await iap.queryPastPurchases();
+    final QueryPurchaseDetailsResponse response = await iap.queryPastPurchases();
 
     for (final PurchaseDetails purchase in response.pastPurchases) {
       if (Platform.isIOS) {
