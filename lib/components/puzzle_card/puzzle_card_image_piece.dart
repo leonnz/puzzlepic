@@ -113,7 +113,6 @@ class _ImagePieceState extends State<ImagePiece>
                   getPiecePositions: gameProvider.getPiecePositions,
                   getSinglePieceWidth: gameProvider.getSinglePieceWidth,
                   pieceNumber: widget.pieceNumber,
-                  setBlankSquare: gameProvider.setBlankSquare,
                   checkComplete: gameProvider.checkComplete,
                   xDistance: xDistance,
                 );
@@ -146,7 +145,6 @@ class _ImagePieceState extends State<ImagePiece>
                     getPiecePositions: gameProvider.getPiecePositions,
                     getSinglePieceWidth: gameProvider.getSinglePieceWidth,
                     pieceNumber: widget.pieceNumber,
-                    setBlankSquare: gameProvider.setBlankSquare,
                     checkComplete: gameProvider.checkComplete,
                     yDistance: yDistance);
               }

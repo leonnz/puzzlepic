@@ -10,7 +10,7 @@ class GameProvider with ChangeNotifier {
   static const int _totalGridSize = 16;
   static final double _singlePieceWidth = screenWidth / _gridColumns;
 
-  static int _blankSquare = _totalGridSize;
+  static int blankSquare = _totalGridSize;
   static int _moves = 0;
   static int _bestMoves;
   static List<int> _gridPositions;
@@ -48,7 +48,7 @@ class GameProvider with ChangeNotifier {
   double get getScreenWidth => screenWidth;
   double get getSinglePieceWidth => _singlePieceWidth;
   int get getTotalGridSize => _totalGridSize;
-  int get getBlankSquare => _blankSquare;
+  int get getBlankSquare => blankSquare;
   int get getGridColumns => _gridColumns;
   int get getMoves => _moves;
   int get getBestMoves => _bestMoves;
@@ -71,7 +71,7 @@ class GameProvider with ChangeNotifier {
 
   void resetPiecePositions() {
     _piecePositions = <Map<String, dynamic>>[];
-    setBlankSquare(_totalGridSize);
+    blankSquare = _totalGridSize;
   }
 
   void setGridPositions() {
@@ -158,9 +158,5 @@ class GameProvider with ChangeNotifier {
     }
 
     return topPosition;
-  }
-
-  void setBlankSquare(int squareNumber) {
-    _blankSquare = squareNumber;
   }
 }

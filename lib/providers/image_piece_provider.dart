@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import '../data/image_piece_config.dart';
+import '../providers/game_provider.dart';
 
 class ImagePieceProvider with ChangeNotifier {
   double getLeftPosition({
@@ -111,7 +112,6 @@ class ImagePieceProvider with ChangeNotifier {
     List<Map<String, dynamic>> getPiecePositions,
     double getSinglePieceWidth,
     int getBlankSquare,
-    Function setBlankSquare,
     Function checkComplete,
   }) {
     final Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
@@ -150,10 +150,10 @@ class ImagePieceProvider with ChangeNotifier {
       pieceToUpdate['gridPosition'] = ImagePieceConfig
           .draggablePieces[getBlankSquare][piecePreviousPosition][0];
 
-      setBlankSquare(piecePreviousPosition);
+      GameProvider.blankSquare = piecePreviousPosition;
     } else {
       pieceToUpdate['gridPosition'] = getBlankSquare;
-      setBlankSquare(piecePreviousPosition);
+      GameProvider.blankSquare = piecePreviousPosition;
     }
     notifyListeners();
 
@@ -217,7 +217,6 @@ class ImagePieceProvider with ChangeNotifier {
     List<Map<String, dynamic>> getPiecePositions,
     double getSinglePieceWidth,
     int getBlankSquare,
-    Function setBlankSquare,
     Function checkComplete,
   }) {
     final Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
@@ -257,10 +256,10 @@ class ImagePieceProvider with ChangeNotifier {
       pieceToUpdate['gridPosition'] = ImagePieceConfig
           .draggablePieces[getBlankSquare][piecePreviousPosition][0];
 
-      setBlankSquare(piecePreviousPosition);
+      GameProvider.blankSquare = piecePreviousPosition;
     } else {
       pieceToUpdate['gridPosition'] = getBlankSquare;
-      setBlankSquare(piecePreviousPosition);
+      GameProvider.blankSquare = piecePreviousPosition;
     }
     notifyListeners();
 
