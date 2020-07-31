@@ -18,11 +18,9 @@ class RemoveAdShopButton extends StatelessWidget {
 
     return FutureBuilder<List<ProductDetails>>(
       future: shopProvider.setRemoveAdsProduct(),
-      builder:
-          (BuildContext context, AsyncSnapshot<List<ProductDetails>> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<ProductDetails>> snapshot) {
         Widget removeAdShopButton;
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.hasData) {
+        if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
           removeAdShopButton = Expanded(
             child: ListView.builder(
               itemCount: snapshot.data.length,
@@ -57,8 +55,7 @@ class RemoveAdShopButton extends StatelessWidget {
                               .selectPictureButtonTextStyle(),
                         ),
                         Text(
-                          shopProvider.hasPurchased(snapshot.data[index].id) ==
-                                  null
+                          shopProvider.getRemovedAdsPurchased
                               ? snapshot.data[index].price
                               : 'Purchased',
                           style: CustomTextTheme(deviceProvider: deviceProvider)
@@ -72,6 +69,9 @@ class RemoveAdShopButton extends StatelessWidget {
             ),
           );
         } else {
+          print(snapshot.connectionState);
+          print(snapshot.hasData);
+
           removeAdShopButton = Container();
         }
         return removeAdShopButton;

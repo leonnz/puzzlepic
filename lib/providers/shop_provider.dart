@@ -11,31 +11,40 @@ class ShopProvider extends ChangeNotifier {
   ];
 
   static final InAppPurchaseConnection iap = InAppPurchaseConnection.instance;
-  static StreamSubscription<List<PurchaseDetails>> subscription;
+  StreamSubscription<List<PurchaseDetails>> subscription;
 
   List<ProductDetails> _removeAdsProduct = <ProductDetails>[];
 
   static List<ProductDetails> _imagePackProducts = <ProductDetails>[];
+  List<ProductDetails> get getImagePackProducts => _imagePackProducts;
 
-  static List<PurchaseDetails> purchases = <PurchaseDetails>[];
+  static List<PurchaseDetails> _purchases = <PurchaseDetails>[];
+  List<PurchaseDetails> get getPurchases => _purchases;
 
   static bool available = false;
-  static bool removedAdsPurchased;
+
+  static bool _removedAdsPurchased = false;
+  bool get getRemovedAdsPurchased => _removedAdsPurchased;
+  void setRemovedAdsPurchased() {
+    _removedAdsPurchased = true;
+  }
 
   Future<void> initialize() async {
     ShopProvider.available = await ShopProvider.iap.isAvailable();
 
-    if (ShopProvider.available) {
-      print(ShopProvider.available);
+    if (available) {
+      print(available);
       final List<Future<void>> futures = <Future<void>>[getPastPurchases()];
       await Future.wait(futures);
 
       verifyPurchase();
 
-      ShopProvider.subscription =
-          ShopProvider.iap.purchaseUpdatedStream.listen((List<PurchaseDetails> data) {
+      subscription = iap.purchaseUpdatedStream.listen((List<PurchaseDetails> data) {
         print('NEW PURCHASE');
-        ShopProvider.purchases.addAll(data);
+        _purchases.addAll(data);
+        print(_purchases);
+
+        notifyListeners();
       });
     } else {
       print('fail');
@@ -43,7 +52,7 @@ class ShopProvider extends ChangeNotifier {
   }
 
   void cancelSubscription() {
-    subscription.cancel();
+    subscription?.cancel();
   }
 
   Future<List<ProductDetails>> setRemoveAdsProduct() async {
@@ -58,7 +67,7 @@ class ShopProvider extends ChangeNotifier {
     return _removeAdsProduct;
   }
 
-  Future<List<ProductDetails>> setImagePackProducts() async {
+  Future<void> setImagePackProducts() async {
     final Set<String> imagePackIDSet = Set<String>.from(
         <List<String>>[imagePackProductIDs].expand((List<String> product) => product));
 
@@ -66,8 +75,8 @@ class ShopProvider extends ChangeNotifier {
 
     _imagePackProducts = responseImagePack.productDetails;
     print(_imagePackProducts.length);
-
-    return _imagePackProducts;
+    // notifyListeners();
+    // return _imagePackProducts;
   }
 
   static Future<void> getPastPurchases() async {
@@ -79,11 +88,12 @@ class ShopProvider extends ChangeNotifier {
       }
     }
 
-    purchases = response.pastPurchases;
+    _purchases = response.pastPurchases;
+    print('Purchases: ${_purchases.length}');
   }
 
   PurchaseDetails hasPurchased(String productID) {
-    return purchases.firstWhere(
+    return _purchases.firstWhere(
       (PurchaseDetails purchase) => purchase.productID == productID,
       orElse: () => null,
     );
@@ -97,7 +107,7 @@ class ShopProvider extends ChangeNotifier {
       print(purchase.purchaseID);
       print(purchase.status);
       print(purchase.verificationData.source);
-      removedAdsPurchased = true;
+      setRemovedAdsPurchased();
     }
   }
 
@@ -105,7 +115,8 @@ class ShopProvider extends ChangeNotifier {
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: prod);
     iap.buyNonConsumable(purchaseParam: purchaseParam);
     // _iap.buyConsumable(purchaseParam: purchaseParam);
-    removedAdsPurchased = true;
+    // setRemovedAdsPurchased();
+    // notifyListeners();
     print('product bought');
   }
 }

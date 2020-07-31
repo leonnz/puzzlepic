@@ -12,9 +12,9 @@ class ImagePackList extends StatelessWidget {
   Widget build(BuildContext context) {
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
 
-    return FutureBuilder<List<ProductDetails>>(
+    return FutureBuilder<void>(
       future: shopProvider.setImagePackProducts(),
-      builder: (BuildContext context, AsyncSnapshot<List<ProductDetails>> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
         Widget imagePackList;
 
         if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
@@ -22,10 +22,10 @@ class ImagePackList extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(10),
               child: ListView.builder(
-                itemCount: snapshot.data.length,
+                itemCount: shopProvider.getImagePackProducts.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ImagePackShopButton(
-                    imagePackProduct: snapshot.data[index],
+                    imagePackProduct: shopProvider.getImagePackProducts[index],
                   );
                 },
               ),

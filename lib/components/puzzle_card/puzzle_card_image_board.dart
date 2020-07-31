@@ -5,6 +5,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import '../../data/db_provider.dart';
 import '../../data/puzzle_record_model.dart';
 import '../../providers/game_provider.dart';
+import '../../providers/image_piece_provider.dart';
 import 'puzzle_card_image_piece.dart';
 
 class PuzzleCardImageBoard extends StatelessWidget {
@@ -29,17 +30,15 @@ class PuzzleCardImageBoard extends StatelessWidget {
       final List<String> currentRecords = await dbProvider.getRecords();
 
       if (currentRecords.contains(gameProvider.getReadableName)) {
-        final List<Map<String, dynamic>> existingRecord = await dbProvider
-            .getSingleRecord(puzzleName: gameProvider.getReadableName);
-        final int existingRecordBestMoves =
-            existingRecord[0]['bestMoves'] as int;
+        final List<Map<String, dynamic>> existingRecord =
+            await dbProvider.getSingleRecord(puzzleName: gameProvider.getReadableName);
+        final int existingRecordBestMoves = existingRecord[0]['bestMoves'] as int;
 
         if (gameProvider.getMoves < existingRecordBestMoves) {
           // Sets the best moves to the previous best moves, so the complete puzzle alert can calculate if it is a new best.
           gameProvider.setBestMoves(moves: existingRecordBestMoves);
           dbProvider.updateRecord(
-              moves: gameProvider.getMoves,
-              puzzleName: gameProvider.getReadableName);
+              moves: gameProvider.getMoves, puzzleName: gameProvider.getReadableName);
         }
       } else {
         gameProvider.setBestMoves(moves: gameProvider.getMoves);
@@ -76,25 +75,28 @@ class PuzzleCardImageBoard extends StatelessWidget {
       return imagePieceList;
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Container(
-        width: gameProvider.getScreenWidth,
-        height: gameProvider.getScreenWidth,
-        color: Colors.grey,
-        child: gameProvider.getPuzzleComplete
-            ? Stack(
-                children: generateImagePieces(
-                  numberOfPieces: gameProvider.getTotalGridSize,
-                  complete: true,
+    return ChangeNotifierProvider<ImagePieceProvider>(
+      create: (BuildContext context) => ImagePieceProvider(),
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Container(
+          width: gameProvider.getScreenWidth,
+          height: gameProvider.getScreenWidth,
+          color: Colors.grey,
+          child: gameProvider.getPuzzleComplete
+              ? Stack(
+                  children: generateImagePieces(
+                    numberOfPieces: gameProvider.getTotalGridSize,
+                    complete: true,
+                  ),
+                )
+              : Stack(
+                  children: generateImagePieces(
+                    numberOfPieces: gameProvider.getTotalGridSize - 1,
+                    complete: false,
+                  ),
                 ),
-              )
-            : Stack(
-                children: generateImagePieces(
-                  numberOfPieces: gameProvider.getTotalGridSize - 1,
-                  complete: false,
-                ),
-              ),
+        ),
       ),
     );
   }

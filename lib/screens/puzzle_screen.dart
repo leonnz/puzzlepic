@@ -9,7 +9,6 @@ import '../components/buttons/puzzle_screen_hint_button.dart';
 import '../components/buttons/puzzle_screen_quit_button.dart';
 import '../components/puzzle_card/puzzle_card.dart';
 import '../providers/game_provider.dart';
-import '../providers/image_piece_provider.dart';
 
 class PuzzleScreen extends StatefulWidget {
   const PuzzleScreen({
@@ -93,44 +92,38 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       return quit;
     }
 
-    return ChangeNotifierProvider<ImagePieceProvider>(
-      create: (_) => ImagePieceProvider(),
-      child: WillPopScope(
-        onWillPop: () async {
-          final bool confirmQuit = await quitGameAlert();
-          return confirmQuit;
-        },
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage('assets/images/background.png'),
-            ),
+    return WillPopScope(
+      onWillPop: () async {
+        final bool confirmQuit = await quitGameAlert();
+        return confirmQuit;
+      },
+      child: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage('assets/images/background.png'),
           ),
-          child: Scaffold(
-            backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                const MuteButton(),
-                const Spacer(),
-                PuzzleCard(
-                  interstitialAd: _interstitialAd,
-                  isInterstitialAdReady: _isInterstitialAdReady,
+        ),
+        child: Scaffold(
+          backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              const MuteButton(),
+              const Spacer(),
+              PuzzleCard(
+                interstitialAd: _interstitialAd,
+                isInterstitialAdReady: _isInterstitialAdReady,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const <Widget>[PuzzleScreenHintButton(), PuzzleScreenQuitButton()],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const <Widget>[
-                      PuzzleScreenHintButton(),
-                      PuzzleScreenQuitButton()
-                    ],
-                  ),
-                ),
-                const Spacer(),
-              ],
-            ),
+              ),
+              const Spacer(),
+            ],
           ),
         ),
       ),
