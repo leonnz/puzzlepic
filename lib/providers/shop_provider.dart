@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
 class ShopProvider extends ChangeNotifier {
-  static const String removeAdsID = 'remove_ads';
+  static const String _removeAdsID = 'remove_ads';
+  String get getRemoveAdsID => _removeAdsID;
   static final List<String> imagePackProductIDs = <String>[
     'category_natural_wonders',
     'category_sports',
@@ -14,6 +15,12 @@ class ShopProvider extends ChangeNotifier {
   StreamSubscription<List<PurchaseDetails>> subscription;
 
   List<ProductDetails> _removeAdsProduct = <ProductDetails>[];
+  List<ProductDetails> get getRemoveAdsProduct => _removeAdsProduct;
+
+  void setRemoveAdsProduct(List<ProductDetails> product) {
+    _removeAdsProduct = product;
+    notifyListeners();
+  }
 
   static List<ProductDetails> _imagePackProducts = <ProductDetails>[];
   List<ProductDetails> get getImagePackProducts => _imagePackProducts;
@@ -27,17 +34,23 @@ class ShopProvider extends ChangeNotifier {
   bool get getRemovedAdsPurchased => _removedAdsPurchased;
   void setRemovedAdsPurchased() {
     _removedAdsPurchased = true;
+    notifyListeners();
   }
 
   Future<void> initialize() async {
     ShopProvider.available = await ShopProvider.iap.isAvailable();
 
     if (available) {
-      print(available);
-      final List<Future<void>> futures = <Future<void>>[getPastPurchases()];
+      print('available');
+
+      final List<Future<void>> futures = <Future<void>>[
+        getPastPurchases(),
+        getRemoveAdsProductFromAppStore(),
+        getImagePackProductsFromAppStore(),
+      ];
       await Future.wait(futures);
 
-      verifyPurchase();
+      // verifyPurchase();
 
       subscription = iap.purchaseUpdatedStream.listen((List<PurchaseDetails> data) {
         print('NEW PURCHASE');
@@ -55,28 +68,25 @@ class ShopProvider extends ChangeNotifier {
     subscription?.cancel();
   }
 
-  Future<List<ProductDetails>> setRemoveAdsProduct() async {
-    final Set<String> removeAdsIDSet = <String>{removeAdsID};
+  Future<void> getRemoveAdsProductFromAppStore() async {
+    final Set<String> removeAdsIDSet = <String>{_removeAdsID};
 
     final ProductDetailsResponse responseRemoveAd = await iap.queryProductDetails(removeAdsIDSet);
 
     _removeAdsProduct = responseRemoveAd.productDetails;
-
-    print(_removeAdsProduct.length);
-
-    return _removeAdsProduct;
+    print('Remove ad products ${_removeAdsProduct.length}');
+    notifyListeners();
   }
 
-  Future<void> setImagePackProducts() async {
+  Future<void> getImagePackProductsFromAppStore() async {
     final Set<String> imagePackIDSet = Set<String>.from(
         <List<String>>[imagePackProductIDs].expand((List<String> product) => product));
 
-    final ProductDetailsResponse responseImagePack = await iap.queryProductDetails(imagePackIDSet);
+    final ProductDetailsResponse responseImagePacks = await iap.queryProductDetails(imagePackIDSet);
 
-    _imagePackProducts = responseImagePack.productDetails;
-    print(_imagePackProducts.length);
-    // notifyListeners();
-    // return _imagePackProducts;
+    _imagePackProducts = responseImagePacks.productDetails;
+    print('Image pack products ${_imagePackProducts.length}');
+    notifyListeners();
   }
 
   static Future<void> getPastPurchases() async {
@@ -93,6 +103,7 @@ class ShopProvider extends ChangeNotifier {
   }
 
   PurchaseDetails hasPurchased(String productID) {
+    print(productID);
     return _purchases.firstWhere(
       (PurchaseDetails purchase) => purchase.productID == productID,
       orElse: () => null,
@@ -100,14 +111,14 @@ class ShopProvider extends ChangeNotifier {
   }
 
   void verifyPurchase() {
-    final PurchaseDetails purchase = hasPurchased(removeAdsID);
+    final PurchaseDetails purchase = hasPurchased(_removeAdsID);
 
     if (purchase != null && purchase.status == PurchaseStatus.purchased) {
       print(purchase.productID);
       print(purchase.purchaseID);
       print(purchase.status);
       print(purchase.verificationData.source);
-      setRemovedAdsPurchased();
+      // setRemovedAdsPurchased();
     }
   }
 
@@ -117,6 +128,9 @@ class ShopProvider extends ChangeNotifier {
     // _iap.buyConsumable(purchaseParam: purchaseParam);
     // setRemovedAdsPurchased();
     // notifyListeners();
-    print('product bought');
+    if (prod.id == _removeAdsID) {
+      setRemovedAdsPurchased();
+      print('remove ads product bought');
+    }
   }
 }
