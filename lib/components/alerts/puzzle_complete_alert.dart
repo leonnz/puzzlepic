@@ -21,53 +21,49 @@ class PuzzleCompleteAlert extends StatelessWidget {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
-    return ChangeNotifierProvider<GameProvider>(
-      create: (BuildContext context) => GameProvider(),
-      child: AlertDialog(
-        title: Text(
-          'Congratulations!',
-          textAlign: TextAlign.center,
-          style: CustomTextTheme(deviceProvider: deviceProvider)
-              .puzzleScreenCompleteAlertTitle(),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.only(
-                bottom: 40,
-              ),
-              width: deviceProvider.getUseMobileLayout ? null : 300,
-              child: Text(
-                'You completed ${gameProvider.getReadableFullname ?? gameProvider.getReadableName} in ${gameProvider.getMoves} moves${gameProvider.getMoves < gameProvider.getBestMoves ? ", a new personal best!" : "."}',
-                textAlign: TextAlign.center,
-                style: CustomTextTheme(deviceProvider: deviceProvider)
-                    .puzzleScreenCompleteAlertContent(),
-              ),
+    return AlertDialog(
+      title: Text(
+        'Congratulations!',
+        textAlign: TextAlign.center,
+        style: CustomTextTheme(deviceProvider: deviceProvider).puzzleScreenCompleteAlertTitle(),
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.only(
+              bottom: 40,
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                FlatButton(
-                  textColor: const Color(0xff501E5D),
-                  onPressed: () {
-                    Navigator.pop(context, true);
+            width: deviceProvider.getUseMobileLayout ? null : 300,
+            child: Text(
+              'You completed ${gameProvider.getReadableFullname ?? gameProvider.getReadableName} in ${gameProvider.getMoves} moves${gameProvider.getMoves < gameProvider.getBestMoves ? ", a new personal best!" : "."}',
+              textAlign: TextAlign.center,
+              style: CustomTextTheme(deviceProvider: deviceProvider)
+                  .puzzleScreenCompleteAlertContent(),
+            ),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              FlatButton(
+                textColor: const Color(0xff501E5D),
+                onPressed: () {
+                  Navigator.pop(context, true);
 
-                    // if (fullAdReady) {
-                    //   // fullAd.show();
-                    // }
-                  },
-                  child: Text(
-                    'Close',
-                    style: CustomTextTheme(deviceProvider: deviceProvider)
-                        .puzzleScreenCompleteAlertButtonText(),
-                  ),
+                  // if (fullAdReady) {
+                  //   // fullAd.show();
+                  // }
+                },
+                child: Text(
+                  'Close',
+                  style: CustomTextTheme(deviceProvider: deviceProvider)
+                      .puzzleScreenCompleteAlertButtonText(),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
