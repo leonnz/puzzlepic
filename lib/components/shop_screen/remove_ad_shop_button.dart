@@ -17,7 +17,7 @@ class RemoveAdShopButton extends StatelessWidget {
 
     return Consumer<ShopProvider>(
       builder: (BuildContext context, ShopProvider shop, Widget child) {
-        Widget adButton;
+        Widget buyRemoveAdsButton;
 
         if (shop.getAdProduct != null) {
           final PurchaseDetails purchased = shop.getPastPurchases.firstWhere(
@@ -25,7 +25,7 @@ class RemoveAdShopButton extends StatelessWidget {
             orElse: () => null,
           );
 
-          adButton = GestureDetector(
+          buyRemoveAdsButton = GestureDetector(
             onTap: () {
               deviceProvider.playSound(sound: 'fast_click.wav');
               shop.buyProduct(shop.getAdProduct);
@@ -64,9 +64,9 @@ class RemoveAdShopButton extends StatelessWidget {
             ),
           );
         } else {
-          adButton = Container();
+          buyRemoveAdsButton = Container();
         }
-        return adButton;
+        return buyRemoveAdsButton;
       },
     );
   }

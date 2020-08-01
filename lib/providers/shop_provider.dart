@@ -35,17 +35,6 @@ class ShopProvider extends ChangeNotifier {
 
       subscription = _iap.purchaseUpdatedStream.listen((List<PurchaseDetails> purchases) async {
         completePurchase(purchases);
-        // for (final PurchaseDetails purchase in purchases) {
-        //   if (purchase.status == PurchaseStatus.purchased) {
-        //     BillingResultWrapper billingResult = await _iap.completePurchase(purchase);
-
-        //     if (billingResult.responseCode == BillingResponse.ok) {
-        //       _pastPurchases.addAll(purchases);
-        //     } else if (billingResult.responseCode == BillingResponse.error || billingResult.responseCode == BillingResponse.serviceUnavailable) {
-
-        //     }
-        //   }
-        // }
       });
     } else {
       print('fail');
@@ -100,17 +89,6 @@ class ShopProvider extends ChangeNotifier {
     }
     return response.pastPurchases;
   }
-
-  // PurchaseDetails hasPurchased(String productID) {
-  //   print(productID);
-  //   bool purchased;
-  //   return _pastPurchases.firstWhere(
-  //     (PurchaseDetails purchase) => purchase.productID == productID,
-  //     orElse: () => null,
-  //   );
-
-  //   return purchased;
-  // }
 
   // void verifyPurchase() {
   //   final PurchaseDetails purchase = hasPurchased(_removeAdsID);
