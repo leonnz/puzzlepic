@@ -25,7 +25,7 @@ class ShopProvider extends ChangeNotifier {
 
   static bool available = false;
 
-  Future<void> initialize() async {
+  Future<bool> initialize() async {
     available = await _iap.isAvailable();
 
     if (available) {
@@ -36,11 +36,11 @@ class ShopProvider extends ChangeNotifier {
       subscription = _iap.purchaseUpdatedStream.listen((List<PurchaseDetails> purchases) async {
         completePurchase(purchases);
       });
-    } else {
-      print('fail');
+      notifyListeners();
+      return true;
     }
 
-    notifyListeners();
+    return false;
   }
 
   Future<void> completePurchase(List<PurchaseDetails> purchases) async {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../components/buttons/appbar_leading_button.dart';
 import '../components/shop_screen/image_pack_list.dart';
@@ -14,9 +15,20 @@ class ShopScreen extends StatefulWidget {
 }
 
 class _ShopScreenState extends State<ShopScreen> {
+  bool shopLoaded;
+
   @override
   void initState() {
+    shopLoaded = false;
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
+    loadShop(shop: shopProvider);
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -24,12 +36,28 @@ class _ShopScreenState extends State<ShopScreen> {
     super.dispose();
   }
 
+  Future<void> loadShop({ShopProvider shop}) async {
+    final bool result = await shop.initialize();
+    if (result) {
+      Future<void>.delayed(const Duration(milliseconds: 500)).then(
+        (_) {
+          if (mounted) {
+            setState(() {
+              shopLoaded = true;
+            });
+          }
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
 
-    shopProvider.initialize();
+    // loadShop(shop: shopProvider);
+    // shopProvider.initialize();
 
     return Scaffold(
       appBar: PreferredSize(
@@ -61,18 +89,28 @@ class _ShopScreenState extends State<ShopScreen> {
           ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          const RemoveAdShopButton(),
-          const Text('Image Packs'),
-          const ImagePackList(),
-          const Spacer(),
-          Text('past purchases ${shopProvider.getPastPurchases.length}'),
-          Text('Ad product ${shopProvider.getAdProduct}'),
-          Text('image products ${shopProvider.getImagePackProducts.length}'),
-        ],
-      ),
+      body: shopLoaded
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                const RemoveAdShopButton(),
+                const Text('Image Packs'),
+                const ImagePackList(),
+                const Spacer(),
+                Text('past purchases ${shopProvider.getPastPurchases.length}'),
+                Text('Ad product ${shopProvider.getAdProduct}'),
+                Text('image products ${shopProvider.getImagePackProducts.length}'),
+              ],
+            )
+          : Container(
+              color: Colors.white,
+              child: Center(
+                child: SpinKitFadingFour(
+                  color: Colors.purple,
+                  size: deviceProvider.getUseMobileLayout ? 50 : 80,
+                ),
+              ),
+            ),
     );
   }
 }
