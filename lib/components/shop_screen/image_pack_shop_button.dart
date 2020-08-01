@@ -22,7 +22,7 @@ class ImagePackShopButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         deviceProvider.playSound(sound: 'fast_click.wav');
-        shopProvider.buyProduct(imagePackProduct);
+        // shopProvider.buyProduct(imagePackProduct);
       },
       child: Container(
         margin: const EdgeInsets.all(10),
