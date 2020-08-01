@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/shop_screen/image_pack_shop_button.dart';
+import '../../providers/shop_provider.dart';
 
 class ImagePackList extends StatelessWidget {
-  const ImagePackList({Key key, this.imagePackProducts}) : super(key: key);
-
-  final List<ProductDetails> imagePackProducts;
+  const ImagePackList({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: imagePackProducts.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ImagePackShopButton(
-            imagePackProduct: imagePackProducts[index],
+    return Consumer<ShopProvider>(
+      builder: (BuildContext context, ShopProvider shop, Widget child) {
+        Widget imagePackProductList;
+
+        if (shop.getImagePackProducts.isNotEmpty) {
+          imagePackProductList = Expanded(
+            child: ListView.builder(
+              itemCount: shop.getImagePackProducts.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ImagePackShopButton(
+                  imagePackProduct: shop.getImagePackProducts[index],
+                );
+              },
+            ),
           );
-        },
-      ),
+        } else {
+          imagePackProductList = Container();
+        }
+
+        return imagePackProductList;
+      },
     );
   }
 }

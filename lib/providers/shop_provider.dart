@@ -18,7 +18,7 @@ class ShopProvider extends ChangeNotifier {
   ProductDetails get getAdProduct => _adProduct;
 
   List<ProductDetails> _imagePackProducts = <ProductDetails>[];
-  List<ProductDetails> get getProducts => _imagePackProducts;
+  List<ProductDetails> get getImagePackProducts => _imagePackProducts;
 
   static List<PurchaseDetails> _pastPurchases = <PurchaseDetails>[];
   List<PurchaseDetails> get getPastPurchases => _pastPurchases;

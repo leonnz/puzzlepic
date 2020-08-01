@@ -28,14 +28,14 @@ class RemoveAdShopButton extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               height: deviceProvider.getUseMobileLayout ? 50 : 70,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: Colors.black45,
                     blurRadius: 3.0,
-                    offset: const Offset(0.0, 2.0),
+                    offset: Offset(0.0, 2.0),
                   ),
                 ],
               ),

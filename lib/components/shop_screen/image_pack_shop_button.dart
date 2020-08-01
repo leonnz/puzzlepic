@@ -3,7 +3,6 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
-import '../../providers/shop_provider.dart';
 import '../../styles/custom_styles.dart';
 
 class ImagePackShopButton extends StatelessWidget {
@@ -17,12 +16,10 @@ class ImagePackShopButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
-    final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
 
     return GestureDetector(
       onTap: () {
         deviceProvider.playSound(sound: 'fast_click.wav');
-        // shopProvider.buyProduct(imagePackProduct);
       },
       child: Container(
         margin: const EdgeInsets.all(10),
@@ -48,9 +45,7 @@ class ImagePackShopButton extends StatelessWidget {
               style: CustomTextTheme(deviceProvider: deviceProvider).selectPictureButtonTextStyle(),
             ),
             Text(
-              shopProvider.hasPurchased(imagePackProduct.id) == null
-                  ? imagePackProduct.price
-                  : 'Purchased',
+              imagePackProduct.price,
               style: CustomTextTheme(deviceProvider: deviceProvider).selectPictureButtonTextStyle(),
             ),
           ],

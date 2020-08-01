@@ -66,14 +66,16 @@ class _ShopScreenState extends State<ShopScreen> {
         children: <Widget>[
           const RemoveAdShopButton(),
           const Text('Image Packs'),
+          const ImagePackList(),
+
           // if (_imagePackProducts.isNotEmpty)
           //   ImagePackList(
           //     imagePackProducts: _imagePackProducts,
           //   ),
           const Spacer(),
-          Text(shopProvider.getPastPurchases.length.toString()),
-          Text(shopProvider.getAdProduct.toString()),
-          Text(shopProvider.getProducts.length.toString()),
+          Text('past purchases ${shopProvider.getPastPurchases.length}'),
+          Text('Ad product ${shopProvider.getAdProduct.title}'),
+          Text('image products ${shopProvider.getImagePackProducts.length}'),
         ],
       ),
     );
