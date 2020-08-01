@@ -87,6 +87,16 @@ class ShopProvider extends ChangeNotifier {
         InAppPurchaseConnection.instance.completePurchase(purchase);
       }
     }
+
+    if (response.error != null) {
+      print(response.error);
+    }
+
+    // for (final PurchaseDetails purchase in response.pastPurchases) {
+    //   print(
+    //       '${purchase.productID} - ${purchase.status} - ${purchase.verificationData.localVerificationData} - ${purchase.verificationData.serverVerificationData}');
+    // }
+
     return response.pastPurchases;
   }
 
@@ -104,7 +114,7 @@ class ShopProvider extends ChangeNotifier {
 
   void buyProduct(ProductDetails prod) {
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: prod);
-    _iap.buyNonConsumable(purchaseParam: purchaseParam);
-    // _iap.buyConsumable(purchaseParam: purchaseParam);
+    // _iap.buyNonConsumable(purchaseParam: purchaseParam);
+    _iap.buyConsumable(purchaseParam: purchaseParam);
   }
 }

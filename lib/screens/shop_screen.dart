@@ -57,7 +57,7 @@ class _ShopScreenState extends State<ShopScreen> {
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
 
     // loadShop(shop: shopProvider);
-    // shopProvider.initialize();
+    shopProvider.initialize();
 
     return Scaffold(
       appBar: PreferredSize(

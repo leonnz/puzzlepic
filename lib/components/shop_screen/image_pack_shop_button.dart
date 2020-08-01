@@ -28,6 +28,7 @@ class ImagePackShopButton extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             deviceProvider.playSound(sound: 'fast_click.wav');
+            shop.buyProduct(imagePackProduct);
           },
           child: Container(
             margin: const EdgeInsets.all(10),
