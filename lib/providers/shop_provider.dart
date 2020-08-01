@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
 class ShopProvider extends ChangeNotifier {
-  static final InAppPurchaseConnection iap = InAppPurchaseConnection.instance;
+  static final InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> subscription;
 
   static const String _removeAdProductId = 'remove_ads';
@@ -20,47 +20,53 @@ class ShopProvider extends ChangeNotifier {
   List<ProductDetails> _imagePackProducts = <ProductDetails>[];
   List<ProductDetails> get getImagePackProducts => _imagePackProducts;
 
-  static List<PurchaseDetails> _pastPurchases = <PurchaseDetails>[];
+  List<PurchaseDetails> _pastPurchases = <PurchaseDetails>[];
   List<PurchaseDetails> get getPastPurchases => _pastPurchases;
 
   static bool available = false;
 
   Future<void> initialize() async {
-    available = await ShopProvider.iap.isAvailable();
+    available = await _iap.isAvailable();
 
     if (available) {
       _pastPurchases = await getPastPurchasesFromAppStore();
       _adProduct = await getRemoveAdProductFromAppStore();
       _imagePackProducts = await getImageProductsFromAppStore();
+
+      subscription = _iap.purchaseUpdatedStream.listen((List<PurchaseDetails> purchases) async {
+        completePurchase(purchases);
+        // for (final PurchaseDetails purchase in purchases) {
+        //   if (purchase.status == PurchaseStatus.purchased) {
+        //     BillingResultWrapper billingResult = await _iap.completePurchase(purchase);
+
+        //     if (billingResult.responseCode == BillingResponse.ok) {
+        //       _pastPurchases.addAll(purchases);
+        //     } else if (billingResult.responseCode == BillingResponse.error || billingResult.responseCode == BillingResponse.serviceUnavailable) {
+
+        //     }
+        //   }
+        // }
+      });
+    } else {
+      print('fail');
     }
+
     notifyListeners();
-    // Future<dynamic>.delayed(const Duration(milliseconds: 5000)).then(
-    //   (_) => notifyListeners(),
-    // );
-    // notifyListeners();
-    // print('wwwhhyyyyyyyyyyyyyy');
-    // if (available) {
-    //   print('available');
+  }
 
-    //   final List<Future<void>> futures = <Future<void>>[
-    //     getPastPurchases(),
-    //     getRemoveAdsProductFromAppStore(),
-    //     getImagePackProductsFromAppStore(),
-    //   ];
-    //   await Future.wait(futures);
-    //   print('wwwhhyyyyyyyyyyyyyy');
-    //   // verifyPurchase();
+  Future<void> completePurchase(List<PurchaseDetails> purchases) async {
+    for (final PurchaseDetails purchase in purchases) {
+      if (purchase.status == PurchaseStatus.purchased) {
+        final BillingResultWrapper billingResult = await _iap.completePurchase(purchase);
 
-    //   subscription = iap.purchaseUpdatedStream.listen((List<PurchaseDetails> data) {
-    //     print('NEW PURCHASE');
-    //     _purchases.addAll(data);
-    //     print(_purchases);
-
-    //     notifyListeners();
-    //   });
-    // } else {
-    //   print('fail');
-    // }
+        if (billingResult.responseCode == BillingResponse.ok) {
+          _pastPurchases.addAll(purchases);
+        } else if (billingResult.responseCode == BillingResponse.error ||
+            billingResult.responseCode == BillingResponse.serviceUnavailable) {
+          completePurchase(purchases);
+        }
+      }
+    }
   }
 
   void cancelSubscription() {
@@ -70,7 +76,7 @@ class ShopProvider extends ChangeNotifier {
   Future<ProductDetails> getRemoveAdProductFromAppStore() async {
     final Set<String> productIdsSet = Set<String>.from(<String>{_removeAdProductId});
 
-    final ProductDetailsResponse response = await iap.queryProductDetails(productIdsSet);
+    final ProductDetailsResponse response = await _iap.queryProductDetails(productIdsSet);
 
     return response.productDetails[0];
   }
@@ -79,32 +85,32 @@ class ShopProvider extends ChangeNotifier {
     final Set<String> productIdsSet =
         Set<String>.from(<List<String>>[_productIds].expand((List<String> product) => product));
 
-    final ProductDetailsResponse reponse = await iap.queryProductDetails(productIdsSet);
+    final ProductDetailsResponse reponse = await _iap.queryProductDetails(productIdsSet);
 
     return reponse.productDetails;
   }
 
   Future<List<PurchaseDetails>> getPastPurchasesFromAppStore() async {
-    final QueryPurchaseDetailsResponse response = await iap.queryPastPurchases();
+    final QueryPurchaseDetailsResponse response = await _iap.queryPastPurchases();
 
     for (final PurchaseDetails purchase in response.pastPurchases) {
       if (Platform.isIOS) {
         InAppPurchaseConnection.instance.completePurchase(purchase);
       }
     }
-    // _purchases = response.pastPurchases;
     return response.pastPurchases;
-    // notifyListeners();
-    print('Purchases: ${_pastPurchases.length}');
   }
 
-  PurchaseDetails hasPurchased(String productID) {
-    print(productID);
-    return _pastPurchases.firstWhere(
-      (PurchaseDetails purchase) => purchase.productID == productID,
-      orElse: () => null,
-    );
-  }
+  // PurchaseDetails hasPurchased(String productID) {
+  //   print(productID);
+  //   bool purchased;
+  //   return _pastPurchases.firstWhere(
+  //     (PurchaseDetails purchase) => purchase.productID == productID,
+  //     orElse: () => null,
+  //   );
+
+  //   return purchased;
+  // }
 
   // void verifyPurchase() {
   //   final PurchaseDetails purchase = hasPurchased(_removeAdsID);
@@ -118,15 +124,9 @@ class ShopProvider extends ChangeNotifier {
   //   }
   // }
 
-  // void buyProduct(ProductDetails prod) {
-  //   final PurchaseParam purchaseParam = PurchaseParam(productDetails: prod);
-  //   iap.buyNonConsumable(purchaseParam: purchaseParam);
-  //   // _iap.buyConsumable(purchaseParam: purchaseParam);
-  //   // setRemovedAdsPurchased();
-  //   // notifyListeners();
-  //   if (prod.id == _removeAdsID) {
-  //     setRemovedAdsPurchased();
-  //     print('remove ads product bought');
-  //   }
-  // }
+  void buyProduct(ProductDetails prod) {
+    final PurchaseParam purchaseParam = PurchaseParam(productDetails: prod);
+    _iap.buyNonConsumable(purchaseParam: purchaseParam);
+    // _iap.buyConsumable(purchaseParam: purchaseParam);
+  }
 }

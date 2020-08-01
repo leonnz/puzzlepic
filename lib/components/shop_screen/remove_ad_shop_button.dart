@@ -18,10 +18,17 @@ class RemoveAdShopButton extends StatelessWidget {
     return Consumer<ShopProvider>(
       builder: (BuildContext context, ShopProvider shop, Widget child) {
         Widget adButton;
+
         if (shop.getAdProduct != null) {
+          final PurchaseDetails purchased = shop.getPastPurchases.firstWhere(
+            (PurchaseDetails purchase) => purchase.productID == shop.getAdProduct.id,
+            orElse: () => null,
+          );
+
           adButton = GestureDetector(
             onTap: () {
               deviceProvider.playSound(sound: 'fast_click.wav');
+              shop.buyProduct(shop.getAdProduct);
             },
             child: Container(
               margin: const EdgeInsets.all(10),
@@ -48,7 +55,7 @@ class RemoveAdShopButton extends StatelessWidget {
                         .selectPictureButtonTextStyle(),
                   ),
                   Text(
-                    shop.getAdProduct.price,
+                    purchased != null ? 'Purchased' : shop.getAdProduct.price,
                     style: CustomTextTheme(deviceProvider: deviceProvider)
                         .selectPictureButtonTextStyle(),
                   ),

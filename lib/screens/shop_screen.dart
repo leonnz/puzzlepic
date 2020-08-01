@@ -35,8 +35,8 @@ class _ShopScreenState extends State<ShopScreen> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
         child: Container(
-          decoration: BoxDecoration(
-            image: const DecorationImage(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
               image: AssetImage('assets/images/_categories/_categories_banner.png'),
               fit: BoxFit.cover,
             ),
@@ -44,7 +44,7 @@ class _ShopScreenState extends State<ShopScreen> {
               BoxShadow(
                 color: Colors.black45,
                 blurRadius: 5.0,
-                offset: const Offset(0.0, 3.0),
+                offset: Offset(0.0, 3.0),
               ),
             ],
           ),
@@ -67,14 +67,9 @@ class _ShopScreenState extends State<ShopScreen> {
           const RemoveAdShopButton(),
           const Text('Image Packs'),
           const ImagePackList(),
-
-          // if (_imagePackProducts.isNotEmpty)
-          //   ImagePackList(
-          //     imagePackProducts: _imagePackProducts,
-          //   ),
           const Spacer(),
           Text('past purchases ${shopProvider.getPastPurchases.length}'),
-          Text('Ad product ${shopProvider.getAdProduct.title}'),
+          Text('Ad product ${shopProvider.getAdProduct}'),
           Text('image products ${shopProvider.getImagePackProducts.length}'),
         ],
       ),

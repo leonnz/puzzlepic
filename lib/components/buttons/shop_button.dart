@@ -78,8 +78,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
         },
         onTapUp: _onTapUp,
         child: Padding(
-          padding: EdgeInsets.only(
-              bottom: deviceProvider.getDeviceScreenHeight * 0.1),
+          padding: EdgeInsets.only(bottom: deviceProvider.getDeviceScreenHeight * 0.1),
           child: SlideTransition(
             position: _shopButtonSlideAnimation,
             child: Transform.scale(
@@ -107,8 +106,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
                 child: Center(
                   child: Text(
                     'Shop',
-                    style: CustomTextTheme(deviceProvider: deviceProvider)
-                        .playButtonText(context),
+                    style: CustomTextTheme(deviceProvider: deviceProvider).playButtonText(context),
                   ),
                 ),
               ),
