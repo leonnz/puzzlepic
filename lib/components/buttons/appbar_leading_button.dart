@@ -7,9 +7,11 @@ class AppBarLeadingButton extends StatelessWidget {
   const AppBarLeadingButton({
     Key key,
     this.icon,
+    this.customOperation,
   }) : super(key: key);
 
   final IconData icon;
+  final Function customOperation;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,9 @@ class AppBarLeadingButton extends StatelessWidget {
         onPressed: () {
           deviceProvider.playSound(sound: 'fast_click.wav');
           Navigator.pop(context, true);
+          if (customOperation != null) {
+            customOperation();
+          }
         },
       ),
     );
