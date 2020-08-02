@@ -16,6 +16,7 @@ import '../components/polaroid.dart';
 import '../components/puzzle_pic_logo.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
+import '../providers/shop_provider.dart';
 import '../providers/game_provider.dart';
 
 class Home extends StatefulWidget {
@@ -59,13 +60,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     for (final Map<String, dynamic> imageCategory in Images.imageList) {
       // Category images
       imagesToPrecache.add(
-        AssetImage(
-            'assets/images/_categories/${imageCategory["categoryName"]}_cat.png'),
+        AssetImage('assets/images/_categories/${imageCategory["categoryName"]}_cat.png'),
       );
       // Category banners
       imagesToPrecache.add(
-        AssetImage(
-            'assets/images/_categories/${imageCategory["categoryName"]}_banner.png'),
+        AssetImage('assets/images/_categories/${imageCategory["categoryName"]}_banner.png'),
       );
 
       // Select picture screen thumbnails
@@ -134,6 +133,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
     deviceProvider.setAudioCache(audioCache: _audioCache);
+
+    // final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
+    // shopProvider.initialize();
 
     // var w = MediaQuery.of(context).size.width;
     // var h = MediaQuery.of(context).size.height;

@@ -50,7 +50,8 @@ class RemoveAdShopButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    shop.getAdProduct.title.substring(0, shop.getAdProduct.title.indexOf('(')),
+                    // shop.getAdProduct.id.substring(0, shop.getAdProduct.id.indexOf('(')),
+                    shop.getAdProduct.id,
                     style: CustomTextTheme(deviceProvider: deviceProvider)
                         .selectPictureButtonTextStyle(),
                   ),

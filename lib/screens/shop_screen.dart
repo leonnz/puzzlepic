@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -15,103 +16,115 @@ class ShopScreen extends StatefulWidget {
 }
 
 class _ShopScreenState extends State<ShopScreen> {
-  bool shopLoaded;
+  // bool shopLoaded;
 
   @override
   void initState() {
-    shopLoaded = false;
+    // shopLoaded = false;
+    // ShopProvider().initialize();
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+    shopProvider.initialize();
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
-    loadShop(shop: shopProvider);
+    // final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
+    // // loadShop(shop: shopProvider);
+    // shopProvider.initialize();
 
     super.didChangeDependencies();
   }
 
   @override
   void dispose() {
+    print('disposed');
     super.dispose();
   }
 
-  Future<void> loadShop({ShopProvider shop}) async {
-    final bool result = await shop.initialize();
-    if (result) {
-      Future<void>.delayed(const Duration(milliseconds: 500)).then(
-        (_) {
-          if (mounted) {
-            setState(() {
-              shopLoaded = true;
-            });
-          }
-        },
-      );
-    }
-  }
+  // Future<void> loadShop({ShopProvider shop}) async {
+  //   final bool result = await shop.initialize();
+  //   if (result) {
+  //     Future<void>.delayed(const Duration(milliseconds: 500)).then(
+  //       (_) {
+  //         if (mounted) {
+  //           setState(() {
+  //             shopLoaded = true;
+  //           });
+  //         }
+  //       },
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
-    final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
+    // final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
-    // loadShop(shop: shopProvider);
-    shopProvider.initialize();
+    // // // // loadShop(shop: shopProvider);
+    // shopProvider.initialize();
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/_categories/_categories_banner.png'),
-              fit: BoxFit.cover,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/_categories/_categories_banner.png'),
+                fit: BoxFit.cover,
+              ),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Colors.black45,
+                  blurRadius: 5.0,
+                  offset: Offset(0.0, 3.0),
+                ),
+              ],
             ),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: Colors.black45,
-                blurRadius: 5.0,
-                offset: Offset(0.0, 3.0),
-              ),
-            ],
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              AppBarLeadingButton(icon: Icons.close),
-              Text(
-                'Shop',
-                style: CustomTextTheme(deviceProvider: deviceProvider)
-                    .selectScreenTitleTextStyle(context),
-              ),
-            ],
+            child: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                AppBarLeadingButton(icon: Icons.close),
+                Text(
+                  'Shop',
+                  style: CustomTextTheme(deviceProvider: deviceProvider)
+                      .selectScreenTitleTextStyle(context),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      body: shopLoaded
-          ? Column(
+        body: Consumer<ShopProvider>(
+          builder: (BuildContext context, ShopProvider value, Widget child) {
+            return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 const RemoveAdShopButton(),
                 const Text('Image Packs'),
                 const ImagePackList(),
-                const Spacer(),
-                Text('past purchases ${shopProvider.getPastPurchases.length}'),
-                Text('Ad product ${shopProvider.getAdProduct}'),
-                Text('image products ${shopProvider.getImagePackProducts.length}'),
+                // const Spacer(),
+                Text('past purchases ${value.getPastPurchases.length}'),
+                for (PurchaseDetails purchase in value.getPastPurchases) ...<Widget>[
+                  Text('past purchase: ${purchase.productID}')
+                ],
+                // Text('Ad product ${shopProvider.getAdProduct}'),
+                Text('image products ${value.getImagePackProducts.length}'),
               ],
-            )
-          : Container(
-              color: Colors.white,
-              child: Center(
-                child: SpinKitFadingFour(
-                  color: Colors.purple,
-                  size: deviceProvider.getUseMobileLayout ? 50 : 80,
-                ),
-              ),
-            ),
-    );
+            );
+          },
+          // child:
+        )
+        // : Container(
+        //     color: Colors.white,
+        //     child: Center(
+        //       child: SpinKitFadingFour(
+        //         color: Colors.purple,
+        //         size: deviceProvider.getUseMobileLayout ? 50 : 80,
+        //       ),
+        //     ),
+        //   ),
+        );
   }
 }
 

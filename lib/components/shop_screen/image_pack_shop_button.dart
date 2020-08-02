@@ -35,10 +35,10 @@ class ImagePackShopButton extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             height: deviceProvider.getUseMobileLayout ? 50 : 70,
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              boxShadow: const <BoxShadow>[
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              boxShadow: <BoxShadow>[
                 BoxShadow(
                   color: Colors.black45,
                   blurRadius: 3.0,
@@ -50,7 +50,8 @@ class ImagePackShopButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
+                  // imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
+                  imagePackProduct.id,
                   style: CustomTextTheme(deviceProvider: deviceProvider)
                       .selectPictureButtonTextStyle(),
                 ),

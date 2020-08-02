@@ -7,11 +7,22 @@ class ShopProvider extends ChangeNotifier {
   static final InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> subscription;
 
-  static const String _removeAdProductId = 'remove_ads';
+  static const String _removeAdProductId = 'test1';
 
   static const List<String> _productIds = <String>[
-    'category_natural_wonders',
-    'category_sports',
+    'test8',
+    'test9',
+    'test10',
+    'test11',
+    'test12',
+    'test13',
+    'test14',
+    'test15',
+    'test16',
+    'test17',
+    'test18',
+    'test19',
+    'test20',
   ];
 
   ProductDetails _adProduct;
@@ -25,22 +36,18 @@ class ShopProvider extends ChangeNotifier {
 
   static bool available = false;
 
-  Future<bool> initialize() async {
+  Future<void> initialize() async {
     available = await _iap.isAvailable();
 
     if (available) {
       _pastPurchases = await getPastPurchasesFromAppStore();
       _adProduct = await getRemoveAdProductFromAppStore();
       _imagePackProducts = await getImageProductsFromAppStore();
-
-      subscription = _iap.purchaseUpdatedStream.listen((List<PurchaseDetails> purchases) async {
+      subscription = _iap.purchaseUpdatedStream.listen((List<PurchaseDetails> purchases) {
         completePurchase(purchases);
       });
-      notifyListeners();
-      return true;
     }
-
-    return false;
+    notifyListeners();
   }
 
   Future<void> completePurchase(List<PurchaseDetails> purchases) async {
@@ -50,10 +57,14 @@ class ShopProvider extends ChangeNotifier {
 
         if (billingResult.responseCode == BillingResponse.ok) {
           _pastPurchases.addAll(purchases);
+          notifyListeners();
         } else if (billingResult.responseCode == BillingResponse.error ||
             billingResult.responseCode == BillingResponse.serviceUnavailable) {
-          completePurchase(purchases);
+          // completePurchase(purchases);
+          print('BILLING ERROR');
         }
+      } else {
+        print('Purchase status ${purchase.status}');
       }
     }
   }
@@ -75,13 +86,11 @@ class ShopProvider extends ChangeNotifier {
         Set<String>.from(<List<String>>[_productIds].expand((List<String> product) => product));
 
     final ProductDetailsResponse reponse = await _iap.queryProductDetails(productIdsSet);
-
     return reponse.productDetails;
   }
 
   Future<List<PurchaseDetails>> getPastPurchasesFromAppStore() async {
     final QueryPurchaseDetailsResponse response = await _iap.queryPastPurchases();
-
     for (final PurchaseDetails purchase in response.pastPurchases) {
       if (Platform.isIOS) {
         InAppPurchaseConnection.instance.completePurchase(purchase);
@@ -91,11 +100,6 @@ class ShopProvider extends ChangeNotifier {
     if (response.error != null) {
       print(response.error);
     }
-
-    // for (final PurchaseDetails purchase in response.pastPurchases) {
-    //   print(
-    //       '${purchase.productID} - ${purchase.status} - ${purchase.verificationData.localVerificationData} - ${purchase.verificationData.serverVerificationData}');
-    // }
 
     return response.pastPurchases;
   }
@@ -112,9 +116,9 @@ class ShopProvider extends ChangeNotifier {
   //   }
   // }
 
-  void buyProduct(ProductDetails prod) {
+  Future<void> buyProduct(ProductDetails prod) async {
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: prod);
-    // _iap.buyNonConsumable(purchaseParam: purchaseParam);
-    _iap.buyConsumable(purchaseParam: purchaseParam);
+    await _iap.buyNonConsumable(purchaseParam: purchaseParam);
+    // _iap.buyConsumable(purchaseParam: purchaseParam);
   }
 }
