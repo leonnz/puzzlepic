@@ -8,6 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../components/buttons/appbar_leading_button.dart';
 import '../components/shop_screen/image_pack_list.dart';
 import '../components/shop_screen/remove_ad_shop_button.dart';
+import '../components/shop_screen/shop_error_message.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
 import '../styles/custom_styles.dart';
@@ -128,30 +129,8 @@ class _ShopScreenState extends State<ShopScreen> {
                           ],
                         )
                       : shopProvider.getTimedout
-                          ? Container(
-                              margin: const EdgeInsets.all(10),
-                              padding: const EdgeInsets.all(10),
-                              height: deviceProvider.getUseMobileLayout ? 50 : 70,
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.black45,
-                                    blurRadius: 3.0,
-                                    offset: Offset(0.0, 2.0),
-                                  ),
-                                ],
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Problem connecting to store',
-                                  style: CustomTextTheme(deviceProvider: deviceProvider)
-                                      .selectPictureButtonTextStyle(),
-                                  // textAlign: TextAlign.center,
-                                ),
-                              ),
+                          ? const ShopErrorMessage(
+                              message: 'Problem connecting to store',
                             )
                           : Container(
                               color: Colors.white,
@@ -164,30 +143,8 @@ class _ShopScreenState extends State<ShopScreen> {
                             );
                 },
               )
-            : Container(
-                margin: const EdgeInsets.all(10),
-                padding: const EdgeInsets.all(10),
-                height: deviceProvider.getUseMobileLayout ? 50 : 70,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.black45,
-                      blurRadius: 3.0,
-                      offset: Offset(0.0, 2.0),
-                    ),
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    'No Internet Connection',
-                    style: CustomTextTheme(deviceProvider: deviceProvider)
-                        .selectPictureButtonTextStyle(),
-                    // textAlign: TextAlign.center,
-                  ),
-                ),
+            : const ShopErrorMessage(
+                message: 'No Internet connection',
               ),
       ),
     );

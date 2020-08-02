@@ -37,23 +37,19 @@ class ShopProvider extends ChangeNotifier {
   bool _available = false;
   bool get getAvailable => _available;
 
-  bool _timeout = true;
+  bool _timeout = false;
   bool get getTimedout => _timeout;
 
   Future<bool> initialize() async {
-    bool loaded = false;
     try {
       _available = await _iap.isAvailable().timeout(
-            const Duration(milliseconds: 3000),
-            // onTimeout: () {
-            //   loaded = 'timeout';
-            //   return true;
-            // },
-          );
-    } on TimeoutException catch (_) {
-      _timeout = true;
-    }
-
+        const Duration(milliseconds: 5000),
+        onTimeout: () {
+          _timeout = true;
+          return true;
+        },
+      );
+    } on TimeoutException catch (_) {}
     if (_available) {
       _pastPurchases = await getPastPurchasesFromAppStore();
       _adProduct = await getRemoveAdProductFromAppStore();
@@ -61,10 +57,11 @@ class ShopProvider extends ChangeNotifier {
       _subscription = _iap.purchaseUpdatedStream.listen((List<PurchaseDetails> purchases) {
         completePurchase(purchases);
       });
-      loaded = true;
+    } else {
+      _timeout = true;
     }
     notifyListeners();
-    return loaded;
+    return _available;
   }
 
   Future<void> completePurchase(List<PurchaseDetails> purchases) async {
