@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'dart:math' as math;
 
@@ -41,8 +42,23 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
   }
 
+  Future<void> checkInternetConnection({DeviceProvider deviceProvider}) async {
+    try {
+      final List<InternetAddress> result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        print('connected');
+        deviceProvider.setHasInternetConnection(connection: true);
+      }
+    } on SocketException catch (_) {
+      print('not connected');
+    }
+  }
+
   @override
   void initState() {
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
+    checkInternetConnection(deviceProvider: deviceProvider);
+
     _audioCache = AudioCache(prefix: 'audio/');
 
     precacheImagesCompleted = false;

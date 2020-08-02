@@ -45,8 +45,7 @@ class ShopProvider extends ChangeNotifier {
       _available = await _iap.isAvailable().timeout(
         const Duration(milliseconds: 5000),
         onTimeout: () {
-          _timeout = true;
-          return true;
+          return false;
         },
       );
     } on TimeoutException catch (_) {}

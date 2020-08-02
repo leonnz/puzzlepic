@@ -19,29 +19,31 @@ class ShopScreen extends StatefulWidget {
 }
 
 class _ShopScreenState extends State<ShopScreen> {
-  bool shopLoaded;
+  bool shopLoaded = false;
 
-  Future<void> checkInternetConnection({DeviceProvider deviceProvider}) async {
-    try {
-      final List<InternetAddress> result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        print('connected');
-        deviceProvider.setHasInternetConnection(connection: true);
-      }
-    } on SocketException catch (_) {
-      print('not connected');
-    }
-  }
+  // Future<void> checkInternetConnection({DeviceProvider deviceProvider}) async {
+  //   try {
+  //     final List<InternetAddress> result = await InternetAddress.lookup('example.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       print('connected');
+  //       deviceProvider.setHasInternetConnection(connection: true);
+  //     }
+  //   } on SocketException catch (_) {
+  //     print('not connected');
+  //   }
+  // }
 
   @override
   void initState() {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
-    checkInternetConnection(deviceProvider: deviceProvider);
+    // checkInternetConnection(deviceProvider: deviceProvider);
 
-    shopLoaded = false;
-    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
-    loadShop(shop: shopProvider);
-    // shopProvider.initialize();
+    if (deviceProvider.getHasInternetConnection) {
+      final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+      // loadShop(shop: shopProvider);
+      shopProvider.initialize();
+    }
+
     super.initState();
   }
 
@@ -50,20 +52,14 @@ class _ShopScreenState extends State<ShopScreen> {
     super.dispose();
   }
 
-  Future<void> loadShop({ShopProvider shop}) async {
-    final bool result = await shop.initialize();
-    if (result) {
-      Future<void>.delayed(const Duration(milliseconds: 500)).then(
-        (_) {
-          if (mounted) {
-            setState(() {
-              shopLoaded = true;
-            });
-          }
-        },
-      );
-    }
-  }
+  // Future<void> loadShop({ShopProvider shop}) async {
+  //   final bool result = await shop.initialize();
+  //   if (result && mounted) {
+  //     setState(() {
+  //       shopLoaded = true;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
