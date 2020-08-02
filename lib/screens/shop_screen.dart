@@ -127,15 +127,41 @@ class _ShopScreenState extends State<ShopScreen> {
                             Text('${deviceProvider.getHasInternetConnection}')
                           ],
                         )
-                      : Container(
-                          color: Colors.white,
-                          child: Center(
-                            child: SpinKitFadingFour(
-                              color: Colors.purple,
-                              size: deviceProvider.getUseMobileLayout ? 50 : 80,
-                            ),
-                          ),
-                        );
+                      : shopProvider.getTimedout
+                          ? Container(
+                              margin: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
+                              height: deviceProvider.getUseMobileLayout ? 50 : 70,
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black45,
+                                    blurRadius: 3.0,
+                                    offset: Offset(0.0, 2.0),
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Problem connecting to store',
+                                  style: CustomTextTheme(deviceProvider: deviceProvider)
+                                      .selectPictureButtonTextStyle(),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                            )
+                          : Container(
+                              color: Colors.white,
+                              child: Center(
+                                child: SpinKitFadingFour(
+                                  color: Colors.purple,
+                                  size: deviceProvider.getUseMobileLayout ? 50 : 80,
+                                ),
+                              ),
+                            );
                 },
               )
             : Container(
@@ -156,7 +182,7 @@ class _ShopScreenState extends State<ShopScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    'Problem connecting to store',
+                    'No Internet Connection',
                     style: CustomTextTheme(deviceProvider: deviceProvider)
                         .selectPictureButtonTextStyle(),
                     // textAlign: TextAlign.center,

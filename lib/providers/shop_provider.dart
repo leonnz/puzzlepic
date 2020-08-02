@@ -37,9 +37,22 @@ class ShopProvider extends ChangeNotifier {
   bool _available = false;
   bool get getAvailable => _available;
 
+  bool _timeout = true;
+  bool get getTimedout => _timeout;
+
   Future<bool> initialize() async {
     bool loaded = false;
-    _available = await _iap.isAvailable();
+    try {
+      _available = await _iap.isAvailable().timeout(
+            const Duration(milliseconds: 3000),
+            // onTimeout: () {
+            //   loaded = 'timeout';
+            //   return true;
+            // },
+          );
+    } on TimeoutException catch (_) {
+      _timeout = true;
+    }
 
     if (_available) {
       _pastPurchases = await getPastPurchasesFromAppStore();
