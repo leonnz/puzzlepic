@@ -3,6 +3,7 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class DeviceProvider extends ChangeNotifier {
+  static bool hasInternetConnection = false;
   static bool _useMobileLayout;
   static bool _muteSounds = false;
   static int _gridSize;
@@ -10,10 +11,16 @@ class DeviceProvider extends ChangeNotifier {
   static AudioCache _audioCache;
 
   bool get getUseMobileLayout => _useMobileLayout;
+  bool get getHasInternetConnection => hasInternetConnection;
   bool get getMuteSounds => _muteSounds;
   int get getGridSize => _gridSize;
   double get getDeviceScreenHeight => deviceScreenHeight;
   AudioCache get getAudioCache => _audioCache;
+
+  void setHasInternetConnection({bool connection}) {
+    hasInternetConnection = connection;
+    notifyListeners();
+  }
 
   void setUseMobileLayout({bool useMobileLayout}) {
     _useMobileLayout = useMobileLayout;

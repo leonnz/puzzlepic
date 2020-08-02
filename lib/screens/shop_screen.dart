@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
@@ -16,56 +18,63 @@ class ShopScreen extends StatefulWidget {
 }
 
 class _ShopScreenState extends State<ShopScreen> {
-  // bool shopLoaded;
+  bool shopLoaded;
+
+  Future<void> checkInternetConnection({DeviceProvider deviceProvider}) async {
+    try {
+      final List<InternetAddress> result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        print('connected');
+        deviceProvider.setHasInternetConnection(connection: true);
+      }
+    } on SocketException catch (_) {
+      print('not connected');
+    }
+  }
 
   @override
   void initState() {
-    // shopLoaded = false;
-    // ShopProvider().initialize();
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
+    checkInternetConnection(deviceProvider: deviceProvider);
+
+    shopLoaded = false;
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
-    shopProvider.initialize();
+    loadShop(shop: shopProvider);
+    // shopProvider.initialize();
     super.initState();
   }
 
   @override
-  void didChangeDependencies() {
-    // final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
-    // // loadShop(shop: shopProvider);
-    // shopProvider.initialize();
-
-    super.didChangeDependencies();
-  }
-
-  @override
   void dispose() {
-    print('disposed');
     super.dispose();
   }
 
-  // Future<void> loadShop({ShopProvider shop}) async {
-  //   final bool result = await shop.initialize();
-  //   if (result) {
-  //     Future<void>.delayed(const Duration(milliseconds: 500)).then(
-  //       (_) {
-  //         if (mounted) {
-  //           setState(() {
-  //             shopLoaded = true;
-  //           });
-  //         }
-  //       },
-  //     );
-  //   }
-  // }
+  Future<void> loadShop({ShopProvider shop}) async {
+    final bool result = await shop.initialize();
+    if (result) {
+      Future<void>.delayed(const Duration(milliseconds: 500)).then(
+        (_) {
+          if (mounted) {
+            setState(() {
+              shopLoaded = true;
+            });
+          }
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
-    // final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
-    // // // // loadShop(shop: shopProvider);
-    // shopProvider.initialize();
-
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        final bool quit = shopProvider.cancelSubscription();
+        return quit;
+      },
+      child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
           child: Container(
@@ -85,7 +94,10 @@ class _ShopScreenState extends State<ShopScreen> {
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
-                AppBarLeadingButton(icon: Icons.close),
+                AppBarLeadingButton(
+                  icon: Icons.close,
+                  customOperation: shopProvider.cancelSubscription,
+                ),
                 Text(
                   'Shop',
                   style: CustomTextTheme(deviceProvider: deviceProvider)
@@ -95,63 +107,63 @@ class _ShopScreenState extends State<ShopScreen> {
             ),
           ),
         ),
-        body: Consumer<ShopProvider>(
-          builder: (BuildContext context, ShopProvider value, Widget child) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                const RemoveAdShopButton(),
-                const Text('Image Packs'),
-                const ImagePackList(),
-                // const Spacer(),
-                Text('past purchases ${value.getPastPurchases.length}'),
-                for (PurchaseDetails purchase in value.getPastPurchases) ...<Widget>[
-                  Text('past purchase: ${purchase.productID}')
-                ],
-                // Text('Ad product ${shopProvider.getAdProduct}'),
-                Text('image products ${value.getImagePackProducts.length}'),
-              ],
-            );
-          },
-          // child:
-        )
-        // : Container(
-        //     color: Colors.white,
-        //     child: Center(
-        //       child: SpinKitFadingFour(
-        //         color: Colors.purple,
-        //         size: deviceProvider.getUseMobileLayout ? 50 : 80,
-        //       ),
-        //     ),
-        //   ),
-        );
+        body: deviceProvider.getHasInternetConnection
+            ? Consumer<ShopProvider>(
+                builder: (BuildContext context, ShopProvider value, Widget child) {
+                  return shopProvider.getAvailable
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            const RemoveAdShopButton(),
+                            const Text('Image Packs'),
+                            const ImagePackList(),
+                            // const Spacer(),
+                            Text('past purchases ${value.getPastPurchases.length}'),
+                            for (PurchaseDetails purchase in value.getPastPurchases) ...<Widget>[
+                              Text('past purchase: ${purchase.productID}')
+                            ],
+                            // Text('Ad product ${shopProvider.getAdProduct}'),
+                            Text('image products ${value.getImagePackProducts.length}'),
+                            Text('${deviceProvider.getHasInternetConnection}')
+                          ],
+                        )
+                      : Container(
+                          color: Colors.white,
+                          child: Center(
+                            child: SpinKitFadingFour(
+                              color: Colors.purple,
+                              size: deviceProvider.getUseMobileLayout ? 50 : 80,
+                            ),
+                          ),
+                        );
+                },
+              )
+            : Container(
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
+                height: deviceProvider.getUseMobileLayout ? 50 : 70,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 3.0,
+                      offset: Offset(0.0, 2.0),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    'Problem connecting to store',
+                    style: CustomTextTheme(deviceProvider: deviceProvider)
+                        .selectPictureButtonTextStyle(),
+                    // textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+      ),
+    );
   }
 }
-
-// Column(
-//   children: <Widget>[
-//     Text('test'),
-
-// for (var prod in _products)
-//   if (_hasPurchased(prod.id) != null) ...[
-//     Text('Already purchased'),
-//   ] else ...[
-//     ListView.builder(
-//       itemCount: _products.length,
-//       itemBuilder: (context, index) {
-//         return Container(
-//           child: Text(_products[index].title),
-//         );
-//       },
-//     ),
-//     Text(prod.title),
-//     Text(prod.description),
-//     Text(prod.price),
-//     FlatButton(
-//       child: Text('BUY IT!!!'),
-//       color: Colors.green,
-//       onPressed: () => _buyProduct(prod),
-//     )
-//   ]
-//   ],
-// ),

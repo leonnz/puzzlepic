@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
@@ -16,7 +17,6 @@ import '../components/polaroid.dart';
 import '../components/puzzle_pic_logo.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
-import '../providers/shop_provider.dart';
 import '../providers/game_provider.dart';
 
 class Home extends StatefulWidget {

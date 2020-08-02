@@ -5,7 +5,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 
 class ShopProvider extends ChangeNotifier {
   static final InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
-  StreamSubscription<List<PurchaseDetails>> subscription;
+  StreamSubscription<List<PurchaseDetails>> _subscription;
 
   static const String _removeAdProductId = 'test1';
 
@@ -34,20 +34,24 @@ class ShopProvider extends ChangeNotifier {
   List<PurchaseDetails> _pastPurchases = <PurchaseDetails>[];
   List<PurchaseDetails> get getPastPurchases => _pastPurchases;
 
-  static bool available = false;
+  bool _available = false;
+  bool get getAvailable => _available;
 
-  Future<void> initialize() async {
-    available = await _iap.isAvailable();
+  Future<bool> initialize() async {
+    bool loaded = false;
+    _available = await _iap.isAvailable();
 
-    if (available) {
+    if (_available) {
       _pastPurchases = await getPastPurchasesFromAppStore();
       _adProduct = await getRemoveAdProductFromAppStore();
       _imagePackProducts = await getImageProductsFromAppStore();
-      subscription = _iap.purchaseUpdatedStream.listen((List<PurchaseDetails> purchases) {
+      _subscription = _iap.purchaseUpdatedStream.listen((List<PurchaseDetails> purchases) {
         completePurchase(purchases);
       });
+      loaded = true;
     }
     notifyListeners();
+    return loaded;
   }
 
   Future<void> completePurchase(List<PurchaseDetails> purchases) async {
@@ -69,8 +73,9 @@ class ShopProvider extends ChangeNotifier {
     }
   }
 
-  void cancelSubscription() {
-    subscription?.cancel();
+  bool cancelSubscription() {
+    _subscription?.cancel();
+    return true;
   }
 
   Future<ProductDetails> getRemoveAdProductFromAppStore() async {
