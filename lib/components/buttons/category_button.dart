@@ -7,8 +7,7 @@ import '../../screens/select_picture_screen.dart';
 import '../../styles/custom_styles.dart';
 
 class CategoryButton extends StatelessWidget {
-  const CategoryButton(
-      {Key key, @required this.categoryName, this.categoryReadableName})
+  const CategoryButton({Key key, @required this.categoryName, this.categoryReadableName})
       : super(key: key);
   final String categoryName;
   final String categoryReadableName;
@@ -40,8 +39,7 @@ class CategoryButton extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image(
-                image: AssetImage(
-                    'assets/images/_categories/${categoryName}_cat.png'),
+                image: AssetImage('assets/images/_categories/${categoryName}_cat.png'),
               ),
             ),
             Align(
@@ -60,8 +58,7 @@ class CategoryButton extends StatelessWidget {
                 child: Center(
                   child: Text(
                     categoryReadableName,
-                    style: CustomTextTheme(deviceProvider: deviceProvider)
-                        .selectPictureButtonTextStyle(),
+                    style: CustomTextTheme.selectPictureButtonTextStyle(),
                     textAlign: TextAlign.center,
                   ),
                 ),

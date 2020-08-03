@@ -102,8 +102,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                     AppBarLeadingButton(icon: Icons.arrow_back_ios),
                     Text(
                       'Categories',
-                      style: CustomTextTheme(deviceProvider: deviceProvider)
-                          .selectScreenTitleTextStyle(context),
+                      style: CustomTextTheme.selectScreenTitleTextStyle(context),
                     ),
                   ],
                 ),

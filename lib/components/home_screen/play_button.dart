@@ -126,7 +126,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
                 child: Center(
                   child: Text(
                     'Play!',
-                    style: CustomTextTheme(deviceProvider: deviceProvider).playButtonText(context),
+                    style: CustomTextTheme.playButtonText(),
                   ),
                 ),
               ),

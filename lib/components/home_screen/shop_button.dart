@@ -106,7 +106,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
                 child: Center(
                   child: Text(
                     'Shop',
-                    style: CustomTextTheme(deviceProvider: deviceProvider).playButtonText(context),
+                    style: CustomTextTheme.playButtonText(),
                   ),
                 ),
               ),

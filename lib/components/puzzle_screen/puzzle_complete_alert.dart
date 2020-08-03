@@ -25,7 +25,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
       title: Text(
         'Congratulations!',
         textAlign: TextAlign.center,
-        style: CustomTextTheme(deviceProvider: deviceProvider).puzzleScreenCompleteAlertTitle(),
+        style: CustomTextTheme.puzzleScreenCompleteAlertTitle(),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -38,8 +38,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
             child: Text(
               'You completed ${gameProvider.getReadableFullname ?? gameProvider.getReadableName} in ${gameProvider.getMoves} moves${gameProvider.getMoves < gameProvider.getBestMoves ? ", a new personal best!" : "."}',
               textAlign: TextAlign.center,
-              style: CustomTextTheme(deviceProvider: deviceProvider)
-                  .puzzleScreenCompleteAlertContent(),
+              style: CustomTextTheme.puzzleScreenCompleteAlertContent(),
             ),
           ),
           Row(
@@ -56,8 +55,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
                 },
                 child: Text(
                   'Close',
-                  style: CustomTextTheme(deviceProvider: deviceProvider)
-                      .puzzleScreenCompleteAlertButtonText(),
+                  style: CustomTextTheme.puzzleScreenCompleteAlertButtonText(),
                 ),
               ),
             ],

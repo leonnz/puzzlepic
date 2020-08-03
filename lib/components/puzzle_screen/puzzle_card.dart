@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/device_provider.dart';
 import '../../providers/game_provider.dart';
 import '../../styles/custom_styles.dart';
 import 'puzzle_card_image_board.dart';
@@ -14,7 +13,6 @@ class PuzzleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
     return Container(
@@ -29,15 +27,14 @@ class PuzzleCard extends StatelessWidget {
               child: Text(
                 gameProvider.getReadableFullname,
                 textAlign: TextAlign.center,
-                style: CustomTextTheme(deviceProvider: deviceProvider).puzzleScreenImageTitle(),
+                style: CustomTextTheme.puzzleScreenImageTitle(),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: Text(
                 gameProvider.getTitle,
-                style:
-                    CustomTextTheme(deviceProvider: deviceProvider).puzzleScreenPictureSubTitle(),
+                style: CustomTextTheme.puzzleScreenPictureSubTitle(),
               ),
             ),
             const PuzzleCardMoves(),

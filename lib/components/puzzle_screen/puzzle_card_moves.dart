@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/db_provider.dart';
-import '../../providers/device_provider.dart';
 import '../../providers/game_provider.dart';
 import '../../styles/custom_styles.dart';
 
@@ -13,14 +12,13 @@ class PuzzleCardMoves extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
     Future<int> getSingleRecord() async {
       final DBProviderDb dbProvider = DBProviderDb();
       int best = 0;
-      final List<Map<String, dynamic>> record = await dbProvider
-          .getSingleRecord(puzzleName: gameProvider.getReadableName);
+      final List<Map<String, dynamic>> record =
+          await dbProvider.getSingleRecord(puzzleName: gameProvider.getReadableName);
 
       if (record.isNotEmpty) {
         best = record[0]['bestMoves'] as int;
@@ -35,8 +33,7 @@ class PuzzleCardMoves extends StatelessWidget {
         children: <Widget>[
           Text(
             'Moves: ${gameProvider.getMoves}',
-            style: CustomTextTheme(deviceProvider: deviceProvider)
-                .puzzleScreenMovesCounter(),
+            style: CustomTextTheme.puzzleScreenMovesCounter(),
           ),
           FutureBuilder<int>(
             future: getSingleRecord(),
@@ -48,14 +45,12 @@ class PuzzleCardMoves extends StatelessWidget {
                 final int moves = snapshot.data;
                 bestMoves = Text(
                   'Best moves: $moves',
-                  style: CustomTextTheme(deviceProvider: deviceProvider)
-                      .puzzleScreenMovesCounter(),
+                  style: CustomTextTheme.puzzleScreenMovesCounter(),
                 );
               } else {
                 bestMoves = Text(
                   'Best moves: 0',
-                  style: CustomTextTheme(deviceProvider: deviceProvider)
-                      .puzzleScreenMovesCounter(),
+                  style: CustomTextTheme.puzzleScreenMovesCounter(),
                 );
               }
               return bestMoves;
