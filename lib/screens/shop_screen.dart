@@ -3,7 +3,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '../components/buttons/appbar_leading_button.dart';
+import '../components/_shared/appbar_leading_button.dart';
 import '../components/shop_screen/image_pack_list.dart';
 import '../components/shop_screen/remove_ad_shop_button.dart';
 import '../components/shop_screen/shop_error_message.dart';

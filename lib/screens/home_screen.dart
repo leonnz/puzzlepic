@@ -11,11 +11,11 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:audioplayers/audio_cache.dart';
 
 import '../ad_manager.dart';
-import '../components/buttons/mute_button.dart';
-import '../components/buttons/play_button.dart';
-import '../components/buttons/shop_button.dart';
+import '../components/_shared/mute_button.dart';
+import '../components/home_screen/play_button.dart';
 import '../components/home_screen/polaroid.dart';
 import '../components/home_screen/puzzle_pic_logo.dart';
+import '../components/home_screen/shop_button.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../providers/game_provider.dart';

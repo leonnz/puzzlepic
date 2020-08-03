@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
 import '../ad_manager.dart';
-import '../components/buttons/appbar_leading_button.dart';
+import '../components/_shared/appbar_leading_button.dart';
 import '../components/buttons/category_button.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
