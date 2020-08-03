@@ -8,8 +8,6 @@ class ShopProvider extends ChangeNotifier {
   StreamSubscription<List<PurchaseDetails>> _subscription;
 
   static const String _removeAdProductId = 'test1';
-  String get getRemoveAdProductId => _removeAdProductId;
-
   static const List<String> _productIds = <String>[
     'test8',
     'test9',
@@ -27,21 +25,18 @@ class ShopProvider extends ChangeNotifier {
   ];
 
   ProductDetails _adProduct;
-  ProductDetails get getAdProduct => _adProduct;
-
   List<ProductDetails> _imagePackProducts = <ProductDetails>[];
-  List<ProductDetails> get getImagePackProducts => _imagePackProducts;
-
   List<PurchaseDetails> _pastPurchases = <PurchaseDetails>[];
-  List<PurchaseDetails> get getPastPurchases => _pastPurchases;
-
   bool _available = false;
-  bool get getAvailable => _available;
-
   bool _timeout = false;
-  bool get getTimedout => _timeout;
-
   Function _callbackAlert;
+
+  bool get getAvailable => _available;
+  bool get getTimedout => _timeout;
+  String get getRemoveAdProductId => _removeAdProductId;
+  List<ProductDetails> get getImagePackProducts => _imagePackProducts;
+  List<PurchaseDetails> get getPastPurchases => _pastPurchases;
+  ProductDetails get getAdProduct => _adProduct;
 
   Future<bool> initialize() async {
     try {
@@ -64,6 +59,20 @@ class ShopProvider extends ChangeNotifier {
     }
     notifyListeners();
     return _available;
+  }
+
+  Future<void> buyProduct({ProductDetails product, Function callback}) async {
+    _callbackAlert = callback;
+
+    final PurchaseDetails productPurchaseIfExists = _pastPurchases.firstWhere(
+      (PurchaseDetails purchase) => purchase.productID == product.id,
+      orElse: () => null,
+    );
+
+    if (productPurchaseIfExists == null) {
+      final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
+      await _iap.buyNonConsumable(purchaseParam: purchaseParam);
+    }
   }
 
   Future<void> completePurchase(List<PurchaseDetails> purchases) async {
@@ -114,19 +123,5 @@ class ShopProvider extends ChangeNotifier {
     }
 
     return response.pastPurchases;
-  }
-
-  Future<void> buyProduct({ProductDetails product, Function callback}) async {
-    _callbackAlert = callback;
-
-    final PurchaseDetails productPurchaseIfExists = _pastPurchases.firstWhere(
-      (PurchaseDetails purchase) => purchase.productID == product.id,
-      orElse: () => null,
-    );
-
-    if (productPurchaseIfExists == null) {
-      final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
-      await _iap.buyNonConsumable(purchaseParam: purchaseParam);
-    }
   }
 }
