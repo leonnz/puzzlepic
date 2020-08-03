@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
@@ -11,27 +12,30 @@ class ImagePiece extends StatefulWidget {
     Key key,
     this.pieceNumber,
     this.lastPiece,
+    @required this.interstitialAd,
+    @required this.isInterstitialAdReady,
   }) : super(key: key);
 
   final int pieceNumber;
   final bool lastPiece;
+  final InterstitialAd interstitialAd;
+  final bool isInterstitialAdReady;
 
   @override
   _ImagePieceState createState() => _ImagePieceState();
 }
 
-class _ImagePieceState extends State<ImagePiece>
-    with SingleTickerProviderStateMixin {
+class _ImagePieceState extends State<ImagePiece> with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation<double> _animation;
 
   Future<bool> showPuzzleCompleteAlert() {
     return showDialog(
       context: context,
-      builder: (BuildContext context) => const PuzzleCompleteAlert(
-          // fullAd: interstitialAd,
-          // fullAdReady: isInterstitialAdReady,
-          ),
+      builder: (BuildContext context) => PuzzleCompleteAlert(
+        fullAd: widget.interstitialAd,
+        fullAdReady: widget.isInterstitialAdReady,
+      ),
     );
   }
 
@@ -66,8 +70,7 @@ class _ImagePieceState extends State<ImagePiece>
   @override
   Widget build(BuildContext context) {
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
-    final ImagePieceProvider imagePieceProvider =
-        Provider.of<ImagePieceProvider>(context);
+    final ImagePieceProvider imagePieceProvider = Provider.of<ImagePieceProvider>(context);
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     bool dragged = false;
@@ -78,8 +81,7 @@ class _ImagePieceState extends State<ImagePiece>
     _controller.forward();
     return AnimatedPositioned(
       left: imagePieceProvider.getLeftPosition(
-          pieceNumber: widget.pieceNumber,
-          piecePositions: gameProvider.getPiecePositions),
+          pieceNumber: widget.pieceNumber, piecePositions: gameProvider.getPiecePositions),
       top: imagePieceProvider.getTopPosition(
         pieceNumber: widget.pieceNumber,
         piecePositions: gameProvider.getPiecePositions,

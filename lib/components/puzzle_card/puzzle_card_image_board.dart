@@ -62,6 +62,8 @@ class PuzzleCardImageBoard extends StatelessWidget {
           ImagePiece(
             pieceNumber: i,
             lastPiece: complete,
+            interstitialAd: interstitialAd,
+            isInterstitialAdReady: isInterstitialAdReady,
           ),
         );
         gameProvider.setInitialPuzzlePiecePosition(i);

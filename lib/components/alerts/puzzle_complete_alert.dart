@@ -9,12 +9,12 @@ import '../../styles/custom_styles.dart';
 class PuzzleCompleteAlert extends StatelessWidget {
   const PuzzleCompleteAlert({
     Key key,
-    // this.fullAd,
-    // this.fullAdReady,
+    @required this.fullAd,
+    @required this.fullAdReady,
   }) : super(key: key);
 
-  // final InterstitialAd fullAd;
-  // final bool fullAdReady;
+  final InterstitialAd fullAd;
+  final bool fullAdReady;
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +50,9 @@ class PuzzleCompleteAlert extends StatelessWidget {
                 textColor: const Color(0xff501E5D),
                 onPressed: () {
                   Navigator.pop(context, true);
-
-                  // if (fullAdReady) {
-                  //   // fullAd.show();
-                  // }
+                  if (fullAdReady) {
+                    fullAd.show();
+                  }
                 },
                 child: Text(
                   'Close',
