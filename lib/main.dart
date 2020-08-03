@@ -9,6 +9,8 @@ import './providers/game_provider.dart';
 import './providers/shop_provider.dart';
 import './screens/home_screen.dart';
 
+//TODO box shadow styles in style file
+
 void main() {
   InAppPurchaseConnection.enablePendingPurchases();
   runApp(PuzzlePicApp());
@@ -23,8 +25,7 @@ class PuzzlePicApp extends StatelessWidget {
       statusBarColor: Color(0xff501E5D), //or set color with: Color(0xFF0000FF)
     ));
 
-    SystemChrome.setEnabledSystemUIOverlays(
-        <SystemUiOverlay>[SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[SystemUiOverlay.bottom]);
 
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
       DeviceOrientation.portraitUp,
