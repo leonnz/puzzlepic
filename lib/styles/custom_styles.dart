@@ -75,11 +75,11 @@ class CustomTextTheme {
       letterSpacing: 1,
       fontWeight: FontWeight.w700,
       color: Colors.black,
-      shadows: <Shadow>[
+      shadows: const <Shadow>[
         Shadow(
           blurRadius: 1,
           color: Colors.white,
-          offset: const Offset(1, 1),
+          offset: Offset(1, 1),
         )
       ],
     );

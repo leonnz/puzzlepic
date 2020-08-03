@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
@@ -19,29 +17,8 @@ class ShopScreen extends StatefulWidget {
 }
 
 class _ShopScreenState extends State<ShopScreen> {
-  // Future<void> checkInternetConnection({DeviceProvider deviceProvider}) async {
-  //   try {
-  //     final List<InternetAddress> result = await InternetAddress.lookup('example.com');
-  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  //       print('connected');
-  //       deviceProvider.setHasInternetConnection(connection: true);
-  //     }
-  //   } on SocketException catch (_) {
-  //     print('not connected');
-  //   }
-  // }
-
   @override
   void initState() {
-    // final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
-    // checkInternetConnection(deviceProvider: deviceProvider);
-
-    // if (deviceProvider.getHasInternetConnection) {
-    //   final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
-    //   // loadShop(shop: shopProvider);
-    //   shopProvider.initialize();
-    // }
-
     super.initState();
   }
 

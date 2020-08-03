@@ -10,8 +10,7 @@ import '../providers/device_provider.dart';
 import '../styles/custom_styles.dart';
 
 class SelectPicture extends StatefulWidget {
-  const SelectPicture(
-      {Key key, @required this.category, this.categoryReadableName})
+  const SelectPicture({Key key, @required this.category, this.categoryReadableName})
       : super(key: key);
 
   final String category;
@@ -55,20 +54,18 @@ class _SelectPictureState extends State<SelectPicture> {
         child: Scaffold(
           backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
           appBar: PreferredSize(
-            preferredSize:
-                Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
+            preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                      'assets/images/_categories/${widget.category}_banner.png'),
+                  image: AssetImage('assets/images/_categories/${widget.category}_banner.png'),
                   fit: BoxFit.cover,
                 ),
-                boxShadow: <BoxShadow>[
+                boxShadow: const <BoxShadow>[
                   BoxShadow(
                     color: Colors.black45,
                     blurRadius: 5.0,
-                    offset: const Offset(0.0, 3.0),
+                    offset: Offset(0.0, 3.0),
                   ),
                 ],
               ),
@@ -84,21 +81,17 @@ class _SelectPictureState extends State<SelectPicture> {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: FutureBuilder<List<String>>(
-                      future: dbProvider.getRecordsByCategory(
-                          category: widget.category),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<String>> snapshot) {
+                      future: dbProvider.getRecordsByCategory(category: widget.category),
+                      builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
                         Widget grid;
                         if (snapshot.hasData) {
                           grid = Padding(
-                            padding: EdgeInsets.only(
-                                bottom:
-                                    deviceProvider.getUseMobileLayout ? 4 : 8),
+                            padding:
+                                EdgeInsets.only(bottom: deviceProvider.getUseMobileLayout ? 4 : 8),
                             child: Text(
                               'Completed ${snapshot.data.length} / ${images.length}',
                               textAlign: TextAlign.center,
-                              style: CustomTextTheme(
-                                      deviceProvider: deviceProvider)
+                              style: CustomTextTheme(deviceProvider: deviceProvider)
                                   .selectPictureScreenCompletedTextStyle(),
                             ),
                           );
@@ -115,8 +108,7 @@ class _SelectPictureState extends State<SelectPicture> {
           ),
           body: FutureBuilder<List<String>>(
             future: dbProvider.getRecordsByCategory(category: widget.category),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
               Widget grid;
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
@@ -127,7 +119,6 @@ class _SelectPictureState extends State<SelectPicture> {
                       itemCount: images.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: deviceProvider.getGridSize,
-                        childAspectRatio: 1,
                         crossAxisSpacing: 5,
                         mainAxisSpacing: 5,
                       ),
@@ -136,11 +127,9 @@ class _SelectPictureState extends State<SelectPicture> {
                           categoryName: widget.category,
                           assetName: images[i]['assetName'].toString(),
                           readableName: images[i]['readableName'].toString(),
-                          readableFullName:
-                              images[i]['readableFullname'].toString(),
+                          readableFullName: images[i]['readableFullname'].toString(),
                           title: images[i]['title'].toString(),
-                          complete:
-                              snapshot.data.contains(images[i]['readableName']),
+                          complete: snapshot.data.contains(images[i]['readableName']),
                           refreshPictureSelectScreen: refreshScreen,
                         );
                       },
