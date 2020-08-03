@@ -113,10 +113,6 @@ class ShopProvider extends ChangeNotifier {
       }
     }
 
-    if (response.error != null) {
-      print(response.error);
-    }
-
     return response.pastPurchases;
   }
 
