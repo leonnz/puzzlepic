@@ -19,6 +19,7 @@ import '../components/puzzle_pic_logo.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../providers/game_provider.dart';
+import '../providers/shop_provider.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -42,12 +43,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
   }
 
-  Future<void> checkInternetConnection({DeviceProvider deviceProvider}) async {
+  Future<void> checkInternetConnection(
+      {DeviceProvider deviceProvider, ShopProvider shopProvider}) async {
     try {
       final List<InternetAddress> result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         print('connected');
         deviceProvider.setHasInternetConnection(connection: true);
+        shopProvider.initialize();
       }
     } on SocketException catch (_) {
       print('not connected');
@@ -57,7 +60,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   void initState() {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
-    checkInternetConnection(deviceProvider: deviceProvider);
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+    checkInternetConnection(deviceProvider: deviceProvider, shopProvider: shopProvider);
 
     _audioCache = AudioCache(prefix: 'audio/');
 
@@ -116,6 +120,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void dispose() {
+    //TODO these not getting disposed?
     _playButtonSlideController.dispose();
     _shopButtonSlideController.dispose();
     _puzzlePicSlideController.dispose();

@@ -19,8 +19,6 @@ class ShopScreen extends StatefulWidget {
 }
 
 class _ShopScreenState extends State<ShopScreen> {
-  bool shopLoaded = false;
-
   // Future<void> checkInternetConnection({DeviceProvider deviceProvider}) async {
   //   try {
   //     final List<InternetAddress> result = await InternetAddress.lookup('example.com');
@@ -35,14 +33,14 @@ class _ShopScreenState extends State<ShopScreen> {
 
   @override
   void initState() {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
+    // final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
     // checkInternetConnection(deviceProvider: deviceProvider);
 
-    if (deviceProvider.getHasInternetConnection) {
-      final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
-      // loadShop(shop: shopProvider);
-      shopProvider.initialize();
-    }
+    // if (deviceProvider.getHasInternetConnection) {
+    //   final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+    //   // loadShop(shop: shopProvider);
+    //   shopProvider.initialize();
+    // }
 
     super.initState();
   }
@@ -51,15 +49,6 @@ class _ShopScreenState extends State<ShopScreen> {
   void dispose() {
     super.dispose();
   }
-
-  // Future<void> loadShop({ShopProvider shop}) async {
-  //   final bool result = await shop.initialize();
-  //   if (result && mounted) {
-  //     setState(() {
-  //       shopLoaded = true;
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

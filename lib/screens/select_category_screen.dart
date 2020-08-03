@@ -8,6 +8,7 @@ import '../components/buttons/appbar_leading_button.dart';
 import '../components/buttons/category_button.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
+import '../providers/shop_provider.dart';
 import '../styles/custom_styles.dart';
 
 class SelectCategory extends StatefulWidget {
@@ -46,6 +47,9 @@ class _SelectCategoryState extends State<SelectCategory> {
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+
+    print('category screen ${shopProvider.getPastPurchases.length}');
 
     return WillPopScope(
       onWillPop: () async {
@@ -68,13 +72,11 @@ class _SelectCategoryState extends State<SelectCategory> {
           child: Scaffold(
             backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
             appBar: PreferredSize(
-              preferredSize:
-                  Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
+              preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
               child: Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(
-                        'assets/images/_categories/_categories_banner.png'),
+                    image: AssetImage('assets/images/_categories/_categories_banner.png'),
                     fit: BoxFit.cover,
                   ),
                   boxShadow: <BoxShadow>[
@@ -109,10 +111,8 @@ class _SelectCategoryState extends State<SelectCategory> {
                 itemCount: Images.imageList.length,
                 itemBuilder: (BuildContext context, int i) {
                   return CategoryButton(
-                    categoryName:
-                        Images.imageList[i]['categoryName'].toString(),
-                    categoryReadableName:
-                        Images.imageList[i]['categoryReadableName'].toString(),
+                    categoryName: Images.imageList[i]['categoryName'].toString(),
+                    categoryReadableName: Images.imageList[i]['categoryReadableName'].toString(),
                   );
                 },
               ),
