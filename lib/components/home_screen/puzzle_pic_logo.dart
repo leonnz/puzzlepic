@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/device_provider.dart';
-import '../styles/custom_styles.dart';
+import '../../providers/device_provider.dart';
+import '../../styles/custom_styles.dart';
 
 class PuzzlePicLogo extends StatefulWidget {
-  const PuzzlePicLogo({Key key, this.puzzlePicSlideController})
-      : super(key: key);
+  const PuzzlePicLogo({Key key, this.puzzlePicSlideController}) : super(key: key);
 
   final AnimationController puzzlePicSlideController;
   @override
   _PuzzlePicLogoState createState() => _PuzzlePicLogoState();
 }
 
-class _PuzzlePicLogoState extends State<PuzzlePicLogo>
-    with SingleTickerProviderStateMixin {
+class _PuzzlePicLogoState extends State<PuzzlePicLogo> with SingleTickerProviderStateMixin {
   Animation<Offset> _puzzlePicSlideAnimation;
 
   @override
@@ -50,13 +48,11 @@ class _PuzzlePicLogoState extends State<PuzzlePicLogo>
             top: deviceProvider.getDeviceScreenHeight * 0.2,
           ),
           child: Padding(
-            padding:
-                EdgeInsets.all(deviceProvider.getUseMobileLayout ? 30 : 50),
+            padding: EdgeInsets.all(deviceProvider.getUseMobileLayout ? 30 : 50),
             child: Text(
               'Puzzle Pic',
               textAlign: TextAlign.center,
-              style: CustomTextTheme(deviceProvider: deviceProvider)
-                  .homeScreenAppName(context),
+              style: CustomTextTheme(deviceProvider: deviceProvider).homeScreenAppName(context),
             ),
           ),
         ),
