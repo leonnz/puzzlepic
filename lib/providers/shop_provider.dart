@@ -78,11 +78,8 @@ class ShopProvider extends ChangeNotifier {
         } else if (billingResult.responseCode == BillingResponse.error ||
             billingResult.responseCode == BillingResponse.serviceUnavailable) {
           _callbackAlert(
-              'Purchase error', 'Please try again another time, you have not been changed.');
+              'Purchase error1', 'Please try again another time, you have not been changed.');
         }
-      } else if (purchase.status == PurchaseStatus.error) {
-        _callbackAlert(
-            'Purchase error', 'Please try again another time, you have not been changed.');
       }
     }
   }
@@ -126,7 +123,14 @@ class ShopProvider extends ChangeNotifier {
   Future<void> buyProduct({ProductDetails product, Function callback}) async {
     _callbackAlert = callback;
 
-    final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
-    await _iap.buyNonConsumable(purchaseParam: purchaseParam);
+    final PurchaseDetails productPurchaseIfExists = _pastPurchases.firstWhere(
+      (PurchaseDetails purchase) => purchase.productID == product.id,
+      orElse: () => null,
+    );
+
+    if (productPurchaseIfExists == null) {
+      final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
+      await _iap.buyNonConsumable(purchaseParam: purchaseParam);
+    }
   }
 }
