@@ -8,6 +8,7 @@ class ShopProvider extends ChangeNotifier {
   StreamSubscription<List<PurchaseDetails>> _subscription;
 
   static const String _removeAdProductId = 'test1';
+  String get getRemoveAdProductId => _removeAdProductId;
 
   static const List<String> _productIds = <String>[
     'test8',

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/src/in_app_purchase/purchase_details.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
@@ -29,11 +30,26 @@ class _SelectCategoryState extends State<SelectCategory> {
 
   @override
   void initState() {
-    _bannerAd = BannerAd(
-      adUnitId: AdManager.bannerAdUnitId,
-      size: AdSize.fullBanner,
-    );
-    _loadBannerAd();
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+
+    print('category screen ${shopProvider.getPastPurchases.length}');
+    if (shopProvider.getAvailable) {
+      final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
+        (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
+        orElse: () => null,
+      );
+      if (adPurchased == null) {
+        _bannerAd = BannerAd(
+          adUnitId: AdManager.bannerAdUnitId,
+          size: AdSize.fullBanner,
+        );
+        _loadBannerAd();
+        print('loading banner ad');
+      } else {
+        print('not loading ads');
+      }
+    }
+
     super.initState();
   }
 
@@ -47,9 +63,6 @@ class _SelectCategoryState extends State<SelectCategory> {
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
-    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
-
-    print('category screen ${shopProvider.getPastPurchases.length}');
 
     return WillPopScope(
       onWillPop: () async {
