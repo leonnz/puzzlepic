@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../components/buttons/appbar_leading_button.dart';
+import '../components/_shared/appbar_leading_button.dart';
 import '../components/buttons/image_button.dart';
 import '../data/db_provider.dart';
 import '../data/images_data.dart';
