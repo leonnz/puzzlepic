@@ -41,6 +41,8 @@ class ShopProvider extends ChangeNotifier {
   bool _timeout = false;
   bool get getTimedout => _timeout;
 
+  Function _callbackAlert;
+
   Future<bool> initialize() async {
     try {
       _available = await _iap.isAvailable().timeout(
@@ -56,7 +58,7 @@ class ShopProvider extends ChangeNotifier {
       _imagePackProducts = await getImageProductsFromAppStore();
       _subscription = _iap.purchaseUpdatedStream.listen((List<PurchaseDetails> purchases) {
         completePurchase(purchases);
-      });
+      }, onDone: () => print('done'));
     } else {
       _timeout = true;
     }
@@ -72,13 +74,15 @@ class ShopProvider extends ChangeNotifier {
         if (billingResult.responseCode == BillingResponse.ok) {
           _pastPurchases.addAll(purchases);
           notifyListeners();
+          _callbackAlert('Purchase complete', 'Thank you!');
         } else if (billingResult.responseCode == BillingResponse.error ||
             billingResult.responseCode == BillingResponse.serviceUnavailable) {
-          // completePurchase(purchases);
-          print('BILLING ERROR');
+          _callbackAlert(
+              'Purchase error', 'Please try again another time, you have not been changed.');
         }
-      } else {
-        print('Purchase status ${purchase.status}');
+      } else if (purchase.status == PurchaseStatus.error) {
+        _callbackAlert(
+            'Purchase error', 'Please try again another time, you have not been changed.');
       }
     }
   }
@@ -119,21 +123,10 @@ class ShopProvider extends ChangeNotifier {
     return response.pastPurchases;
   }
 
-  // void verifyPurchase() {
-  //   final PurchaseDetails purchase = hasPurchased(_removeAdsID);
+  Future<void> buyProduct({ProductDetails product, Function callback}) async {
+    _callbackAlert = callback;
 
-  //   if (purchase != null && purchase.status == PurchaseStatus.purchased) {
-  //     print(purchase.productID);
-  //     print(purchase.purchaseID);
-  //     print(purchase.status);
-  //     print(purchase.verificationData.source);
-  //     // setRemovedAdsPurchased();
-  //   }
-  // }
-
-  Future<void> buyProduct(ProductDetails prod) async {
-    final PurchaseParam purchaseParam = PurchaseParam(productDetails: prod);
+    final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
     await _iap.buyNonConsumable(purchaseParam: purchaseParam);
-    // _iap.buyConsumable(purchaseParam: purchaseParam);
   }
 }

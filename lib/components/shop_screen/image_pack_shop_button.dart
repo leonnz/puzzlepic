@@ -18,6 +18,53 @@ class ImagePackShopButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
+    Future<void> alert(String title, String message) {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: CustomTextTheme(deviceProvider: deviceProvider).puzzleScreenCompleteAlertTitle(),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.only(
+                  bottom: 40,
+                ),
+                width: deviceProvider.getUseMobileLayout ? null : 300,
+                child: Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: CustomTextTheme(deviceProvider: deviceProvider)
+                      .puzzleScreenCompleteAlertContent(),
+                ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  FlatButton(
+                    textColor: const Color(0xff501E5D),
+                    onPressed: () {
+                      Navigator.pop(context, true);
+                    },
+                    child: Text(
+                      'Close',
+                      style: CustomTextTheme(deviceProvider: deviceProvider)
+                          .puzzleScreenCompleteAlertButtonText(),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Consumer<ShopProvider>(
       builder: (BuildContext context, ShopProvider shop, Widget child) {
         final PurchaseDetails purchased = shop.getPastPurchases.firstWhere(
@@ -28,7 +75,10 @@ class ImagePackShopButton extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             deviceProvider.playSound(sound: 'fast_click.wav');
-            shop.buyProduct(imagePackProduct);
+            shop.buyProduct(
+              product: imagePackProduct,
+              callback: alert,
+            );
           },
           child: Container(
             margin: const EdgeInsets.all(10),

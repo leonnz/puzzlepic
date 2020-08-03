@@ -108,11 +108,11 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
                 height: deviceProvider.getUseMobileLayout ? 50 : 80,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
-                  boxShadow: <BoxShadow>[
+                  boxShadow: const <BoxShadow>[
                     BoxShadow(
                       color: Colors.black45,
                       blurRadius: 5.0,
-                      offset: const Offset(0.0, 5.0),
+                      offset: Offset(0.0, 5.0),
                     ),
                   ],
                   gradient: LinearGradient(

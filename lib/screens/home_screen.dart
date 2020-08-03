@@ -56,7 +56,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _initAdMob().then((_) {}, onError: (String error) => print(error));
+    _initAdMob().then((_) {}, onError: (void error) => null);
 
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);

@@ -28,7 +28,7 @@ class RemoveAdShopButton extends StatelessWidget {
           buyRemoveAdsButton = GestureDetector(
             onTap: () {
               deviceProvider.playSound(sound: 'fast_click.wav');
-              shop.buyProduct(shop.getAdProduct);
+              // shop.buyProduct(shop.getAdProduct);
             },
             child: Container(
               margin: const EdgeInsets.all(10),

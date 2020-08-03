@@ -67,8 +67,7 @@ class _ImageButtonState extends State<ImageButton> {
       },
       child: Card(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: Colors.white)),
+            borderRadius: BorderRadius.circular(10), side: const BorderSide(color: Colors.white)),
         elevation: 5,
         child: Stack(
           children: <Widget>[
