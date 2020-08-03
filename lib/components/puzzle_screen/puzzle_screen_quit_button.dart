@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
 import '../../providers/game_provider.dart';
-import '../alerts/quit_alert.dart';
+import '../puzzle_screen/quit_alert.dart';
 
 class PuzzleScreenQuitButton extends StatelessWidget {
   const PuzzleScreenQuitButton({Key key}) : super(key: key);

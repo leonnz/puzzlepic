@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../components/alerts/quit_alert.dart';
+import '../components/puzzle_screen/quit_alert.dart';
 import '../components/buttons/mute_button.dart';
 import '../components/buttons/puzzle_screen_hint_button.dart';
 import '../components/buttons/puzzle_screen_quit_button.dart';
