@@ -2,21 +2,65 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
+import '../../ad_manager.dart';
 import '../../data/db_provider.dart';
 import '../../data/puzzle_record_model.dart';
 import '../../providers/game_provider.dart';
 import '../../providers/image_piece_provider.dart';
 import 'puzzle_card_image_piece.dart';
 
-class PuzzleCardImageBoard extends StatelessWidget {
+class PuzzleCardImageBoard extends StatefulWidget {
   const PuzzleCardImageBoard({
     Key key,
-    @required this.interstitialAd,
-    @required this.isInterstitialAdReady,
   }) : super(key: key);
 
-  final InterstitialAd interstitialAd;
-  final bool isInterstitialAdReady;
+  @override
+  _PuzzleCardImageBoardState createState() => _PuzzleCardImageBoardState();
+}
+
+class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
+  InterstitialAd _interstitialAd;
+  bool _isInterstitialAdReady;
+
+  void _loadInterstitialAd() {
+    _interstitialAd.load();
+  }
+
+  void _onInterstitialAdEvent(MobileAdEvent event) {
+    switch (event) {
+      case MobileAdEvent.loaded:
+        _isInterstitialAdReady = true;
+        break;
+      case MobileAdEvent.failedToLoad:
+        _isInterstitialAdReady = false;
+        print('Failed to load an interstitial ad.');
+        break;
+      case MobileAdEvent.closed:
+        break;
+      default:
+    }
+  }
+
+  @override
+  void initState() {
+    _isInterstitialAdReady = false;
+
+    _interstitialAd = InterstitialAd(
+      adUnitId: AdManager.interstitialAdUnitId,
+      listener: _onInterstitialAdEvent,
+    );
+
+    _loadInterstitialAd();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _interstitialAd?.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +106,8 @@ class PuzzleCardImageBoard extends StatelessWidget {
           ImagePiece(
             pieceNumber: i,
             lastPiece: complete,
-            interstitialAd: interstitialAd,
-            isInterstitialAdReady: isInterstitialAdReady,
+            interstitialAd: _interstitialAd,
+            isInterstitialAdReady: _isInterstitialAdReady,
           ),
         );
         gameProvider.setInitialPuzzlePiecePosition(i);

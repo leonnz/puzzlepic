@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
@@ -9,14 +8,9 @@ import 'puzzle_card_image_board.dart';
 import 'puzzle_card_moves.dart';
 
 class PuzzleCard extends StatelessWidget {
-  const PuzzleCard(
-      {Key key,
-      @required this.interstitialAd,
-      @required this.isInterstitialAdReady})
-      : super(key: key);
-
-  final InterstitialAd interstitialAd;
-  final bool isInterstitialAdReady;
+  const PuzzleCard({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,23 +29,19 @@ class PuzzleCard extends StatelessWidget {
               child: Text(
                 gameProvider.getReadableFullname,
                 textAlign: TextAlign.center,
-                style: CustomTextTheme(deviceProvider: deviceProvider)
-                    .puzzleScreenImageTitle(),
+                style: CustomTextTheme(deviceProvider: deviceProvider).puzzleScreenImageTitle(),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: Text(
                 gameProvider.getTitle,
-                style: CustomTextTheme(deviceProvider: deviceProvider)
-                    .puzzleScreenPictureSubTitle(),
+                style:
+                    CustomTextTheme(deviceProvider: deviceProvider).puzzleScreenPictureSubTitle(),
               ),
             ),
             const PuzzleCardMoves(),
-            PuzzleCardImageBoard(
-              interstitialAd: interstitialAd,
-              isInterstitialAdReady: isInterstitialAdReady,
-            ),
+            const PuzzleCardImageBoard(),
           ],
         ),
       ),
