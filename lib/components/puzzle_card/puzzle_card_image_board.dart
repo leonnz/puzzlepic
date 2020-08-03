@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
@@ -7,6 +8,7 @@ import '../../data/db_provider.dart';
 import '../../data/puzzle_record_model.dart';
 import '../../providers/game_provider.dart';
 import '../../providers/image_piece_provider.dart';
+import '../../providers/shop_provider.dart';
 import 'puzzle_card_image_piece.dart';
 
 class PuzzleCardImageBoard extends StatefulWidget {
@@ -43,14 +45,25 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
 
   @override
   void initState() {
+    print('here');
     _isInterstitialAdReady = false;
 
-    _interstitialAd = InterstitialAd(
-      adUnitId: AdManager.interstitialAdUnitId,
-      listener: _onInterstitialAdEvent,
-    );
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
-    _loadInterstitialAd();
+    if (shopProvider.getAvailable) {
+      final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
+        (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
+        orElse: () => null,
+      );
+      if (adPurchased == null) {
+        _interstitialAd = InterstitialAd(
+          adUnitId: AdManager.interstitialAdUnitId,
+          listener: _onInterstitialAdEvent,
+        );
+
+        _loadInterstitialAd();
+      }
+    }
 
     super.initState();
   }

@@ -27,8 +27,7 @@ class Polaroid extends StatefulWidget {
   _PolaroidState createState() => _PolaroidState();
 }
 
-class _PolaroidState extends State<Polaroid>
-    with SingleTickerProviderStateMixin {
+class _PolaroidState extends State<Polaroid> with SingleTickerProviderStateMixin {
   Animation<Offset> _slideAnimation;
 
   @override
@@ -61,8 +60,7 @@ class _PolaroidState extends State<Polaroid>
 
   @override
   Widget build(BuildContext context) {
-    final GameProvider gameState =
-        Provider.of<GameProvider>(context, listen: false);
+    final GameProvider gameState = Provider.of<GameProvider>(context, listen: false);
 
     return Align(
       alignment: widget.alignment,
@@ -74,8 +72,7 @@ class _PolaroidState extends State<Polaroid>
           child: Transform.rotate(
             angle: widget.angle,
             child: Image(
-              image: AssetImage(
-                  'assets/images/_polaroids/polaroid_${widget.image}.jpg'),
+              image: AssetImage('assets/images/_polaroids/polaroid_${widget.image}.jpg'),
             ),
           ),
         ),

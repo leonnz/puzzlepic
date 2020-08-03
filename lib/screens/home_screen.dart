@@ -48,20 +48,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     try {
       final List<InternetAddress> result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        print('connected');
         deviceProvider.setHasInternetConnection(connection: true);
         shopProvider.initialize();
       }
-    } on SocketException catch (_) {
-      print('not connected');
-    }
+    } on SocketException catch (_) {}
   }
 
   @override
   void initState() {
-    _initAdMob().then((_) {
-      print('Admob loaded');
-    }, onError: (error) => print(error));
+    _initAdMob().then((_) {}, onError: (String error) => print(error));
 
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);

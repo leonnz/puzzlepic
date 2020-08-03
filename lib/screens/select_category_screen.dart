@@ -32,7 +32,6 @@ class _SelectCategoryState extends State<SelectCategory> {
   void initState() {
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
-    print('category screen ${shopProvider.getPastPurchases.length}');
     if (shopProvider.getAvailable) {
       final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
         (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
@@ -44,9 +43,6 @@ class _SelectCategoryState extends State<SelectCategory> {
           size: AdSize.fullBanner,
         );
         _loadBannerAd();
-        print('loading banner ad');
-      } else {
-        print('not loading ads');
       }
     }
 
