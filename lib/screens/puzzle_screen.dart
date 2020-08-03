@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../components/_shared/mute_button.dart';
-import '../components/buttons/puzzle_screen_hint_button.dart';
-import '../components/puzzle_card/puzzle_card.dart';
+import '../components/puzzle_screen/puzzle_card.dart';
+import '../components/puzzle_screen/puzzle_screen_hint_button.dart';
 import '../components/puzzle_screen/puzzle_screen_quit_button.dart';
 import '../components/puzzle_screen/quit_alert.dart';
 import '../providers/game_provider.dart';
