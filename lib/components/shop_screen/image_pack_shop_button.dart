@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../providers/device_provider.dart';
 import '../../providers/shop_provider.dart';
 import '../../styles/custom_styles.dart';
+import '../alerts/purchase_alert.dart';
 
 class ImagePackShopButton extends StatelessWidget {
   const ImagePackShopButton({
@@ -18,49 +19,12 @@ class ImagePackShopButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
-    Future<void> alert(String title, String message) {
+    Future<void> purchaseCallbackAlert(String title, String message) {
       return showDialog(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: Text(
-            title,
-            textAlign: TextAlign.center,
-            style: CustomTextTheme(deviceProvider: deviceProvider).puzzleScreenCompleteAlertTitle(),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.only(
-                  bottom: 40,
-                ),
-                width: deviceProvider.getUseMobileLayout ? null : 300,
-                child: Text(
-                  message,
-                  textAlign: TextAlign.center,
-                  style: CustomTextTheme(deviceProvider: deviceProvider)
-                      .puzzleScreenCompleteAlertContent(),
-                ),
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  FlatButton(
-                    textColor: const Color(0xff501E5D),
-                    onPressed: () {
-                      Navigator.pop(context, true);
-                    },
-                    child: Text(
-                      'Close',
-                      style: CustomTextTheme(deviceProvider: deviceProvider)
-                          .puzzleScreenCompleteAlertButtonText(),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+        builder: (BuildContext context) => PurchaseAlert(
+          title: title,
+          message: message,
         ),
       );
     }
@@ -75,10 +39,7 @@ class ImagePackShopButton extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             deviceProvider.playSound(sound: 'fast_click.wav');
-            shop.buyProduct(
-              product: imagePackProduct,
-              callback: alert,
-            );
+            shop.buyProduct(product: imagePackProduct, callback: purchaseCallbackAlert);
           },
           child: Container(
             margin: const EdgeInsets.all(10),

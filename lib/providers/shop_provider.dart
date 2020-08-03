@@ -73,8 +73,8 @@ class ShopProvider extends ChangeNotifier {
 
         if (billingResult.responseCode == BillingResponse.ok) {
           _pastPurchases.addAll(purchases);
-          notifyListeners();
           _callbackAlert('Purchase complete', 'Thank you!');
+          notifyListeners();
         } else if (billingResult.responseCode == BillingResponse.error ||
             billingResult.responseCode == BillingResponse.serviceUnavailable) {
           _callbackAlert(

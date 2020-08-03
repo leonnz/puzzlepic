@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../providers/device_provider.dart';
 import '../../providers/shop_provider.dart';
 import '../../styles/custom_styles.dart';
+import '../alerts/purchase_alert.dart';
 
 class RemoveAdShopButton extends StatelessWidget {
   const RemoveAdShopButton({
@@ -14,6 +15,16 @@ class RemoveAdShopButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+
+    Future<void> purchaseCallbackAlert(String title, String message) {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) => PurchaseAlert(
+          title: title,
+          message: message,
+        ),
+      );
+    }
 
     return Consumer<ShopProvider>(
       builder: (BuildContext context, ShopProvider shop, Widget child) {
@@ -28,7 +39,7 @@ class RemoveAdShopButton extends StatelessWidget {
           buyRemoveAdsButton = GestureDetector(
             onTap: () {
               deviceProvider.playSound(sound: 'fast_click.wav');
-              // shop.buyProduct(shop.getAdProduct);
+              shop.buyProduct(product: shop.getAdProduct, callback: purchaseCallbackAlert);
             },
             child: Container(
               margin: const EdgeInsets.all(10),
