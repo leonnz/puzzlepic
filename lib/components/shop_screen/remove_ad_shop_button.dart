@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../providers/device_provider.dart';
 import '../../providers/shop_provider.dart';
 import '../../styles/custom_styles.dart';
-import '../alerts/purchase_alert.dart';
+import 'purchase_alert.dart';
 
 class RemoveAdShopButton extends StatelessWidget {
   const RemoveAdShopButton({
