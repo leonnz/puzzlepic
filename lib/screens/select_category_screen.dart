@@ -23,6 +23,7 @@ class SelectCategory extends StatefulWidget {
 
 class _SelectCategoryState extends State<SelectCategory> {
   BannerAd _bannerAd;
+  List<String> availableCategories;
 
   void _loadBannerAd() {
     _bannerAd
@@ -33,6 +34,10 @@ class _SelectCategoryState extends State<SelectCategory> {
   @override
   void initState() {
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+
+    availableCategories = shopProvider.freeCategories;
+    // TODO append purchased categories
+    // availableCategories.addAll(shopProvider.)
 
     if (shopProvider.getAvailable) {
       final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
@@ -104,13 +109,25 @@ class _SelectCategoryState extends State<SelectCategory> {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                 ),
-                itemCount: Images.imageList.length,
+                itemCount: availableCategories.length,
                 itemBuilder: (BuildContext context, int i) {
                   return CategoryButton(
-                    categoryName: Images.imageList[i]['categoryName'].toString(),
-                    categoryReadableName: Images.imageList[i]['categoryReadableName'].toString(),
+                    categoryName: availableCategories[i],
+                    // TODO Maybe move this logic into Category button
+                    categoryReadableName: Images.imageList
+                        .firstWhere((Map<String, dynamic> category) =>
+                            category['categoryName'] ==
+                            availableCategories[i])['categoryReadableName']
+                        .toString(),
                   );
                 },
+                // itemCount: Images.imageList.length,
+                // itemBuilder: (BuildContext context, int i) {
+                //   return CategoryButton(
+                //     categoryName: Images.imageList[i]['categoryName'].toString(),
+                //     categoryReadableName: Images.imageList[i]['categoryReadableName'].toString(),
+                //   );
+                // },
               ),
             ),
           ),
