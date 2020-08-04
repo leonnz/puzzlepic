@@ -24,7 +24,7 @@ class CategoryShopButton extends StatelessWidget {
             ));
       },
       child: Padding(
-        padding: const EdgeInsets.only(right: 40),
+        padding: EdgeInsets.only(right: deviceProvider.getUseMobileLayout ? 20 : 40),
         child: Align(
           alignment: Alignment.centerRight,
           child: Container(
