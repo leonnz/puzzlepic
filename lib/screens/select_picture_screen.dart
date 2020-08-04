@@ -7,7 +7,7 @@ import '../components/select_picture_screen/image_button.dart';
 import '../data/db_provider.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
-import '../styles/custom_styles.dart';
+import '../styles/text_theme.dart';
 
 class SelectPicture extends StatefulWidget {
   const SelectPicture({Key key, @required this.category, this.categoryReadableName})

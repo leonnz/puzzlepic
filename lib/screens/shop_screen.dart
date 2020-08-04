@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../components/_shared/appbar_leading_button.dart';
 import '../components/_shared/loading_animation.dart';
@@ -10,7 +9,7 @@ import '../components/shop_screen/remove_ad_shop_button.dart';
 import '../components/shop_screen/shop_error_message.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
-import '../styles/custom_styles.dart';
+import '../styles/text_theme.dart';
 
 class ShopScreen extends StatefulWidget {
   @override

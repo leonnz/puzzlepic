@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../data/db_provider.dart';
 import '../../providers/game_provider.dart';
-import '../../styles/custom_styles.dart';
+import '../../styles/text_theme.dart';
 
 class PuzzleCardMoves extends StatelessWidget {
   const PuzzleCardMoves({

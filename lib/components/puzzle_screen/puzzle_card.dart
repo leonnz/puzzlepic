@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/game_provider.dart';
-import '../../styles/custom_styles.dart';
+import '../../styles/text_theme.dart';
 import 'puzzle_card_image_board.dart';
 import 'puzzle_card_moves.dart';
 

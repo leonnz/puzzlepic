@@ -10,7 +10,7 @@ import '../components/select_category_screen/category_button.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
-import '../styles/custom_styles.dart';
+import '../styles/text_theme.dart';
 
 class SelectCategory extends StatefulWidget {
   const SelectCategory({Key key}) : super(key: key);

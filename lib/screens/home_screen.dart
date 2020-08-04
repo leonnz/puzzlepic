@@ -6,13 +6,12 @@ import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:audioplayers/audio_cache.dart';
 
 import '../ad_manager.dart';
-import '../components/_shared/mute_button.dart';
 import '../components/_shared/loading_animation.dart';
+import '../components/_shared/mute_button.dart';
 import '../components/home_screen/play_button.dart';
 import '../components/home_screen/polaroid.dart';
 import '../components/home_screen/puzzle_pic_logo.dart';

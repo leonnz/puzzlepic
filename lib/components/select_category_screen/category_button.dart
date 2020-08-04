@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
 import '../../screens/select_picture_screen.dart';
-import '../../styles/custom_styles.dart';
+import '../../styles/text_theme.dart';
 
 class CategoryButton extends StatelessWidget {
   const CategoryButton({Key key, @required this.categoryName, this.categoryReadableName})

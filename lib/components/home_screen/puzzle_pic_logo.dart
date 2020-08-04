@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
-import '../../styles/custom_styles.dart';
+import '../../styles/text_theme.dart';
 
 class PuzzlePicLogo extends StatefulWidget {
   const PuzzlePicLogo({Key key, this.puzzlePicSlideController}) : super(key: key);

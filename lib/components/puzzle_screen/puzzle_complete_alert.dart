@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
 import '../../providers/game_provider.dart';
-import '../../styles/custom_styles.dart';
+import '../../styles/text_theme.dart';
 
 class PuzzleCompleteAlert extends StatelessWidget {
   const PuzzleCompleteAlert({
