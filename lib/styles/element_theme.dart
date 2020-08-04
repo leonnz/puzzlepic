@@ -67,4 +67,18 @@ class CustomElementTheme {
       ),
     );
   }
+
+  static BoxDecoration shopButtonBoxDecoration() {
+    return const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: Colors.black45,
+          blurRadius: 3.0,
+          offset: Offset(0.0, 2.0),
+        ),
+      ],
+    );
+  }
 }

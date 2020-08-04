@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
 import '../../providers/shop_provider.dart';
+import '../../styles/element_theme.dart';
 import '../../styles/text_theme.dart';
 import 'purchase_alert.dart';
 
@@ -46,17 +47,7 @@ class RemoveAdShopButton extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               height: deviceProvider.getUseMobileLayout ? 50 : 70,
               width: double.infinity,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: Colors.black45,
-                    blurRadius: 3.0,
-                    offset: Offset(0.0, 2.0),
-                  ),
-                ],
-              ),
+              decoration: CustomElementTheme.shopButtonBoxDecoration(),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
