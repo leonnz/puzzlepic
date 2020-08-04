@@ -9,6 +9,7 @@ import '../components/shop_screen/remove_ad_shop_button.dart';
 import '../components/shop_screen/shop_error_message.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
+import '../styles/element_theme.dart';
 import '../styles/text_theme.dart';
 
 class ShopScreen extends StatefulWidget {
@@ -41,19 +42,8 @@ class _ShopScreenState extends State<ShopScreen> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
           child: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/_categories/_categories_banner.png'),
-                fit: BoxFit.cover,
-              ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: Colors.black45,
-                  blurRadius: 5.0,
-                  offset: Offset(0.0, 3.0),
-                ),
-              ],
-            ),
+            decoration: CustomElementTheme.appBarBoxDecoration(
+                image: 'assets/images/_categories/_categories_banner.png'),
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
