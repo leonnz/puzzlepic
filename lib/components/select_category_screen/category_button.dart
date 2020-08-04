@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
 import '../../screens/select_picture_screen.dart';
+import '../../styles/element_theme.dart';
 import '../../styles/text_theme.dart';
 
 class CategoryButton extends StatelessWidget {
@@ -48,13 +49,7 @@ class CategoryButton extends StatelessWidget {
                 padding: const EdgeInsets.all(5),
                 height: deviceProvider.getUseMobileLayout ? 50 : 70,
                 width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(255, 255, 255, 0.80),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  ),
-                ),
+                decoration: CustomElementTheme.selectCategoryImageTextLabelBoxDecoration(),
                 child: Center(
                   child: Text(
                     categoryReadableName,

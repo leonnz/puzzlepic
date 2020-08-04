@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../providers/device_provider.dart';
 import '../../providers/game_provider.dart';
 import '../../screens/puzzle_screen.dart';
+import '../../styles/element_theme.dart';
 import '../../styles/text_theme.dart';
 
 class ImageButton extends StatefulWidget {
@@ -94,13 +95,7 @@ class _ImageButtonState extends State<ImageButton> {
               child: Container(
                 height: deviceProvider.getUseMobileLayout ? 50 : 70,
                 width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(255, 255, 255, 0.80),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  ),
-                ),
+                decoration: CustomElementTheme.selectCategoryImageTextLabelBoxDecoration(),
                 child: Center(
                   child: Text(
                     widget.readableName,

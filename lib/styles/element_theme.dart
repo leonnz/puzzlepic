@@ -48,4 +48,14 @@ class CustomElementTheme {
       ],
     );
   }
+
+  static BoxDecoration selectCategoryImageTextLabelBoxDecoration({String image}) {
+    return const BoxDecoration(
+      color: Color.fromRGBO(255, 255, 255, 0.80),
+      borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(10),
+        bottomRight: Radius.circular(10),
+      ),
+    );
+  }
 }
