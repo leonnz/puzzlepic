@@ -32,4 +32,20 @@ class CustomElementTheme {
       ],
     );
   }
+
+  static BoxDecoration appBarBoxDecoration({String image}) {
+    return BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage(image),
+        fit: BoxFit.cover,
+      ),
+      boxShadow: const <BoxShadow>[
+        BoxShadow(
+          color: Colors.black45,
+          blurRadius: 5.0,
+          offset: Offset(0.0, 3.0),
+        ),
+      ],
+    );
+  }
 }

@@ -10,6 +10,7 @@ import '../components/select_category_screen/category_button.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
+import '../styles/element_theme.dart';
 import '../styles/text_theme.dart';
 
 class SelectCategory extends StatefulWidget {
@@ -83,23 +84,12 @@ class _SelectCategoryState extends State<SelectCategory> {
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
               child: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/_categories/_categories_banner.png'),
-                    fit: BoxFit.cover,
-                  ),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.black45,
-                      blurRadius: 5.0,
-                      offset: Offset(0.0, 3.0),
-                    ),
-                  ],
-                ),
+                decoration: CustomElementTheme.appBarBoxDecoration(
+                    image: 'assets/images/_categories/_categories_banner.png'),
                 child: Stack(
                   alignment: Alignment.center,
                   children: <Widget>[
-                    AppBarLeadingButton(icon: Icons.arrow_back_ios),
+                    const AppBarLeadingButton(icon: Icons.arrow_back_ios),
                     Text(
                       'Categories',
                       style: CustomTextTheme.selectScreenTitleTextStyle(context),

@@ -7,6 +7,7 @@ import '../components/select_picture_screen/image_button.dart';
 import '../data/db_provider.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
+import '../styles/element_theme.dart';
 import '../styles/text_theme.dart';
 
 class SelectPicture extends StatefulWidget {
@@ -56,19 +57,8 @@ class _SelectPictureState extends State<SelectPicture> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
             child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/_categories/${widget.category}_banner.png'),
-                  fit: BoxFit.cover,
-                ),
-                boxShadow: const <BoxShadow>[
-                  BoxShadow(
-                    color: Colors.black45,
-                    blurRadius: 5.0,
-                    offset: Offset(0.0, 3.0),
-                  ),
-                ],
-              ),
+              decoration: CustomElementTheme.appBarBoxDecoration(
+                  image: 'assets/images/_categories/${widget.category}_banner.png'),
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
