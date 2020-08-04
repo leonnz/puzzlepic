@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
+import '../../styles/element_theme.dart';
 
 class MuteButton extends StatelessWidget {
   const MuteButton({
@@ -22,17 +23,7 @@ class MuteButton extends StatelessWidget {
           alignment: Alignment.topRight,
           child: Container(
             padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(100),
-              boxShadow: const <BoxShadow>[
-                BoxShadow(
-                  color: Colors.black45,
-                  blurRadius: 4,
-                  offset: Offset(1, 1),
-                )
-              ],
-            ),
+            decoration: CustomElementTheme.muteButtonBoxDecoration(),
             child: Icon(
               deviceProvider.getMuteSounds ? Icons.volume_off : Icons.volume_mute,
               size: deviceProvider.getUseMobileLayout ? 35 : 50,

@@ -18,4 +18,18 @@ class CustomElementTheme {
       ]),
     );
   }
+
+  static BoxDecoration muteButtonBoxDecoration() {
+    return BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(100),
+      boxShadow: const <BoxShadow>[
+        BoxShadow(
+          color: Colors.black45,
+          blurRadius: 4,
+          offset: Offset(1, 1),
+        )
+      ],
+    );
+  }
 }
