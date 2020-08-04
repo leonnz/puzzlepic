@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CustomElementTheme {
+  static BoxDecoration screenBackgroundBoxDecoration() {
+    return const BoxDecoration(
+      image: DecorationImage(
+        fit: BoxFit.cover,
+        image: AssetImage('assets/images/background.png'),
+      ),
+    );
+  }
+
   static BoxDecoration homeScreenButtonBoxDecoration() {
     return BoxDecoration(
       borderRadius: BorderRadius.circular(5),

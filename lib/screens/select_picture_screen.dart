@@ -46,12 +46,7 @@ class _SelectPictureState extends State<SelectPicture> {
         }
       },
       child: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage('assets/images/background.png'),
-          ),
-        ),
+        decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
         child: Scaffold(
           backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
           appBar: PreferredSize(

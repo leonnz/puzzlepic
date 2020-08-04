@@ -20,6 +20,7 @@ import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../providers/game_provider.dart';
 import '../providers/shop_provider.dart';
+import '../styles/element_theme.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -149,12 +150,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
 
     return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage('assets/images/background.png'),
-        ),
-      ),
+      decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
       child: Scaffold(
         backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
         body: precacheImagesCompleted

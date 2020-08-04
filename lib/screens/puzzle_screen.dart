@@ -7,6 +7,7 @@ import '../components/puzzle_screen/puzzle_screen_hint_button.dart';
 import '../components/puzzle_screen/puzzle_screen_quit_button.dart';
 import '../components/puzzle_screen/quit_alert.dart';
 import '../providers/game_provider.dart';
+import '../styles/element_theme.dart';
 
 class PuzzleScreen extends StatefulWidget {
   const PuzzleScreen({
@@ -60,12 +61,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         return confirmQuit;
       },
       child: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage('assets/images/background.png'),
-          ),
-        ),
+        decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
         child: Scaffold(
           backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
           body: Column(
