@@ -7,6 +7,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import '../ad_manager.dart';
 import '../components/_shared/appbar_leading_button.dart';
 import '../components/select_category_screen/category_button.dart';
+import '../components/select_category_screen/categories_screen_shop_button.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
@@ -89,6 +90,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                       'Categories',
                       style: CustomTextTheme.selectScreenTitleTextStyle(context),
                     ),
+                    const CategoryShopButton(),
                   ],
                 ),
               ),
