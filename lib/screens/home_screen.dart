@@ -37,8 +37,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   AnimationController _shopButtonSlideController;
   AnimationController _puzzlePicSlideController;
 
-  AudioCache _audioCache;
-
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
   }
@@ -56,13 +54,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _initAdMob().then((_) {}, onError: (void error) => null);
-
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+    _initAdMob().then((_) {}, onError: (void error) => null);
     checkInternetConnection(deviceProvider: deviceProvider, shopProvider: shopProvider);
 
-    _audioCache = AudioCache(prefix: 'audio/');
+    deviceProvider.setAudioCache(audioCache: AudioCache(prefix: 'audio/'));
 
     precacheImagesCompleted = false;
     imagesToPrecache = <AssetImage>[
@@ -144,22 +141,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final double shortestSide = MediaQuery.of(context).size.shortestSide;
-    final bool useMobileLayout = shortestSide < 600;
-
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     DeviceProvider.deviceScreenHeight = MediaQuery.of(context).size.height;
     GameProvider.screenWidth = MediaQuery.of(context).size.width - 20;
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
+    final bool useMobileLayout = MediaQuery.of(context).size.shortestSide < 600;
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
-    deviceProvider.setAudioCache(audioCache: _audioCache);
-
-    // final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
-    // shopProvider.initialize();
-
-    // var w = MediaQuery.of(context).size.width;
-    // var h = MediaQuery.of(context).size.height;
-    // print("width: $w height:$h");
 
     return Container(
       decoration: const BoxDecoration(
