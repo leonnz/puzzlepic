@@ -27,14 +27,14 @@ class PuzzleCard extends StatelessWidget {
               child: Text(
                 gameProvider.getReadableFullname,
                 textAlign: TextAlign.center,
-                style: CustomTextTheme.puzzleScreenImageTitle(),
+                style: CustomTextThemes.puzzleScreenImageTitle(),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: Text(
                 gameProvider.getTitle,
-                style: CustomTextTheme.puzzleScreenPictureSubTitle(),
+                style: CustomTextThemes.puzzleScreenPictureSubTitle(),
               ),
             ),
             const PuzzleCardMoves(),

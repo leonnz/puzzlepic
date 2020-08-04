@@ -63,7 +63,7 @@ class _ShopScreenState extends State<ShopScreen> {
                 ),
                 Text(
                   'Shop',
-                  style: CustomTextTheme.selectScreenTitleTextStyle(context),
+                  style: CustomTextThemes.selectScreenTitleTextStyle(context),
                 ),
               ],
             ),

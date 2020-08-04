@@ -22,7 +22,7 @@ class PurchaseAlert extends StatelessWidget {
       title: Text(
         title,
         textAlign: TextAlign.center,
-        style: CustomTextTheme.puzzleScreenCompleteAlertTitle(),
+        style: CustomTextThemes.puzzleScreenCompleteAlertTitle(),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -35,7 +35,7 @@ class PurchaseAlert extends StatelessWidget {
             child: Text(
               message,
               textAlign: TextAlign.center,
-              style: CustomTextTheme.puzzleScreenCompleteAlertContent(),
+              style: CustomTextThemes.puzzleScreenCompleteAlertContent(),
             ),
           ),
           Row(
@@ -49,7 +49,7 @@ class PurchaseAlert extends StatelessWidget {
                 },
                 child: Text(
                   'Close',
-                  style: CustomTextTheme.puzzleScreenCompleteAlertButtonText(),
+                  style: CustomTextThemes.puzzleScreenCompleteAlertButtonText(),
                 ),
               ),
             ],

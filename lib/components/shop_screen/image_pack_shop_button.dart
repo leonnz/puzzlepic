@@ -63,11 +63,11 @@ class ImagePackShopButton extends StatelessWidget {
                 Text(
                   // imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
                   imagePackProduct.id,
-                  style: CustomTextTheme.selectPictureButtonTextStyle(),
+                  style: CustomTextThemes.selectPictureButtonTextStyle(),
                 ),
                 Text(
                   purchased != null ? 'Purchased' : imagePackProduct.price,
-                  style: CustomTextTheme.selectPictureButtonTextStyle(),
+                  style: CustomTextThemes.selectPictureButtonTextStyle(),
                 ),
               ],
             ),
