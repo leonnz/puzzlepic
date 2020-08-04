@@ -12,6 +12,7 @@ import 'package:audioplayers/audio_cache.dart';
 
 import '../ad_manager.dart';
 import '../components/_shared/mute_button.dart';
+import '../components/_shared/loading_animation.dart';
 import '../components/home_screen/play_button.dart';
 import '../components/home_screen/polaroid.dart';
 import '../components/home_screen/puzzle_pic_logo.dart';
@@ -229,15 +230,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   ),
                 ],
               )
-            : Container(
-                color: Colors.white,
-                child: Center(
-                  child: SpinKitFadingFour(
-                    color: Colors.purple,
-                    size: deviceProvider.getUseMobileLayout ? 50 : 80,
-                  ),
-                ),
-              ),
+            : const LoadingAnimation(),
       ),
     );
   }

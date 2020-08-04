@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../components/_shared/appbar_leading_button.dart';
+import '../components/_shared/loading_animation.dart';
 import '../components/shop_screen/image_pack_list.dart';
 import '../components/shop_screen/remove_ad_shop_button.dart';
 import '../components/shop_screen/shop_error_message.dart';
@@ -94,15 +95,7 @@ class _ShopScreenState extends State<ShopScreen> {
                           ? const ShopErrorMessage(
                               message: 'Problem connecting to store',
                             )
-                          : Container(
-                              color: Colors.white,
-                              child: Center(
-                                child: SpinKitFadingFour(
-                                  color: Colors.purple,
-                                  size: deviceProvider.getUseMobileLayout ? 50 : 80,
-                                ),
-                              ),
-                            );
+                          : const LoadingAnimation();
                 },
               )
             : const ShopErrorMessage(
