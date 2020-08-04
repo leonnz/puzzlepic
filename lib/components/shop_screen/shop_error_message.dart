@@ -38,7 +38,7 @@ class ShopErrorMessage extends StatelessWidget {
         child: Center(
           child: Text(
             message,
-            style: CustomTextThemes.selectPictureButtonTextStyle(),
+            style: CustomTextTheme.selectPictureButtonTextStyle(),
             // textAlign: TextAlign.center,
           ),
         ),

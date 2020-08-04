@@ -33,7 +33,7 @@ class PuzzleCardMoves extends StatelessWidget {
         children: <Widget>[
           Text(
             'Moves: ${gameProvider.getMoves}',
-            style: CustomTextThemes.puzzleScreenMovesCounter(),
+            style: CustomTextTheme.puzzleScreenMovesCounter(),
           ),
           FutureBuilder<int>(
             future: getSingleRecord(),
@@ -45,12 +45,12 @@ class PuzzleCardMoves extends StatelessWidget {
                 final int moves = snapshot.data;
                 bestMoves = Text(
                   'Best moves: $moves',
-                  style: CustomTextThemes.puzzleScreenMovesCounter(),
+                  style: CustomTextTheme.puzzleScreenMovesCounter(),
                 );
               } else {
                 bestMoves = Text(
                   'Best moves: 0',
-                  style: CustomTextThemes.puzzleScreenMovesCounter(),
+                  style: CustomTextTheme.puzzleScreenMovesCounter(),
                 );
               }
               return bestMoves;

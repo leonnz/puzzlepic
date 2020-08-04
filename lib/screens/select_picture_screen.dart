@@ -75,7 +75,7 @@ class _SelectPictureState extends State<SelectPicture> {
                   AppBarLeadingButton(icon: Icons.arrow_back_ios),
                   Text(
                     widget.categoryReadableName,
-                    style: CustomTextThemes.selectScreenTitleTextStyle(context),
+                    style: CustomTextTheme.selectScreenTitleTextStyle(context),
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
@@ -90,7 +90,7 @@ class _SelectPictureState extends State<SelectPicture> {
                             child: Text(
                               'Completed ${snapshot.data.length} / ${images.length}',
                               textAlign: TextAlign.center,
-                              style: CustomTextThemes.selectPictureScreenCompletedTextStyle(),
+                              style: CustomTextTheme.selectPictureScreenCompletedTextStyle(),
                             ),
                           );
                         } else {

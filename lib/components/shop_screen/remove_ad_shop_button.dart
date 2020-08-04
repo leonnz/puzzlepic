@@ -63,11 +63,11 @@ class RemoveAdShopButton extends StatelessWidget {
                   Text(
                     // shop.getAdProduct.id.substring(0, shop.getAdProduct.id.indexOf('(')),
                     shop.getAdProduct.id,
-                    style: CustomTextThemes.selectPictureButtonTextStyle(),
+                    style: CustomTextTheme.selectPictureButtonTextStyle(),
                   ),
                   Text(
                     purchased != null ? 'Purchased' : shop.getAdProduct.price,
-                    style: CustomTextThemes.selectPictureButtonTextStyle(),
+                    style: CustomTextTheme.selectPictureButtonTextStyle(),
                   ),
                 ],
               ),

@@ -52,7 +52,7 @@ class _PuzzlePicLogoState extends State<PuzzlePicLogo> with SingleTickerProvider
             child: Text(
               'Puzzle Pic',
               textAlign: TextAlign.center,
-              style: CustomTextThemes.homeScreenAppName(),
+              style: CustomTextTheme.homeScreenAppName(),
             ),
           ),
         ),

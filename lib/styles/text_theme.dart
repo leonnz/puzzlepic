@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../providers/device_provider.dart';
 
-class CustomTextThemes {
+class CustomTextTheme {
 // Select Category Screen and Select Picture Screen
   // CustomTextTheme;
 

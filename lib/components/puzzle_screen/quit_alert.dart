@@ -20,7 +20,7 @@ class QuitAlert extends StatelessWidget {
         'Leave puzzle',
         textAlign: TextAlign.center,
       ),
-      titleTextStyle: CustomTextThemes.puzzleScreenQuitAlertTitle(),
+      titleTextStyle: CustomTextTheme.puzzleScreenQuitAlertTitle(),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -46,7 +46,7 @@ class QuitAlert extends StatelessWidget {
                 },
                 child: Text(
                   'No',
-                  style: CustomTextThemes.puzzleScreenQuitAlertButtonText(),
+                  style: CustomTextTheme.puzzleScreenQuitAlertButtonText(),
                 ),
               ),
               FlatButton(
@@ -58,14 +58,14 @@ class QuitAlert extends StatelessWidget {
                 },
                 child: Text(
                   'Yes',
-                  style: CustomTextThemes.puzzleScreenQuitAlertButtonText(),
+                  style: CustomTextTheme.puzzleScreenQuitAlertButtonText(),
                 ),
               ),
             ],
           ),
         ],
       ),
-      contentTextStyle: CustomTextThemes.puzzleScreenQuitAlertContent(),
+      contentTextStyle: CustomTextTheme.puzzleScreenQuitAlertContent(),
     );
   }
 }

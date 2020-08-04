@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomElementThemes {
+class CustomElementTheme {
   static BoxDecoration homeScreenButtonBoxDecoration() {
     return BoxDecoration(
       borderRadius: BorderRadius.circular(5),

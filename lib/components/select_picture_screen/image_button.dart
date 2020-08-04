@@ -104,7 +104,7 @@ class _ImageButtonState extends State<ImageButton> {
                 child: Center(
                   child: Text(
                     widget.readableName,
-                    style: CustomTextThemes.selectPictureButtonTextStyle(),
+                    style: CustomTextTheme.selectPictureButtonTextStyle(),
                     textAlign: TextAlign.center,
                   ),
                 ),
