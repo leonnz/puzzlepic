@@ -409,6 +409,7 @@ class Images {
         <String, String>{
           'assetName': 'croissants',
           'readableName': 'Croissants',
+          'readableFullname': 'Croissants',
           'title': 'from Austria',
         },
         <String, String>{
