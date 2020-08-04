@@ -124,6 +124,8 @@ class ShopProvider extends ChangeNotifier {
       }
     }
 
+    // TODO add purchases to SQL db if not aleady saved
+
     return response.pastPurchases;
   }
 }
