@@ -16,27 +16,31 @@ class ShopErrorMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
-    return Container(
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
-      height: deviceProvider.getUseMobileLayout ? 50 : 70,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black45,
-            blurRadius: 3.0,
-            offset: Offset(0.0, 2.0),
+    return Center(
+      child: Container(
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
+        height: deviceProvider.getUseMobileLayout ? 50 : 70,
+        width: deviceProvider.getUseMobileLayout
+            ? double.infinity
+            : MediaQuery.of(context).size.width * 2 / 3,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.black45,
+              blurRadius: 3.0,
+              offset: Offset(0.0, 2.0),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Text(
+            message,
+            style: CustomTextTheme.selectPictureButtonTextStyle(),
+            // textAlign: TextAlign.center,
           ),
-        ],
-      ),
-      child: Center(
-        child: Text(
-          message,
-          style: CustomTextTheme.selectPictureButtonTextStyle(),
-          // textAlign: TextAlign.center,
         ),
       ),
     );

@@ -75,6 +75,7 @@ class _ShopScreenState extends State<ShopScreen> {
                   return shopProvider.getAvailable
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             const RemoveAdShopButton(),
                             const Text('Image Packs'),
