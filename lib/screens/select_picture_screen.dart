@@ -26,10 +26,6 @@ class _SelectPictureState extends State<SelectPicture> {
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
-    final DBProviderDb dbProvider = DBProviderDb();
-
-    // dbProvider.deleteTable();
-
     final List<Map<String, dynamic>> images = Images.imageList.firstWhere(
             (Map<String, dynamic> imageList) =>
                 imageList['categoryName'] == widget.category)['categoryImages']
