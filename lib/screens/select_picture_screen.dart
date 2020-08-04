@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../components/_shared/appbar_leading_button.dart';
-import '../components/buttons/image_button.dart';
+import '../components/select_picture_screen/image_button.dart';
 import '../data/db_provider.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
