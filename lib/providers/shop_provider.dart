@@ -7,6 +7,8 @@ class ShopProvider extends ChangeNotifier {
   static final InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> _subscription;
 
+  List<String> freeCategories = ['cities', 'foods', 'under_the_sea'];
+
   static const String _removeAdProductId = 'test1';
   static const List<String> _productIds = <String>[
     'test8',
