@@ -100,17 +100,17 @@ class DBProviderDb {
     });
   }
 
+  // DEV TESTING ONLY
   Future<void> dbcheck() async {
-    var path = await getDatabasesPath();
+    final String path = await getDatabasesPath();
 
-    var dir = Directory(path);
+    final Directory dir = Directory(path);
 
-    dir.list(recursive: true, followLinks: false).listen((file) {
+    dir.list(recursive: true, followLinks: false).listen((FileSystemEntity file) {
       print(file.path);
     });
   }
 
-  // DEV TESTING ONLY
   Future<void> deleteTable() async {
     final Database db = await database;
     await db.delete('puzzle_record');
@@ -119,8 +119,6 @@ class DBProviderDb {
   Future<void> deleteDb() async {
     final String path = join(await getDatabasesPath(), 'puzzle_pic_db.db');
     await deleteDatabase(path);
-    final String path1 = join(await getDatabasesPath(), 'puzzle_record.db');
-    await deleteDatabase(path1);
 
     dbcheck();
   }

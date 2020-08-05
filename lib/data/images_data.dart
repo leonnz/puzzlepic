@@ -1,5 +1,21 @@
 class Images {
   static List<Map<String, dynamic>> imageList = <Map<String, dynamic>>[
+    // Test data
+    <String, dynamic>{
+      'categoryName': 'test18',
+      'categoryReadableName': 'Test data test 18',
+      'categoryImages': <Map<String, String>>[],
+    },
+    <String, dynamic>{
+      'categoryName': 'test19',
+      'categoryReadableName': 'Test data test 19',
+      'categoryImages': <Map<String, String>>[],
+    },
+    <String, dynamic>{
+      'categoryName': 'test20',
+      'categoryReadableName': 'Test data test 20',
+      'categoryImages': <Map<String, String>>[],
+    },
     // Animals
     <String, dynamic>{
       'categoryName': 'animals',

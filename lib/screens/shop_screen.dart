@@ -20,6 +20,9 @@ class ShopScreen extends StatefulWidget {
 class _ShopScreenState extends State<ShopScreen> {
   @override
   void initState() {
+    print('shop screen loaded');
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+    shopProvider.registerSubscription();
     super.initState();
   }
 
@@ -34,6 +37,7 @@ class _ShopScreenState extends State<ShopScreen> {
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
     return WillPopScope(
+      // TODO maybe dont cancel this
       onWillPop: () async {
         final bool quit = shopProvider.cancelSubscription();
         return quit;
