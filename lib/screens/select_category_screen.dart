@@ -35,8 +35,8 @@ class _SelectCategoryState extends State<SelectCategory> {
   void initState() {
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
-    availableCategories = shopProvider.freeCategories;
-    // TODO append purchased categories
+    availableCategories = shopProvider.availableCategories;
+    // TODO append purchased categories from DB
     // availableCategories.addAll(shopProvider.)
 
     if (shopProvider.getAvailable) {

@@ -23,8 +23,8 @@ class PuzzlePicApp extends StatelessWidget {
     DBProviderDb().database;
 
     // Delete the database
-    final DBProviderDb dbProvider = DBProviderDb();
-    dbProvider.deleteTable();
+    // final DBProviderDb dbProvider = DBProviderDb();
+    // dbProvider.deleteTable();
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Color(0xff501E5D), //or set color with: Color(0xFF0000FF)

@@ -78,7 +78,7 @@ class DBProviderDb {
   }
 
   // DEV TESTING ONLY
-  Future<void> deleteTable() async {
+  Future<void> deleteDatabase() async {
     final Database db = await database;
 
     await db.delete('puzzle_record');
