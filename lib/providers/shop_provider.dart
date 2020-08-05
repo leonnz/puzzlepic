@@ -64,11 +64,13 @@ class ShopProvider extends ChangeNotifier {
   }
 
   void registerSubscription() {
-    _subscription = _iap.purchaseUpdatedStream.listen(
-      (List<PurchaseDetails> purchases) {
-        completePurchase(purchases);
-      },
-    );
+    if (_available) {
+      _subscription = _iap.purchaseUpdatedStream.listen(
+        (List<PurchaseDetails> purchases) {
+          completePurchase(purchases);
+        },
+      );
+    }
   }
 
   Future<void> buyProduct({ProductDetails product, Function callback}) async {
