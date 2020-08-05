@@ -36,6 +36,16 @@ class DBProviderDb {
     );
   }
 
+  Future<void> insertCategoryPurchasedRecord({PuzzleRecord record}) async {
+    final Database db = await database;
+
+    await db.insert(
+      'puzzle_record',
+      record.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
   Future<List<String>> getPurchasedCategories() async {
     final Database db = await database;
 
@@ -53,7 +63,7 @@ class DBProviderDb {
     return db.rawQuery('SELECT * FROM puzzle_record WHERE puzzleName = ?', <String>[puzzleName]);
   }
 
-  Future<void> insertRecord({PuzzleRecord record}) async {
+  Future<void> insertPuzzleCompleteRecord({PuzzleRecord record}) async {
     final Database db = await database;
 
     await db.insert(

@@ -106,7 +106,7 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
           moves: gameProvider.getMoves,
         );
 
-        dbProvider.insertRecord(record: record);
+        dbProvider.insertPuzzleCompleteRecord(record: record);
       }
     }
 
