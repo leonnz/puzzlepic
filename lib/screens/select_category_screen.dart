@@ -1,13 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_admob/firebase_admob.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../ad_manager.dart';
 import '../components/_shared/appbar_leading_button.dart';
 import '../components/select_category_screen/categories_screen_shop_button.dart';
 import '../components/select_category_screen/category_button.dart';
+import '../data/db_provider.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
@@ -31,8 +35,49 @@ class _SelectCategoryState extends State<SelectCategory> {
       ..show(anchorType: AnchorType.bottom);
   }
 
+  Future<void> dbcheck() async {
+    var path = await getDatabasesPath();
+
+    var dir = Directory(path);
+
+    dir.list(recursive: true, followLinks: false).listen((file) {
+      print(file.path);
+    });
+  }
+
   @override
   void initState() {
+    // DBProviderDb().database;
+
+    // dbProvider.getRecordsByCategory(category: 'cities').then((List<String> listOfCategories) {
+    //   print(listOfCategories.length);
+
+    //   for (final String category in listOfCategories) {
+    //     print(category);
+    //   }
+    // });
+    final DBProviderDb dbProvider = DBProviderDb();
+
+    // dbProvider.deleteDb();
+    dbcheck();
+
+    // Testing purchase record table
+    dbProvider.getPurchasedCategories().then((List<String> listOfCategories) {
+      print(listOfCategories.length);
+
+      for (final String category in listOfCategories) {
+        print(category);
+      }
+    });
+
+    dbProvider.getRecordsByCategory(category: 'cities').then((List<String> listOfCategories) {
+      print(listOfCategories.length);
+
+      for (final String category in listOfCategories) {
+        print(category);
+      }
+    });
+
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
     availableCategories = shopProvider.availableCategories;

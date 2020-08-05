@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'puzzle_record_model.dart';
@@ -21,7 +22,7 @@ class DBProviderDb {
 
   Future<Database> initDB() async {
     return openDatabase(
-      join(await getDatabasesPath(), 'puzzle_record.db'),
+      join(await getDatabasesPath(), 'puzzle_pic_db.db'),
       onCreate: (Database db, int version) {
         db.execute(
           'CREATE TABLE puzzle_record(id INTEGER PRIMARY KEY, puzzleName TEXT, puzzleCategory TEXT, complete TEXT, bestMoves INTEGER)',
@@ -29,9 +30,21 @@ class DBProviderDb {
         db.execute(
           'CREATE TABLE purchase_record(id INTEGER PRIMARY KEY, imageCategoryName TEXT)',
         );
+        dbcheck();
       },
       version: 1,
     );
+  }
+
+  Future<List<String>> getPurchasedCategories() async {
+    final Database db = await database;
+
+    final List<Map<String, dynamic>> maps =
+        await db.rawQuery('SELECT imageCategoryName FROM purchase_record');
+
+    return List<String>.generate(maps.length, (int i) {
+      return maps[i]['imageCategoryName'] as String;
+    });
   }
 
   Future<List<Map<String, dynamic>>> getSingleRecord({String puzzleName}) async {
@@ -77,10 +90,26 @@ class DBProviderDb {
     });
   }
 
-  // DEV TESTING ONLY
-  Future<void> deleteDatabase() async {
-    final Database db = await database;
+  Future<void> dbcheck() async {
+    var path = await getDatabasesPath();
 
+    var dir = Directory(path);
+
+    dir.list(recursive: true, followLinks: false).listen((file) {
+      print(file.path);
+    });
+  }
+
+  // DEV TESTING ONLY
+  Future<void> deleteTable() async {
+    final Database db = await database;
     await db.delete('puzzle_record');
+  }
+
+  Future<void> deleteDb() async {
+    final String path = join(await getDatabasesPath(), 'puzzle_pic_db.db');
+    await deleteDatabase(path);
+
+    dbcheck();
   }
 }

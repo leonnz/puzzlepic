@@ -9,8 +9,6 @@ import './providers/game_provider.dart';
 import './providers/shop_provider.dart';
 import './screens/home_screen.dart';
 
-//TODO box shadow styles in style file
-
 void main() {
   InAppPurchaseConnection.enablePendingPurchases();
   runApp(PuzzlePicApp());
@@ -21,10 +19,6 @@ class PuzzlePicApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // Init the database
     DBProviderDb().database;
-
-    // Delete the database
-    // final DBProviderDb dbProvider = DBProviderDb();
-    // dbProvider.deleteTable();
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Color(0xff501E5D), //or set color with: Color(0xFF0000FF)
