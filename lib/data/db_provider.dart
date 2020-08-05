@@ -36,12 +36,12 @@ class DBProviderDb {
     );
   }
 
-  Future<void> insertCategoryPurchasedRecord({PuzzleRecord record}) async {
+  Future<void> insertCategoryPurchasedRecord({String purchasedCategory}) async {
     final Database db = await database;
 
     await db.insert(
-      'puzzle_record',
-      record.toMap(),
+      'purchase_record',
+      <String, String>{'imageCategoryName': purchasedCategory},
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -119,6 +119,8 @@ class DBProviderDb {
   Future<void> deleteDb() async {
     final String path = join(await getDatabasesPath(), 'puzzle_pic_db.db');
     await deleteDatabase(path);
+    final String path1 = join(await getDatabasesPath(), 'puzzle_record.db');
+    await deleteDatabase(path1);
 
     dbcheck();
   }

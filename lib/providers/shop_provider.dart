@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
+import '../data/db_provider.dart';
+
 class ShopProvider extends ChangeNotifier {
   static final InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> _subscription;
@@ -84,6 +86,9 @@ class ShopProvider extends ChangeNotifier {
 
         if (billingResult.responseCode == BillingResponse.ok) {
           _pastPurchases.addAll(purchases);
+          // TODO add purchase to DB
+          final DBProviderDb dbProvider = DBProviderDb();
+          dbProvider.insertCategoryPurchasedRecord(purchasedCategory: purchase.productID);
           _callbackAlert('Purchase complete', 'Thank you!');
           notifyListeners();
         } else if (billingResult.responseCode == BillingResponse.error ||

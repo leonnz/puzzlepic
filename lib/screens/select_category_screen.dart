@@ -47,7 +47,7 @@ class _SelectCategoryState extends State<SelectCategory> {
 
   @override
   void initState() {
-    // DBProviderDb().database;
+    DBProviderDb().database;
 
     // dbProvider.getRecordsByCategory(category: 'cities').then((List<String> listOfCategories) {
     //   print(listOfCategories.length);
@@ -59,19 +59,21 @@ class _SelectCategoryState extends State<SelectCategory> {
     final DBProviderDb dbProvider = DBProviderDb();
 
     // dbProvider.deleteDb();
-    dbcheck();
+    // dbcheck();
 
-    // Testing purchase record table
+    // // Testing purchase record table
     dbProvider.getPurchasedCategories().then((List<String> listOfCategories) {
-      print(listOfCategories.length);
+      print('Purchases length ${listOfCategories.length}');
 
       for (final String category in listOfCategories) {
         print(category);
       }
     });
 
-    dbProvider.getRecordsByCategory(category: 'cities').then((List<String> listOfCategories) {
-      print(listOfCategories.length);
+    dbProvider
+        .getRecordsByCategory(category: 'under_the_sea')
+        .then((List<String> listOfCategories) {
+      print('Complete puzzles by cat length ${listOfCategories.length}');
 
       for (final String category in listOfCategories) {
         print(category);
