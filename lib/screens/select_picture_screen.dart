@@ -11,11 +11,12 @@ import '../styles/element_theme.dart';
 import '../styles/text_theme.dart';
 
 class SelectPicture extends StatefulWidget {
-  const SelectPicture({Key key, @required this.category, this.categoryReadableName})
-      : super(key: key);
+  const SelectPicture({
+    Key key,
+    @required this.category,
+  }) : super(key: key);
 
   final String category;
-  final String categoryReadableName;
 
   @override
   _SelectPictureState createState() => _SelectPictureState();
@@ -55,9 +56,13 @@ class _SelectPictureState extends State<SelectPicture> {
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
-                  AppBarLeadingButton(icon: Icons.arrow_back_ios),
+                  const AppBarLeadingButton(icon: Icons.arrow_back_ios),
                   Text(
-                    widget.categoryReadableName,
+                    // TODO Maybe put this data in the gameProvider
+                    Images.imageList
+                        .firstWhere((Map<String, dynamic> category) =>
+                            category['categoryName'] == widget.category)['categoryReadableName']
+                        .toString(),
                     style: CustomTextTheme.selectScreenTitleTextStyle(context),
                   ),
                   Align(

@@ -32,7 +32,6 @@ class CategoryButton extends StatelessWidget {
           CupertinoPageRoute<bool>(
             builder: (BuildContext context) => SelectPicture(
               category: categoryName,
-              categoryReadableName: categoryReadableName,
             ),
           ),
         );

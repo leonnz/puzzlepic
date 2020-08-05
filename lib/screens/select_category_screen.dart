@@ -12,7 +12,6 @@ import '../components/_shared/appbar_leading_button.dart';
 import '../components/select_category_screen/categories_screen_shop_button.dart';
 import '../components/select_category_screen/category_button.dart';
 import '../data/db_provider.dart';
-import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
 import '../styles/element_theme.dart';
