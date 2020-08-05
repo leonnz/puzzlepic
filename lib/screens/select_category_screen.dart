@@ -27,7 +27,6 @@ class SelectCategory extends StatefulWidget {
 
 class _SelectCategoryState extends State<SelectCategory> {
   BannerAd _bannerAd;
-  List<String> availableCategories;
 
   void _loadBannerAd() {
     _bannerAd
@@ -36,11 +35,11 @@ class _SelectCategoryState extends State<SelectCategory> {
   }
 
   Future<void> dbcheck() async {
-    var path = await getDatabasesPath();
+    final String path = await getDatabasesPath();
 
-    var dir = Directory(path);
+    final Directory dir = Directory(path);
 
-    dir.list(recursive: true, followLinks: false).listen((file) {
+    dir.list(recursive: true, followLinks: false).listen((FileSystemEntity file) {
       print(file.path);
     });
   }
@@ -60,31 +59,34 @@ class _SelectCategoryState extends State<SelectCategory> {
 
     // dbProvider.deleteDb();
     // dbcheck();
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
-    // // Testing purchase record table
     dbProvider.getPurchasedCategories().then((List<String> listOfCategories) {
       print('Purchases length ${listOfCategories.length}');
 
-      for (final String category in listOfCategories) {
-        print(category);
+      // TODO append purchased categories from DB to shop provider available categoeries list if it doesnt exist
+      // TODO this needs to happen in shop provider, so that the category screen shop button can pick up changes
+      if (listOfCategories.isNotEmpty) {
+        for (final String category in listOfCategories) {
+          print(category);
+          if (!shopProvider.getAvailableCategories.contains(category)) {
+            shopProvider.addAvailableCategory(category: category);
+          }
+        }
       }
     });
 
-    dbProvider
-        .getRecordsByCategory(category: 'under_the_sea')
-        .then((List<String> listOfCategories) {
-      print('Complete puzzles by cat length ${listOfCategories.length}');
+    // dbProvider
+    //     .getRecordsByCategory(category: 'under_the_sea')
+    //     .then((List<String> listOfCategories) {
+    //   print('Complete puzzles by cat length ${listOfCategories.length}');
 
-      for (final String category in listOfCategories) {
-        print(category);
-      }
-    });
+    //   for (final String category in listOfCategories) {
+    //     print(category);
+    //   }
+    // });
 
-    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
-
-    availableCategories = shopProvider.availableCategories;
-    // TODO append purchased categories from DB
-    // availableCategories.addAll(shopProvider.)
+    // availableCategories = shopProvider.availableCategories;
 
     if (shopProvider.getAvailable) {
       final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
@@ -156,15 +158,15 @@ class _SelectCategoryState extends State<SelectCategory> {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                 ),
-                itemCount: availableCategories.length,
+                itemCount: shopProvider.getAvailableCategories.length,
                 itemBuilder: (BuildContext context, int i) {
                   return CategoryButton(
-                    categoryName: availableCategories[i],
+                    categoryName: shopProvider.getAvailableCategories[i],
                     // TODO Maybe move this logic into Category button
                     categoryReadableName: Images.imageList
                         .firstWhere((Map<String, dynamic> category) =>
                             category['categoryName'] ==
-                            availableCategories[i])['categoryReadableName']
+                            shopProvider.getAvailableCategories[i])['categoryReadableName']
                         .toString(),
                   );
                 },

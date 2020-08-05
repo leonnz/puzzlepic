@@ -9,7 +9,7 @@ class ShopProvider extends ChangeNotifier {
   static final InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> _subscription;
 
-  List<String> availableCategories = <String>['cities', 'foods', 'under_the_sea'];
+  final List<String> _availableCategories = <String>['cities', 'foods', 'under_the_sea'];
 
   static const String _removeAdProductId = 'test1';
   static const List<String> _productIds = <String>[
@@ -41,6 +41,7 @@ class ShopProvider extends ChangeNotifier {
   List<ProductDetails> get getImagePackProducts => _imagePackProducts;
   List<PurchaseDetails> get getPastPurchases => _pastPurchases;
   ProductDetails get getAdProduct => _adProduct;
+  List<String> get getAvailableCategories => _availableCategories;
 
   Future<bool> initialize() async {
     try {
@@ -55,14 +56,19 @@ class ShopProvider extends ChangeNotifier {
       _pastPurchases = await getPastPurchasesFromAppStore();
       _adProduct = await getRemoveAdProductFromAppStore();
       _imagePackProducts = await getImageProductsFromAppStore();
-      _subscription = _iap.purchaseUpdatedStream.listen((List<PurchaseDetails> purchases) {
-        completePurchase(purchases);
-      }, onDone: () => print('done'));
     } else {
       _timeout = true;
     }
     notifyListeners();
     return _available;
+  }
+
+  void registerSubscription() {
+    _subscription = _iap.purchaseUpdatedStream.listen(
+      (List<PurchaseDetails> purchases) {
+        completePurchase(purchases);
+      },
+    );
   }
 
   Future<void> buyProduct({ProductDetails product, Function callback}) async {
@@ -79,22 +85,31 @@ class ShopProvider extends ChangeNotifier {
     }
   }
 
+  void addAvailableCategory({String category}) {
+    _availableCategories.add(category);
+    notifyListeners();
+  }
+
   Future<void> completePurchase(List<PurchaseDetails> purchases) async {
     for (final PurchaseDetails purchase in purchases) {
       if (purchase.status == PurchaseStatus.purchased) {
+        print('Purchased!');
+
         final BillingResultWrapper billingResult = await _iap.completePurchase(purchase);
+
+        print('${billingResult.responseCode}');
 
         if (billingResult.responseCode == BillingResponse.ok) {
           _pastPurchases.addAll(purchases);
-          // TODO add purchase to DB
           final DBProviderDb dbProvider = DBProviderDb();
           dbProvider.insertCategoryPurchasedRecord(purchasedCategory: purchase.productID);
+          addAvailableCategory(category: purchase.productID);
           _callbackAlert('Purchase complete', 'Thank you!');
           notifyListeners();
         } else if (billingResult.responseCode == BillingResponse.error ||
             billingResult.responseCode == BillingResponse.serviceUnavailable) {
           _callbackAlert(
-              'Purchase error1', 'Please try again another time, you have not been changed.');
+              'Purchase error1', 'Please try again another time, you have not been charged.');
         }
       }
     }
