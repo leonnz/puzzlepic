@@ -2,20 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../data/images_data.dart';
 import '../../providers/device_provider.dart';
 import '../../screens/select_picture_screen.dart';
 import '../../styles/element_theme.dart';
 import '../../styles/text_theme.dart';
 
 class CategoryButton extends StatelessWidget {
-  const CategoryButton({Key key, @required this.categoryName, this.categoryReadableName})
-      : super(key: key);
+  const CategoryButton({
+    Key key,
+    @required this.categoryName,
+  }) : super(key: key);
   final String categoryName;
-  final String categoryReadableName;
 
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+
+    final String categoryReadableName = Images.imageList
+        .firstWhere((Map<String, dynamic> category) => category['categoryName'] == categoryName)[
+            'categoryReadableName']
+        .toString();
 
     return GestureDetector(
       onTap: () {

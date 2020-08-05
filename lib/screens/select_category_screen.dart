@@ -162,12 +162,6 @@ class _SelectCategoryState extends State<SelectCategory> {
                 itemBuilder: (BuildContext context, int i) {
                   return CategoryButton(
                     categoryName: shopProvider.getAvailableCategories[i],
-                    // TODO Maybe move this logic into Category button
-                    categoryReadableName: Images.imageList
-                        .firstWhere((Map<String, dynamic> category) =>
-                            category['categoryName'] ==
-                            shopProvider.getAvailableCategories[i])['categoryReadableName']
-                        .toString(),
                   );
                 },
                 // itemCount: Images.imageList.length,
