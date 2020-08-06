@@ -32,7 +32,7 @@ class CategoryShopButton extends StatelessWidget {
             decoration: CustomElementTheme.cetegoryScreenShopButtonBoxDecoration(),
             child: Icon(
               Icons.add,
-              size: deviceProvider.getUseMobileLayout ? 35 : 50,
+              size: deviceProvider.getUseMobileLayout ? 28 : 50,
               color: Colors.black45,
             ),
           ),
