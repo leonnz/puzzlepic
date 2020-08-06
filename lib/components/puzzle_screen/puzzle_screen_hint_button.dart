@@ -20,8 +20,8 @@ class PuzzleScreenHintButton extends StatelessWidget {
         pageBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secondaryAnimation) =>
             HintScreen(
-          category: gameProvider.getImageCategory,
-          imageAssetname: gameProvider.getAssetName,
+          category: gameProvider.getImageCategoryAssetName,
+          imageAssetname: gameProvider.getImageAssetName,
         ),
         transitionsBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation, Widget child) {

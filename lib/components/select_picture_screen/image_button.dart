@@ -11,20 +11,18 @@ import '../../styles/text_theme.dart';
 class ImageButton extends StatefulWidget {
   const ImageButton({
     Key key,
-    this.assetName,
-    this.readableName,
-    this.readableFullName,
-    this.title,
-    this.categoryName,
+    this.imageAssetName,
+    this.imageReadableName,
+    this.imageReadableFullName,
+    this.imageTitle,
     this.complete,
     this.refreshPictureSelectScreen,
   }) : super(key: key);
 
-  final String categoryName;
-  final String assetName;
-  final String readableName;
-  final String readableFullName;
-  final String title;
+  final String imageAssetName;
+  final String imageReadableName;
+  final String imageReadableFullName;
+  final String imageTitle;
   final bool complete;
   final Function refreshPictureSelectScreen;
 
@@ -48,11 +46,10 @@ class _ImageButtonState extends State<ImageButton> {
         deviceProvider.playSound(sound: 'fast_click.wav');
 
         gameProvider.setImageData(
-          category: widget.categoryName,
-          assetName: widget.assetName,
-          readableName: widget.readableName,
-          readableFullname: widget.readableFullName,
-          title: widget.title,
+          assetName: widget.imageAssetName,
+          readableName: widget.imageReadableName,
+          readableFullname: widget.imageReadableFullName,
+          title: widget.imageTitle,
         );
 
         final bool result = await Navigator.push(
@@ -76,7 +73,7 @@ class _ImageButtonState extends State<ImageButton> {
               borderRadius: BorderRadius.circular(10),
               child: Image(
                 image: AssetImage(
-                    'assets/images/${widget.categoryName}/${widget.assetName}_full_mini.jpg'),
+                    'assets/images/${gameProvider.getImageCategoryAssetName}/${widget.imageAssetName}_full_mini.jpg'),
               ),
             ),
             Positioned(
@@ -98,7 +95,7 @@ class _ImageButtonState extends State<ImageButton> {
                 decoration: CustomElementTheme.selectCategoryImageTextLabelBoxDecoration(),
                 child: Center(
                   child: Text(
-                    widget.readableName,
+                    widget.imageReadableName,
                     style: CustomTextTheme.selectPictureButtonTextStyle(),
                     textAlign: TextAlign.center,
                   ),

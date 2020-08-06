@@ -124,6 +124,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                 ),
                 itemCount: shopProvider.getAvailableCategories.length,
                 itemBuilder: (BuildContext context, int i) {
+                  
                   return CategoryButton(
                     categoryName: shopProvider.getAvailableCategories[i],
                   );

@@ -36,7 +36,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
             ),
             width: deviceProvider.getUseMobileLayout ? null : 300,
             child: Text(
-              'You completed ${gameProvider.getReadableFullname ?? gameProvider.getReadableName} in ${gameProvider.getMoves} moves${gameProvider.getMoves < gameProvider.getBestMoves ? ", a new personal best!" : "."}',
+              'You completed ${gameProvider.getImageReadableFullname ?? gameProvider.getImageReadableName} in ${gameProvider.getMoves} moves${gameProvider.getMoves < gameProvider.getBestMoves ? ", a new personal best!" : "."}',
               textAlign: TextAlign.center,
               style: CustomTextTheme.puzzleScreenCompleteAlertContent(),
             ),

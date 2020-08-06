@@ -166,7 +166,7 @@ class _ImagePieceState extends State<ImagePiece> with SingleTickerProviderStateM
             child: Center(
               child: Image(
                 image: AssetImage(
-                    'assets/images/${gameProvider.getImageCategory}/${gameProvider.getAssetName}/${gameProvider.getAssetName}_${widget.pieceNumber}.jpg'),
+                    'assets/images/${gameProvider.getImageCategoryAssetName}/${gameProvider.getImageAssetName}/${gameProvider.getImageAssetName}_${widget.pieceNumber}.jpg'),
               ),
             ),
           ),

@@ -86,22 +86,22 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
 
       final List<String> currentRecords = await dbProvider.getRecords();
 
-      if (currentRecords.contains(gameProvider.getReadableName)) {
+      if (currentRecords.contains(gameProvider.getImageReadableName)) {
         final List<Map<String, dynamic>> existingRecord =
-            await dbProvider.getSingleRecord(puzzleName: gameProvider.getReadableName);
+            await dbProvider.getSingleRecord(puzzleName: gameProvider.getImageReadableName);
         final int existingRecordBestMoves = existingRecord[0]['bestMoves'] as int;
 
         if (gameProvider.getMoves < existingRecordBestMoves) {
           // Sets the best moves to the previous best moves, so the complete puzzle alert can calculate if it is a new best.
           gameProvider.setBestMoves(moves: existingRecordBestMoves);
           dbProvider.updateRecord(
-              moves: gameProvider.getMoves, puzzleName: gameProvider.getReadableName);
+              moves: gameProvider.getMoves, puzzleName: gameProvider.getImageReadableName);
         }
       } else {
         gameProvider.setBestMoves(moves: gameProvider.getMoves);
         final PuzzleRecord record = PuzzleRecord(
-          puzzleName: gameProvider.getReadableName,
-          puzzleCategory: gameProvider.getImageCategory,
+          puzzleName: gameProvider.getImageReadableName,
+          puzzleCategory: gameProvider.getImageCategoryAssetName,
           complete: 'true',
           moves: gameProvider.getMoves,
         );

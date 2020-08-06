@@ -16,31 +16,46 @@ class GameProvider with ChangeNotifier {
   static List<int> _gridPositions;
 
   // Selected puzzle data
-  static String _imageCategory;
-  static String _assetName;
-  static String _readableName;
-  static String _readableFullname;
-  static String _title;
+  static String _imageCategoryAssetName;
+  static String _imageCategoryReadableName;
+  static String _imageAssetName;
+  static String _imageReadableName;
+  static String _imageReadableFullname;
+  static String _imageTitle;
 
-  String get getImageCategory => _imageCategory;
-  String get getAssetName => _assetName;
-  String get getReadableName => _readableName;
-  String get getReadableFullname => _readableFullname;
-  String get getTitle => _title;
+  String get getImageCategoryAssetName => _imageCategoryAssetName;
+  String get getImageCategoryReadableName => _imageCategoryReadableName;
+  String get getImageAssetName => _imageAssetName;
+  String get getImageReadableName => _imageReadableName;
+  String get getImageReadableFullname => _imageReadableFullname;
+  String get getImageTitle => _imageTitle;
 
-  void setImageData({
-    String category,
-    String assetName,
-    String readableName,
-    String readableFullname,
-    String title,
-  }) {
-    _imageCategory = category;
-    _assetName = assetName;
-    _readableName = readableName;
-    _readableFullname = readableFullname;
-    _title = title;
+  void setSelectedCategory({String assetName, String readableName}) {
+    _imageCategoryAssetName = assetName;
+    _imageCategoryReadableName = readableName;
   }
+
+  void setImageData(
+      {String assetName, String readableName, String readableFullname, String title}) {
+    _imageAssetName = assetName;
+    _imageReadableName = readableName;
+    _imageReadableFullname = readableFullname;
+    _imageTitle = title;
+  }
+
+  // void setImageData({
+  //   String category,
+  //   String assetName,
+  //   String readableName,
+  //   String readableFullname,
+  //   String title,
+  // }) {
+  //   _imageCategoryAssetName = category;
+  //   _imageAssetName = assetName;
+  //   _imageReadableName = readableName;
+  //   _imageReadableFullname = readableFullname;
+  //   _imageTitle = title;
+  // }
 
   bool get getPuzzleComplete => puzzleComplete;
   Map<String, String> get getImage => _image;
@@ -80,9 +95,8 @@ class GameProvider with ChangeNotifier {
 
   // Check if the piece number matches its position
   void checkComplete() {
-    final Iterable<bool> matching = getPiecePositions.map(
-        (Map<String, dynamic> piece) =>
-            piece['pieceNumber'] == piece['gridPosition']);
+    final Iterable<bool> matching = getPiecePositions
+        .map((Map<String, dynamic> piece) => piece['pieceNumber'] == piece['gridPosition']);
     if (matching.contains(false)) {
       puzzleComplete = false;
     } else {
@@ -111,10 +125,8 @@ class GameProvider with ChangeNotifier {
 
     imgPiece['pieceNumber'] = pieceNumber;
     imgPiece['gridPosition'] = pieceNumber;
-    imgPiece['leftPosition'] =
-        setStartingLeftPosition(imgPiece['gridPosition'] as int);
-    imgPiece['topPosition'] =
-        setStartingTopPosition(imgPiece['gridPosition'] as int);
+    imgPiece['leftPosition'] = setStartingLeftPosition(imgPiece['gridPosition'] as int);
+    imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition'] as int);
 
     // imgPiece['pieceNumber'] = pieceNumber;
     // imgPiece['gridPosition'] = getRandomGridPosition(0, _gridPositions.length);

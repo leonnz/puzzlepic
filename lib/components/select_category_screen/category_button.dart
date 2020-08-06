@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../data/images_data.dart';
 import '../../providers/device_provider.dart';
+import '../../providers/game_provider.dart';
 import '../../screens/select_picture_screen.dart';
 import '../../styles/element_theme.dart';
 import '../../styles/text_theme.dart';
@@ -15,18 +16,25 @@ class CategoryButton extends StatelessWidget {
   }) : super(key: key);
   final String categoryName;
 
-  @override
-  Widget build(BuildContext context) {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
-
-    final String categoryReadableName = Images.imageList
+  String getCategoryReadableName() {
+    return Images.imageList
         .firstWhere((Map<String, dynamic> category) => category['categoryName'] == categoryName)[
             'categoryReadableName']
         .toString();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
     return GestureDetector(
       onTap: () {
         deviceProvider.playSound(sound: 'fast_click.wav');
+
+        gameProvider.setSelectedCategory(
+            assetName: categoryName, readableName: getCategoryReadableName());
+
         Navigator.push(
           context,
           CupertinoPageRoute<bool>(
@@ -58,7 +66,7 @@ class CategoryButton extends StatelessWidget {
                 decoration: CustomElementTheme.selectCategoryImageTextLabelBoxDecoration(),
                 child: Center(
                   child: Text(
-                    categoryReadableName,
+                    getCategoryReadableName(),
                     style: CustomTextTheme.selectPictureButtonTextStyle(),
                     textAlign: TextAlign.center,
                   ),

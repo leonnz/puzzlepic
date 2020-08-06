@@ -18,7 +18,7 @@ class PuzzleCardMoves extends StatelessWidget {
       final DBProviderDb dbProvider = DBProviderDb();
       int best = 0;
       final List<Map<String, dynamic>> record =
-          await dbProvider.getSingleRecord(puzzleName: gameProvider.getReadableName);
+          await dbProvider.getSingleRecord(puzzleName: gameProvider.getImageReadableName);
 
       if (record.isNotEmpty) {
         best = record[0]['bestMoves'] as int;

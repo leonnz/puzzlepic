@@ -7,6 +7,7 @@ import '../components/select_picture_screen/image_button.dart';
 import '../data/db_provider.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
+import '../providers/game_provider.dart';
 import '../styles/element_theme.dart';
 import '../styles/text_theme.dart';
 
@@ -26,6 +27,7 @@ class _SelectPictureState extends State<SelectPicture> {
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
     final DBProviderDb dbProvider = DBProviderDb();
 
@@ -58,11 +60,7 @@ class _SelectPictureState extends State<SelectPicture> {
                 children: <Widget>[
                   const AppBarLeadingButton(icon: Icons.arrow_back_ios),
                   Text(
-                    // TODO Maybe put this data in the gameProvider
-                    Images.imageList
-                        .firstWhere((Map<String, dynamic> category) =>
-                            category['categoryName'] == widget.category)['categoryReadableName']
-                        .toString(),
+                    gameProvider.getImageCategoryReadableName,
                     style: CustomTextTheme.selectScreenTitleTextStyle(context),
                   ),
                   Align(
@@ -110,11 +108,10 @@ class _SelectPictureState extends State<SelectPicture> {
                       ),
                       itemBuilder: (BuildContext context, int i) {
                         return ImageButton(
-                          categoryName: widget.category,
-                          assetName: images[i]['assetName'].toString(),
-                          readableName: images[i]['readableName'].toString(),
-                          readableFullName: images[i]['readableFullname'].toString(),
-                          title: images[i]['title'].toString(),
+                          imageAssetName: images[i]['assetName'].toString(),
+                          imageReadableName: images[i]['readableName'].toString(),
+                          imageReadableFullName: images[i]['readableFullname'].toString(),
+                          imageTitle: images[i]['title'].toString(),
                           complete: snapshot.data.contains(images[i]['readableName']),
                           refreshPictureSelectScreen: refreshScreen,
                         );

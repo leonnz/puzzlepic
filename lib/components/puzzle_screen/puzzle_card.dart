@@ -25,7 +25,7 @@ class PuzzleCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                gameProvider.getReadableFullname,
+                gameProvider.getImageReadableFullname,
                 textAlign: TextAlign.center,
                 style: CustomTextTheme.puzzleScreenImageTitle(),
               ),
@@ -33,7 +33,7 @@ class PuzzleCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: Text(
-                gameProvider.getTitle,
+                gameProvider.getImageTitle,
                 style: CustomTextTheme.puzzleScreenPictureSubTitle(),
               ),
             ),
