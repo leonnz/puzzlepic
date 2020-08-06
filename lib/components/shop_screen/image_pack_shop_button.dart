@@ -45,21 +45,26 @@ class ImagePackShopButton extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.all(10),
             padding: const EdgeInsets.all(10),
-            height: deviceProvider.getUseMobileLayout ? 50 : 70,
+            // height: deviceProvider.getUseMobileLayout ? 50 : 70,
             width: double.infinity,
             decoration: CustomElementTheme.shopButtonBoxDecoration(),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  // imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
-                  imagePackProduct.id,
-                  style: CustomTextTheme.selectPictureButtonTextStyle(),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      // imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
+                      imagePackProduct.id,
+                      style: CustomTextTheme.selectPictureButtonTextStyle(),
+                    ),
+                    Text(
+                      purchased != null ? 'Purchased' : imagePackProduct.price,
+                      style: CustomTextTheme.selectPictureButtonTextStyle(),
+                    ),
+                  ],
                 ),
-                Text(
-                  purchased != null ? 'Purchased' : imagePackProduct.price,
-                  style: CustomTextTheme.selectPictureButtonTextStyle(),
-                ),
+                Text(imagePackProduct.description),
               ],
             ),
           ),

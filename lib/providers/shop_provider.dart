@@ -148,6 +148,7 @@ class ShopProvider extends ChangeNotifier {
         Set<String>.from(<List<String>>[_productIds].expand((List<String> product) => product));
 
     final ProductDetailsResponse response = await _iap.queryProductDetails(productIdsSet);
+
     return response.productDetails;
   }
 
