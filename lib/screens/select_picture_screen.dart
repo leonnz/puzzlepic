@@ -53,7 +53,7 @@ class _SelectPictureState extends State<SelectPicture> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
             child: Container(
-              decoration: CustomElementTheme.appBarBoxDecoration(
+              decoration: CustomElementTheme.imageScreenAppBarBoxDecoration(
                   image: 'assets/images/_categories/${widget.category}_banner.png'),
               child: Stack(
                 alignment: Alignment.center,

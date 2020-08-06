@@ -56,7 +56,24 @@ class CustomElementTheme {
     );
   }
 
-  static BoxDecoration appBarBoxDecoration({String image}) {
+  static BoxDecoration categoryScreenAppBarBoxDecoration() {
+    return BoxDecoration(
+      gradient:
+          LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: <Color>[
+        Colors.grey[300],
+        Colors.white,
+      ]),
+      boxShadow: const <BoxShadow>[
+        BoxShadow(
+          color: Colors.black45,
+          blurRadius: 5.0,
+          offset: Offset(0.0, 3.0),
+        ),
+      ],
+    );
+  }
+
+  static BoxDecoration imageScreenAppBarBoxDecoration({String image}) {
     return BoxDecoration(
       image: DecorationImage(
         image: AssetImage(image),

@@ -45,7 +45,7 @@ class _ShopScreenState extends State<ShopScreen> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
           child: Container(
-            decoration: CustomElementTheme.appBarBoxDecoration(
+            decoration: CustomElementTheme.imageScreenAppBarBoxDecoration(
                 image: 'assets/images/_categories/_categories_banner.png'),
             child: Stack(
               alignment: Alignment.center,

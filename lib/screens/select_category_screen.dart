@@ -99,8 +99,7 @@ class _SelectCategoryState extends State<SelectCategory> {
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
               child: Container(
-                decoration: CustomElementTheme.appBarBoxDecoration(
-                    image: 'assets/images/_categories/_categories_banner.png'),
+                decoration: CustomElementTheme.categoryScreenAppBarBoxDecoration(),
                 child: Stack(
                   alignment: Alignment.center,
                   children: <Widget>[
@@ -124,7 +123,6 @@ class _SelectCategoryState extends State<SelectCategory> {
                 ),
                 itemCount: shopProvider.getAvailableCategories.length,
                 itemBuilder: (BuildContext context, int i) {
-                  
                   return CategoryButton(
                     categoryName: shopProvider.getAvailableCategories[i],
                   );
