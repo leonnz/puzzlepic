@@ -28,7 +28,6 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
     _shopButtonBounceController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 200),
-      lowerBound: 0.0,
       upperBound: 0.08,
     )..addListener(() {
         setState(() {});
@@ -40,7 +39,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
     ).animate(
       CurvedAnimation(
         parent: widget.shopButtonSlideController,
-        curve: Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
+        curve: const Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
       ),
     );
 

@@ -34,7 +34,6 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
     _playButtonBounceController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 200),
-      lowerBound: 0.0,
       upperBound: 0.08,
     )..addListener(() {
         setState(() {});
@@ -46,7 +45,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
     ).animate(
       CurvedAnimation(
         parent: widget.playButtonSlideController,
-        curve: Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
+        curve: const Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
       ),
     );
 

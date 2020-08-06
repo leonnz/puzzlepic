@@ -23,7 +23,7 @@ class _PuzzlePicLogoState extends State<PuzzlePicLogo> with SingleTickerProvider
     ).animate(
       CurvedAnimation(
         parent: widget.puzzlePicSlideController,
-        curve: Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
+        curve: const Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
       ),
     );
 

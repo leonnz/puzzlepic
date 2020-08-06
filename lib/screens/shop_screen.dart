@@ -67,8 +67,6 @@ class _ShopScreenState extends State<ShopScreen> {
                 builder: (BuildContext context, ShopProvider value, Widget child) {
                   return shopProvider.getAvailable
                       ? Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             const RemoveAdShopButton(),
                             const Text('Image Packs'),

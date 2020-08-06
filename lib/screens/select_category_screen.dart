@@ -27,7 +27,7 @@ class _SelectCategoryState extends State<SelectCategory> {
   void _loadBannerAd() {
     _bannerAd
       ..load()
-      ..show(anchorType: AnchorType.bottom);
+      ..show();
   }
 
   @override

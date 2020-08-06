@@ -87,7 +87,6 @@ class _ImagePieceState extends State<ImagePiece> with SingleTickerProviderStateM
         piecePositions: gameProvider.getPiecePositions,
       ),
       duration: const Duration(milliseconds: 100),
-      curve: Curves.linear,
       child: FadeTransition(
         opacity: widget.lastPiece
             ? _animation
