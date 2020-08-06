@@ -66,18 +66,14 @@ class _ShopScreenState extends State<ShopScreen> {
                 builder: (BuildContext context, ShopProvider value, Widget child) {
                   return shopProvider.getAvailable
                       ? Column(
-                          children: <Widget>[
-                            const RemoveAdShopButton(),
-                            const Text('Image Packs'),
-                            const ImagePackList(),
-                            // const Spacer(),
-                            Text('past purchases ${value.getPastPurchases.length}'),
-                            for (PurchaseDetails purchase in value.getPastPurchases) ...<Widget>[
-                              Text('past purchase: ${purchase.productID}')
-                            ],
-                            // Text('Ad product ${shopProvider.getAdProduct}'),
-                            Text('image products ${value.getImagePackProducts.length}'),
-                            Text('${deviceProvider.getHasInternetConnection}')
+                          children: const <Widget>[
+                            RemoveAdShopButton(),
+                            Text('Image Packs'),
+                            ImagePackList(),
+                            // Spacer(),
+                            // for (PurchaseDetails purchase in value.getPastPurchases) ...<Widget>[
+                            //   Text('past purchase: ${purchase.productID}')
+                            // ],
                           ],
                         )
                       : shopProvider.getTimedout
