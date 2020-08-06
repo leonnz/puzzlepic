@@ -29,7 +29,7 @@ class CategoryShopButton extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: Container(
             padding: const EdgeInsets.all(5),
-            decoration: CustomElementTheme.cetegoryScreenShopButtonBoxDecoration(),
+            decoration: CustomElementTheme.categoryScreenShopButtonBoxDecoration(),
             child: Icon(
               Icons.add,
               size: deviceProvider.getUseMobileLayout ? 28 : 50,

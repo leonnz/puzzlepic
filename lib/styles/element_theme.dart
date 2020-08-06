@@ -42,7 +42,7 @@ class CustomElementTheme {
     );
   }
 
-  static BoxDecoration cetegoryScreenShopButtonBoxDecoration() {
+  static BoxDecoration categoryScreenShopButtonBoxDecoration() {
     return BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(8),
@@ -57,6 +57,23 @@ class CustomElementTheme {
   }
 
   static BoxDecoration categoryScreenAppBarBoxDecoration() {
+    return BoxDecoration(
+      gradient:
+          LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: <Color>[
+        Colors.grey[300],
+        Colors.white,
+      ]),
+      boxShadow: const <BoxShadow>[
+        BoxShadow(
+          color: Colors.black45,
+          blurRadius: 5.0,
+          offset: Offset(0.0, 3.0),
+        ),
+      ],
+    );
+  }
+
+  static BoxDecoration shopScreenAppBarBoxDecoration() {
     return BoxDecoration(
       gradient:
           LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: <Color>[

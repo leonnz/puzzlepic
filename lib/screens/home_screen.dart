@@ -65,7 +65,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     precacheImagesCompleted = false;
     imagesToPrecache = <AssetImage>[
       const AssetImage('assets/images/background.png'),
-      const AssetImage('assets/images/_categories/_categories_banner.png'),
       const AssetImage('assets/images/_polaroids/polaroid_eiffel_tower.jpg'),
       const AssetImage('assets/images/_polaroids/polaroid_daisies.jpg'),
       const AssetImage('assets/images/_polaroids/polaroid_sea_turtle.jpg'),

@@ -45,8 +45,7 @@ class _ShopScreenState extends State<ShopScreen> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
           child: Container(
-            decoration: CustomElementTheme.imageScreenAppBarBoxDecoration(
-                image: 'assets/images/_categories/_categories_banner.png'),
+            decoration: CustomElementTheme.shopScreenAppBarBoxDecoration(),
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
@@ -55,7 +54,7 @@ class _ShopScreenState extends State<ShopScreen> {
                   customOperation: shopProvider.cancelSubscription,
                 ),
                 Text(
-                  'Shop',
+                  'Store',
                   style: CustomTextTheme.selectScreenTitleTextStyle(context),
                 ),
               ],
