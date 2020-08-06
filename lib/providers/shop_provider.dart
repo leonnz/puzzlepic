@@ -147,8 +147,8 @@ class ShopProvider extends ChangeNotifier {
     final Set<String> productIdsSet =
         Set<String>.from(<List<String>>[_productIds].expand((List<String> product) => product));
 
-    final ProductDetailsResponse reponse = await _iap.queryProductDetails(productIdsSet);
-    return reponse.productDetails;
+    final ProductDetailsResponse response = await _iap.queryProductDetails(productIdsSet);
+    return response.productDetails;
   }
 
   Future<List<PurchaseDetails>> getPastPurchasesFromAppStore() async {
