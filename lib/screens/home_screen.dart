@@ -117,11 +117,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    //TODO these not getting disposed?
-    _playButtonSlideController.dispose();
-    _shopButtonSlideController.dispose();
-    _puzzlePicSlideController.dispose();
-    _polaroidSlideController.dispose();
     super.dispose();
   }
 

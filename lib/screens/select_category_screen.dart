@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_admob/firebase_admob.dart';
-import 'package:sqflite/sqflite.dart';
 
 import '../ad_manager.dart';
 import '../components/_shared/appbar_leading_button.dart';
@@ -33,38 +30,18 @@ class _SelectCategoryState extends State<SelectCategory> {
       ..show(anchorType: AnchorType.bottom);
   }
 
-  Future<void> dbcheck() async {
-    final String path = await getDatabasesPath();
-
-    final Directory dir = Directory(path);
-
-    dir.list(recursive: true, followLinks: false).listen((FileSystemEntity file) {
-      print(file.path);
-    });
-  }
-
   @override
   void initState() {
     DBProviderDb().database;
 
-    // dbProvider.getRecordsByCategory(category: 'cities').then((List<String> listOfCategories) {
-    //   print(listOfCategories.length);
-
-    //   for (final String category in listOfCategories) {
-    //     print(category);
-    //   }
-    // });
     final DBProviderDb dbProvider = DBProviderDb();
 
     // dbProvider.deleteDb();
-    // dbcheck();
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
     dbProvider.getPurchasedCategories().then((List<String> listOfCategories) {
       print('Purchases length ${listOfCategories.length}');
 
-      // TODO append purchased categories from DB to shop provider available categoeries list if it doesnt exist
-      // TODO this needs to happen in shop provider, so that the category screen shop button can pick up changes
       if (listOfCategories.isNotEmpty) {
         for (final String category in listOfCategories) {
           print(category);
@@ -74,18 +51,6 @@ class _SelectCategoryState extends State<SelectCategory> {
         }
       }
     });
-
-    // dbProvider
-    //     .getRecordsByCategory(category: 'under_the_sea')
-    //     .then((List<String> listOfCategories) {
-    //   print('Complete puzzles by cat length ${listOfCategories.length}');
-
-    //   for (final String category in listOfCategories) {
-    //     print(category);
-    //   }
-    // });
-
-    // availableCategories = shopProvider.availableCategories;
 
     if (shopProvider.getAvailable) {
       final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
@@ -163,13 +128,6 @@ class _SelectCategoryState extends State<SelectCategory> {
                     categoryName: shopProvider.getAvailableCategories[i],
                   );
                 },
-                // itemCount: Images.imageList.length,
-                // itemBuilder: (BuildContext context, int i) {
-                //   return CategoryButton(
-                //     categoryName: Images.imageList[i]['categoryName'].toString(),
-                //     categoryReadableName: Images.imageList[i]['categoryReadableName'].toString(),
-                //   );
-                // },
               ),
             ),
           ),

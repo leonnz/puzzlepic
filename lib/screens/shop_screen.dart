@@ -37,7 +37,6 @@ class _ShopScreenState extends State<ShopScreen> {
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
     return WillPopScope(
-      // TODO maybe dont cancel this
       onWillPop: () async {
         final bool quit = shopProvider.cancelSubscription();
         return quit;
