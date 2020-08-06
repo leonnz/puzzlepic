@@ -4,8 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/device_provider.dart';
 
 class HintScreen extends StatelessWidget {
-  const HintScreen({Key key, this.category, this.imageAssetname})
-      : super(key: key);
+  const HintScreen({Key key, this.category, this.imageAssetname}) : super(key: key);
 
   final String category;
   final String imageAssetname;
@@ -19,9 +18,10 @@ class HintScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image(
-            image: AssetImage(
-                'assets/images/$category/${imageAssetname}_full.jpg'),
+          InteractiveViewer(
+            child: Image(
+              image: AssetImage('assets/images/$category/${imageAssetname}_full.jpg'),
+            ),
           ),
           IconButton(
             icon: Icon(
