@@ -25,7 +25,7 @@ class ShopProvider extends ChangeNotifier {
   ];
 
   static const String _removeAdProductId = 'test1';
-  static const List<String> _productIds = <String>[
+  static const List<String> _imagePackProductIds = <String>[
     'test8',
     'test9',
     'test10',
@@ -39,6 +39,13 @@ class ShopProvider extends ChangeNotifier {
     'test18',
     'test19',
     'test20',
+  ];
+
+  static const List<Map<String, List<String>>> _imagePackProductSampleImages =
+      <Map<String, List<String>>>[
+    <String, List<String>>{
+      'test13': <String>['elephant', 'frog', 'parrot', 'tiger'] // Mimic animals image pack
+    },
   ];
 
   ProductDetails _adProduct;
@@ -144,8 +151,8 @@ class ShopProvider extends ChangeNotifier {
   }
 
   Future<List<ProductDetails>> getImageProductsFromAppStore() async {
-    final Set<String> productIdsSet =
-        Set<String>.from(<List<String>>[_productIds].expand((List<String> product) => product));
+    final Set<String> productIdsSet = Set<String>.from(
+        <List<String>>[_imagePackProductIds].expand((List<String> product) => product));
 
     final ProductDetailsResponse response = await _iap.queryProductDetails(productIdsSet);
 
