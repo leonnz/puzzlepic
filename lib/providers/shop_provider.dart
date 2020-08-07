@@ -9,36 +9,44 @@ class ShopProvider extends ChangeNotifier {
   static final InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> _subscription;
 
-  // final List<String> _availableCategories = <String>['cities', 'foods', 'under_the_sea'];
+  final List<String> _availableCategories = <String>['cities', 'foods', 'under_the_sea'];
 
-  // DEV only reveal all products
-  final List<String> _availableCategories = <String>[
-    'animals',
-    'art',
-    'buildings',
-    'cities',
-    'flowers',
-    'foods',
-    'landscapes',
-    'natural_wonders',
-    'under_the_sea'
-  ];
+  /// DEV only reveal all products
+  // final List<String> _availableCategories = <String>[
+  //   'animals',
+  //   'art',
+  //   'buildings',
+  //   'cities',
+  //   'flowers',
+  //   'foods',
+  //   'landscapes',
+  //   'natural_wonders',
+  //   'under_the_sea'
+  // ];
 
   static const String _removeAdProductId = 'test1';
   static const List<String> _imagePackProductIds = <String>[
-    'test8',
-    'test9',
-    'test10',
-    'test11',
-    'test12',
-    'test13',
-    'test14',
-    'test15',
-    'test16',
-    'test17',
-    'test18',
-    'test19',
-    'test20',
+    'animals',
+    'art',
+    'buildings',
+    'flowers',
+    'landscapes',
+    'natural_wonders',
+
+    /// Test IDs
+    // 'test8',
+    // 'test9',
+    // 'test10',
+    // 'test11',
+    // 'test12',
+    // 'test13',
+    // 'test14',
+    // 'test15',
+    // 'test16',
+    // 'test17',
+    // 'test18',
+    // 'test19',
+    // 'test20',
   ];
 
   ProductDetails _adProduct;
