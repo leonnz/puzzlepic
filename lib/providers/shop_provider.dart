@@ -41,10 +41,6 @@ class ShopProvider extends ChangeNotifier {
     'test20',
   ];
 
-  static const Map<String, List<String>> _imagePackProductSampleImages = <String, List<String>>{
-    'test10': <String>['elephant', 'frog', 'parrot', 'tiger']
-  };
-
   ProductDetails _adProduct;
   List<ProductDetails> _imagePackProducts = <ProductDetails>[];
   List<PurchaseDetails> _pastPurchases = <PurchaseDetails>[];
@@ -56,7 +52,6 @@ class ShopProvider extends ChangeNotifier {
   bool get getTimedout => _timeout;
   String get getRemoveAdProductId => _removeAdProductId;
   List<ProductDetails> get getImagePackProducts => _imagePackProducts;
-  Map<String, List<String>> get getImagePackProductSampleImages => _imagePackProductSampleImages;
   List<PurchaseDetails> get getPastPurchases => _pastPurchases;
   ProductDetails get getAdProduct => _adProduct;
   List<String> get getAvailableCategories => _availableCategories;
