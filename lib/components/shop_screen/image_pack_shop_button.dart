@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
+import '../../data/images_data.dart';
 import '../../providers/device_provider.dart';
 import '../../providers/shop_provider.dart';
 import '../../styles/element_theme.dart';
@@ -48,8 +49,9 @@ class ImagePackShopButton extends StatelessWidget {
               style: CustomTextTheme.selectPictureButtonTextStyle(),
             ),
             title: Text(
-                // imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
-                imagePackProduct.id),
+              imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
+              // imagePackProduct.id,
+            ),
             backgroundColor: Colors.white,
             expandedAlignment: Alignment.centerLeft,
             childrenPadding: const EdgeInsets.only(top: 5, bottom: 16, left: 16, right: 16),
@@ -57,17 +59,16 @@ class ImagePackShopButton extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
-                children: [
+                children: <Widget>[
                   Expanded(
                       child: Text(
-                          'Lorem Ipsum is simply dummy text of the a s d f and typesetting industry 11111.' // 80 character limit
-                          // imagePackProduct.description,
-                          )),
+                    imagePackProduct.description,
+                  )),
                   if (purchased != null) ...<Widget>[
                     Container(),
                   ] else ...<Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: RaisedButton(
                         color: Colors.green,
                         onPressed: () {
@@ -75,7 +76,7 @@ class ImagePackShopButton extends StatelessWidget {
                           shop.buyProduct(
                               product: imagePackProduct, callback: purchaseCallbackAlert);
                         },
-                        child: Text(
+                        child: const Text(
                           'Buy',
                           style: TextStyle(color: Colors.white),
                         ),
@@ -84,26 +85,31 @@ class ImagePackShopButton extends StatelessWidget {
                   ]
                 ],
               ),
-              Row(
-                children: [
-                  Text(
-                    'samples',
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
                   ),
-                ],
-              ),
-              GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+                  itemCount: 12,
+                  itemBuilder: (BuildContext context, int i) {
+                    final List<Map<String, dynamic>> previewImages = Images.imageList.firstWhere(
+                            (Map<String, dynamic> imageList) =>
+                                imageList['categoryName'] == 'animals')['categoryImages']
+                        as List<Map<String, dynamic>>;
+
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: Image(
+                        image: AssetImage(
+                            'assets/images/animals/${previewImages[i]['assetName']}_full_mini.jpg'),
+                      ),
+                    );
+                  },
                 ),
-                itemCount: 4,
-                itemBuilder: (BuildContext context, int i) {
-                  return Image(
-                    image: AssetImage('assets/images/_categories/test18_cat.png'),
-                  );
-                },
               )
             ],
           ),
