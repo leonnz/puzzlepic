@@ -41,51 +41,55 @@ class _ShopScreenState extends State<ShopScreen> {
         final bool quit = shopProvider.cancelSubscription();
         return quit;
       },
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
-          child: Container(
-            decoration: CustomElementTheme.shopScreenAppBarBoxDecoration(),
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                AppBarLeadingButton(
-                  icon: Icons.close,
-                  customOperation: shopProvider.cancelSubscription,
-                ),
-                Text(
-                  'Store',
-                  style: CustomTextTheme.selectScreenTitleTextStyle(context),
-                ),
-              ],
+      child: Container(
+        decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
+        child: Scaffold(
+          backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
+            child: Container(
+              decoration: CustomElementTheme.shopScreenAppBarBoxDecoration(),
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  AppBarLeadingButton(
+                    icon: Icons.close,
+                    customOperation: shopProvider.cancelSubscription,
+                  ),
+                  Text(
+                    'Store',
+                    style: CustomTextTheme.selectScreenTitleTextStyle(context),
+                  ),
+                ],
+              ),
             ),
           ),
+          body: deviceProvider.getHasInternetConnection
+              ? Consumer<ShopProvider>(
+                  builder: (BuildContext context, ShopProvider value, Widget child) {
+                    return shopProvider.getAvailable
+                        ? Column(
+                            children: const <Widget>[
+                              RemoveAdShopButton(),
+                              Text('Image Packs'),
+                              ImagePackList(),
+                              // Spacer(),
+                              // for (PurchaseDetails purchase in value.getPastPurchases) ...<Widget>[
+                              //   Text('past purchase: ${purchase.productID}')
+                              // ],
+                            ],
+                          )
+                        : shopProvider.getTimedout
+                            ? const ShopErrorMessage(
+                                message: 'Problem connecting to store',
+                              )
+                            : const LoadingAnimation();
+                  },
+                )
+              : const ShopErrorMessage(
+                  message: 'No Internet connection',
+                ),
         ),
-        body: deviceProvider.getHasInternetConnection
-            ? Consumer<ShopProvider>(
-                builder: (BuildContext context, ShopProvider value, Widget child) {
-                  return shopProvider.getAvailable
-                      ? Column(
-                          children: const <Widget>[
-                            RemoveAdShopButton(),
-                            Text('Image Packs'),
-                            ImagePackList(),
-                            // Spacer(),
-                            // for (PurchaseDetails purchase in value.getPastPurchases) ...<Widget>[
-                            //   Text('past purchase: ${purchase.productID}')
-                            // ],
-                          ],
-                        )
-                      : shopProvider.getTimedout
-                          ? const ShopErrorMessage(
-                              message: 'Problem connecting to store',
-                            )
-                          : const LoadingAnimation();
-                },
-              )
-            : const ShopErrorMessage(
-                message: 'No Internet connection',
-              ),
       ),
     );
   }
