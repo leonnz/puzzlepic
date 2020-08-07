@@ -105,7 +105,7 @@ class ImagePackShopButton extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       child: Image(
                         image: AssetImage(
-                            'assets/images/animals/${previewImages[i]['assetName']}_full_mini.jpg'),
+                            'assets/images/${imagePackProduct.id}/${previewImages[i]['assetName']}_full_mini.jpg'),
                       ),
                     );
                   },
