@@ -24,7 +24,7 @@ class ShopProvider extends ChangeNotifier {
   //   'under_the_sea'
   // ];
 
-  static const String _removeAdProductId = 'test1';
+  static const String _removeAdProductId = 'removeads';
   static const List<String> _imagePackProductIds = <String>[
     'animals',
     'art',
