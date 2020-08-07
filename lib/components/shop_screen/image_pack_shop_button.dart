@@ -44,13 +44,12 @@ class ImagePackShopButton extends StatelessWidget {
           width: double.infinity,
           decoration: CustomElementTheme.shopButtonBoxDecoration(),
           child: CustomExpansionTile(
-            trailing: Text(
-              purchased != null ? 'Purchased' : imagePackProduct.price,
-              style: CustomTextTheme.selectPictureButtonTextStyle(),
-            ),
+            // trailing: Text(
+            //   purchased != null ? 'Purchased' : imagePackProduct.price,
+            //   style: CustomTextTheme.selectPictureButtonTextStyle(),
+            // ),
             title: Text(
               imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
-              // imagePackProduct.id,
             ),
             backgroundColor: Colors.white,
             expandedAlignment: Alignment.centerLeft,
@@ -76,9 +75,9 @@ class ImagePackShopButton extends StatelessWidget {
                           shop.buyProduct(
                               product: imagePackProduct, callback: purchaseCallbackAlert);
                         },
-                        child: const Text(
-                          'Buy',
-                          style: TextStyle(color: Colors.white),
+                        child: Text(
+                          imagePackProduct.price,
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
