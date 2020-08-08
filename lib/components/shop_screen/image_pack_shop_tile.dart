@@ -7,6 +7,7 @@ import '../../providers/device_provider.dart';
 import '../../providers/shop_provider.dart';
 import '../../styles/element_theme.dart';
 import '../_custom_widgets/custom_expansion_tile.dart';
+import 'image_pack_buy_button.dart';
 import 'purchase_alert.dart';
 
 class ImagePackShopTile extends StatelessWidget {
@@ -63,33 +64,16 @@ class ImagePackShopTile extends StatelessWidget {
                       imagePackProduct.description,
                     )),
                     if (purchased != null) ...<Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: RaisedButton(
-                          color: Colors.green,
-                          onPressed: null,
-                          child: Text(
-                            imagePackProduct.price,
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
+                      ImagePackBuyButton(imagePackProductPrice: imagePackProduct.price),
                     ] else ...<Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: RaisedButton(
-                          color: Colors.green,
-                          onPressed: () {
-                            deviceProvider.playSound(sound: 'fast_click.wav');
-                            shop.buyProduct(
-                                product: imagePackProduct, callback: purchaseCallbackAlert);
-                          },
-                          child: Text(
-                            imagePackProduct.price,
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
+                      ImagePackBuyButton(
+                        imagePackProductPrice: imagePackProduct.price,
+                        onClickAction: () {
+                          deviceProvider.playSound(sound: 'fast_click.wav');
+                          shop.buyProduct(
+                              product: imagePackProduct, callback: purchaseCallbackAlert);
+                        },
+                      )
                     ]
                   ],
                 ),
