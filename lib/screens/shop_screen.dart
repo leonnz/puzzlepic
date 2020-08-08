@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
 import '../components/_shared/appbar_leading_button.dart';
@@ -73,10 +72,6 @@ class _ShopScreenState extends State<ShopScreen> {
                               RemoveAdShopButton(),
                               Text('Image Packs'),
                               ImagePackList(),
-                              // Spacer(),
-                              // for (PurchaseDetails purchase in value.getPastPurchases) ...<Widget>[
-                              //   Text('past purchase: ${purchase.productID}')
-                              // ],
                             ],
                           )
                         : shopProvider.getTimedout

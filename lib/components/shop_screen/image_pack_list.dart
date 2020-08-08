@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'image_pack_shop_tile.dart';
 import '../../providers/shop_provider.dart';
+import 'image_pack_shop_tile.dart';
 
 class ImagePackList extends StatelessWidget {
   const ImagePackList({Key key}) : super(key: key);
