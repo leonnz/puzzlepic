@@ -59,10 +59,7 @@ class ImagePackShopTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Expanded(
-                        child: Text(
-                      imagePackProduct.description,
-                    )),
+                    Expanded(child: Text(imagePackProduct.description)),
                     if (purchased != null) ...<Widget>[
                       ImagePackBuyButton(imagePackProductPrice: imagePackProduct.price),
                     ] else ...<Widget>[
