@@ -18,10 +18,8 @@ class HintScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          InteractiveViewer(
-            child: Image(
-              image: AssetImage('assets/images/$category/${imageAssetname}_full.jpg'),
-            ),
+          Image(
+            image: AssetImage('assets/images/$category/${imageAssetname}_full.jpg'),
           ),
           IconButton(
             icon: Icon(
