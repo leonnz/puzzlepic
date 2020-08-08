@@ -177,7 +177,7 @@ class Images {
     // Buildings
     <String, dynamic>{
       'categoryName': 'buildings',
-      'categoryReadableName': 'Famous Structures',
+      'categoryReadableName': 'Famous Landmarks',
       'categoryImages': <Map<String, String>>[
         <String, String>{
           'assetName': 'big_ben',
