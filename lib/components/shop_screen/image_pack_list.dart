@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../components/shop_screen/image_pack_shop_button.dart';
+import 'image_pack_shop_tile.dart';
 import '../../providers/shop_provider.dart';
 
 class ImagePackList extends StatelessWidget {
@@ -18,7 +18,7 @@ class ImagePackList extends StatelessWidget {
             child: ListView.builder(
               itemCount: shop.getImagePackProducts.length,
               itemBuilder: (BuildContext context, int index) {
-                return ImagePackShopButton(
+                return ImagePackShopTile(
                   imagePackProduct: shop.getImagePackProducts[index],
                 );
               },
