@@ -46,13 +46,14 @@ class CustomElementTheme {
     return BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(8),
-      boxShadow: const <BoxShadow>[
-        BoxShadow(
-          color: Colors.black45,
-          blurRadius: 4,
-          offset: Offset(1, 1),
-        )
-      ],
+      border: Border.all(color: Colors.purple[200]),
+      // boxShadow: const <BoxShadow>[
+      //   BoxShadow(
+      //     color: Colors.black45,
+      //     blurRadius: 1,
+      //     offset: Offset(1, 1),
+      //   )
+      // ],
     );
   }
 

@@ -33,7 +33,7 @@ class CategoryShopButton extends StatelessWidget {
             child: Icon(
               Icons.add,
               size: deviceProvider.getUseMobileLayout ? 28 : 50,
-              color: Colors.black45,
+              color: Colors.purple[200],
             ),
           ),
         ),
