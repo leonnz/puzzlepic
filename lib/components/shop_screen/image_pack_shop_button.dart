@@ -44,12 +44,10 @@ class ImagePackShopButton extends StatelessWidget {
           width: double.infinity,
           decoration: CustomElementTheme.shopButtonBoxDecoration(),
           child: CustomExpansionTile(
-            // trailing: Text(
-            //   purchased != null ? 'Purchased' : imagePackProduct.price,
-            //   style: CustomTextTheme.selectPictureButtonTextStyle(),
-            // ),
             title: Text(
-              imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
+              purchased != null
+                  ? '${imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('('))}(purchased)'
+                  : imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
             ),
             backgroundColor: Colors.white,
             expandedAlignment: Alignment.centerLeft,
@@ -64,7 +62,17 @@ class ImagePackShopButton extends StatelessWidget {
                     imagePackProduct.description,
                   )),
                   if (purchased != null) ...<Widget>[
-                    Container(),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: RaisedButton(
+                        color: Colors.green,
+                        onPressed: null,
+                        child: Text(
+                          imagePackProduct.price,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
                   ] else ...<Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
@@ -104,7 +112,9 @@ class ImagePackShopButton extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       child: Image(
                         image: AssetImage(
-                            'assets/images/${imagePackProduct.id}/${previewImages[i]['assetName']}_full_mini.jpg'),
+                            // 'assets/images/${imagePackProduct.id}/${previewImages[i]['assetName']}_full_mini.jpg'),
+
+                            'assets/images/_categories/test20_cat.png'),
                       ),
                     );
                   },
