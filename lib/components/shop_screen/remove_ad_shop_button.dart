@@ -7,6 +7,7 @@ import '../../providers/shop_provider.dart';
 import '../../styles/element_theme.dart';
 import '../../styles/text_theme.dart';
 import 'purchase_alert.dart';
+import 'shop_buy_button.dart';
 
 class RemoveAdShopButton extends StatelessWidget {
   const RemoveAdShopButton({
@@ -55,10 +56,18 @@ class RemoveAdShopButton extends StatelessWidget {
                     shop.getAdProduct.title.substring(0, shop.getAdProduct.title.indexOf('(')),
                     style: CustomTextTheme.selectPictureButtonTextStyle(),
                   ),
-                  Text(
-                    purchased != null ? 'Purchased' : shop.getAdProduct.price,
-                    style: CustomTextTheme.selectPictureButtonTextStyle(),
-                  ),
+                  if (purchased != null) ...<Widget>[
+                    ShopBuyButton(imagePackProductPrice: shop.getAdProduct.price),
+                  ] else ...[
+                    ShopBuyButton(
+                      imagePackProductPrice: shop.getAdProduct.price,
+                      onClickAction: () {
+                        deviceProvider.playSound(sound: 'fast_click.wav');
+                        shop.buyProduct(
+                            product: shop.getAdProduct, callback: purchaseCallbackAlert);
+                      },
+                    ),
+                  ]
                 ],
               ),
             ),

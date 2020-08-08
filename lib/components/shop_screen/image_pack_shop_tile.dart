@@ -7,8 +7,8 @@ import '../../providers/device_provider.dart';
 import '../../providers/shop_provider.dart';
 import '../../styles/element_theme.dart';
 import '../_custom_widgets/custom_expansion_tile.dart';
-import 'image_pack_buy_button.dart';
 import 'purchase_alert.dart';
+import 'shop_buy_button.dart';
 
 class ImagePackShopTile extends StatelessWidget {
   const ImagePackShopTile({
@@ -61,9 +61,9 @@ class ImagePackShopTile extends StatelessWidget {
                   children: <Widget>[
                     Expanded(child: Text(imagePackProduct.description)),
                     if (purchased != null) ...<Widget>[
-                      ImagePackBuyButton(imagePackProductPrice: imagePackProduct.price),
+                      ShopBuyButton(imagePackProductPrice: imagePackProduct.price),
                     ] else ...<Widget>[
-                      ImagePackBuyButton(
+                      ShopBuyButton(
                         imagePackProductPrice: imagePackProduct.price,
                         onClickAction: () {
                           deviceProvider.playSound(sound: 'fast_click.wav');
