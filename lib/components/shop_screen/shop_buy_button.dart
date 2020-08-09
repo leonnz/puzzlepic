@@ -12,7 +12,7 @@ class ShopBuyButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 20.0),
       child: RaisedButton(
-        color: Colors.green,
+        color: Colors.purple[300],
         onPressed: onClickAction != null ? () => onClickAction() : null,
         child: Text(
           imagePackProductPrice,
