@@ -73,23 +73,23 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       const AssetImage('assets/images/_polaroids/polaroid_grand_canyon.jpg'),
     ];
 
-    for (final Map<String, dynamic> imageCategory in Images.imageList) {
-      // Category images
-      imagesToPrecache.add(
-        AssetImage('assets/images/_categories/${imageCategory["categoryName"]}_cat.png'),
-      );
-      // Category banners
-      imagesToPrecache.add(
-        AssetImage('assets/images/_categories/${imageCategory["categoryName"]}_banner.png'),
-      );
+    // for (final Map<String, dynamic> imageCategory in Images.imageList) {
+    //   // Category images
+    //   imagesToPrecache.add(
+    //     AssetImage('assets/images/_categories/${imageCategory["categoryName"]}_cat.png'),
+    //   );
+    //   // Category banners
+    //   imagesToPrecache.add(
+    //     AssetImage('assets/images/_categories/${imageCategory["categoryName"]}_banner.png'),
+    //   );
 
-      // Select picture screen thumbnails
-      for (final Map<String, dynamic> image in List<Map<String, dynamic>>.from(
-          imageCategory['categoryImages'] as Iterable<dynamic>)) {
-        imagesToPrecache.add(AssetImage(
-            'assets/images/${imageCategory['categoryName']}/${image['assetName']}_full_mini.jpg'));
-      }
-    }
+    //   // Select picture screen thumbnails
+    //   for (final Map<String, dynamic> image in List<Map<String, dynamic>>.from(
+    //       imageCategory['categoryImages'] as Iterable<dynamic>)) {
+    //     imagesToPrecache.add(AssetImage(
+    //         'assets/images/${imageCategory['categoryName']}/${image['assetName']}_full_mini.jpg'));
+    //   }
+    // }
     // Todo pre cache puzzle piece images
 
     _polaroidSlideController = AnimationController(
