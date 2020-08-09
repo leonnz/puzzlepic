@@ -44,6 +44,16 @@ class ImagePackShopTile extends StatelessWidget {
           width: double.infinity,
           decoration: CustomElementTheme.shopButtonBoxDecoration(),
           child: CustomExpansionTile(
+            // subtitle: Text(imagePackProduct.description),
+            trailing: purchased != null
+                ? ShopBuyButton(imagePackProductPrice: imagePackProduct.price)
+                : ShopBuyButton(
+                    imagePackProductPrice: imagePackProduct.price,
+                    onClickAction: () {
+                      deviceProvider.playSound(sound: 'fast_click.wav');
+                      shop.buyProduct(product: imagePackProduct, callback: purchaseCallbackAlert);
+                    },
+                  ),
             title: Text(
               purchased != null
                   ? '${imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('('))}(purchased)'
@@ -60,18 +70,18 @@ class ImagePackShopTile extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Expanded(child: Text(imagePackProduct.description)),
-                    if (purchased != null) ...<Widget>[
-                      ShopBuyButton(imagePackProductPrice: imagePackProduct.price),
-                    ] else ...<Widget>[
-                      ShopBuyButton(
-                        imagePackProductPrice: imagePackProduct.price,
-                        onClickAction: () {
-                          deviceProvider.playSound(sound: 'fast_click.wav');
-                          shop.buyProduct(
-                              product: imagePackProduct, callback: purchaseCallbackAlert);
-                        },
-                      )
-                    ]
+                    // if (purchased != null) ...<Widget>[
+                    //   ShopBuyButton(imagePackProductPrice: imagePackProduct.price),
+                    // ] else ...<Widget>[
+                    //   ShopBuyButton(
+                    //     imagePackProductPrice: imagePackProduct.price,
+                    //     onClickAction: () {
+                    //       deviceProvider.playSound(sound: 'fast_click.wav');
+                    //       shop.buyProduct(
+                    //           product: imagePackProduct, callback: purchaseCallbackAlert);
+                    //     },
+                    //   )
+                    // ]
                   ],
                 ),
               ),
