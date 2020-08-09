@@ -16,6 +16,7 @@ class ImagePackList extends StatelessWidget {
         if (shop.getImagePackProducts.isNotEmpty) {
           imagePackProductList = Expanded(
             child: ListView.builder(
+              shrinkWrap: true,
               itemCount: shop.getImagePackProducts.length,
               itemBuilder: (BuildContext context, int index) {
                 return ImagePackShopTile(

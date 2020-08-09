@@ -58,7 +58,7 @@ class RemoveAdShopButton extends StatelessWidget {
                   ),
                   if (purchased != null) ...<Widget>[
                     ShopBuyButton(imagePackProductPrice: shop.getAdProduct.price),
-                  ] else ...[
+                  ] else ...<Widget>[
                     ShopBuyButton(
                       imagePackProductPrice: shop.getAdProduct.price,
                       onClickAction: () {

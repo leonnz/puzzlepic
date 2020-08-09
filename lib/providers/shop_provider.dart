@@ -55,6 +55,16 @@ class ShopProvider extends ChangeNotifier {
   bool _available = false;
   bool _timeout = false;
   Function _callbackAlert;
+  static AnimationController puchaseMessageController;
+
+  bool _showSuccessMessage = false;
+  bool get getShowSuccessMessage => _showSuccessMessage;
+
+  void setShowSuccessMessage({bool show}) {
+    _showSuccessMessage = show;
+    fireMessage();
+    notifyListeners();
+  }
 
   bool get getAvailable => _available;
   bool get getTimedout => _timeout;
@@ -63,6 +73,13 @@ class ShopProvider extends ChangeNotifier {
   List<PurchaseDetails> get getPastPurchases => _pastPurchases;
   ProductDetails get getAdProduct => _adProduct;
   List<String> get getAvailableCategories => _availableCategories;
+
+  void fireMessage() {
+    puchaseMessageController.forward().then(
+          (_) => Future<TickerFuture>.delayed(const Duration(milliseconds: 2000))
+              .then((_) => ShopProvider.puchaseMessageController.reverse()),
+        );
+  }
 
   Future<bool> initialize() async {
     try {
@@ -97,15 +114,19 @@ class ShopProvider extends ChangeNotifier {
   Future<void> buyProduct({ProductDetails product, Function callback}) async {
     _callbackAlert = callback;
 
-    final PurchaseDetails productPurchaseIfExists = _pastPurchases.firstWhere(
-      (PurchaseDetails purchase) => purchase.productID == product.id,
-      orElse: () => null,
-    );
+    print('buying product');
 
-    if (productPurchaseIfExists == null) {
-      final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
-      await _iap.buyNonConsumable(purchaseParam: purchaseParam);
-    }
+    setShowSuccessMessage(show: true);
+
+    // final PurchaseDetails productPurchaseIfExists = _pastPurchases.firstWhere(
+    //   (PurchaseDetails purchase) => purchase.productID == product.id,
+    //   orElse: () => null,
+    // );
+
+    // if (productPurchaseIfExists == null) {
+    //   final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
+    //   await _iap.buyNonConsumable(purchaseParam: purchaseParam);
+    // }
   }
 
   void addAvailableCategory({String category}) {
@@ -127,12 +148,12 @@ class ShopProvider extends ChangeNotifier {
           final DBProviderDb dbProvider = DBProviderDb();
           dbProvider.insertCategoryPurchasedRecord(purchasedCategory: purchase.productID);
           addAvailableCategory(category: purchase.productID);
-          _callbackAlert('Purchase complete', 'Thank you!');
+          setShowSuccessMessage(show: true);
           notifyListeners();
         } else if (billingResult.responseCode == BillingResponse.error ||
             billingResult.responseCode == BillingResponse.serviceUnavailable) {
           _callbackAlert(
-              'Purchase error1', 'Please try again another time, you have not been charged.');
+              'Purchase error', 'Please try again another time, you have not been charged.');
         }
       }
     }
