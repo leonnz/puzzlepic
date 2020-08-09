@@ -20,12 +20,6 @@ class PuzzlePicApp extends StatelessWidget {
     // Init the database
     DBProviderDb().database;
 
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Color(0xff501E5D), //or set color with: Color(0xFF0000FF)
-    ));
-
-    SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[SystemUiOverlay.bottom]);
-
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
