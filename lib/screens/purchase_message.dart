@@ -13,26 +13,58 @@ class PurchaseMessage extends StatefulWidget {
 }
 
 class _PurchaseMessageState extends State<PurchaseMessage> with SingleTickerProviderStateMixin {
+  AnimationController _controller;
   Animation<Offset> _animation;
 
   @override
   void initState() {
-    _animation = Tween<Offset>(begin: const Offset(0, -10), end: const Offset(0, 0)).animate(
-        CurvedAnimation(
-            parent: ShopProvider.puchaseMessageController, curve: Curves.fastOutSlowIn));
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+
+    _animation = Tween<Offset>(begin: const Offset(0, -10), end: const Offset(0, 0))
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn));
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
+
+    if (shopProvider.getShowSuccessMessage) {
+      _controller.forward().then(
+            (_) => Future<TickerFuture>.delayed(const Duration(milliseconds: 2000)).then((_) {
+              _controller.reverse();
+              shopProvider.setShowSuccessMessage(show: false);
+            }),
+          );
+    }
+
     return SlideTransition(
       position: _animation,
       child: Container(
-        color: Colors.green,
-        height: 100,
+        decoration: BoxDecoration(
+          color: Colors.green[400],
+          borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)),
+        ),
+        height: 50,
         width: double.infinity,
-        child: const Text('Purchase complete'),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Purchase complete',
+              style: TextStyle(color: Colors.white),
+            ),
+            const Icon(
+              Icons.check,
+              color: Colors.lightGreenAccent,
+            ),
+          ],
+        ),
       ),
     );
   }

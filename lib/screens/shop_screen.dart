@@ -24,11 +24,6 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
     shopProvider.registerSubscription();
 
-    ShopProvider.puchaseMessageController = AnimationController(
-      duration: const Duration(milliseconds: 500),
-      vsync: this,
-    );
-
     super.initState();
   }
 
@@ -49,58 +44,55 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
       },
       child: Container(
         decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
-        child: Stack(
-          children: <Widget>[
-            Scaffold(
-              backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
-              appBar: PreferredSize(
-                preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
-                child: Container(
-                  decoration: CustomElementTheme.shopScreenAppBarBoxDecoration(),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      AppBarLeadingButton(
-                        icon: Icons.close,
-                        customOperation: shopProvider.cancelSubscription,
-                      ),
-                      Text(
-                        'Store',
-                        style: CustomTextTheme.selectScreenTitleTextStyle(context),
-                      ),
-                    ],
-                  ),
+        child: Scaffold(
+            backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
+              child: Container(
+                decoration: CustomElementTheme.shopScreenAppBarBoxDecoration(),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    AppBarLeadingButton(
+                      icon: Icons.close,
+                      customOperation: shopProvider.cancelSubscription,
+                    ),
+                    Text(
+                      'Store',
+                      style: CustomTextTheme.selectScreenTitleTextStyle(context),
+                    ),
+                  ],
                 ),
               ),
-              body: deviceProvider.getHasInternetConnection
-                  ? Consumer<ShopProvider>(
-                      builder: (BuildContext context, ShopProvider value, Widget child) {
-                        return shopProvider.getAvailable
-                            ? Column(
-                                children: const <Widget>[
-                                  RemoveAdShopButton(),
-                                  Text('Image Packs'),
-                                  ImagePackList(),
-                                ],
-                              )
-                            : shopProvider.getTimedout
-                                ? const ShopErrorMessage(
-                                    message: 'Problem connecting to store',
-                                  )
-                                : const LoadingAnimation();
-                      },
-                    )
-                  : const ShopErrorMessage(
-                      message: 'No Internet connection',
-                    ),
             ),
-            if (shopProvider.getShowSuccessMessage) ...<Widget>[
-              const PurchaseMessage(),
-            ] else ...<Widget>[
-              Container()
-            ],
-          ],
-        ),
+            body: Stack(
+              children: [
+                if (deviceProvider.getHasInternetConnection) ...<Widget>[
+                  Consumer<ShopProvider>(
+                    builder: (BuildContext context, ShopProvider value, Widget child) {
+                      return shopProvider.getAvailable
+                          ? Column(
+                              children: const <Widget>[
+                                RemoveAdShopButton(),
+                                Text('Image Packs'),
+                                ImagePackList(),
+                              ],
+                            )
+                          : shopProvider.getTimedout
+                              ? const ShopErrorMessage(
+                                  message: 'Problem connecting to store',
+                                )
+                              : const LoadingAnimation();
+                    },
+                  )
+                ] else ...<Widget>[
+                  const ShopErrorMessage(
+                    message: 'No Internet connection',
+                  ),
+                ],
+                const PurchaseMessage(),
+              ],
+            )),
       ),
     );
   }

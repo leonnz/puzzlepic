@@ -62,7 +62,6 @@ class ShopProvider extends ChangeNotifier {
 
   void setShowSuccessMessage({bool show}) {
     _showSuccessMessage = show;
-    fireMessage();
     notifyListeners();
   }
 
@@ -73,13 +72,6 @@ class ShopProvider extends ChangeNotifier {
   List<PurchaseDetails> get getPastPurchases => _pastPurchases;
   ProductDetails get getAdProduct => _adProduct;
   List<String> get getAvailableCategories => _availableCategories;
-
-  void fireMessage() {
-    puchaseMessageController.forward().then(
-          (_) => Future<TickerFuture>.delayed(const Duration(milliseconds: 2000))
-              .then((_) => ShopProvider.puchaseMessageController.reverse()),
-        );
-  }
 
   Future<bool> initialize() async {
     try {
