@@ -69,11 +69,6 @@ class ShopProvider extends ChangeNotifier {
   List<String> get getAvailableCategories => _availableCategories;
   bool get getShowSuccessMessage => _showSuccessMessage;
 
-  void setShowSuccessMessage({bool show}) {
-    _showSuccessMessage = show;
-    notifyListeners();
-  }
-
   Future<bool> initialize() async {
     try {
       _available = await _iap.isAvailable().timeout(
@@ -146,6 +141,11 @@ class ShopProvider extends ChangeNotifier {
         }
       }
     }
+  }
+
+  void setShowSuccessMessage({bool show}) {
+    _showSuccessMessage = show;
+    notifyListeners();
   }
 
   bool cancelSubscription() {
