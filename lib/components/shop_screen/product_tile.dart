@@ -62,7 +62,7 @@ class ImagePackShopTile extends StatelessWidget {
             childrenPadding: const EdgeInsets.only(top: 5, bottom: 16, left: 16, right: 16),
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(top: 10, bottom: 20),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
