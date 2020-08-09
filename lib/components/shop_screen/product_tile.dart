@@ -44,7 +44,6 @@ class ImagePackShopTile extends StatelessWidget {
           width: double.infinity,
           decoration: CustomElementTheme.shopButtonBoxDecoration(),
           child: CustomExpansionTile(
-            // subtitle: Text(imagePackProduct.description),
             trailing: purchased != null
                 ? ShopBuyButton(imagePackProductPrice: imagePackProduct.price)
                 : ShopBuyButton(
@@ -55,10 +54,9 @@ class ImagePackShopTile extends StatelessWidget {
                     },
                   ),
             title: Text(
-              purchased != null
-                  ? '${imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('('))}(purchased)'
-                  : imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
+              imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
             ),
+            subtitle: purchased != null ? Text('(purchased)') : null,
             backgroundColor: Colors.white,
             expandedAlignment: Alignment.centerLeft,
             childrenPadding: const EdgeInsets.only(top: 5, bottom: 16, left: 16, right: 16),
@@ -70,18 +68,6 @@ class ImagePackShopTile extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Expanded(child: Text(imagePackProduct.description)),
-                    // if (purchased != null) ...<Widget>[
-                    //   ShopBuyButton(imagePackProductPrice: imagePackProduct.price),
-                    // ] else ...<Widget>[
-                    //   ShopBuyButton(
-                    //     imagePackProductPrice: imagePackProduct.price,
-                    //     onClickAction: () {
-                    //       deviceProvider.playSound(sound: 'fast_click.wav');
-                    //       shop.buyProduct(
-                    //           product: imagePackProduct, callback: purchaseCallbackAlert);
-                    //     },
-                    //   )
-                    // ]
                   ],
                 ),
               ),
