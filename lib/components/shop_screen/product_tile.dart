@@ -56,7 +56,7 @@ class ImagePackShopTile extends StatelessWidget {
             title: Text(
               imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
             ),
-            subtitle: purchased != null ? Text('(purchased)') : null,
+            subtitle: purchased != null ? const Text('(purchased)') : null,
             backgroundColor: Colors.white,
             expandedAlignment: Alignment.centerLeft,
             childrenPadding: const EdgeInsets.only(top: 5, bottom: 16, left: 16, right: 16),
