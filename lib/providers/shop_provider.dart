@@ -26,6 +26,7 @@ class ShopProvider extends ChangeNotifier {
 
   static const String _removeAdProductId = 'removeads';
   static const List<String> _imagePackProductIds = <String>[
+    'removeads',
     'animals',
     'art',
     'buildings',

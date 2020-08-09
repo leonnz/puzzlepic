@@ -6,6 +6,7 @@ import '../../providers/device_provider.dart';
 import '../../providers/shop_provider.dart';
 import '../../styles/element_theme.dart';
 import '../../styles/text_theme.dart';
+import '../_custom_widgets/custom_expansion_tile.dart';
 import 'purchase_alert.dart';
 import 'shop_buy_button.dart';
 
@@ -45,31 +46,62 @@ class RemoveAdShopButton extends StatelessWidget {
             },
             child: Container(
               margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.all(10),
-              height: deviceProvider.getUseMobileLayout ? 50 : 70,
               width: double.infinity,
               decoration: CustomElementTheme.shopButtonBoxDecoration(),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: CustomExpansionTile(
+                title: Text(
+                  shop.getAdProduct.title.substring(0, shop.getAdProduct.title.indexOf('(')),
+                  style: CustomTextTheme.selectPictureButtonTextStyle(),
+                ),
+                backgroundColor: Colors.white,
+                expandedAlignment: Alignment.centerLeft,
+                childrenPadding: const EdgeInsets.only(top: 5, bottom: 16, left: 16, right: 16),
                 children: <Widget>[
-                  Text(
-                    shop.getAdProduct.title.substring(0, shop.getAdProduct.title.indexOf('(')),
-                    style: CustomTextTheme.selectPictureButtonTextStyle(),
-                  ),
-                  if (purchased != null) ...<Widget>[
-                    ShopBuyButton(imagePackProductPrice: shop.getAdProduct.price),
-                  ] else ...<Widget>[
-                    ShopBuyButton(
-                      imagePackProductPrice: shop.getAdProduct.price,
-                      onClickAction: () {
-                        deviceProvider.playSound(sound: 'fast_click.wav');
-                        shop.buyProduct(
-                            product: shop.getAdProduct, callback: purchaseCallbackAlert);
-                      },
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Expanded(child: Text(shop.getAdProduct.description)),
+                        if (purchased != null) ...<Widget>[
+                          ShopBuyButton(imagePackProductPrice: shop.getAdProduct.price),
+                        ] else ...<Widget>[
+                          ShopBuyButton(
+                            imagePackProductPrice: shop.getAdProduct.price,
+                            onClickAction: () {
+                              deviceProvider.playSound(sound: 'fast_click.wav');
+                              shop.buyProduct(
+                                  product: shop.getAdProduct, callback: purchaseCallbackAlert);
+                            },
+                          )
+                        ]
+                      ],
                     ),
-                  ]
+                  ),
                 ],
               ),
+              // child: Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: <Widget>[
+              //     Text(
+              //       shop.getAdProduct.title.substring(0, shop.getAdProduct.title.indexOf('(')),
+              //       style: CustomTextTheme.selectPictureButtonTextStyle(),
+              //     ),
+              //     if (purchased != null) ...<Widget>[
+              //       ShopBuyButton(imagePackProductPrice: shop.getAdProduct.price),
+              //     ] else ...<Widget>[
+              //       ShopBuyButton(
+              //         imagePackProductPrice: shop.getAdProduct.price,
+              //         onClickAction: () {
+              //           deviceProvider.playSound(sound: 'fast_click.wav');
+              //           shop.buyProduct(
+              //               product: shop.getAdProduct, callback: purchaseCallbackAlert);
+              //         },
+              //       ),
+              //     ]
+              //   ],
+              // ),
             ),
           );
         } else {

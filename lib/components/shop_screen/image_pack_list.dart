@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/shop_provider.dart';
@@ -14,13 +15,27 @@ class ImagePackList extends StatelessWidget {
         Widget imagePackProductList;
 
         if (shop.getImagePackProducts.isNotEmpty) {
+          final List<ProductDetails> customSortedList = <ProductDetails>[];
+
+          print(shop.getImagePackProducts);
+
+          final ProductDetails removeAds =
+              shop.getImagePackProducts.firstWhere((element) => element.id == 'removeads');
+          customSortedList.add(removeAds);
+
+          for (final ProductDetails item in shop.getImagePackProducts) {
+            if (item.id != 'removeads') {
+              customSortedList.add(item);
+            }
+          }
+
           imagePackProductList = Expanded(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: shop.getImagePackProducts.length,
+              itemCount: customSortedList.length,
               itemBuilder: (BuildContext context, int index) {
                 return ImagePackShopTile(
-                  imagePackProduct: shop.getImagePackProducts[index],
+                  imagePackProduct: customSortedList[index],
                 );
               },
             ),

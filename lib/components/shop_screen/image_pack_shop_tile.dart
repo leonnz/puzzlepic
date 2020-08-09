@@ -75,32 +75,34 @@ class ImagePackShopTile extends StatelessWidget {
                   ],
                 ),
               ),
-              GridView.builder(
-                primary: false,
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+              if (imagePackProduct.id != 'removeads') ...<Widget>[
+                GridView.builder(
+                  primary: false,
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemCount: 12,
+                  itemBuilder: (BuildContext context, int i) {
+                    final List<Map<String, dynamic>> previewImages = Images.imageList.firstWhere(
+                            (Map<String, dynamic> imageList) =>
+                                imageList['categoryName'] == imagePackProduct.id)['categoryImages']
+                        as List<Map<String, dynamic>>;
+
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: Image(
+                        image: AssetImage(
+                            'assets/images/${imagePackProduct.id}/${previewImages[i]['assetName']}_full_mini.jpg'),
+
+                        // 'assets/images/_categories/test20_cat.png'),
+                      ),
+                    );
+                  },
                 ),
-                itemCount: 12,
-                itemBuilder: (BuildContext context, int i) {
-                  final List<Map<String, dynamic>> previewImages = Images.imageList.firstWhere(
-                          (Map<String, dynamic> imageList) =>
-                              imageList['categoryName'] == 'animals')['categoryImages']
-                      as List<Map<String, dynamic>>;
-
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Image(
-                      image: AssetImage(
-                          'assets/images/${imagePackProduct.id}/${previewImages[i]['assetName']}_full_mini.jpg'),
-
-                      // 'assets/images/_categories/test20_cat.png'),
-                    ),
-                  );
-                },
-              ),
+              ]
             ],
           ),
         );

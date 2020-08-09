@@ -73,8 +73,7 @@ class _ShopScreenState extends State<ShopScreen> {
                       return shopProvider.getAvailable
                           ? Column(
                               children: const <Widget>[
-                                RemoveAdShopButton(),
-                                Text('Image Packs'),
+                                // RemoveAdShopButton(),
                                 ImagePackList(),
                               ],
                             )
