@@ -17,13 +17,13 @@ class ImagePackList extends StatelessWidget {
         if (shop.getImagePackProducts.isNotEmpty) {
           final List<ProductDetails> sortedProductList = <ProductDetails>[];
 
-          final ProductDetails removeAds =
-              shop.getImagePackProducts.firstWhere((element) => element.id == 'removeads');
+          final ProductDetails removeAds = shop.getImagePackProducts
+              .firstWhere((ProductDetails product) => product.id == 'removeads');
           sortedProductList.add(removeAds);
 
-          for (final ProductDetails item in shop.getImagePackProducts) {
-            if (item.id != 'removeads') {
-              sortedProductList.add(item);
+          for (final ProductDetails product in shop.getImagePackProducts) {
+            if (product.id != 'removeads') {
+              sortedProductList.add(product);
             }
           }
 
