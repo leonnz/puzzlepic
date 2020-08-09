@@ -44,8 +44,8 @@ class ShopProvider extends ChangeNotifier {
     // 'test15',
     // 'test16',
     // 'test17',
-    // 'test18',
-    // 'test19',
+    'test18',
+    'test19',
     'test20',
   ];
 
@@ -108,17 +108,17 @@ class ShopProvider extends ChangeNotifier {
 
     print('buying product');
 
-    setShowSuccessMessage(show: true);
+    // setShowSuccessMessage(show: true);
 
-    // final PurchaseDetails productPurchaseIfExists = _pastPurchases.firstWhere(
-    //   (PurchaseDetails purchase) => purchase.productID == product.id,
-    //   orElse: () => null,
-    // );
+    final PurchaseDetails productPurchaseIfExists = _pastPurchases.firstWhere(
+      (PurchaseDetails purchase) => purchase.productID == product.id,
+      orElse: () => null,
+    );
 
-    // if (productPurchaseIfExists == null) {
-    //   final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
-    //   await _iap.buyNonConsumable(purchaseParam: purchaseParam);
-    // }
+    if (productPurchaseIfExists == null) {
+      final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
+      await _iap.buyNonConsumable(purchaseParam: purchaseParam);
+    }
   }
 
   void addAvailableCategory({String category}) {
