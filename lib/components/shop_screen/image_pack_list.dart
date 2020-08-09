@@ -3,7 +3,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/shop_provider.dart';
-import 'image_pack_shop_tile.dart';
+import 'product_tile.dart';
 
 class ImagePackList extends StatelessWidget {
   const ImagePackList({Key key}) : super(key: key);
