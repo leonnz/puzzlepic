@@ -15,27 +15,25 @@ class ImagePackList extends StatelessWidget {
         Widget imagePackProductList;
 
         if (shop.getImagePackProducts.isNotEmpty) {
-          final List<ProductDetails> customSortedList = <ProductDetails>[];
-
-          print(shop.getImagePackProducts);
+          final List<ProductDetails> sortedProductList = <ProductDetails>[];
 
           final ProductDetails removeAds =
               shop.getImagePackProducts.firstWhere((element) => element.id == 'removeads');
-          customSortedList.add(removeAds);
+          sortedProductList.add(removeAds);
 
           for (final ProductDetails item in shop.getImagePackProducts) {
             if (item.id != 'removeads') {
-              customSortedList.add(item);
+              sortedProductList.add(item);
             }
           }
 
           imagePackProductList = Expanded(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: customSortedList.length,
+              itemCount: sortedProductList.length,
               itemBuilder: (BuildContext context, int index) {
                 return ImagePackShopTile(
-                  imagePackProduct: customSortedList[index],
+                  imagePackProduct: sortedProductList[index],
                 );
               },
             ),
