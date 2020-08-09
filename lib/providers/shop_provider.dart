@@ -9,20 +9,20 @@ class ShopProvider extends ChangeNotifier {
   static final InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> _subscription;
 
-  // final List<String> _availableCategories = <String>['cities', 'foods', 'under_the_sea'];
+  final List<String> _availableCategories = <String>['cities', 'under_the_sea'];
 
   /// DEV only reveal all products
-  final List<String> _availableCategories = <String>[
-    'animals',
-    'art',
-    'buildings',
-    'cities',
-    'flowers',
-    'foods',
-    'landscapes',
-    'natural_wonders',
-    'under_the_sea'
-  ];
+  // final List<String> _availableCategories = <String>[
+  //   'animals',
+  //   'art',
+  //   'buildings',
+  //   'cities',
+  //   'flowers',
+  //   'foods',
+  //   'landscapes',
+  //   'natural_wonders',
+  //   'under_the_sea'
+  // ];
 
   static const String _removeAdProductId = 'removeads';
   static const List<String> _imagePackProductIds = <String>[
@@ -30,8 +30,9 @@ class ShopProvider extends ChangeNotifier {
     'art',
     'buildings',
     'flowers',
+    'foods',
     'landscapes',
-    'natural_wonders',
+    // 'natural_wonders',
 
     /// Test IDs
     // 'test8',
@@ -54,16 +55,9 @@ class ShopProvider extends ChangeNotifier {
   List<PurchaseDetails> _pastPurchases = <PurchaseDetails>[];
   bool _available = false;
   bool _timeout = false;
-  Function _callbackAlert;
-  static AnimationController puchaseMessageController;
-
+  Function _failedPurchaseCallbackAlert;
   bool _showSuccessMessage = false;
-  bool get getShowSuccessMessage => _showSuccessMessage;
-
-  void setShowSuccessMessage({bool show}) {
-    _showSuccessMessage = show;
-    notifyListeners();
-  }
+  static AnimationController puchaseMessageController;
 
   bool get getAvailable => _available;
   bool get getTimedout => _timeout;
@@ -72,6 +66,12 @@ class ShopProvider extends ChangeNotifier {
   List<PurchaseDetails> get getPastPurchases => _pastPurchases;
   ProductDetails get getAdProduct => _adProduct;
   List<String> get getAvailableCategories => _availableCategories;
+  bool get getShowSuccessMessage => _showSuccessMessage;
+
+  void setShowSuccessMessage({bool show}) {
+    _showSuccessMessage = show;
+    notifyListeners();
+  }
 
   Future<bool> initialize() async {
     try {
@@ -104,11 +104,7 @@ class ShopProvider extends ChangeNotifier {
   }
 
   Future<void> buyProduct({ProductDetails product, Function callback}) async {
-    _callbackAlert = callback;
-
-    print('buying product');
-
-    // setShowSuccessMessage(show: true);
+    _failedPurchaseCallbackAlert = callback;
 
     final PurchaseDetails productPurchaseIfExists = _pastPurchases.firstWhere(
       (PurchaseDetails purchase) => purchase.productID == product.id,
@@ -144,7 +140,7 @@ class ShopProvider extends ChangeNotifier {
           notifyListeners();
         } else if (billingResult.responseCode == BillingResponse.error ||
             billingResult.responseCode == BillingResponse.serviceUnavailable) {
-          _callbackAlert(
+          _failedPurchaseCallbackAlert(
               'Purchase error', 'Please try again another time, you have not been charged.');
         }
       }
