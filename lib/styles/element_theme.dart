@@ -130,4 +130,12 @@ class CustomElementTheme {
       ],
     );
   }
+
+  static BoxDecoration shopSuccessMessageBoxDecoration() {
+    return BoxDecoration(
+      color: Colors.green[400],
+      borderRadius:
+          const BorderRadius.only(bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)),
+    );
+  }
 }
