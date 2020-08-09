@@ -66,7 +66,7 @@ class _ShopScreenState extends State<ShopScreen> {
               ),
             ),
             body: Stack(
-              children: [
+              children: <Widget>[
                 if (deviceProvider.getHasInternetConnection) ...<Widget>[
                   Consumer<ShopProvider>(
                     builder: (BuildContext context, ShopProvider value, Widget child) {

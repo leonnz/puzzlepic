@@ -35,10 +35,12 @@ class _PurchaseMessageState extends State<PurchaseMessage> with SingleTickerProv
 
     if (shopProvider.getShowSuccessMessage) {
       _controller.forward().then(
-            (_) => Future<TickerFuture>.delayed(const Duration(milliseconds: 2000)).then((_) {
-              _controller.reverse();
-              shopProvider.setShowSuccessMessage(show: false);
-            }),
+            (_) => Future<TickerFuture>.delayed(const Duration(milliseconds: 2000)).then(
+              (_) {
+                _controller.reverse();
+                shopProvider.setShowSuccessMessage(show: false);
+              },
+            ),
           );
     }
 
@@ -54,12 +56,12 @@ class _PurchaseMessageState extends State<PurchaseMessage> with SingleTickerProv
         width: double.infinity,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
+          children: const <Widget>[
+            Text(
               'Purchase complete',
               style: TextStyle(color: Colors.white),
             ),
-            const Icon(
+            Icon(
               Icons.check,
               color: Colors.lightGreenAccent,
             ),
