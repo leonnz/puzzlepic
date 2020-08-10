@@ -90,7 +90,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             'assets/images/${imageCategory['categoryName']}/${image['assetName']}_full_mini.jpg'));
       }
     }
-    // TODO pre cache puzzle piece images
 
     _polaroidSlideController = AnimationController(
       duration: const Duration(milliseconds: 500),
