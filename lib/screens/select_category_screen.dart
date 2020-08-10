@@ -32,11 +32,8 @@ class _SelectCategoryState extends State<SelectCategory> {
 
   @override
   void initState() {
-    DBProviderDb().database;
-
     final DBProviderDb dbProvider = DBProviderDb();
 
-    // dbProvider.deleteDb();
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
     dbProvider.getPurchasedCategories().then((List<String> listOfCategories) {

@@ -17,8 +17,10 @@ void main() {
 class PuzzlePicApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Init the database
     DBProviderDb().database;
+
+    ///DEV ONLY
+    // dbProvider.deleteDb();
 
     SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
 
