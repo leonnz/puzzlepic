@@ -10,7 +10,7 @@ class ImagePackList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<ProductDetails> sortedProducts() {
+    List<ProductDetails> _sortedProducts() {
       final List<ProductDetails> sortedProductList = <ProductDetails>[];
       final ShopProvider shop = Provider.of<ShopProvider>(context, listen: false);
 
@@ -33,10 +33,10 @@ class ImagePackList extends StatelessWidget {
           productList = Expanded(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: sortedProducts().length,
+              itemCount: _sortedProducts().length,
               itemBuilder: (BuildContext context, int index) {
                 return ImagePackShopTile(
-                  imagePackProduct: sortedProducts()[index],
+                  imagePackProduct: _sortedProducts()[index],
                 );
               },
             ),
