@@ -569,49 +569,6 @@ class Images {
         },
       ],
     },
-    // Natural Wonders
-    <String, dynamic>{
-      'categoryName': 'natural_wonders',
-      'categoryReadableName': '7 Natural Wonders',
-      'categoryImages': <Map<String, String>>[
-        <String, String>{
-          'assetName': 'aurora_borealis',
-          'readableName': 'Aurora Borealis',
-          'readableFullname': 'Aurora Borealis',
-          'title': '',
-        },
-        <String, String>{
-          'assetName': 'grand_canyon',
-          'readableName': 'Grand Canyon',
-          'readableFullname': 'Grand Canyon',
-          'title': '',
-        },
-        <String, String>{
-          'assetName': 'guanabara_bay',
-          'readableName': 'Guanabara Bay',
-          'readableFullname': 'Guanabara Bay',
-          'title': '',
-        },
-        <String, String>{
-          'assetName': 'great_barrier_reef',
-          'readableName': 'Great Barrier Reef',
-          'readableFullname': 'Great Barrier Reef',
-          'title': '',
-        },
-        <String, String>{
-          'assetName': 'mount_everest',
-          'readableName': 'Mount Everest',
-          'readableFullname': 'Mount Everest',
-          'title': '',
-        },
-        <String, String>{
-          'assetName': 'victoria_falls',
-          'readableName': 'Victoria Falls',
-          'readableFullname': 'Victoria Falls',
-          'title': '',
-        },
-      ],
-    },
     // Under the Sea
     <String, dynamic>{
       'categoryName': 'under_the_sea',

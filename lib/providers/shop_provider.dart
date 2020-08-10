@@ -20,7 +20,6 @@ class ShopProvider extends ChangeNotifier {
   //   'flowers',
   //   'foods',
   //   'landscapes',
-  //   'natural_wonders',
   //   'under_the_sea'
   // ];
 
@@ -33,19 +32,8 @@ class ShopProvider extends ChangeNotifier {
     'flowers',
     'foods',
     'landscapes',
-    // 'natural_wonders',
 
     /// Test IDs
-    // 'test8',
-    // 'test9',
-    // 'test10',
-    // 'test11',
-    // 'test12',
-    // 'test13',
-    // 'test14',
-    // 'test15',
-    // 'test16',
-    // 'test17',
     // 'test18',
     // 'test19',
     // 'test20',
