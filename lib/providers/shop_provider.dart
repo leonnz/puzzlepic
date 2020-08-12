@@ -34,12 +34,11 @@ class ShopProvider extends ChangeNotifier {
     'landscapes',
 
     /// Test IDs
-    // 'test18',
-    // 'test19',
-    // 'test20',
+    'test18',
+    'test19',
+    'test20',
   ];
 
-  ProductDetails _adProduct;
   List<ProductDetails> _imagePackProducts = <ProductDetails>[];
   List<PurchaseDetails> _pastPurchases = <PurchaseDetails>[];
   bool _available = false;
@@ -53,7 +52,6 @@ class ShopProvider extends ChangeNotifier {
   String get getRemoveAdProductId => _removeAdProductId;
   List<ProductDetails> get getImagePackProducts => _imagePackProducts;
   List<PurchaseDetails> get getPastPurchases => _pastPurchases;
-  ProductDetails get getAdProduct => _adProduct;
   List<String> get getAvailableCategories => _availableCategories;
   bool get getShowSuccessMessage => _showSuccessMessage;
 
@@ -68,7 +66,6 @@ class ShopProvider extends ChangeNotifier {
     } on TimeoutException catch (_) {}
     if (_available) {
       _pastPurchases = await getPastPurchasesFromAppStore();
-      _adProduct = await getRemoveAdProductFromAppStore();
       _imagePackProducts = await getImageProductsFromAppStore();
     } else {
       _timeout = true;
@@ -141,14 +138,6 @@ class ShopProvider extends ChangeNotifier {
     return true;
   }
 
-  Future<ProductDetails> getRemoveAdProductFromAppStore() async {
-    final Set<String> productIdsSet = Set<String>.from(<String>{_removeAdProductId});
-
-    final ProductDetailsResponse response = await _iap.queryProductDetails(productIdsSet);
-
-    return response.productDetails[0];
-  }
-
   Future<List<ProductDetails>> getImageProductsFromAppStore() async {
     final Set<String> productIdsSet =
         Set<String>.from(<List<String>>[_productIds].expand((List<String> product) => product));
@@ -164,6 +153,17 @@ class ShopProvider extends ChangeNotifier {
       if (Platform.isIOS) {
         InAppPurchaseConnection.instance.completePurchase(purchase);
       }
+    }
+
+    for (final PurchaseDetails purchase in response.pastPurchases) {
+      print(purchase.productID);
+
+      // Add purchased products to DB
+      if (_productIds.contains(purchase.productID)) {
+        final DBProviderDb dbProvider = DBProviderDb();
+        dbProvider.insertCategoryPurchasedRecord(purchasedCategory: purchase.productID);
+      }
+      // TODO If the DB contains a purchase NOT in Past Purchases i.e a refund, then remove it from DB
     }
 
     return response.pastPurchases;
