@@ -149,21 +149,30 @@ class ShopProvider extends ChangeNotifier {
 
   Future<List<PurchaseDetails>> getPastPurchasesFromAppStore() async {
     final QueryPurchaseDetailsResponse response = await _iap.queryPastPurchases();
+    final List<String> pastPurchaseProductIds =
+        response.pastPurchases.map((PurchaseDetails p) => p.productID).toList();
+    final DBProviderDb dbProvider = DBProviderDb();
+    final List<String> purchasedProductsDb = await dbProvider.getPurchasedCategories();
+
     for (final PurchaseDetails purchase in response.pastPurchases) {
       if (Platform.isIOS) {
         InAppPurchaseConnection.instance.completePurchase(purchase);
       }
     }
 
+    // Add purchased products to DB if it doesn't exist.
     for (final PurchaseDetails purchase in response.pastPurchases) {
-      print(purchase.productID);
-
-      // Add purchased products to DB
-      if (_productIds.contains(purchase.productID)) {
-        final DBProviderDb dbProvider = DBProviderDb();
+      if (_productIds.contains(purchase.productID) &&
+          !purchasedProductsDb.contains(purchase.productID)) {
         dbProvider.insertCategoryPurchasedRecord(purchasedCategory: purchase.productID);
       }
-      // TODO If the DB contains a purchase NOT in Past Purchases i.e a refund, then remove it from DB
+    }
+
+    // If the DB contains a purchase NOT in Past Purchases i.e a refund, then remove it from DB
+    for (final String product in purchasedProductsDb) {
+      if (!pastPurchaseProductIds.contains(product)) {
+        dbProvider.deleteCategoryPurchasedRecord(purchasedCategory: product);
+      }
     }
 
     return response.pastPurchases;
