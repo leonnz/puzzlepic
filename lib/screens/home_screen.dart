@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'dart:math' as math;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,11 +9,8 @@ import 'package:audioplayers/audio_cache.dart';
 
 import '../ad_manager.dart';
 import '../components/_shared/loading_animation.dart';
-import '../components/_shared/mute_button.dart';
-import '../components/home_screen/play_button.dart';
-import '../components/home_screen/polaroid.dart';
-import '../components/home_screen/puzzle_pic_logo.dart';
-import '../components/home_screen/shop_button.dart';
+
+import '../components/home_screen/home_screen_stack.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../providers/game_provider.dart';
@@ -29,14 +24,9 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
+class _HomeState extends State<Home> {
   List<AssetImage> imagesToPrecache;
   bool precacheImagesCompleted;
-
-  AnimationController _polaroidSlideController;
-  AnimationController _playButtonSlideController;
-  AnimationController _shopButtonSlideController;
-  AnimationController _puzzlePicSlideController;
 
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
@@ -91,26 +81,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       }
     }
 
-    _polaroidSlideController = AnimationController(
-      duration: const Duration(milliseconds: 500),
-      vsync: this,
-    );
-
-    _shopButtonSlideController = AnimationController(
-      duration: const Duration(milliseconds: 350),
-      vsync: this,
-    );
-
-    _playButtonSlideController = AnimationController(
-      duration: const Duration(milliseconds: 350),
-      vsync: this,
-    );
-
-    _puzzlePicSlideController = AnimationController(
-      duration: const Duration(milliseconds: 350),
-      vsync: this,
-    );
-
     super.initState();
   }
 
@@ -147,79 +117,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
       child: Scaffold(
         backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
-        body: precacheImagesCompleted
-            ? Stack(
-                children: <Widget>[
-                  Polaroid(
-                    polaroidSlideController: _polaroidSlideController,
-                    alignment: Alignment.bottomRight,
-                    angle: math.pi / 6,
-                    beginPosition: const Offset(1, 1),
-                    endPosition: const Offset(0.3, 0),
-                    image: 'grand_canyon',
-                    startInterval: 0.4,
-                  ),
-                  Polaroid(
-                    polaroidSlideController: _polaroidSlideController,
-                    alignment: Alignment.bottomLeft,
-                    angle: -math.pi / 10,
-                    beginPosition: const Offset(-1.5, 1.5),
-                    endPosition: const Offset(-0.2, 0.1),
-                    image: 'pyramids',
-                    startInterval: 0.2,
-                  ),
-                  Polaroid(
-                    polaroidSlideController: _polaroidSlideController,
-                    alignment: Alignment.topLeft,
-                    angle: -math.pi / 6,
-                    beginPosition: const Offset(-1, -1),
-                    endPosition: const Offset(0, 0),
-                    image: 'daisies',
-                    startInterval: 0.1,
-                  ),
-                  Polaroid(
-                    polaroidSlideController: _polaroidSlideController,
-                    alignment: Alignment.centerLeft,
-                    angle: math.pi / 7,
-                    beginPosition: const Offset(-1.5, 0),
-                    endPosition: const Offset(0, 0),
-                    image: 'sea_turtle',
-                    startInterval: 0.3,
-                  ),
-                  Polaroid(
-                    polaroidSlideController: _polaroidSlideController,
-                    alignment: Alignment.centerRight,
-                    angle: -math.pi / 9,
-                    beginPosition: const Offset(1.5, 0),
-                    endPosition: const Offset(0.2, 0),
-                    image: 'taj_mahal',
-                    startInterval: 0.1,
-                  ),
-                  Polaroid(
-                    polaroidSlideController: _polaroidSlideController,
-                    alignment: Alignment.topRight,
-                    angle: math.pi / 8,
-                    beginPosition: const Offset(1.5, -1),
-                    endPosition: const Offset(0.2, -0.2),
-                    image: 'eiffel_tower',
-                    startInterval: 0.3,
-                  ),
-                  const MuteButton(),
-                  PlayButton(
-                    playButtonSlideController: _playButtonSlideController,
-                    shopButtonSlideController: _shopButtonSlideController,
-                    puzzlePicSlideController: _puzzlePicSlideController,
-                    polaroidSlideController: _polaroidSlideController,
-                  ),
-                  ShopButton(
-                    shopButtonSlideController: _shopButtonSlideController,
-                  ),
-                  PuzzlePicLogo(
-                    puzzlePicSlideController: _puzzlePicSlideController,
-                  ),
-                ],
-              )
-            : const LoadingAnimation(),
+        body: precacheImagesCompleted ? const HomeScreenStack() : const LoadingAnimation(),
       ),
     );
   }
