@@ -92,8 +92,6 @@ class ImagePackShopTile extends StatelessWidget {
                       child: Image(
                         image: AssetImage(
                             'assets/images/${imagePackProduct.id}/${previewImages[i]['assetName']}_full_mini.jpg'),
-
-                        // 'assets/images/_categories/test20_cat.png'),
                       ),
                     );
                   },
