@@ -46,6 +46,13 @@ class DBProviderDb {
     );
   }
 
+  Future<void> deleteCategoryPurchasedRecord({String purchasedCategory}) async {
+    final Database db = await database;
+
+    await db.delete('purchase_record',
+        where: 'imageCategoryName = ?', whereArgs: <String>[purchasedCategory]);
+  }
+
   Future<List<String>> getPurchasedCategories() async {
     final Database db = await database;
 
