@@ -19,7 +19,7 @@ class PuzzlePicApp extends StatelessWidget {
   Widget build(BuildContext context) {
     DBProviderDb().database;
 
-    ///DEV ONLY
+    ///DEV ONLY delete the database
     // final DBProviderDb dbProvider = DBProviderDb();
     // dbProvider.deleteDb();
 
