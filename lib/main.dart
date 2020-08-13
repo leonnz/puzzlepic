@@ -20,6 +20,7 @@ class PuzzlePicApp extends StatelessWidget {
     DBProviderDb().database;
 
     ///DEV ONLY
+    // final DBProviderDb dbProvider = DBProviderDb();
     // dbProvider.deleteDb();
 
     SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
