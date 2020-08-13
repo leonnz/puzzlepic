@@ -43,16 +43,7 @@ class _HomeState extends State<Home> {
     } on SocketException catch (_) {}
   }
 
-  @override
-  void initState() {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
-    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
-    _initAdMob().then((_) {}, onError: (void error) => null);
-    checkInternetConnection(deviceProvider: deviceProvider, shopProvider: shopProvider);
-
-    deviceProvider.setAudioCache(audioCache: AudioCache(prefix: 'audio/'));
-
-    precacheImagesCompleted = false;
+  void addImagestoCache() {
     imagesToPrecache = <AssetImage>[
       const AssetImage('assets/images/background.png'),
       const AssetImage('assets/images/_polaroids/polaroid_eiffel_tower.jpg'),
@@ -80,17 +71,9 @@ class _HomeState extends State<Home> {
             'assets/images/${imageCategory['categoryName']}/${image['assetName']}_full_mini.jpg'));
       }
     }
-
-    super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
+  void cacheImages() {
     for (int i = 0; i < imagesToPrecache.length; i++) {
       precacheImage(imagesToPrecache[i], context).then((_) {
         if (i == imagesToPrecache.length - 1) {
@@ -100,7 +83,27 @@ class _HomeState extends State<Home> {
         }
       });
     }
+  }
 
+  @override
+  void initState() {
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+    _initAdMob().then((_) {}, onError: (void error) => null);
+    checkInternetConnection(deviceProvider: deviceProvider, shopProvider: shopProvider);
+
+    deviceProvider.setAudioCache(audioCache: AudioCache(prefix: 'audio/'));
+
+    precacheImagesCompleted = false;
+
+    addImagestoCache();
+
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    cacheImages();
     super.didChangeDependencies();
   }
 
