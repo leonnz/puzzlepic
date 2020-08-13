@@ -23,7 +23,7 @@ class PuzzlePicApp extends StatelessWidget {
     // final DBProviderDb dbProvider = DBProviderDb();
     // dbProvider.deleteDb();
 
-    SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
+    SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[SystemUiOverlay.bottom]);
 
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
       DeviceOrientation.portraitUp,
