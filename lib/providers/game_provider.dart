@@ -15,7 +15,6 @@ class GameProvider with ChangeNotifier {
   static int _bestMoves;
   static List<int> _gridPositions;
 
-  // Selected puzzle data
   static String _imageCategoryAssetName;
   static String _imageCategoryReadableName;
   static String _imageAssetName;
@@ -42,20 +41,6 @@ class GameProvider with ChangeNotifier {
     _imageReadableFullname = readableFullname;
     _imageTitle = title;
   }
-
-  // void setImageData({
-  //   String category,
-  //   String assetName,
-  //   String readableName,
-  //   String readableFullname,
-  //   String title,
-  // }) {
-  //   _imageCategoryAssetName = category;
-  //   _imageAssetName = assetName;
-  //   _imageReadableName = readableName;
-  //   _imageReadableFullname = readableFullname;
-  //   _imageTitle = title;
-  // }
 
   bool get getPuzzleComplete => puzzleComplete;
   Map<String, String> get getImage => _image;
@@ -93,7 +78,6 @@ class GameProvider with ChangeNotifier {
     _gridPositions = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   }
 
-  // Check if the piece number matches its position
   void checkComplete() {
     final Iterable<bool> matching = getPiecePositions
         .map((Map<String, dynamic> piece) => piece['pieceNumber'] == piece['gridPosition']);
@@ -123,6 +107,7 @@ class GameProvider with ChangeNotifier {
       return randomNumber;
     }
 
+    // DEV ONLY pieces are already in right position
     imgPiece['pieceNumber'] = pieceNumber;
     imgPiece['gridPosition'] = pieceNumber;
     imgPiece['leftPosition'] = setStartingLeftPosition(imgPiece['gridPosition'] as int);
@@ -130,9 +115,8 @@ class GameProvider with ChangeNotifier {
 
     // imgPiece['pieceNumber'] = pieceNumber;
     // imgPiece['gridPosition'] = getRandomGridPosition(0, _gridPositions.length);
-    // imgPiece['leftPosition'] =
-    //     setStartingLeftPosition(imgPiece['gridPosition']);
-    // imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition']);
+    // imgPiece['leftPosition'] = setStartingLeftPosition(imgPiece['gridPosition'] as int);
+    // imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition'] as int);
 
     getPiecePositions.add(imgPiece);
   }
