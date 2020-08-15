@@ -98,10 +98,6 @@ class ShopProvider extends ChangeNotifier {
     );
   }
 
-  void disposeBannerAd() {
-    _bannerAd?.dispose();
-  }
-
   Future<void> buyProduct({ProductDetails product, Function callback}) async {
     _failedPurchaseCallbackAlert = callback;
 
