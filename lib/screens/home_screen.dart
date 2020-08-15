@@ -28,7 +28,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<AssetImage> imagesToPrecache;
   bool precacheImagesCompleted;
-  BannerAd _bannerAd;
 
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
@@ -40,11 +39,8 @@ class _HomeState extends State<Home> {
       orElse: () => null,
     );
     if (adPurchased == null) {
-      _bannerAd = BannerAd(
-        adUnitId: AdManager.bannerAdUnitId,
-        size: AdSize.fullBanner,
-      );
-      _bannerAd
+      shopProvider.setBannerAd();
+      shopProvider.getBannerAd
         ..load()
         ..show();
     }
@@ -116,11 +112,8 @@ class _HomeState extends State<Home> {
     addImagestoCache();
 
     //DEV ONLY - Load ads
-    _bannerAd = BannerAd(
-      adUnitId: AdManager.bannerAdUnitId,
-      size: AdSize.fullBanner,
-    );
-    _bannerAd
+    shopProvider.setBannerAd();
+    shopProvider.getBannerAd
       ..load()
       ..show();
 
