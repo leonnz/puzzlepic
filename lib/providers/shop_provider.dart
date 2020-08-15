@@ -25,8 +25,11 @@ class ShopProvider extends ChangeNotifier {
   //   'under_the_sea'
   // ];
 
-  static const String _removeAdProductId = 'removeads';
+//DEV ONLY - Test ad product
+  static const String _removeAdProductId = 'test_removeads';
+  // static const String _removeAdProductId = 'removeads';
   static const List<String> _productIds = <String>[
+    'test_removeads',
     'removeads',
     'animals',
     'art',
@@ -128,11 +131,18 @@ class ShopProvider extends ChangeNotifier {
         print('${billingResult.responseCode}');
 
         if (billingResult.responseCode == BillingResponse.ok) {
-          _pastPurchases.addAll(purchases);
           final DBProviderDb dbProvider = DBProviderDb();
+          _pastPurchases.addAll(purchases);
           dbProvider.insertCategoryPurchasedRecord(purchasedCategory: purchase.productID);
           addAvailableCategory(category: purchase.productID);
+
+          if (purchase.productID == _removeAdProductId) {
+            print('Remove ads purchased');
+            _bannerAd?.dispose();
+          }
+
           setShowSuccessMessage(show: true);
+
           notifyListeners();
         } else if (billingResult.responseCode == BillingResponse.error ||
             billingResult.responseCode == BillingResponse.serviceUnavailable) {
