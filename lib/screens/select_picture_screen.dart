@@ -11,8 +11,8 @@ import '../providers/game_provider.dart';
 import '../styles/element_theme.dart';
 import '../styles/text_theme.dart';
 
-class SelectPicture extends StatefulWidget {
-  const SelectPicture({
+class SelectPictureScreen extends StatefulWidget {
+  const SelectPictureScreen({
     Key key,
     @required this.category,
   }) : super(key: key);
@@ -20,10 +20,10 @@ class SelectPicture extends StatefulWidget {
   final String category;
 
   @override
-  _SelectPictureState createState() => _SelectPictureState();
+  _SelectPictureScreenState createState() => _SelectPictureScreenState();
 }
 
-class _SelectPictureState extends State<SelectPicture> {
+class _SelectPictureScreenState extends State<SelectPictureScreen> {
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
