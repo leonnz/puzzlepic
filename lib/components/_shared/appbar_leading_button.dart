@@ -20,6 +20,7 @@ class AppBarLeadingButton extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: IconButton(
+        padding: EdgeInsets.all(deviceProvider.getUseMobileLayout ? 8 : 20),
         iconSize: deviceProvider.getUseMobileLayout ? 25 : 50,
         icon: Icon(icon),
         onPressed: () {
