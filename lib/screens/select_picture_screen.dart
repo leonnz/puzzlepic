@@ -103,8 +103,8 @@ class _SelectPictureState extends State<SelectPicture> {
                       itemCount: images.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: deviceProvider.getGridSize,
-                        crossAxisSpacing: 5,
-                        mainAxisSpacing: 5,
+                        crossAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
+                        mainAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
                       ),
                       itemBuilder: (BuildContext context, int i) {
                         return ImageButton(

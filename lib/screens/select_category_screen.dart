@@ -115,8 +115,8 @@ class _SelectCategoryState extends State<SelectCategory> {
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: deviceProvider.getGridSize,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+                  crossAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
+                  mainAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
                 ),
                 itemCount: shopProvider.getAvailableCategories.length,
                 itemBuilder: (BuildContext context, int i) {
