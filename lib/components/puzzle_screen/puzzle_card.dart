@@ -1,3 +1,4 @@
+import 'package:PuzzlePic/providers/device_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +15,7 @@ class PuzzleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     return Container(
       width: gameProvider.getScreenWidth + 20,
@@ -23,7 +25,12 @@ class PuzzleCard extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.only(
+                top: deviceProvider.getUseMobileLayout ? 10 : 20,
+                bottom: 10,
+                left: 10,
+                right: 10,
+              ),
               child: Text(
                 gameProvider.getImageReadableFullname,
                 textAlign: TextAlign.center,
