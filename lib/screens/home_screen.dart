@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:audioplayers/audio_cache.dart';
@@ -27,9 +28,26 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<AssetImage> imagesToPrecache;
   bool precacheImagesCompleted;
+  BannerAd _bannerAd;
 
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
+  }
+
+  void _loadBannerAd({ShopProvider shopProvider}) {
+    final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
+      (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
+      orElse: () => null,
+    );
+    if (adPurchased == null) {
+      _bannerAd = BannerAd(
+        adUnitId: AdManager.bannerAdUnitId,
+        size: AdSize.fullBanner,
+      );
+      _bannerAd
+        ..load()
+        ..show();
+    }
   }
 
   Future<void> checkInternetConnection(
@@ -38,7 +56,12 @@ class _HomeState extends State<Home> {
       final List<InternetAddress> result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         deviceProvider.setHasInternetConnection(connection: true);
-        shopProvider.initialize();
+        final bool shopAvailable = await shopProvider.initialize();
+        await _initAdMob().then((_) {}, onError: (void error) => null);
+
+        if (shopAvailable) {
+          _loadBannerAd(shopProvider: shopProvider);
+        }
       }
     } on SocketException catch (_) {}
   }
@@ -55,16 +78,13 @@ class _HomeState extends State<Home> {
     ];
 
     for (final Map<String, dynamic> imageCategory in Images.imageList) {
-      // Category images
       imagesToPrecache.add(
         AssetImage('assets/images/_categories/${imageCategory["categoryName"]}_cat.png'),
       );
-      // Category banners
       imagesToPrecache.add(
         AssetImage('assets/images/_categories/${imageCategory["categoryName"]}_banner.png'),
       );
 
-      // Select picture screen thumbnails
       for (final Map<String, dynamic> image in List<Map<String, dynamic>>.from(
           imageCategory['categoryImages'] as Iterable<dynamic>)) {
         imagesToPrecache.add(AssetImage(
@@ -89,13 +109,10 @@ class _HomeState extends State<Home> {
   void initState() {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
-    _initAdMob().then((_) {}, onError: (void error) => null);
-    checkInternetConnection(deviceProvider: deviceProvider, shopProvider: shopProvider);
-
     deviceProvider.setAudioCache(audioCache: AudioCache(prefix: 'audio/'));
-
     precacheImagesCompleted = false;
 
+    checkInternetConnection(deviceProvider: deviceProvider, shopProvider: shopProvider);
     addImagestoCache();
 
     super.initState();
