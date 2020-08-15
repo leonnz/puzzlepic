@@ -11,14 +11,14 @@ import '../providers/shop_provider.dart';
 import '../styles/element_theme.dart';
 import '../styles/text_theme.dart';
 
-class SelectCategory extends StatefulWidget {
-  const SelectCategory({Key key}) : super(key: key);
+class SelectCategoryScreen extends StatefulWidget {
+  const SelectCategoryScreen({Key key}) : super(key: key);
 
   @override
-  _SelectCategoryState createState() => _SelectCategoryState();
+  _SelectCategoryScreenState createState() => _SelectCategoryScreenState();
 }
 
-class _SelectCategoryState extends State<SelectCategory> {
+class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
   @override
   void initState() {
     final DBProviderDb dbProvider = DBProviderDb();

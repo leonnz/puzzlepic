@@ -38,7 +38,7 @@ class CategoryButton extends StatelessWidget {
         Navigator.push(
           context,
           CupertinoPageRoute<bool>(
-            builder: (BuildContext context) => SelectPicture(
+            builder: (BuildContext context) => SelectPictureScreen(
               category: categoryName,
             ),
           ),

@@ -70,7 +70,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
       final bool result = await Navigator.push(
         context,
         CupertinoPageRoute<bool>(
-          builder: (BuildContext context) => const SelectCategory(),
+          builder: (BuildContext context) => const SelectCategoryScreen(),
         ),
       );
 
