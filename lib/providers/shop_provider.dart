@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 
+import '../ad_manager.dart';
 import '../data/db_provider.dart';
 
 class ShopProvider extends ChangeNotifier {
@@ -46,6 +48,7 @@ class ShopProvider extends ChangeNotifier {
   Function _failedPurchaseCallbackAlert;
   bool _showSuccessMessage = false;
   static AnimationController puchaseMessageController;
+  BannerAd _bannerAd;
 
   bool get getAvailable => _available;
   bool get getTimedout => _timeout;
@@ -54,6 +57,7 @@ class ShopProvider extends ChangeNotifier {
   List<PurchaseDetails> get getPastPurchases => _pastPurchases;
   List<String> get getAvailableCategories => _availableCategories;
   bool get getShowSuccessMessage => _showSuccessMessage;
+  BannerAd get getBannerAd => _bannerAd;
 
   Future<bool> initialize() async {
     try {
@@ -82,6 +86,17 @@ class ShopProvider extends ChangeNotifier {
         },
       );
     }
+  }
+
+  void setBannerAd() {
+    _bannerAd = BannerAd(
+      adUnitId: AdManager.bannerAdUnitId,
+      size: AdSize.fullBanner,
+    );
+  }
+
+  void disposeBannerAd() {
+    _bannerAd?.dispose();
   }
 
   Future<void> buyProduct({ProductDetails product, Function callback}) async {
@@ -162,6 +177,7 @@ class ShopProvider extends ChangeNotifier {
 
     // Add purchased products to DB if it doesn't exist.
     for (final PurchaseDetails purchase in response.pastPurchases) {
+      print(purchase.productID);
       if (_productIds.contains(purchase.productID) &&
           !purchasedProductsDb.contains(purchase.productID)) {
         dbProvider.insertCategoryPurchasedRecord(purchasedCategory: purchase.productID);
