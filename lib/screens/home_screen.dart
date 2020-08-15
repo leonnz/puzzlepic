@@ -115,6 +115,15 @@ class _HomeState extends State<Home> {
     checkInternetConnection(deviceProvider: deviceProvider, shopProvider: shopProvider);
     addImagestoCache();
 
+    //DEV ONLY - Load ads
+    _bannerAd = BannerAd(
+      adUnitId: AdManager.bannerAdUnitId,
+      size: AdSize.fullBanner,
+    );
+    _bannerAd
+      ..load()
+      ..show();
+
     super.initState();
   }
 
