@@ -1,10 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 
-import '../ad_manager.dart';
 import '../components/_shared/appbar_leading_button.dart';
 import '../components/select_category_screen/categories_screen_shop_button.dart';
 import '../components/select_category_screen/category_button.dart';
@@ -22,14 +19,6 @@ class SelectCategory extends StatefulWidget {
 }
 
 class _SelectCategoryState extends State<SelectCategory> {
-  BannerAd _bannerAd;
-
-  void _loadBannerAd() {
-    _bannerAd
-      ..load()
-      ..show();
-  }
-
   @override
   void initState() {
     final DBProviderDb dbProvider = DBProviderDb();
@@ -49,27 +38,11 @@ class _SelectCategoryState extends State<SelectCategory> {
       }
     });
 
-    if (shopProvider.getAvailable) {
-      final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
-        (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
-        orElse: () => null,
-      );
-      if (adPurchased == null) {
-        _bannerAd = BannerAd(
-          adUnitId: AdManager.bannerAdUnitId,
-          size: AdSize.fullBanner,
-        );
-        _loadBannerAd();
-      }
-    }
-
     super.initState();
   }
 
   @override
   void dispose() {
-    _bannerAd?.dispose();
-
     super.dispose();
   }
 
