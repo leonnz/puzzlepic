@@ -41,7 +41,7 @@ class ShopProvider extends ChangeNotifier {
     'test20',
   ];
 
-  List<ProductDetails> _imagePackProducts = <ProductDetails>[];
+  List<ProductDetails> _allProducts = <ProductDetails>[];
   List<PurchaseDetails> _pastPurchases = <PurchaseDetails>[];
   bool _available = false;
   bool _timeout = false;
@@ -53,7 +53,7 @@ class ShopProvider extends ChangeNotifier {
   bool get getAvailable => _available;
   bool get getTimedout => _timeout;
   String get getRemoveAdProductId => _removeAdProductId;
-  List<ProductDetails> get getImagePackProducts => _imagePackProducts;
+  List<ProductDetails> get getAllProducts => _allProducts;
   List<PurchaseDetails> get getPastPurchases => _pastPurchases;
   List<String> get getAvailableCategories => _availableCategories;
   bool get getShowSuccessMessage => _showSuccessMessage;
@@ -70,7 +70,7 @@ class ShopProvider extends ChangeNotifier {
     } on TimeoutException catch (_) {}
     if (_available) {
       _pastPurchases = await getPastPurchasesFromAppStore();
-      _imagePackProducts = await getImageProductsFromAppStore();
+      _allProducts = await getProductsFromAppStore();
     } else {
       _timeout = true;
     }
@@ -153,7 +153,7 @@ class ShopProvider extends ChangeNotifier {
     return true;
   }
 
-  Future<List<ProductDetails>> getImageProductsFromAppStore() async {
+  Future<List<ProductDetails>> getProductsFromAppStore() async {
     final Set<String> productIdsSet =
         Set<String>.from(<List<String>>[_productIds].expand((List<String> product) => product));
 

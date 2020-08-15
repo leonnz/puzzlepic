@@ -14,10 +14,10 @@ class ImagePackList extends StatelessWidget {
       final List<ProductDetails> sortedProductList = <ProductDetails>[];
       final ShopProvider shop = Provider.of<ShopProvider>(context, listen: false);
 
-      sortedProductList.add(shop.getImagePackProducts
-          .firstWhere((ProductDetails product) => product.id == 'removeads'));
+      sortedProductList.add(
+          shop.getAllProducts.firstWhere((ProductDetails product) => product.id == 'removeads'));
 
-      for (final ProductDetails product in shop.getImagePackProducts) {
+      for (final ProductDetails product in shop.getAllProducts) {
         if (product.id != 'removeads') {
           sortedProductList.add(product);
         }
@@ -29,7 +29,7 @@ class ImagePackList extends StatelessWidget {
       builder: (BuildContext context, ShopProvider shop, Widget child) {
         Widget productList;
 
-        if (shop.getImagePackProducts.isNotEmpty) {
+        if (shop.getAllProducts.isNotEmpty) {
           productList = Expanded(
             child: ListView.builder(
               shrinkWrap: true,
