@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
     addImagestoCache();
 
     //DEV ONLY - Load ads
-    shopProvider.showBannerAd();
+    // shopProvider.showBannerAd(deviceProvider: deviceProvider);
 
     super.initState();
   }
@@ -131,6 +131,8 @@ class _HomeState extends State<Home> {
     final bool useMobileLayout = MediaQuery.of(context).size.shortestSide < 600;
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
 
+    shopProvider.showBannerAd(deviceProvider: deviceProvider);
+
     return Container(
       decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
       child: Scaffold(
@@ -138,7 +140,7 @@ class _HomeState extends State<Home> {
         body: precacheImagesCompleted ? const HomeScreenStack() : const LoadingAnimation(),
         bottomNavigationBar: shopProvider.getBannerAdLoaded
             ? Container(
-                height: 60.0,
+                height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
                 color: Colors.white,
               )
             : null,

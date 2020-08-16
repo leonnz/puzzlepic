@@ -129,7 +129,7 @@ class _SelectPictureScreenState extends State<SelectPictureScreen> {
           ),
           bottomNavigationBar: shopProvider.getBannerAdLoaded
               ? Container(
-                  height: 60.0,
+                  height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
                   color: Colors.white,
                 )
               : null,

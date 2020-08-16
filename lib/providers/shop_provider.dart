@@ -6,6 +6,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 
 import '../ad_manager.dart';
 import '../data/db_provider.dart';
+import 'device_provider.dart';
 
 class ShopProvider extends ChangeNotifier {
   static final InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
@@ -93,10 +94,10 @@ class ShopProvider extends ChangeNotifier {
     }
   }
 
-  void showBannerAd() {
+  void showBannerAd({DeviceProvider deviceProvider}) {
     _bannerAd = BannerAd(
       adUnitId: AdManager.bannerAdUnitId,
-      size: AdSize.fullBanner,
+      size: deviceProvider.getUseMobileLayout ? AdSize.fullBanner : AdSize.leaderboard,
     )
       ..load()
       ..show();
