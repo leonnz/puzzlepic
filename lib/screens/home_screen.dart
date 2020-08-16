@@ -35,12 +35,8 @@ class _HomeState extends State<Home> {
       final List<InternetAddress> result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         deviceProvider.setHasInternetConnection(connection: true);
-        await shopProvider.initialize();
-        await _initAdMob().then((_) {}, onError: (void error) => null);
-
-        // if (shopAvailable) {
-        //   _checkRemoveAdsPurchased(shopProvider: shopProvider);
-        // }
+        shopProvider.initialize();
+        _initAdMob().then((_) {}, onError: (void error) => null);
       }
     } on SocketException catch (_) {}
   }
@@ -48,16 +44,6 @@ class _HomeState extends State<Home> {
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
   }
-
-  // void _checkRemoveAdsPurchased({ShopProvider shopProvider}) {
-  //   final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
-  //     (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
-  //     orElse: () => null,
-  //   );
-  //   if (adPurchased == null) {
-  //     shopProvider.showBannerAd();
-  //   }
-  // }
 
   void addImagestoCache() {
     imagesToPrecache = <AssetImage>[
@@ -123,7 +109,6 @@ class _HomeState extends State<Home> {
       (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
       orElse: () => null,
     );
-    print('ad purchased ${adPurchased.productID}');
     if (adPurchased == null) {
       shopProvider.showBannerAd(useMobile: useMobileLayout);
     }
