@@ -97,11 +97,16 @@ class ShopProvider extends ChangeNotifier {
     _bannerAd = BannerAd(
       adUnitId: AdManager.bannerAdUnitId,
       size: useMobile ? AdSize.fullBanner : AdSize.leaderboard,
+      listener: (MobileAdEvent event) {
+        if (event == MobileAdEvent.loaded) {
+          _bannerAdLoaded = true;
+        } else {
+          _bannerAdLoaded = false;
+        }
+      },
     )
       ..load()
       ..show();
-
-    _bannerAdLoaded = true;
   }
 
   Future<void> disposeBannerAd() async {
