@@ -99,6 +99,12 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
                 },
               ),
             ),
+            bottomNavigationBar: shopProvider.getBannerAdLoaded
+                ? Container(
+                    height: 60.0,
+                    color: Colors.white,
+                  )
+                : null,
           ),
         ),
       ),

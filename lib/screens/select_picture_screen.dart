@@ -8,6 +8,7 @@ import '../data/db_provider.dart';
 import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../providers/game_provider.dart';
+import '../providers/shop_provider.dart';
 import '../styles/element_theme.dart';
 import '../styles/text_theme.dart';
 
@@ -28,6 +29,7 @@ class _SelectPictureScreenState extends State<SelectPictureScreen> {
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
 
     final DBProviderDb dbProvider = DBProviderDb();
 
@@ -125,6 +127,12 @@ class _SelectPictureScreenState extends State<SelectPictureScreen> {
               return grid;
             },
           ),
+          bottomNavigationBar: shopProvider.getBannerAdLoaded
+              ? Container(
+                  height: 60.0,
+                  color: Colors.white,
+                )
+              : null,
         ),
       ),
     );

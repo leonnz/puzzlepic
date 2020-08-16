@@ -44,52 +44,59 @@ class _ShopScreenState extends State<ShopScreen> {
       child: Container(
         decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
         child: Scaffold(
-            backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
-              child: Container(
-                decoration: CustomElementTheme.shopScreenAppBarBoxDecoration(),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    AppBarLeadingButton(
-                      icon: Icons.close,
-                      customOperation: shopProvider.cancelSubscription,
-                    ),
-                    Text(
-                      'Store',
-                      style: CustomTextTheme.selectScreenTitleTextStyle(context),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            body: Stack(
-              children: <Widget>[
-                if (deviceProvider.getHasInternetConnection) ...<Widget>[
-                  Consumer<ShopProvider>(
-                    builder: (BuildContext context, ShopProvider value, Widget child) {
-                      return shopProvider.getAvailable
-                          ? Column(
-                              children: const <Widget>[
-                                ImagePackList(),
-                              ],
-                            )
-                          : shopProvider.getTimedout
-                              ? const ShopErrorMessage(
-                                  message: 'Problem connecting to store',
-                                )
-                              : const LoadingAnimation();
-                    },
-                  )
-                ] else ...<Widget>[
-                  const ShopErrorMessage(
-                    message: 'No Internet connection',
+          backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
+            child: Container(
+              decoration: CustomElementTheme.shopScreenAppBarBoxDecoration(),
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  AppBarLeadingButton(
+                    icon: Icons.close,
+                    customOperation: shopProvider.cancelSubscription,
+                  ),
+                  Text(
+                    'Store',
+                    style: CustomTextTheme.selectScreenTitleTextStyle(context),
                   ),
                 ],
-                const PurchaseMessage(),
+              ),
+            ),
+          ),
+          body: Stack(
+            children: <Widget>[
+              if (deviceProvider.getHasInternetConnection) ...<Widget>[
+                Consumer<ShopProvider>(
+                  builder: (BuildContext context, ShopProvider value, Widget child) {
+                    return shopProvider.getAvailable
+                        ? Column(
+                            children: const <Widget>[
+                              ImagePackList(),
+                            ],
+                          )
+                        : shopProvider.getTimedout
+                            ? const ShopErrorMessage(
+                                message: 'Problem connecting to store',
+                              )
+                            : const LoadingAnimation();
+                  },
+                )
+              ] else ...<Widget>[
+                const ShopErrorMessage(
+                  message: 'No Internet connection',
+                ),
               ],
-            )),
+              const PurchaseMessage(),
+            ],
+          ),
+          bottomNavigationBar: shopProvider.getBannerAdLoaded
+              ? Container(
+                  height: 60.0,
+                  color: Colors.white,
+                )
+              : null,
+        ),
       ),
     );
   }

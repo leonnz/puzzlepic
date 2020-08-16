@@ -7,6 +7,7 @@ import '../components/puzzle_screen/puzzle_screen_hint_button.dart';
 import '../components/puzzle_screen/puzzle_screen_quit_button.dart';
 import '../components/puzzle_screen/quit_alert.dart';
 import '../providers/game_provider.dart';
+import '../providers/shop_provider.dart';
 import '../styles/element_theme.dart';
 
 class PuzzleScreen extends StatefulWidget {
@@ -32,6 +33,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
   @override
   Widget build(BuildContext context) {
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
 
     gameProvider.setGridPositions();
 
@@ -80,6 +82,12 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               const Spacer(),
             ],
           ),
+          bottomNavigationBar: shopProvider.getBannerAdLoaded
+              ? Container(
+                  height: 60.0,
+                  color: Colors.white,
+                )
+              : null,
         ),
       ),
     );
