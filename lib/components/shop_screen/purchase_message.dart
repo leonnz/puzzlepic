@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/shop_provider.dart';
-import '../styles/element_theme.dart';
+import '../../providers/shop_provider.dart';
+import '../../styles/element_theme.dart';
 
 class PurchaseMessage extends StatefulWidget {
   const PurchaseMessage({
