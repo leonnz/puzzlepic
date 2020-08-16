@@ -123,6 +123,7 @@ class _HomeState extends State<Home> {
       (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
       orElse: () => null,
     );
+    print('ad purchased ${adPurchased.productID}');
     if (adPurchased == null) {
       shopProvider.showBannerAd(useMobile: useMobileLayout);
     }
