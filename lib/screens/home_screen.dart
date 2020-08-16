@@ -145,7 +145,7 @@ class _HomeState extends State<Home> {
     }
 
     //DEV ONLY - Load ads
-    shopProvider.showBannerAd(useMobile: useMobileLayout);
+    // shopProvider.showBannerAd(useMobile: useMobileLayout);
 
     return Container(
       decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
