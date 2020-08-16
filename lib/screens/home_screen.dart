@@ -29,20 +29,6 @@ class _HomeState extends State<Home> {
   List<AssetImage> imagesToPrecache;
   bool precacheImagesCompleted;
 
-  Future<void> _initAdMob() {
-    return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
-  }
-
-  void _checkRemoveAdsPurchased({ShopProvider shopProvider}) {
-    final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
-      (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
-      orElse: () => null,
-    );
-    if (adPurchased == null) {
-      shopProvider.showBannerAd();
-    }
-  }
-
   Future<void> checkInternetConnection(
       {DeviceProvider deviceProvider, ShopProvider shopProvider}) async {
     try {
@@ -57,6 +43,20 @@ class _HomeState extends State<Home> {
         }
       }
     } on SocketException catch (_) {}
+  }
+
+  Future<void> _initAdMob() {
+    return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
+  }
+
+  void _checkRemoveAdsPurchased({ShopProvider shopProvider}) {
+    final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
+      (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
+      orElse: () => null,
+    );
+    if (adPurchased == null) {
+      shopProvider.showBannerAd();
+    }
   }
 
   void addImagestoCache() {
@@ -133,20 +133,15 @@ class _HomeState extends State<Home> {
 
     return Container(
       decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
-      child: GestureDetector(
-        onTap: () {
-          shopProvider.disposeBannerAd();
-        },
-        child: Scaffold(
-          backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
-          body: precacheImagesCompleted ? const HomeScreenStack() : const LoadingAnimation(),
-          bottomNavigationBar: shopProvider.getBannerAdLoaded
-              ? Container(
-                  height: 60.0,
-                  color: Colors.white,
-                )
-              : null,
-        ),
+      child: Scaffold(
+        backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+        body: precacheImagesCompleted ? const HomeScreenStack() : const LoadingAnimation(),
+        bottomNavigationBar: shopProvider.getBannerAdLoaded
+            ? Container(
+                height: 60.0,
+                color: Colors.white,
+              )
+            : null,
       ),
     );
   }
