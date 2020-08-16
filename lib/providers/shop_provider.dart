@@ -52,6 +52,7 @@ class ShopProvider extends ChangeNotifier {
   bool _showSuccessMessage = false;
   static AnimationController puchaseMessageController;
   BannerAd _bannerAd;
+  bool _bannerAdLoaded = false;
 
   bool get getAvailable => _available;
   bool get getTimedout => _timeout;
@@ -61,6 +62,7 @@ class ShopProvider extends ChangeNotifier {
   List<String> get getAvailableCategories => _availableCategories;
   bool get getShowSuccessMessage => _showSuccessMessage;
   BannerAd get getBannerAd => _bannerAd;
+  bool get getBannerAdLoaded => _bannerAdLoaded;
 
   Future<bool> initialize() async {
     try {
@@ -91,11 +93,20 @@ class ShopProvider extends ChangeNotifier {
     }
   }
 
-  void setBannerAd() {
+  void showBannerAd() {
     _bannerAd = BannerAd(
       adUnitId: AdManager.bannerAdUnitId,
       size: AdSize.fullBanner,
-    );
+    )
+      ..load()
+      ..show();
+
+    _bannerAdLoaded = true;
+  }
+
+  Future<void> disposeBannerAd() async {
+    await _bannerAd?.dispose()?.then((_) => _bannerAdLoaded = false);
+    notifyListeners();
   }
 
   Future<void> buyProduct({ProductDetails product, Function callback}) async {
@@ -176,6 +187,7 @@ class ShopProvider extends ChangeNotifier {
     final List<String> purchasedProductsDb = await dbProvider.getPurchasedCategories();
 
     for (final PurchaseDetails purchase in response.pastPurchases) {
+      print(purchase);
       if (Platform.isIOS) {
         InAppPurchaseConnection.instance.completePurchase(purchase);
       }

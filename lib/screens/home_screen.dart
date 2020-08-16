@@ -33,16 +33,13 @@ class _HomeState extends State<Home> {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
   }
 
-  void _loadBannerAd({ShopProvider shopProvider}) {
+  void _checkRemoveAdsPurchased({ShopProvider shopProvider}) {
     final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
       (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
       orElse: () => null,
     );
     if (adPurchased == null) {
-      shopProvider.setBannerAd();
-      shopProvider.getBannerAd
-        ..load()
-        ..show();
+      shopProvider.showBannerAd();
     }
   }
 
@@ -56,7 +53,7 @@ class _HomeState extends State<Home> {
         await _initAdMob().then((_) {}, onError: (void error) => null);
 
         if (shopAvailable) {
-          _loadBannerAd(shopProvider: shopProvider);
+          _checkRemoveAdsPurchased(shopProvider: shopProvider);
         }
       }
     } on SocketException catch (_) {}
@@ -112,10 +109,7 @@ class _HomeState extends State<Home> {
     addImagestoCache();
 
     //DEV ONLY - Load ads
-    shopProvider.setBannerAd();
-    shopProvider.getBannerAd
-      ..load()
-      ..show();
+    shopProvider.showBannerAd();
 
     super.initState();
   }
@@ -129,6 +123,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
+
     DeviceProvider.deviceScreenHeight = MediaQuery.of(context).size.height;
     GameProvider.screenWidth = MediaQuery.of(context).size.width - 20;
 
@@ -137,9 +133,20 @@ class _HomeState extends State<Home> {
 
     return Container(
       decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
-      child: Scaffold(
-        backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
-        body: precacheImagesCompleted ? const HomeScreenStack() : const LoadingAnimation(),
+      child: GestureDetector(
+        onTap: () {
+          shopProvider.disposeBannerAd();
+        },
+        child: Scaffold(
+          backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+          body: precacheImagesCompleted ? const HomeScreenStack() : const LoadingAnimation(),
+          bottomNavigationBar: shopProvider.getBannerAdLoaded
+              ? Container(
+                  height: 60.0,
+                  color: Colors.white,
+                )
+              : null,
+        ),
       ),
     );
   }
