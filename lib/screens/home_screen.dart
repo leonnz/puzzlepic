@@ -139,7 +139,7 @@ class _HomeState extends State<Home> {
     final bool useMobileLayout = MediaQuery.of(context).size.shortestSide < 600;
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
 
-    if (shopProvider.getAvailable) {
+    if (shopProvider.getShopAvailable) {
       checkForAds(shopProvider: shopProvider, useMobileLayout: useMobileLayout);
     }
 

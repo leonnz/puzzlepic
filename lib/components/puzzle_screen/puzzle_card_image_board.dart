@@ -50,7 +50,7 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
 
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
-    if (shopProvider.getAvailable) {
+    if (shopProvider.getShopAvailable) {
       final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
         (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
         orElse: () => null,

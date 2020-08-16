@@ -69,7 +69,7 @@ class _ShopScreenState extends State<ShopScreen> {
               if (deviceProvider.getHasInternetConnection) ...<Widget>[
                 Consumer<ShopProvider>(
                   builder: (BuildContext context, ShopProvider value, Widget child) {
-                    return shopProvider.getAvailable
+                    return shopProvider.getShopAvailable
                         ? Column(
                             children: const <Widget>[
                               ImagePackList(),

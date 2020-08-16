@@ -46,7 +46,7 @@ class ShopProvider extends ChangeNotifier {
 
   List<ProductDetails> _allProducts = <ProductDetails>[];
   List<PurchaseDetails> _pastPurchases = <PurchaseDetails>[];
-  bool _available = false;
+  bool _shopAvailable = false;
   bool _timeout = false;
   Function _failedPurchaseCallbackAlert;
   bool _showSuccessMessage = false;
@@ -54,7 +54,7 @@ class ShopProvider extends ChangeNotifier {
   BannerAd _bannerAd;
   bool _bannerAdLoaded = false;
 
-  bool get getAvailable => _available;
+  bool get getShopAvailable => _shopAvailable;
   bool get getTimedout => _timeout;
   String get getRemoveAdProductId => _removeAdProductId;
   List<ProductDetails> get getAllProducts => _allProducts;
@@ -66,25 +66,25 @@ class ShopProvider extends ChangeNotifier {
 
   Future<bool> initialize() async {
     try {
-      _available = await _iap.isAvailable().timeout(
+      _shopAvailable = await _iap.isAvailable().timeout(
         const Duration(milliseconds: 5000),
         onTimeout: () {
           return false;
         },
       );
     } on TimeoutException catch (_) {}
-    if (_available) {
+    if (_shopAvailable) {
       _pastPurchases = await getPastPurchasesFromAppStore();
       _allProducts = await getProductsFromAppStore();
     } else {
       _timeout = true;
     }
     notifyListeners();
-    return _available;
+    return _shopAvailable;
   }
 
   void registerSubscription() {
-    if (_available) {
+    if (_shopAvailable) {
       _subscription = _iap.purchaseUpdatedStream.listen(
         (List<PurchaseDetails> purchases) {
           completePurchase(purchases);
