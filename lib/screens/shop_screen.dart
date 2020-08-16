@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 import '../components/_shared/appbar_leading_button.dart';
 import '../components/_shared/loading_animation.dart';
 import '../components/shop_screen/product_list.dart';
+import '../components/shop_screen/purchase_message.dart';
 import '../components/shop_screen/shop_error_message.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
 import '../styles/element_theme.dart';
 import '../styles/text_theme.dart';
-import '../components/shop_screen/purchase_message.dart';
 
 class ShopScreen extends StatefulWidget {
   @override
