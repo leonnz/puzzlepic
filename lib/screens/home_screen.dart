@@ -108,9 +108,6 @@ class _HomeState extends State<Home> {
     checkInternetConnection(deviceProvider: deviceProvider, shopProvider: shopProvider);
     addImagestoCache();
 
-    //DEV ONLY - Load ads
-    // shopProvider.showBannerAd(deviceProvider: deviceProvider);
-
     super.initState();
   }
 
@@ -131,7 +128,8 @@ class _HomeState extends State<Home> {
     final bool useMobileLayout = MediaQuery.of(context).size.shortestSide < 600;
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
 
-    shopProvider.showBannerAd(deviceProvider: deviceProvider);
+    //DEV ONLY - Load ads
+    // shopProvider.showBannerAd(deviceProvider: deviceProvider);
 
     return Container(
       decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
