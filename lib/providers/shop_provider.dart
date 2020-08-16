@@ -131,11 +131,7 @@ class ShopProvider extends ChangeNotifier {
   Future<void> completePurchase(List<PurchaseDetails> purchases) async {
     for (final PurchaseDetails purchase in purchases) {
       if (purchase.status == PurchaseStatus.purchased) {
-        print('Purchased!');
-
         final BillingResultWrapper billingResult = await _iap.completePurchase(purchase);
-
-        print('${billingResult.responseCode}');
 
         if (billingResult.responseCode == BillingResponse.ok) {
           final DBProviderDb dbProvider = DBProviderDb();
@@ -144,8 +140,7 @@ class ShopProvider extends ChangeNotifier {
           addAvailableCategory(category: purchase.productID);
 
           if (purchase.productID == _removeAdProductId) {
-            print('Remove ads purchased');
-            _bannerAd?.dispose();
+            disposeBannerAd();
           }
 
           setShowSuccessMessage(show: true);
@@ -187,7 +182,6 @@ class ShopProvider extends ChangeNotifier {
     final List<String> purchasedProductsDb = await dbProvider.getPurchasedCategories();
 
     for (final PurchaseDetails purchase in response.pastPurchases) {
-      print(purchase);
       if (Platform.isIOS) {
         InAppPurchaseConnection.instance.completePurchase(purchase);
       }
@@ -195,7 +189,6 @@ class ShopProvider extends ChangeNotifier {
 
     // Add purchased products to DB if it doesn't exist.
     for (final PurchaseDetails purchase in response.pastPurchases) {
-      print(purchase.productID);
       if (_productIds.contains(purchase.productID) &&
           !purchasedProductsDb.contains(purchase.productID)) {
         dbProvider.insertCategoryPurchasedRecord(purchasedCategory: purchase.productID);

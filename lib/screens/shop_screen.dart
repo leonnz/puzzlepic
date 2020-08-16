@@ -9,7 +9,7 @@ import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
 import '../styles/element_theme.dart';
 import '../styles/text_theme.dart';
-import 'purchase_message.dart';
+import '../components/shop_screen/purchase_message.dart';
 
 class ShopScreen extends StatefulWidget {
   @override
