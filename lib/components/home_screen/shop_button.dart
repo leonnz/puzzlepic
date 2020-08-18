@@ -8,10 +8,7 @@ import '../../styles/element_theme.dart';
 import '../../styles/text_theme.dart';
 
 class ShopButton extends StatefulWidget {
-  const ShopButton({
-    Key key,
-    this.shopButtonSlideController,
-  }) : super(key: key);
+  const ShopButton({Key key, this.shopButtonSlideController}) : super(key: key);
   final AnimationController shopButtonSlideController;
 
   @override

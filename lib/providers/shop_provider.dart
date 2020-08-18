@@ -100,8 +100,10 @@ class ShopProvider extends ChangeNotifier {
       listener: (MobileAdEvent event) {
         if (event == MobileAdEvent.loaded) {
           _bannerAdLoaded = true;
+          notifyListeners();
         } else {
           _bannerAdLoaded = false;
+          notifyListeners();
         }
       },
     )

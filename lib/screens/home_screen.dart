@@ -29,14 +29,34 @@ class _HomeState extends State<Home> {
   List<AssetImage> imagesToPrecache;
   bool precacheImagesCompleted;
 
-  Future<void> checkInternetConnection(
+  void checkRemoveAdsPurchased(
+      {bool shopAvailable, ShopProvider shopProvider, DeviceProvider deviceProvider}) {
+    if (shopAvailable) {
+      final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
+        (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
+        orElse: () => null,
+      );
+      if (adPurchased == null) {
+        shopProvider.showBannerAd(useMobile: deviceProvider.getUseMobileLayout);
+      }
+    }
+    // Dev only
+    // shopProvider.showBannerAd(useMobile: deviceProvider.getUseMobileLayout);
+  }
+
+  Future<void> checkShopAvailability(
       {DeviceProvider deviceProvider, ShopProvider shopProvider}) async {
     try {
       final List<InternetAddress> result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         deviceProvider.setHasInternetConnection(connection: true);
-        shopProvider.initialize();
-        _initAdMob().then((_) {}, onError: (void error) => null);
+        await _initAdMob().then((_) {}, onError: (void error) => null);
+        final bool shopAvailable = await shopProvider.initialize();
+
+        checkRemoveAdsPurchased(
+            shopAvailable: shopAvailable,
+            shopProvider: shopProvider,
+            deviceProvider: deviceProvider);
       }
     } on SocketException catch (_) {}
   }
@@ -91,9 +111,9 @@ class _HomeState extends State<Home> {
 
     deviceProvider.setAudioCache(audioCache: AudioCache(prefix: 'audio/'));
     precacheImagesCompleted = false;
-
-    checkInternetConnection(deviceProvider: deviceProvider, shopProvider: shopProvider);
     addImagestoCache();
+
+    checkShopAvailability(deviceProvider: deviceProvider, shopProvider: shopProvider);
 
     super.initState();
   }
@@ -102,16 +122,6 @@ class _HomeState extends State<Home> {
   void didChangeDependencies() {
     cacheImages();
     super.didChangeDependencies();
-  }
-
-  void checkForAds({ShopProvider shopProvider, bool useMobileLayout}) {
-    final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
-      (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
-      orElse: () => null,
-    );
-    if (adPurchased == null) {
-      shopProvider.showBannerAd(useMobile: useMobileLayout);
-    }
   }
 
   @override
@@ -124,13 +134,6 @@ class _HomeState extends State<Home> {
 
     final bool useMobileLayout = MediaQuery.of(context).size.shortestSide < 600;
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
-
-    if (shopProvider.getShopAvailable) {
-      checkForAds(shopProvider: shopProvider, useMobileLayout: useMobileLayout);
-    }
-
-    //DEV ONLY - Load ads
-    // shopProvider.showBannerAd(useMobile: useMobileLayout);
 
     return Container(
       decoration: CustomElementTheme.screenBackgroundBoxDecoration(),

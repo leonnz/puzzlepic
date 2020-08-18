@@ -22,7 +22,6 @@ class PuzzlePicApp extends StatelessWidget {
     ///DEV ONLY delete the database
     // final DBProviderDb dbProvider = DBProviderDb();
     // dbProvider.deleteDb();
-
     SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[SystemUiOverlay.bottom]);
 
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
@@ -36,10 +35,13 @@ class PuzzlePicApp extends StatelessWidget {
         ChangeNotifierProvider<DeviceProvider>(create: (_) => DeviceProvider()),
         ChangeNotifierProvider<ShopProvider>(create: (_) => ShopProvider()),
       ],
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Puzzle Pic',
-        home: Home(),
+      child: const MediaQuery(
+        data: MediaQueryData(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Puzzle Pic',
+          home: Home(),
+        ),
       ),
     );
   }
