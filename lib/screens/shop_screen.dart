@@ -43,59 +43,61 @@ class _ShopScreenState extends State<ShopScreen> {
       },
       child: Container(
         decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
-        child: Scaffold(
-          backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
-            child: Container(
-              decoration: CustomElementTheme.shopScreenAppBarBoxDecoration(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  AppBarLeadingButton(
-                    icon: Icons.close,
-                    customOperation: shopProvider.cancelSubscription,
-                  ),
-                  Text(
-                    'Store',
-                    style: CustomTextTheme.selectScreenTitleTextStyle(context),
-                  ),
-                ],
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
+              child: Container(
+                decoration: CustomElementTheme.shopScreenAppBarBoxDecoration(),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    AppBarLeadingButton(
+                      icon: Icons.close,
+                      customOperation: shopProvider.cancelSubscription,
+                    ),
+                    Text(
+                      'Store',
+                      style: CustomTextTheme.selectScreenTitleTextStyle(context),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          body: Stack(
-            children: <Widget>[
-              if (deviceProvider.getHasInternetConnection) ...<Widget>[
-                Consumer<ShopProvider>(
-                  builder: (BuildContext context, ShopProvider value, Widget child) {
-                    return shopProvider.getShopAvailable
-                        ? Column(
-                            children: const <Widget>[
-                              ImagePackList(),
-                            ],
-                          )
-                        : shopProvider.getTimedout
-                            ? const ShopErrorMessage(
-                                message: 'Problem connecting to store',
-                              )
-                            : const LoadingAnimation();
-                  },
-                )
-              ] else ...<Widget>[
-                const ShopErrorMessage(
-                  message: 'No Internet connection',
-                ),
+            body: Stack(
+              children: <Widget>[
+                if (deviceProvider.getHasInternetConnection) ...<Widget>[
+                  Consumer<ShopProvider>(
+                    builder: (BuildContext context, ShopProvider value, Widget child) {
+                      return shopProvider.getShopAvailable
+                          ? Column(
+                              children: const <Widget>[
+                                ImagePackList(),
+                              ],
+                            )
+                          : shopProvider.getTimedout
+                              ? const ShopErrorMessage(
+                                  message: 'Problem connecting to store',
+                                )
+                              : const LoadingAnimation();
+                    },
+                  )
+                ] else ...<Widget>[
+                  const ShopErrorMessage(
+                    message: 'No Internet connection',
+                  ),
+                ],
+                const PurchaseMessage(),
               ],
-              const PurchaseMessage(),
-            ],
+            ),
+            bottomNavigationBar: shopProvider.getBannerAdLoaded
+                ? Container(
+                    height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
+                    color: Colors.white,
+                  )
+                : null,
           ),
-          bottomNavigationBar: shopProvider.getBannerAdLoaded
-              ? Container(
-                  height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
-                  color: Colors.white,
-                )
-              : null,
         ),
       ),
     );

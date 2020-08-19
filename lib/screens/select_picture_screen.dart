@@ -50,89 +50,91 @@ class _SelectPictureScreenState extends State<SelectPictureScreen> {
       },
       child: Container(
         decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
-        child: Scaffold(
-          backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
-            child: Container(
-              decoration: CustomElementTheme.imageScreenAppBarBoxDecoration(
-                  image: 'assets/images/_categories/${widget.category}_banner.png'),
-              child: Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  const AppBarLeadingButton(icon: Icons.arrow_back_ios),
-                  Text(
-                    gameProvider.getImageCategoryReadableName,
-                    style: CustomTextTheme.selectScreenTitleTextStyle(context),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: FutureBuilder<List<String>>(
-                      future: dbProvider.getRecordsByCategory(category: widget.category),
-                      builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-                        Widget grid;
-                        if (snapshot.hasData) {
-                          grid = Padding(
-                            padding:
-                                EdgeInsets.only(bottom: deviceProvider.getUseMobileLayout ? 4 : 8),
-                            child: Text(
-                              'Completed ${snapshot.data.length} / ${images.length}',
-                              textAlign: TextAlign.center,
-                              style: CustomTextTheme.selectPictureScreenCompletedTextStyle(),
-                            ),
-                          );
-                        } else {
-                          grid = Container();
-                        }
-                        return grid;
-                      },
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
+              child: Container(
+                decoration: CustomElementTheme.imageScreenAppBarBoxDecoration(
+                    image: 'assets/images/_categories/${widget.category}_banner.png'),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    const AppBarLeadingButton(icon: Icons.arrow_back_ios),
+                    Text(
+                      gameProvider.getImageCategoryReadableName,
+                      style: CustomTextTheme.selectScreenTitleTextStyle(context),
                     ),
-                  ),
-                ],
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: FutureBuilder<List<String>>(
+                        future: dbProvider.getRecordsByCategory(category: widget.category),
+                        builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+                          Widget grid;
+                          if (snapshot.hasData) {
+                            grid = Padding(
+                              padding: EdgeInsets.only(
+                                  bottom: deviceProvider.getUseMobileLayout ? 4 : 8),
+                              child: Text(
+                                'Completed ${snapshot.data.length} / ${images.length}',
+                                textAlign: TextAlign.center,
+                                style: CustomTextTheme.selectPictureScreenCompletedTextStyle(),
+                              ),
+                            );
+                          } else {
+                            grid = Container();
+                          }
+                          return grid;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          body: FutureBuilder<List<String>>(
-            future: dbProvider.getRecordsByCategory(category: widget.category),
-            builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-              Widget grid;
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData) {
-                  grid = Container(
-                    padding: const EdgeInsets.all(10),
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      itemCount: images.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: deviceProvider.getGridSize,
-                        crossAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
-                        mainAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
+            body: FutureBuilder<List<String>>(
+              future: dbProvider.getRecordsByCategory(category: widget.category),
+              builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+                Widget grid;
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    grid = Container(
+                      padding: const EdgeInsets.all(10),
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        itemCount: images.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: deviceProvider.getGridSize,
+                          crossAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
+                          mainAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
+                        ),
+                        itemBuilder: (BuildContext context, int i) {
+                          return ImageButton(
+                            imageAssetName: images[i]['assetName'].toString(),
+                            imageReadableName: images[i]['readableName'].toString(),
+                            imageReadableFullName: images[i]['readableFullname'].toString(),
+                            imageTitle: images[i]['title'].toString(),
+                            complete: snapshot.data.contains(images[i]['readableName']),
+                            refreshPictureSelectScreen: refreshScreen,
+                          );
+                        },
                       ),
-                      itemBuilder: (BuildContext context, int i) {
-                        return ImageButton(
-                          imageAssetName: images[i]['assetName'].toString(),
-                          imageReadableName: images[i]['readableName'].toString(),
-                          imageReadableFullName: images[i]['readableFullname'].toString(),
-                          imageTitle: images[i]['title'].toString(),
-                          complete: snapshot.data.contains(images[i]['readableName']),
-                          refreshPictureSelectScreen: refreshScreen,
-                        );
-                      },
-                    ),
-                  );
+                    );
+                  }
+                } else {
+                  grid = Container();
                 }
-              } else {
-                grid = Container();
-              }
-              return grid;
-            },
+                return grid;
+              },
+            ),
+            bottomNavigationBar: shopProvider.getBannerAdLoaded
+                ? Container(
+                    height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
+                    color: Colors.white,
+                  )
+                : null,
           ),
-          bottomNavigationBar: shopProvider.getBannerAdLoaded
-              ? Container(
-                  height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
-                  color: Colors.white,
-                )
-              : null,
         ),
       ),
     );

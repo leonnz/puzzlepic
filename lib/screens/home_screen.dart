@@ -137,15 +137,17 @@ class _HomeState extends State<Home> {
 
     return Container(
       decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
-      child: Scaffold(
-        backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
-        body: precacheImagesCompleted ? const HomeScreenStack() : const LoadingAnimation(),
-        bottomNavigationBar: shopProvider.getBannerAdLoaded
-            ? Container(
-                height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
-                color: Colors.white,
-              )
-            : null,
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+          body: precacheImagesCompleted ? const HomeScreenStack() : const LoadingAnimation(),
+          bottomNavigationBar: shopProvider.getBannerAdLoaded
+              ? Container(
+                  height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
+                  color: Colors.white,
+                )
+              : null,
+        ),
       ),
     );
   }

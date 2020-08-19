@@ -64,47 +64,49 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
         },
         child: Container(
           decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
-          child: Scaffold(
-            backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
-              child: Container(
-                decoration: CustomElementTheme.categoryScreenAppBarBoxDecoration(),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    const AppBarLeadingButton(icon: Icons.arrow_back_ios),
-                    Text(
-                      'Categories',
-                      style: CustomTextTheme.selectScreenTitleTextStyle(context),
-                    ),
-                    const CategoryShopButton(),
-                  ],
+          child: SafeArea(
+            child: Scaffold(
+              backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
+                child: Container(
+                  decoration: CustomElementTheme.categoryScreenAppBarBoxDecoration(),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      const AppBarLeadingButton(icon: Icons.arrow_back_ios),
+                      Text(
+                        'Categories',
+                        style: CustomTextTheme.selectScreenTitleTextStyle(context),
+                      ),
+                      const CategoryShopButton(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            body: Container(
-              padding: const EdgeInsets.all(10),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: deviceProvider.getGridSize,
-                  crossAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
-                  mainAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
+              body: Container(
+                padding: const EdgeInsets.all(10),
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: deviceProvider.getGridSize,
+                    crossAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
+                    mainAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
+                  ),
+                  itemCount: shopProvider.getAvailableCategories.length,
+                  itemBuilder: (BuildContext context, int i) {
+                    return CategoryButton(
+                      categoryName: shopProvider.getAvailableCategories[i],
+                    );
+                  },
                 ),
-                itemCount: shopProvider.getAvailableCategories.length,
-                itemBuilder: (BuildContext context, int i) {
-                  return CategoryButton(
-                    categoryName: shopProvider.getAvailableCategories[i],
-                  );
-                },
               ),
+              bottomNavigationBar: shopProvider.getBannerAdLoaded
+                  ? Container(
+                      height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
+                      color: Colors.white,
+                    )
+                  : null,
             ),
-            bottomNavigationBar: shopProvider.getBannerAdLoaded
-                ? Container(
-                    height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
-                    color: Colors.white,
-                  )
-                : null,
           ),
         ),
       ),

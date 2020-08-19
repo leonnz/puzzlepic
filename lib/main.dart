@@ -22,8 +22,8 @@ class PuzzlePicApp extends StatelessWidget {
     ///DEV ONLY delete the database
     // final DBProviderDb dbProvider = DBProviderDb();
     // dbProvider.deleteDb();
-    SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[SystemUiOverlay.bottom]);
-
+    SystemChrome.setEnabledSystemUIOverlays(
+        <SystemUiOverlay>[SystemUiOverlay.top, SystemUiOverlay.bottom]);
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -40,7 +40,14 @@ class PuzzlePicApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Puzzle Pic',
-          home: Home(),
+          home: AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle(
+                statusBarColor: Colors.black,
+                statusBarBrightness: Brightness.dark,
+                systemNavigationBarColor: Colors.black,
+                systemNavigationBarIconBrightness: Brightness.light,
+              ),
+              child: Home()),
         ),
       ),
     );

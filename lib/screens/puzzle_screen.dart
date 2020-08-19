@@ -66,30 +66,32 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       },
       child: Container(
         decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
-        child: Scaffold(
-          backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              const MuteButton(),
-              const Spacer(),
-              const PuzzleCard(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const <Widget>[PuzzleScreenHintButton(), PuzzleScreenQuitButton()],
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                const MuteButton(),
+                const Spacer(),
+                const PuzzleCard(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: const <Widget>[PuzzleScreenHintButton(), PuzzleScreenQuitButton()],
+                  ),
                 ),
-              ),
-              const Spacer(),
-            ],
+                const Spacer(),
+              ],
+            ),
+            bottomNavigationBar: shopProvider.getBannerAdLoaded
+                ? Container(
+                    height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
+                    color: Colors.white,
+                  )
+                : null,
           ),
-          bottomNavigationBar: shopProvider.getBannerAdLoaded
-              ? Container(
-                  height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
-                  color: Colors.white,
-                )
-              : null,
         ),
       ),
     );
