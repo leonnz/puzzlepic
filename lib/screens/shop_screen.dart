@@ -70,17 +70,20 @@ class _ShopScreenState extends State<ShopScreen> {
                 if (deviceProvider.getHasInternetConnection) ...<Widget>[
                   Consumer<ShopProvider>(
                     builder: (BuildContext context, ShopProvider value, Widget child) {
-                      return shopProvider.getShopAvailable
-                          ? Column(
-                              children: const <Widget>[
-                                ImagePackList(),
-                              ],
-                            )
-                          : shopProvider.getTimedout
-                              ? const ShopErrorMessage(
-                                  message: 'Problem connecting to store',
-                                )
-                              : const LoadingAnimation();
+                      return Column(
+                        children: const <Widget>[ProductList()],
+                      );
+                      // return shopProvider.getShopAvailable
+                      //     ? Column(
+                      //         children: const <Widget>[
+                      //           ProductList(),
+                      //         ],
+                      //       )
+                      //     : shopProvider.getTimedout
+                      //         ? const ShopErrorMessage(
+                      //             message: 'Problem connecting to store',
+                      //           )
+                      //         : const LoadingAnimation();
                     },
                   )
                 ] else ...<Widget>[

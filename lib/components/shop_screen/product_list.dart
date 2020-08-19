@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 import '../../providers/shop_provider.dart';
 import 'product_tile.dart';
 
-class ImagePackList extends StatelessWidget {
-  const ImagePackList({Key key}) : super(key: key);
+class ProductList extends StatelessWidget {
+  const ProductList({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +25,25 @@ class ImagePackList extends StatelessWidget {
       return sortedProductList;
     }
 
+    final List<ProductDetails> fakeProductsList = <ProductDetails>[];
+
+    for (int i = 1; i <= 10; i++) {
+      fakeProductsList.add(ProductDetails(
+          description: 'description', id: 'id $i', price: '\$1.99', title: 'title: $i (test)'));
+    }
+
     return Consumer<ShopProvider>(
       builder: (BuildContext context, ShopProvider shop, Widget child) {
         Widget productList;
 
-        if (shop.getAllProducts.isNotEmpty) {
+        if (fakeProductsList.isNotEmpty) {
           productList = Expanded(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: _sortedProducts().length,
+              itemCount: fakeProductsList.length,
               itemBuilder: (BuildContext context, int index) {
-                return ImagePackShopTile(
-                  imagePackProduct: _sortedProducts()[index],
+                return ProductTile(
+                  imagePackProduct: fakeProductsList[index],
                 );
               },
             ),
@@ -44,6 +51,22 @@ class ImagePackList extends StatelessWidget {
         } else {
           productList = Container();
         }
+
+        // if (shop.getAllProducts.isNotEmpty) {
+        //   productList = Expanded(
+        //     child: ListView.builder(
+        //       shrinkWrap: true,
+        //       itemCount: _sortedProducts().length,
+        //       itemBuilder: (BuildContext context, int index) {
+        //         return ProductTile(
+        //           imagePackProduct: _sortedProducts()[index],
+        //         );
+        //       },
+        //     ),
+        //   );
+        // } else {
+        //   productList = Container();
+        // }
 
         return productList;
       },

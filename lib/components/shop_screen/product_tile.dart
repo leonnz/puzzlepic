@@ -10,8 +10,8 @@ import '../_custom_widgets/custom_expansion_tile.dart';
 import 'purchase_alert.dart';
 import 'shop_buy_button.dart';
 
-class ImagePackShopTile extends StatelessWidget {
-  const ImagePackShopTile({
+class ProductTile extends StatelessWidget {
+  const ProductTile({
     Key key,
     this.imagePackProduct,
   }) : super(key: key);
