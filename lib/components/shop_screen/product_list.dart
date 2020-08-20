@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/device_provider.dart';
 import '../../providers/shop_provider.dart';
 import 'product_tile.dart';
 
@@ -10,6 +11,8 @@ class ProductList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
+
     List<ProductDetails> _sortedProducts() {
       final List<ProductDetails> sortedProductList = <ProductDetails>[];
       final ShopProvider shop = Provider.of<ShopProvider>(context, listen: false);
@@ -38,14 +41,20 @@ class ProductList extends StatelessWidget {
 
         if (fakeProductsList.isNotEmpty) {
           productList = Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: fakeProductsList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ProductTile(
-                  imagePackProduct: fakeProductsList[index],
-                );
-              },
+            child: Container(
+              width: deviceProvider.getUseMobileLayout
+                  ? double.infinity
+                  : MediaQuery.of(context).size.width * 2 / 3,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: fakeProductsList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ProductTile(
+                    imagePackProduct: fakeProductsList[index],
+                  );
+                },
+              ),
             ),
           );
         } else {

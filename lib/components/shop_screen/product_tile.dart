@@ -40,8 +40,7 @@ class ProductTile extends StatelessWidget {
         );
 
         return Container(
-          margin: const EdgeInsets.all(10),
-          width: double.infinity,
+          margin: const EdgeInsets.only(bottom: 5, top: 5, left: 10, right: 10),
           decoration: CustomElementTheme.shopButtonBoxDecoration(),
           child: CustomExpansionTile(
             trailing: purchased != null
@@ -57,6 +56,7 @@ class ProductTile extends StatelessWidget {
               imagePackProduct.title.substring(0, imagePackProduct.title.indexOf('(')),
             ),
             subtitle: purchased != null ? const Text('(purchased)') : null,
+            // subtitle: const Text('(purchased)'),
             backgroundColor: Colors.white,
             expandedAlignment: Alignment.centerLeft,
             childrenPadding: const EdgeInsets.only(top: 5, bottom: 16, left: 16, right: 16),

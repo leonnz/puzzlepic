@@ -65,35 +65,42 @@ class _ShopScreenState extends State<ShopScreen> {
                 ),
               ),
             ),
-            body: Stack(
-              children: <Widget>[
-                if (deviceProvider.getHasInternetConnection) ...<Widget>[
-                  Consumer<ShopProvider>(
-                    builder: (BuildContext context, ShopProvider value, Widget child) {
-                      return Column(
-                        children: const <Widget>[ProductList()],
-                      );
-                      // return shopProvider.getShopAvailable
-                      //     ? Column(
-                      //         children: const <Widget>[
-                      //           ProductList(),
-                      //         ],
-                      //       )
-                      //     : shopProvider.getTimedout
-                      //         ? const ShopErrorMessage(
-                      //             message: 'Problem connecting to store',
-                      //           )
-                      //         : const LoadingAnimation();
-                    },
-                  )
-                ] else ...<Widget>[
-                  const ShopErrorMessage(
-                    message: 'No Internet connection',
-                  ),
-                ],
-                const PurchaseMessage(),
-              ],
+            body: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[ProductList()],
+              ),
             ),
+
+            // Stack(
+            //   children: <Widget>[
+            //     if (deviceProvider.getHasInternetConnection) ...<Widget>[
+            //       Consumer<ShopProvider>(
+            //         builder: (BuildContext context, ShopProvider value, Widget child) {
+            //           return Column(
+            //             children: const <Widget>[ProductList()],
+            //           );
+            //           // return shopProvider.getShopAvailable
+            //           //     ? Column(
+            //           //         children: const <Widget>[
+            //           //           ProductList(),
+            //           //         ],
+            //           //       )
+            //           //     : shopProvider.getTimedout
+            //           //         ? const ShopErrorMessage(
+            //           //             message: 'Problem connecting to store',
+            //           //           )
+            //           //         : const LoadingAnimation();
+            //         },
+            //       )
+            //     ] else ...<Widget>[
+            //       const ShopErrorMessage(
+            //         message: 'No Internet connection',
+            //       ),
+            //     ],
+            //     const PurchaseMessage(),
+            //   ],
+            // ),
             bottomNavigationBar: shopProvider.getBannerAdLoaded
                 ? Container(
                     height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
