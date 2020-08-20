@@ -43,7 +43,7 @@ class PuzzlePicApp extends StatelessWidget {
           home: AnnotatedRegion<SystemUiOverlayStyle>(
               value: SystemUiOverlayStyle(
                 statusBarColor: Colors.black,
-                statusBarBrightness: Brightness.dark,
+                statusBarBrightness: Brightness.light,
                 systemNavigationBarColor: Colors.black,
                 systemNavigationBarIconBrightness: Brightness.light,
               ),
