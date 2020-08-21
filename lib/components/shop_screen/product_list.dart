@@ -30,14 +30,32 @@ class ProductList extends StatelessWidget {
 
     final List<ProductDetails> fakeProductsList = <ProductDetails>[];
 
-    for (int i = 1; i <= 10; i++) {
-      fakeProductsList.add(ProductDetails(
-          description: 'description', id: 'id $i', price: '\$1.99', title: 'title: $i (test)'));
-    }
+    // for (int i = 1; i <= 20; i++) {
+    //   fakeProductsList.add(ProductDetails(
+    //       description: 'description', id: 'id $i', price: '\$1.99', title: 'title: $i (test)'));
+    // }
+
+    // fakeProductsList.add(ProductDetails(
+    //     description: 'test product',
+    //     id: 'animals',
+    //     price: '\$1.99',
+    //     title: 'Animal Kingdom (Puzzle Pic)'));
+
+    // fakeProductsList.add(ProductDetails(
+    //     description: 'test product', id: 'art', price: '\$1.99', title: 'Art World (Puzzle Pic)'));
 
     return Consumer<ShopProvider>(
       builder: (BuildContext context, ShopProvider shop, Widget child) {
         Widget productList;
+
+        final List<ProductDetails> fakeProductsList = <ProductDetails>[];
+        for (final String product in shop.getAllProductIds) {
+          fakeProductsList.add(ProductDetails(
+              description: 'test product',
+              id: product,
+              price: '\$1.99',
+              title: '$product (Puzzle Pic)'));
+        }
 
         if (fakeProductsList.isNotEmpty) {
           productList = Expanded(
@@ -45,13 +63,15 @@ class ProductList extends StatelessWidget {
               width: deviceProvider.getUseMobileLayout
                   ? double.infinity
                   : MediaQuery.of(context).size.width * 2 / 3,
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 0),
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: fakeProductsList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ProductTile(
                     imagePackProduct: fakeProductsList[index],
+                    index: index,
+                    lastProduct: fakeProductsList.length,
                   );
                 },
               ),

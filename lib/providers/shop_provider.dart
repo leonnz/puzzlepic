@@ -57,6 +57,8 @@ class ShopProvider extends ChangeNotifier {
   bool get getShopAvailable => _shopAvailable;
   bool get getTimedout => _timeout;
   String get getRemoveAdProductId => _removeAdProductId;
+  List<String> get getAllProductIds => _productIds;
+
   List<ProductDetails> get getAllProducts => _allProducts;
   List<PurchaseDetails> get getPastPurchases => _pastPurchases;
   List<String> get getAvailableCategories => _availableCategories;

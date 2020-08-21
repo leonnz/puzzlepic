@@ -14,12 +14,18 @@ class ProductTile extends StatelessWidget {
   const ProductTile({
     Key key,
     this.imagePackProduct,
+    this.index,
+    this.lastProduct,
   }) : super(key: key);
 
   final ProductDetails imagePackProduct;
+  final int index;
+  final int lastProduct;
 
   @override
   Widget build(BuildContext context) {
+    print(index);
+    print(lastProduct);
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     Future<void> purchaseCallbackAlert(String title, String message) {
@@ -40,7 +46,11 @@ class ProductTile extends StatelessWidget {
         );
 
         return Container(
-          margin: const EdgeInsets.only(bottom: 5, top: 5, left: 10, right: 10),
+          margin: EdgeInsets.only(
+              bottom: index == lastProduct - 1 ? 10 : 5,
+              top: index == 0 ? 10 : 5,
+              left: 10,
+              right: 10),
           decoration: CustomElementTheme.shopButtonBoxDecoration(),
           child: CustomExpansionTile(
             trailing: purchased != null
@@ -71,12 +81,12 @@ class ProductTile extends StatelessWidget {
                   ],
                 ),
               ),
-              if (imagePackProduct.id != 'removeads') ...<Widget>[
+              if (imagePackProduct.id != shop.getRemoveAdProductId) ...<Widget>[
                 GridView.builder(
                   primary: false,
                   shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: deviceProvider.getUseMobileLayout ? 3 : 4,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                   ),
