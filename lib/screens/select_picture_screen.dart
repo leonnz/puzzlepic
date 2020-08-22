@@ -102,6 +102,7 @@ class _SelectPictureScreenState extends State<SelectPictureScreen> {
                     grid = Container(
                       padding: const EdgeInsets.all(10),
                       child: GridView.builder(
+                        key: const PageStorageKey<String>('selectPictureScreenSlidecontroller'),
                         shrinkWrap: true,
                         itemCount: images.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

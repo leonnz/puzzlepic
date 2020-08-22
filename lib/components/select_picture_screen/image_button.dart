@@ -58,6 +58,7 @@ class _ImageButtonState extends State<ImageButton> {
             builder: (BuildContext context) => const PuzzleScreen(),
           ),
         );
+
         // Refreshes the pictures to show complete ticks from database
         if (result) {
           widget.refreshPictureSelectScreen();
