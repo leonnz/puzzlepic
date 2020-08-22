@@ -99,28 +99,26 @@ class _SelectPictureScreenState extends State<SelectPictureScreen> {
                 Widget grid;
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
-                    grid = Container(
+                    grid = GridView.builder(
                       padding: const EdgeInsets.all(10),
-                      child: GridView.builder(
-                        key: const PageStorageKey<String>('selectPictureScreenGridView'),
-                        shrinkWrap: true,
-                        itemCount: images.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: deviceProvider.getGridSize,
-                          crossAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
-                          mainAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
-                        ),
-                        itemBuilder: (BuildContext context, int i) {
-                          return ImageButton(
-                            imageAssetName: images[i]['assetName'].toString(),
-                            imageReadableName: images[i]['readableName'].toString(),
-                            imageReadableFullName: images[i]['readableFullname'].toString(),
-                            imageTitle: images[i]['title'].toString(),
-                            complete: snapshot.data.contains(images[i]['readableName']),
-                            refreshPictureSelectScreen: refreshScreen,
-                          );
-                        },
+                      key: const PageStorageKey<String>('selectPictureScreenGridView'),
+                      shrinkWrap: true,
+                      itemCount: images.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: deviceProvider.getGridSize,
+                        crossAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
+                        mainAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
                       ),
+                      itemBuilder: (BuildContext context, int i) {
+                        return ImageButton(
+                          imageAssetName: images[i]['assetName'].toString(),
+                          imageReadableName: images[i]['readableName'].toString(),
+                          imageReadableFullName: images[i]['readableFullname'].toString(),
+                          imageTitle: images[i]['title'].toString(),
+                          complete: snapshot.data.contains(images[i]['readableName']),
+                          refreshPictureSelectScreen: refreshScreen,
+                        );
+                      },
                     );
                   }
                 } else {

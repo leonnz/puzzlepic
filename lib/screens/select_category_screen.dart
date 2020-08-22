@@ -84,22 +84,20 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
                   ),
                 ),
               ),
-              body: Container(
+              body: GridView.builder(
                 padding: const EdgeInsets.all(10),
-                child: GridView.builder(
-                  key: const PageStorageKey<String>('selectCategoryScreenGridView'),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: deviceProvider.getGridSize,
-                    crossAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
-                    mainAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
-                  ),
-                  itemCount: shopProvider.getAvailableCategories.length,
-                  itemBuilder: (BuildContext context, int i) {
-                    return CategoryButton(
-                      categoryName: shopProvider.getAvailableCategories[i],
-                    );
-                  },
+                key: const PageStorageKey<String>('selectCategoryScreenGridView'),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: deviceProvider.getGridSize,
+                  crossAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
+                  mainAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
                 ),
+                itemCount: shopProvider.getAvailableCategories.length,
+                itemBuilder: (BuildContext context, int i) {
+                  return CategoryButton(
+                    categoryName: shopProvider.getAvailableCategories[i],
+                  );
+                },
               ),
               bottomNavigationBar: shopProvider.getBannerAdLoaded
                   ? Container(
