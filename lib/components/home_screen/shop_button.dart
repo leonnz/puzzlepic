@@ -75,7 +75,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
         },
         onTapUp: _onTapUp,
         child: Padding(
-          padding: EdgeInsets.only(bottom: deviceProvider.getDeviceScreenHeight * 0.1),
+          padding: EdgeInsets.only(bottom: deviceProvider.getDeviceScreenHeight * 0.15),
           child: SlideTransition(
             position: _shopButtonSlideAnimation,
             child: Transform.scale(
