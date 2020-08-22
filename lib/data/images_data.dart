@@ -102,8 +102,8 @@ class Images {
       'categoryImages': <Map<String, String>>[
         <String, String>{
           'assetName': 'claude_monet',
-          'readableName': 'Claude Monet',
-          'readableFullname': null,
+          'readableName': 'Monet',
+          'readableFullname': 'Claude Monet',
           'title': 'The Bridge At Argenteuil (1874)',
         },
         <String, String>{
@@ -114,8 +114,8 @@ class Images {
         },
         <String, String>{
           'assetName': 'edgar_degas',
-          'readableName': 'Edgar Degas',
-          'readableFullname': null,
+          'readableName': 'Degas',
+          'readableFullname': 'Edgar Degas',
           'title': 'The False Start (Ca. 1869–72)',
         },
         <String, String>{
@@ -145,7 +145,7 @@ class Images {
         <String, String>{
           'assetName': 'rembrandt',
           'readableName': 'Rembrandt',
-          'readableFullname': null,
+          'readableFullname': 'Rembrandt',
           'title': 'Night Watch (1642)',
         },
         <String, String>{
@@ -601,7 +601,7 @@ class Images {
         <String, String>{
           'assetName': 'jellyfish',
           'readableName': 'Jellyfish',
-          'readablreadableFullnameeName': 'Jellyfish',
+          'readableFullname': 'Jellyfish',
           'title': '',
         },
         <String, String>{
