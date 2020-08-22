@@ -134,6 +134,7 @@ class ShopProvider extends ChangeNotifier {
 
   void addAvailableCategory({String category}) {
     _availableCategories.add(category);
+    _availableCategories.sort();
     notifyListeners();
   }
 
