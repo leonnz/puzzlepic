@@ -28,50 +28,57 @@ class ProductList extends StatelessWidget {
       return sortedProductList;
     }
 
-    final List<ProductDetails> fakeProductsList = <ProductDetails>[];
-
-    // for (int i = 1; i <= 20; i++) {
-    //   fakeProductsList.add(ProductDetails(
-    //       description: 'description', id: 'id $i', price: '\$1.99', title: 'title: $i (test)'));
-    // }
-
-    // fakeProductsList.add(ProductDetails(
-    //     description: 'test product',
-    //     id: 'animals',
-    //     price: '\$1.99',
-    //     title: 'Animal Kingdom (Puzzle Pic)'));
-
-    // fakeProductsList.add(ProductDetails(
-    //     description: 'test product', id: 'art', price: '\$1.99', title: 'Art World (Puzzle Pic)'));
-
     return Consumer<ShopProvider>(
       builder: (BuildContext context, ShopProvider shop, Widget child) {
         Widget productList;
 
-        final List<ProductDetails> fakeProductsList = <ProductDetails>[];
-        for (final String product in shop.getAllProductIds) {
-          fakeProductsList.add(ProductDetails(
-              description: 'test product',
-              id: product,
-              price: '\$1.99',
-              title: '$product (Puzzle Pic)'));
-        }
+        // DEV ONLY - Fake products
+        // final List<ProductDetails> fakeProductsList = <ProductDetails>[];
+        // for (final String product in shop.getAllProductIds) {
+        //   fakeProductsList.add(ProductDetails(
+        //       description: 'test product',
+        //       id: product,
+        //       price: '\$1.99',
+        //       title: '$product (Puzzle Pic)'));
+        // }
 
-        if (fakeProductsList.isNotEmpty) {
+        // if (fakeProductsList.isNotEmpty) {
+        //   productList = Expanded(
+        //     child: Container(
+        //       width: deviceProvider.getUseMobileLayout
+        //           ? double.infinity
+        //           : MediaQuery.of(context).size.width * 2 / 3,
+        //       child: ListView.builder(
+        //         shrinkWrap: true,
+        //         itemCount: fakeProductsList.length,
+        //         itemBuilder: (BuildContext context, int index) {
+        //           return ProductTile(
+        //             imagePackProduct: fakeProductsList[index],
+        //             index: index,
+        //             lastProduct: fakeProductsList.length,
+        //           );
+        //         },
+        //       ),
+        //     ),
+        //   );
+        // } else {
+        //   productList = Container();
+        // }
+
+        if (shop.getAllProducts.isNotEmpty) {
           productList = Expanded(
             child: Container(
               width: deviceProvider.getUseMobileLayout
                   ? double.infinity
                   : MediaQuery.of(context).size.width * 2 / 3,
-              padding: const EdgeInsets.symmetric(vertical: 0),
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: fakeProductsList.length,
+                itemCount: _sortedProducts().length,
                 itemBuilder: (BuildContext context, int index) {
                   return ProductTile(
-                    imagePackProduct: fakeProductsList[index],
+                    imagePackProduct: _sortedProducts()[index],
                     index: index,
-                    lastProduct: fakeProductsList.length,
+                    lastProduct: _sortedProducts().length,
                   );
                 },
               ),
@@ -80,22 +87,6 @@ class ProductList extends StatelessWidget {
         } else {
           productList = Container();
         }
-
-        // if (shop.getAllProducts.isNotEmpty) {
-        //   productList = Expanded(
-        //     child: ListView.builder(
-        //       shrinkWrap: true,
-        //       itemCount: _sortedProducts().length,
-        //       itemBuilder: (BuildContext context, int index) {
-        //         return ProductTile(
-        //           imagePackProduct: _sortedProducts()[index],
-        //         );
-        //       },
-        //     ),
-        //   );
-        // } else {
-        //   productList = Container();
-        // }
 
         return productList;
       },
