@@ -26,10 +26,9 @@ class ShopProvider extends ChangeNotifier {
   // ];
 
 //DEV ONLY - Test ad product
-  static const String _removeAdProductId = 'test_removeads';
-  // static const String _removeAdProductId = 'removeads';
+  // static const String _removeAdProductId = 'test_removeads';
+  static const String _removeAdProductId = 'removeads';
   static const List<String> _productIds = <String>[
-    'test_removeads',
     'removeads',
     'animals',
     'art',
@@ -39,9 +38,10 @@ class ShopProvider extends ChangeNotifier {
     'landscapes',
 
     /// Test IDs
-    'test18',
-    'test19',
-    'test20',
+    // 'test_removeads',
+    // 'test18',
+    // 'test19',
+    // 'test20',
   ];
 
   List<ProductDetails> _allProducts = <ProductDetails>[];
