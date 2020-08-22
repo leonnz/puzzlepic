@@ -87,6 +87,7 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
               body: Container(
                 padding: const EdgeInsets.all(10),
                 child: GridView.builder(
+                  key: const PageStorageKey<String>('selectCategoryScreenGridView'),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: deviceProvider.getGridSize,
                     crossAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
