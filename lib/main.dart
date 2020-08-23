@@ -14,14 +14,20 @@ void main() {
   runApp(PuzzlePicApp());
 }
 
-class PuzzlePicApp extends StatelessWidget {
+class PuzzlePicApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
+  _PuzzlePicAppState createState() => _PuzzlePicAppState();
+}
+
+class _PuzzlePicAppState extends State<PuzzlePicApp> {
+  @override
+  void initState() {
     DBProviderDb().database;
 
     ///DEV ONLY delete the database
     // final DBProviderDb dbProvider = DBProviderDb();
     // dbProvider.deleteDb();
+
     SystemChrome.setEnabledSystemUIOverlays(
         <SystemUiOverlay>[SystemUiOverlay.top, SystemUiOverlay.bottom]);
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
@@ -29,6 +35,11 @@ class PuzzlePicApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
 
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MultiProvider(
       providers: <ChangeNotifierProvider<ChangeNotifier>>[
         ChangeNotifierProvider<GameProvider>(create: (_) => GameProvider()),
