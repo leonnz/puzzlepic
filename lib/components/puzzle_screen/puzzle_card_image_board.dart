@@ -41,16 +41,20 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
     }
   }
 
-  List<ImagePiece> _generateImagePieces(
-      {int numberOfPieces, bool complete, GameProvider gameProvider}) {
+  List<ImagePiece> _generateImagePieces() {
+    final GameProvider gameProvider = Provider.of<GameProvider>(context);
     final List<ImagePiece> imagePieceList = <ImagePiece>[];
 
+    final int numOfpieces = gameProvider.getPuzzleComplete
+        ? gameProvider.getTotalGridSize
+        : gameProvider.getTotalGridSize - 1;
+
     // Always produce 1 less image piece that the grid size
-    for (int i = 1; i <= numberOfPieces; i++) {
+    for (int i = 1; i <= numOfpieces; i++) {
       imagePieceList.add(
         ImagePiece(
           pieceNumber: i,
-          lastPiece: complete,
+          lastPiece: gameProvider.getPuzzleComplete,
           interstitialAd: _interstitialAd,
           isInterstitialAdReady: _isInterstitialAdReady,
         ),
@@ -94,7 +98,7 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
 
   @override
   Widget build(BuildContext context) {
-    final GameProvider gameProvider = Provider.of<GameProvider>(context);
+    final GameProvider gameProvider = Provider.of<GameProvider>(context, listen: false);
 
     return ChangeNotifierProvider<ImagePieceProvider>(
       create: (BuildContext context) => ImagePieceProvider(),
@@ -105,13 +109,7 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
           height: gameProvider.getScreenWidth,
           color: Colors.grey,
           child: Stack(
-            children: _generateImagePieces(
-              numberOfPieces: gameProvider.getPuzzleComplete
-                  ? gameProvider.getTotalGridSize
-                  : gameProvider.getTotalGridSize - 1,
-              complete: gameProvider.getPuzzleComplete,
-              gameProvider: gameProvider,
-            ),
+            children: _generateImagePieces(),
           ),
         ),
       ),
