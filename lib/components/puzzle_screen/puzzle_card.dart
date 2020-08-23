@@ -14,8 +14,9 @@ class PuzzleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GameProvider gameProvider = Provider.of<GameProvider>(context);
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    print('what about this');
+    final GameProvider gameProvider = Provider.of<GameProvider>(context, listen: false);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
 
     return Container(
       width: gameProvider.getScreenWidth + 20,
