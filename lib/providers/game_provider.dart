@@ -41,12 +41,10 @@ class GameProvider with ChangeNotifier {
       final List<Map<String, dynamic>> existingRecord =
           await dbProvider.getSingleRecord(puzzleName: _imageReadableName);
       final int existingRecordBestMoves = existingRecord[0]['bestMoves'] as int;
-
       setBestMoves(moves: existingRecordBestMoves);
 
       // Update the record if the current moves is less than existing record best moves.
       if (_moves < existingRecordBestMoves) {
-        setBestMoves(moves: _moves);
         dbProvider.updateRecord(moves: _moves, puzzleName: _imageReadableName);
       }
     } else {
