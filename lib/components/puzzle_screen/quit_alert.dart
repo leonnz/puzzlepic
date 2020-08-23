@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
-import '../../providers/game_provider.dart';
 import '../../styles/text_theme.dart';
 
 class QuitAlert extends StatelessWidget {
@@ -12,8 +11,7 @@ class QuitAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GameProvider gameProvider = Provider.of<GameProvider>(context);
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
 
     return AlertDialog(
       title: const Text(
@@ -52,7 +50,6 @@ class QuitAlert extends StatelessWidget {
                 textColor: const Color(0xff501E5D),
                 onPressed: () {
                   deviceProvider.playSound(sound: 'fast_click.wav');
-                  gameProvider.resetGameState();
                   Navigator.pop(context, true);
                 },
                 child: Text(
