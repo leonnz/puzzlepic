@@ -26,10 +26,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<AssetImage> imagesToPrecache;
-  bool precacheImagesCompleted;
+  List<AssetImage> _imagesToPrecache;
+  bool _precacheImagesCompleted;
 
-  void checkRemoveAdsPurchased(
+  void _checkRemoveAdsPurchased(
       {bool shopAvailable, ShopProvider shopProvider, DeviceProvider deviceProvider}) {
     if (shopAvailable) {
       final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
     // shopProvider.showBannerAd(useMobile: deviceProvider.getUseMobileLayout);
   }
 
-  Future<void> checkShopAvailability(
+  Future<void> _checkShopAvailability(
       {DeviceProvider deviceProvider, ShopProvider shopProvider}) async {
     try {
       final List<InternetAddress> result = await InternetAddress.lookup('example.com');
@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
         await _initAdMob().then((_) {}, onError: (void error) => null);
         final bool shopAvailable = await shopProvider.initialize();
 
-        checkRemoveAdsPurchased(
+        _checkRemoveAdsPurchased(
             shopAvailable: shopAvailable,
             shopProvider: shopProvider,
             deviceProvider: deviceProvider);
@@ -65,8 +65,8 @@ class _HomeState extends State<Home> {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
   }
 
-  void addImagestoCache() {
-    imagesToPrecache = <AssetImage>[
+  void _addImagestoCache() {
+    _imagesToPrecache = <AssetImage>[
       const AssetImage('assets/images/background.png'),
       const AssetImage('assets/images/_polaroids/polaroid_eiffel_tower.jpg'),
       const AssetImage('assets/images/_polaroids/polaroid_daisies.jpg'),
@@ -77,27 +77,27 @@ class _HomeState extends State<Home> {
     ];
 
     for (final Map<String, dynamic> imageCategory in Images.imageList) {
-      imagesToPrecache.add(
+      _imagesToPrecache.add(
         AssetImage('assets/images/_categories/${imageCategory["categoryName"]}_cat.png'),
       );
-      imagesToPrecache.add(
+      _imagesToPrecache.add(
         AssetImage('assets/images/_categories/${imageCategory["categoryName"]}_banner.png'),
       );
 
       for (final Map<String, dynamic> image in List<Map<String, dynamic>>.from(
           imageCategory['categoryImages'] as Iterable<dynamic>)) {
-        imagesToPrecache.add(AssetImage(
+        _imagesToPrecache.add(AssetImage(
             'assets/images/${imageCategory['categoryName']}/${image['assetName']}_full_mini.jpg'));
       }
     }
   }
 
-  void cacheImages() {
-    for (int i = 0; i < imagesToPrecache.length; i++) {
-      precacheImage(imagesToPrecache[i], context).then((_) {
-        if (i == imagesToPrecache.length - 1) {
+  void _cacheImages() {
+    for (int i = 0; i < _imagesToPrecache.length; i++) {
+      precacheImage(_imagesToPrecache[i], context).then((_) {
+        if (i == _imagesToPrecache.length - 1) {
           setState(() {
-            precacheImagesCompleted = true;
+            _precacheImagesCompleted = true;
           });
         }
       });
@@ -108,19 +108,18 @@ class _HomeState extends State<Home> {
   void initState() {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+    _precacheImagesCompleted = false;
 
     deviceProvider.setAudioCache(audioCache: AudioCache(prefix: 'audio/'));
-    precacheImagesCompleted = false;
-    addImagestoCache();
-
-    checkShopAvailability(deviceProvider: deviceProvider, shopProvider: shopProvider);
+    _addImagestoCache();
+    _checkShopAvailability(deviceProvider: deviceProvider, shopProvider: shopProvider);
 
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    cacheImages();
+    _cacheImages();
     super.didChangeDependencies();
   }
 
@@ -139,7 +138,7 @@ class _HomeState extends State<Home> {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
-          body: precacheImagesCompleted ? const HomeScreenStack() : const LoadingAnimation(),
+          body: _precacheImagesCompleted ? const HomeScreenStack() : const LoadingAnimation(),
         ),
       ),
     );
