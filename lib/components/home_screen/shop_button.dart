@@ -20,6 +20,15 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
   AnimationController _shopButtonBounceController;
   Animation<Offset> _shopButtonSlideAnimation;
 
+  void _onTapUp(TapUpDetails details) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<bool>(
+        builder: (BuildContext context) => ShopScreen(),
+      ),
+    );
+  }
+
   @override
   void initState() {
     _shopButtonBounceController = AnimationController(
@@ -50,15 +59,6 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
   void dispose() {
     _shopButtonBounceController.dispose();
     super.dispose();
-  }
-
-  void _onTapUp(TapUpDetails details) {
-    Navigator.push(
-      context,
-      MaterialPageRoute<bool>(
-        builder: (BuildContext context) => ShopScreen(),
-      ),
-    );
   }
 
   @override
