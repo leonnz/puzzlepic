@@ -1,21 +1,22 @@
 import 'dart:async';
-import 'dart:math' as math;
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:audioplayers/audio_cache.dart';
 
-import '../providers/game_provider.dart';
-import '../providers/device_provider.dart';
 import '../ad_manager.dart';
+import '../components/_shared/loading_animation.dart';
+
+import '../components/home_screen/home_screen_stack.dart';
 import '../data/images_data.dart';
-import '../components/polaroid.dart';
-import '../components/puzzle_pic_logo.dart';
-import '../components/buttons/play_button.dart';
-import '../components/buttons/mute_button.dart';
+import '../providers/device_provider.dart';
+import '../providers/game_provider.dart';
+import '../providers/shop_provider.dart';
+import '../styles/element_theme.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -24,84 +25,75 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
+class _HomeState extends State<Home> {
   List<AssetImage> imagesToPrecache;
   bool precacheImagesCompleted;
 
-  AnimationController _polaroidSlideController;
-  AnimationController _playButtonSlideController;
-  AnimationController _puzzlePicSlideController;
+  void checkRemoveAdsPurchased(
+      {bool shopAvailable, ShopProvider shopProvider, DeviceProvider deviceProvider}) {
+    if (shopAvailable) {
+      final PurchaseDetails adPurchased = shopProvider.getPastPurchases.firstWhere(
+        (PurchaseDetails purchase) => purchase.productID == shopProvider.getRemoveAdProductId,
+        orElse: () => null,
+      );
+      if (adPurchased == null) {
+        shopProvider.showBannerAd(useMobile: deviceProvider.getUseMobileLayout);
+      }
+    }
+    // Dev only
+    // shopProvider.showBannerAd(useMobile: deviceProvider.getUseMobileLayout);
+  }
 
-  AudioCache _audioCache;
+  Future<void> checkShopAvailability(
+      {DeviceProvider deviceProvider, ShopProvider shopProvider}) async {
+    try {
+      final List<InternetAddress> result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        deviceProvider.setHasInternetConnection(connection: true);
+        await _initAdMob().then((_) {}, onError: (void error) => null);
+        final bool shopAvailable = await shopProvider.initialize();
+
+        checkRemoveAdsPurchased(
+            shopAvailable: shopAvailable,
+            shopProvider: shopProvider,
+            deviceProvider: deviceProvider);
+      }
+    } on SocketException catch (_) {}
+  }
 
   Future<void> _initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
   }
 
-  @override
-  void initState() {
-    _audioCache = AudioCache(prefix: 'audio/');
-
-    precacheImagesCompleted = false;
-    imagesToPrecache = [
-      AssetImage('assets/images/background.png'),
-      AssetImage('assets/images/_categories/_categories_banner.png'),
-      AssetImage('assets/images/_polaroids/polaroid_eiffel_tower.jpg'),
-      AssetImage('assets/images/_polaroids/polaroid_daisies.jpg'),
-      AssetImage('assets/images/_polaroids/polaroid_sea_turtle.jpg'),
-      AssetImage('assets/images/_polaroids/polaroid_taj_mahal.jpg'),
-      AssetImage('assets/images/_polaroids/polaroid_pyramids.jpg'),
-      AssetImage('assets/images/_polaroids/polaroid_grand_canyon.jpg'),
+  void addImagestoCache() {
+    imagesToPrecache = <AssetImage>[
+      const AssetImage('assets/images/background.png'),
+      const AssetImage('assets/images/_polaroids/polaroid_eiffel_tower.jpg'),
+      const AssetImage('assets/images/_polaroids/polaroid_daisies.jpg'),
+      const AssetImage('assets/images/_polaroids/polaroid_sea_turtle.jpg'),
+      const AssetImage('assets/images/_polaroids/polaroid_taj_mahal.jpg'),
+      const AssetImage('assets/images/_polaroids/polaroid_pyramids.jpg'),
+      const AssetImage('assets/images/_polaroids/polaroid_grand_canyon.jpg'),
     ];
 
-    Images.imageList.forEach((imageCategory) {
-      // Category images
+    for (final Map<String, dynamic> imageCategory in Images.imageList) {
       imagesToPrecache.add(
-        AssetImage(
-            'assets/images/_categories/${imageCategory["categoryName"]}_cat.png'),
+        AssetImage('assets/images/_categories/${imageCategory["categoryName"]}_cat.png'),
       );
-      // Category banners
       imagesToPrecache.add(
-        AssetImage(
-            'assets/images/_categories/${imageCategory["categoryName"]}_banner.png'),
+        AssetImage('assets/images/_categories/${imageCategory["categoryName"]}_banner.png'),
       );
 
-      // Select picture screen thumbnails
-      List<dynamic>.from(imageCategory['categoryImages']).forEach((image) {
+      for (final Map<String, dynamic> image in List<Map<String, dynamic>>.from(
+          imageCategory['categoryImages'] as Iterable<dynamic>)) {
         imagesToPrecache.add(AssetImage(
             'assets/images/${imageCategory['categoryName']}/${image['assetName']}_full_mini.jpg'));
-      });
-    });
-
-    _polaroidSlideController = AnimationController(
-      duration: const Duration(milliseconds: 500),
-      vsync: this,
-    );
-
-    _playButtonSlideController = AnimationController(
-      duration: const Duration(milliseconds: 350),
-      vsync: this,
-    );
-
-    _puzzlePicSlideController = AnimationController(
-      duration: const Duration(milliseconds: 350),
-      vsync: this,
-    );
-
-    super.initState();
+      }
+    }
   }
 
-  @override
-  void dispose() {
-    _playButtonSlideController.dispose();
-    _puzzlePicSlideController.dispose();
-    _polaroidSlideController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    for (var i = 0; i < imagesToPrecache.length; i++) {
+  void cacheImages() {
+    for (int i = 0; i < imagesToPrecache.length; i++) {
       precacheImage(imagesToPrecache[i], context).then((_) {
         if (i == imagesToPrecache.length - 1) {
           setState(() {
@@ -110,116 +102,45 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         }
       });
     }
+  }
 
+  @override
+  void initState() {
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+
+    deviceProvider.setAudioCache(audioCache: AudioCache(prefix: 'audio/'));
+    precacheImagesCompleted = false;
+    addImagestoCache();
+
+    checkShopAvailability(deviceProvider: deviceProvider, shopProvider: shopProvider);
+
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    cacheImages();
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    final double shortestSide = MediaQuery.of(context).size.shortestSide;
-    final bool useMobileLayout = shortestSide < 600;
-    final double deviceHeight = MediaQuery.of(context).size.height;
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
-    GameProvider gameProvider = Provider.of<GameProvider>(context);
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    DeviceProvider.deviceScreenHeight = MediaQuery.of(context).size.height;
+    GameProvider.screenWidth = MediaQuery.of(context).size.width - 20;
 
-    gameProvider.setScreenWidth(width: MediaQuery.of(context).size.width - 20);
-
+    final bool useMobileLayout = MediaQuery.of(context).size.shortestSide < 600;
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
-    deviceProvider.setDeviceScreenHeight(height: deviceHeight);
-    deviceProvider.setAudioCache(audioCache: _audioCache);
-
-    // var w = MediaQuery.of(context).size.width;
-    // var h = MediaQuery.of(context).size.height;
-    // print("width: $w height:$h");
 
     return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage('assets/images/background.png'),
+      decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+          body: precacheImagesCompleted ? const HomeScreenStack() : const LoadingAnimation(),
         ),
-      ),
-      child: Scaffold(
-        backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
-        body: precacheImagesCompleted
-            ? Stack(
-                children: <Widget>[
-                  Polaroid(
-                    polaroidSlideController: _polaroidSlideController,
-                    alignment: Alignment.bottomRight,
-                    angle: math.pi / 6,
-                    beginPosition: Offset(1, 1),
-                    endPosition: Offset(0.3, 0),
-                    image: "grand_canyon",
-                    startInterval: 0.4,
-                  ),
-                  Polaroid(
-                    polaroidSlideController: _polaroidSlideController,
-                    alignment: Alignment.bottomLeft,
-                    angle: -math.pi / 10,
-                    beginPosition: Offset(-1.5, 1.5),
-                    endPosition: Offset(-0.2, 0.1),
-                    image: "pyramids",
-                    startInterval: 0.2,
-                  ),
-                  Polaroid(
-                    polaroidSlideController: _polaroidSlideController,
-                    alignment: Alignment.topLeft,
-                    angle: -math.pi / 6,
-                    beginPosition: Offset(-1, -1),
-                    endPosition: Offset(0, 0),
-                    image: "daisies",
-                    startInterval: 0.1,
-                  ),
-                  Polaroid(
-                    polaroidSlideController: _polaroidSlideController,
-                    alignment: Alignment.centerLeft,
-                    angle: math.pi / 7,
-                    beginPosition: Offset(-1.5, 0),
-                    endPosition: Offset(0, 0),
-                    image: "sea_turtle",
-                    startInterval: 0.3,
-                  ),
-                  Polaroid(
-                    polaroidSlideController: _polaroidSlideController,
-                    alignment: Alignment.centerRight,
-                    angle: -math.pi / 9,
-                    beginPosition: Offset(1.5, 0),
-                    endPosition: Offset(0.2, 0),
-                    image: "taj_mahal",
-                    startInterval: 0.1,
-                  ),
-                  Polaroid(
-                    polaroidSlideController: _polaroidSlideController,
-                    alignment: Alignment.topRight,
-                    angle: math.pi / 8,
-                    beginPosition: Offset(1.5, -1),
-                    endPosition: Offset(0.2, -0.2),
-                    image: "eiffel_tower",
-                    startInterval: 0.3,
-                  ),
-                  MuteButton(),
-                  PlayButton(
-                    playButtonSlideController: _playButtonSlideController,
-                    puzzlePicSlideController: _puzzlePicSlideController,
-                    polaroidSlideController: _polaroidSlideController,
-                    buttonText: 'Play!',
-                  ),
-                  PuzzlePicLogo(
-                    puzzlePicSlideController: _puzzlePicSlideController,
-                  ),
-                ],
-              )
-            : Container(
-                color: Colors.white,
-                child: Center(
-                  child: SpinKitFadingFour(
-                    color: Colors.purple,
-                    size: deviceProvider.getUseMobileLayout ? 50 : 80,
-                  ),
-                ),
-              ),
       ),
     );
   }

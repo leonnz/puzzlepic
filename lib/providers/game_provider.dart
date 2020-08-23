@@ -2,53 +2,53 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 class GameProvider with ChangeNotifier {
-  static bool _puzzleComplete = false;
+  static bool puzzleComplete = false;
   static Map<String, String> _image;
-  static List<Map<String, dynamic>> _piecePositions = [];
-  static double _screenWidth;
-  static int _gridColumns = 4;
-  static int _totalGridSize = 16;
-  static double _singlePieceWidth = _screenWidth / _gridColumns;
+  static List<Map<String, dynamic>> _piecePositions = <Map<String, dynamic>>[];
+  static double screenWidth;
+  static const int _gridColumns = 4;
+  static const int _totalGridSize = 16;
+  static final double _singlePieceWidth = screenWidth / _gridColumns;
 
-  static int _blankSquare = _totalGridSize;
+  static int blankSquare = _totalGridSize;
   static int _moves = 0;
   static int _bestMoves;
   static List<int> _gridPositions;
 
-  // Selected puzzle data
-  static String _imageCategory;
-  static String _assetName;
-  static String _readableName;
-  static String _readableFullname;
-  static String _title;
+  static String _imageCategoryAssetName;
+  static String _imageCategoryReadableName;
+  static String _imageAssetName;
+  static String _imageReadableName;
+  static String _imageReadableFullname;
+  static String _imageTitle;
 
-  String get getImageCategory => _imageCategory;
-  String get getAssetName => _assetName;
-  String get getReadableName => _readableName;
-  String get getReadableFullname => _readableFullname;
-  String get getTitle => _title;
+  String get getImageCategoryAssetName => _imageCategoryAssetName;
+  String get getImageCategoryReadableName => _imageCategoryReadableName;
+  String get getImageAssetName => _imageAssetName;
+  String get getImageReadableName => _imageReadableName;
+  String get getImageReadableFullname => _imageReadableFullname;
+  String get getImageTitle => _imageTitle;
 
-  void setImageData({
-    String category,
-    String assetName,
-    String readableName,
-    String readableFullname,
-    String title,
-  }) {
-    _imageCategory = category;
-    _assetName = assetName;
-    _readableName = readableName;
-    _readableFullname = readableFullname;
-    _title = title;
+  void setSelectedCategory({String assetName, String readableName}) {
+    _imageCategoryAssetName = assetName;
+    _imageCategoryReadableName = readableName;
   }
 
-  bool get getPuzzleComplete => _puzzleComplete;
+  void setImageData(
+      {String assetName, String readableName, String readableFullname, String title}) {
+    _imageAssetName = assetName;
+    _imageReadableName = readableName;
+    _imageReadableFullname = readableFullname;
+    _imageTitle = title;
+  }
+
+  bool get getPuzzleComplete => puzzleComplete;
   Map<String, String> get getImage => _image;
   List<Map<String, dynamic>> get getPiecePositions => _piecePositions;
-  double get getScreenWidth => _screenWidth;
+  double get getScreenWidth => screenWidth;
   double get getSinglePieceWidth => _singlePieceWidth;
   int get getTotalGridSize => _totalGridSize;
-  int get getBlankSquare => _blankSquare;
+  int get getBlankSquare => blankSquare;
   int get getGridColumns => _gridColumns;
   int get getMoves => _moves;
   int get getBestMoves => _bestMoves;
@@ -69,77 +69,61 @@ class GameProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setPuzzleComplete(bool complete) {
-    _puzzleComplete = complete;
-  }
-
   void resetPiecePositions() {
-    _piecePositions = [];
-    setBlankSquare(_totalGridSize);
+    _piecePositions = <Map<String, dynamic>>[];
+    blankSquare = _totalGridSize;
   }
 
   void setGridPositions() {
-    _gridPositions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+    _gridPositions = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   }
 
-  void setScreenWidth({double width}) {
-    _screenWidth = width;
-  }
-
-  // Check if the piece number matches its position
   void checkComplete() {
-    var matching = getPiecePositions
-        .map((piece) => piece['pieceNumber'] == piece['gridPosition']);
+    final Iterable<bool> matching = getPiecePositions
+        .map((Map<String, dynamic> piece) => piece['pieceNumber'] == piece['gridPosition']);
     if (matching.contains(false)) {
-      setPuzzleComplete(false);
+      puzzleComplete = false;
     } else {
-      setPuzzleComplete(true);
+      puzzleComplete = true;
     }
   }
 
   void resetGameState() {
-    setPuzzleComplete(false);
+    puzzleComplete = false;
     resetPiecePositions();
     resetMoves();
   }
 
   void setInitialPuzzlePiecePosition(int pieceNumber) {
-    Map<String, dynamic> imgPiece = new Map();
-
-    List<int> allocatedGridPositions = [];
-
-    getPiecePositions.forEach((piece) {
-      allocatedGridPositions.add(piece['gridPosition']);
-    });
+    final Map<String, dynamic> imgPiece = <String, dynamic>{};
 
     int getRandomGridPosition(int min, int max) {
-      final _random = new Random();
-      int randomPositionIndex = min + _random.nextInt(max - min);
-      int randomNumber = _gridPositions[randomPositionIndex];
+      final Random _random = Random();
+      final int randomPositionIndex = min + _random.nextInt(max - min);
+      final int randomNumber = _gridPositions[randomPositionIndex];
 
       _gridPositions.removeAt(randomPositionIndex);
 
       return randomNumber;
     }
 
+    // DEV ONLY pieces are already in right position
     imgPiece['pieceNumber'] = pieceNumber;
     imgPiece['gridPosition'] = pieceNumber;
-    imgPiece['leftPosition'] =
-        setStartingLeftPosition(imgPiece['gridPosition']);
-    imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition']);
+    imgPiece['leftPosition'] = setStartingLeftPosition(imgPiece['gridPosition'] as int);
+    imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition'] as int);
 
     // imgPiece['pieceNumber'] = pieceNumber;
     // imgPiece['gridPosition'] = getRandomGridPosition(0, _gridPositions.length);
-    // imgPiece['leftPosition'] =
-    //     setStartingLeftPosition(imgPiece['gridPosition']);
-    // imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition']);
+    // imgPiece['leftPosition'] = setStartingLeftPosition(imgPiece['gridPosition'] as int);
+    // imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition'] as int);
 
     getPiecePositions.add(imgPiece);
   }
 
   double setStartingLeftPosition(int pieceNumber) {
     double leftPosition;
-    int modulo = pieceNumber % getGridColumns;
+    final int modulo = pieceNumber % getGridColumns;
     if (modulo == 0) {
       leftPosition = getSinglePieceWidth * (getGridColumns - 1);
     } else if (modulo == 1) {
@@ -159,23 +143,16 @@ class GameProvider with ChangeNotifier {
     double topPosition;
     if (pieceNumber <= getGridColumns) {
       topPosition = 0;
-    } else if (pieceNumber > getGridColumns &&
-        pieceNumber <= (getGridColumns * 2)) {
+    } else if (pieceNumber <= (getGridColumns * 2)) {
       topPosition = getSinglePieceWidth;
-    } else if (pieceNumber > (getGridColumns * 2) &&
-        pieceNumber <= (getGridColumns * 3)) {
+    } else if (pieceNumber <= (getGridColumns * 3)) {
       topPosition = getSinglePieceWidth * 2;
-    } else if (pieceNumber > (getGridColumns * 3) &&
-        pieceNumber <= (getGridColumns * 4)) {
+    } else if (pieceNumber <= (getGridColumns * 4)) {
       topPosition = getSinglePieceWidth * 3;
     } else {
       topPosition = getSinglePieceWidth * 4;
     }
 
     return topPosition;
-  }
-
-  void setBlankSquare(int squareNumber) {
-    _blankSquare = squareNumber;
   }
 }

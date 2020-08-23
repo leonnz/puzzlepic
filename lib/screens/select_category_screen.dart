@@ -1,50 +1,55 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 
-import '../components/buttons/category_button.dart';
-import '../data/images_data.dart';
+import '../components/_shared/appbar_leading_button.dart';
+import '../components/select_category_screen/categories_screen_shop_button.dart';
+import '../components/select_category_screen/category_button.dart';
+import '../data/db_provider.dart';
 import '../providers/device_provider.dart';
-import '../styles/customStyles.dart';
-import '../ad_manager.dart';
+import '../providers/shop_provider.dart';
+import '../styles/element_theme.dart';
+import '../styles/text_theme.dart';
 
-class SelectCategory extends StatefulWidget {
-  const SelectCategory({Key key}) : super(key: key);
+class SelectCategoryScreen extends StatefulWidget {
+  const SelectCategoryScreen({Key key}) : super(key: key);
 
   @override
-  _SelectCategoryState createState() => _SelectCategoryState();
+  _SelectCategoryScreenState createState() => _SelectCategoryScreenState();
 }
 
-class _SelectCategoryState extends State<SelectCategory> {
-  BannerAd _bannerAd;
-
-  void _loadBannerAd() {
-    _bannerAd
-      ..load()
-      ..show(anchorType: AnchorType.bottom);
-  }
-
+class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
   @override
   void initState() {
-    _bannerAd = BannerAd(
-      adUnitId: AdManager.bannerAdUnitId,
-      size: AdSize.fullBanner,
-    );
-    _loadBannerAd();
+    final DBProviderDb dbProvider = DBProviderDb();
+
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
+
+    dbProvider.getPurchasedCategories().then((List<String> listOfCategories) {
+      print('Purchases length ${listOfCategories.length}');
+
+      if (listOfCategories.isNotEmpty) {
+        for (final String category in listOfCategories) {
+          print(category);
+          if (!shopProvider.getAvailableCategories.contains(category)) {
+            shopProvider.addAvailableCategory(category: category);
+          }
+        }
+      }
+    });
+
     super.initState();
   }
 
   @override
   void dispose() {
-    _bannerAd?.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
 
     return WillPopScope(
       onWillPop: () async {
@@ -52,78 +57,54 @@ class _SelectCategoryState extends State<SelectCategory> {
         return true;
       },
       child: GestureDetector(
-        onPanUpdate: (details) {
+        onPanUpdate: (DragUpdateDetails details) {
           if (details.delta.dx > 0) {
             Navigator.pop(context, true);
           }
         },
         child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage('assets/images/background.png'),
-            ),
-          ),
-          child: Scaffold(
-            backgroundColor: Color.fromRGBO(255, 255, 255, 0.7),
-            appBar: PreferredSize(
-              preferredSize:
-                  Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                        'assets/images/_categories/_categories_banner.png'),
-                    fit: BoxFit.cover,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black45,
-                      blurRadius: 5.0,
-                      offset: Offset(0.0, 3.0),
-                    ),
-                  ],
-                ),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: IconButton(
-                        iconSize: deviceProvider.getUseMobileLayout ? 25 : 50,
-                        icon: Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          deviceProvider.playSound(sound: 'fast_click.wav');
-                          Navigator.pop(context, true);
-                        },
+          decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
+          child: SafeArea(
+            child: Scaffold(
+              backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
+                child: Container(
+                  decoration: CustomElementTheme.categoryScreenAppBarBoxDecoration(),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      const AppBarLeadingButton(icon: Icons.arrow_back_ios),
+                      Text(
+                        'Categories',
+                        style: CustomTextTheme.selectScreenTitleTextStyle(context),
                       ),
-                    ),
-                    Text(
-                      'Categories',
-                      style: CustomTextTheme(deviceProvider: deviceProvider)
-                          .selectScreenTitleTextStyle(context),
-                    ),
-                  ],
+                      const CategoryShopButton(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            body: Container(
-              padding: EdgeInsets.all(10),
-              child: GridView.builder(
+              body: GridView.builder(
+                padding: const EdgeInsets.all(10),
+                key: const PageStorageKey<String>('selectCategoryScreenGridView'),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: deviceProvider.getGridSize,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+                  crossAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
+                  mainAxisSpacing: deviceProvider.getUseMobileLayout ? 5 : 10,
                 ),
-                itemCount: Images.imageList.length,
+                itemCount: shopProvider.getAvailableCategories.length,
                 itemBuilder: (BuildContext context, int i) {
                   return CategoryButton(
-                    categoryName: Images.imageList[i]["categoryName"],
-                    categoryReadableName: Images.imageList[i]
-                        ["categoryReadableName"],
+                    categoryName: shopProvider.getAvailableCategories[i],
                   );
                 },
               ),
+              bottomNavigationBar: shopProvider.getBannerAdLoaded
+                  ? Container(
+                      height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
+                      color: Colors.white,
+                    )
+                  : null,
             ),
           ),
         ),

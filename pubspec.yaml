@@ -11,14 +11,17 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.2.4+16
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  # sdk: ">=2.1.0 <3.0.0"
+  # sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.6.0 <3.13.2"
 
 dependencies:
   flutter:
     sdk: flutter
+  lint: ^1.2.0
   provider: ^4.1.3
   google_fonts: ^1.1.0
   audioplayers: ^0.15.1
@@ -38,9 +41,9 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "dev_assets/puzzlepic_icon.png"
+  image_path: "dev_assets/icon.png"
   adaptive_icon_background: "#FFFFFF"
-  adaptive_icon_foreground: "dev_assets/puzzlepic_adaptive_icon.png"
+  adaptive_icon_foreground: "dev_assets/icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -138,9 +141,9 @@ flutter:
     - assets/images/foods/tacos/
     - assets/images/landscapes/
     - assets/images/landscapes/baobab/
+    - assets/images/landscapes/grand_canyon/
     - assets/images/landscapes/highlands/
     - assets/images/landscapes/lake_tahoe/
-    - assets/images/landscapes/lake_wakatipu/
     - assets/images/landscapes/monument_valley/
     - assets/images/landscapes/moraine_lake/
     - assets/images/landscapes/piedmont/
@@ -149,14 +152,6 @@ flutter:
     - assets/images/landscapes/sahara_desert/
     - assets/images/landscapes/wulingyuan/
     - assets/images/landscapes/yellowstone/
-    - assets/images/natural_wonders/
-    - assets/images/natural_wonders/aurora_borealis/
-    - assets/images/natural_wonders/grand_canyon/
-    - assets/images/natural_wonders/great_barrier_reef/
-    - assets/images/natural_wonders/guanabara_bay/
-    - assets/images/natural_wonders/mount_everest/
-    - assets/images/natural_wonders/victoria_falls/
-    - assets/images/sports/
     - assets/images/under_the_sea/
     - assets/images/under_the_sea/clown_fish/
     - assets/images/under_the_sea/coral_reef/

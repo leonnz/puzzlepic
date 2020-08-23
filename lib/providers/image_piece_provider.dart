@@ -1,21 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import '../data/image_piece_config.dart';
+import '../providers/game_provider.dart';
 
 class ImagePieceProvider with ChangeNotifier {
   double getLeftPosition({
     int pieceNumber,
     List<Map<String, dynamic>> piecePositions,
   }) {
-    return piecePositions.firstWhere(
-        (imgPiece) => imgPiece['pieceNumber'] == pieceNumber)['leftPosition'];
+    return piecePositions.firstWhere((Map<String, dynamic> imgPiece) =>
+        imgPiece['pieceNumber'] == pieceNumber)['leftPosition'] as double;
   }
 
   double getTopPosition({
     int pieceNumber,
     List<Map<String, dynamic>> piecePositions,
   }) {
-    return piecePositions.firstWhere(
-        (imgPiece) => imgPiece['pieceNumber'] == pieceNumber)['topPosition'];
+    return piecePositions.firstWhere((Map<String, dynamic> imgPiece) =>
+        imgPiece['pieceNumber'] == pieceNumber)['topPosition'] as double;
   }
 
   bool draggable({
@@ -25,25 +26,26 @@ class ImagePieceProvider with ChangeNotifier {
     List<Map<String, dynamic>> piecePositions,
     int blankSquare,
   }) {
-    int gridSize = 16;
-    int gridSideSize = 4;
+    const int gridSize = 16;
+    const int gridSideSize = 4;
     String direction;
     if (xDistance > 0.0) {
-      direction = "right";
+      direction = 'right';
     } else if (xDistance < 0.0) {
-      direction = "left";
+      direction = 'left';
     } else if (yDistance > 0.0) {
-      direction = "down";
+      direction = 'down';
     } else if (yDistance < 0.0) {
-      direction = "up";
+      direction = 'up';
     }
 
-    List<int> draggableSquares = [];
+    final List<int> draggableSquares = <int>[];
 
-    int piecePosition = piecePositions.firstWhere(
-        (imgPiece) => imgPiece['pieceNumber'] == pieceNumber)['gridPosition'];
+    final int piecePosition = piecePositions.firstWhere(
+        (Map<String, dynamic> imgPiece) =>
+            imgPiece['pieceNumber'] == pieceNumber)['gridPosition'] as int;
 
-    int modulo = blankSquare % gridSideSize;
+    final int modulo = blankSquare % gridSideSize;
 
     // 4, 8, 12, 16
     if (modulo == 0) {
@@ -59,7 +61,7 @@ class ImagePieceProvider with ChangeNotifier {
 
     // 1, 5, 9, 13
     else if (modulo == 1) {
-      for (var i = 1; i < gridSize; i++) {
+      for (int i = 1; i < gridSize; i++) {
         if (i % gridSideSize == 1 && i != blankSquare) {
           draggableSquares.add(i);
         }
@@ -71,7 +73,7 @@ class ImagePieceProvider with ChangeNotifier {
 
     // 2, 6, 10, 14
     else if (modulo == 2) {
-      for (var i = 1; i < gridSize; i++) {
+      for (int i = 1; i < gridSize; i++) {
         if (i % gridSideSize == 2 && i != blankSquare) {
           draggableSquares.add(i);
         }
@@ -83,7 +85,7 @@ class ImagePieceProvider with ChangeNotifier {
 
     // 3, 7, 11, 15
     else if (modulo == 3) {
-      for (var i = 0; i < gridSize; i++) {
+      for (int i = 0; i < gridSize; i++) {
         if (i % gridSideSize == 3 && i != blankSquare) {
           draggableSquares.add(i);
         }
@@ -93,7 +95,7 @@ class ImagePieceProvider with ChangeNotifier {
       draggableSquares.add(blankSquare - 2);
     }
 
-    draggableSquares.sort((a, b) => a.compareTo(b));
+    draggableSquares.sort((int a, int b) => a.compareTo(b));
 
     if (draggableSquares.contains(piecePosition) &&
         ImagePieceConfig.draggableDirections[blankSquare][piecePosition] ==
@@ -110,20 +112,22 @@ class ImagePieceProvider with ChangeNotifier {
     List<Map<String, dynamic>> getPiecePositions,
     double getSinglePieceWidth,
     int getBlankSquare,
-    Function setBlankSquare,
     Function checkComplete,
   }) {
-    Map<String, dynamic> pieceToUpdate = getPiecePositions
-        .firstWhere((imgPiece) => imgPiece['pieceNumber'] == pieceNumber);
+    final Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
+        (Map<String, dynamic> imgPiece) =>
+            imgPiece['pieceNumber'] == pieceNumber);
 
-    int piecePreviousPosition = pieceToUpdate['gridPosition'];
+    final int piecePreviousPosition = pieceToUpdate['gridPosition'] as int;
 
     double leftPosition;
 
     if (xDistance > 0.0) {
-      leftPosition = pieceToUpdate['leftPosition'] + getSinglePieceWidth;
+      leftPosition =
+          pieceToUpdate['leftPosition'] + getSinglePieceWidth as double;
     } else if (xDistance < 0.0) {
-      leftPosition = pieceToUpdate['leftPosition'] - getSinglePieceWidth;
+      leftPosition =
+          pieceToUpdate['leftPosition'] - getSinglePieceWidth as double;
     }
 
     pieceToUpdate['leftPosition'] = leftPosition;
@@ -146,10 +150,10 @@ class ImagePieceProvider with ChangeNotifier {
       pieceToUpdate['gridPosition'] = ImagePieceConfig
           .draggablePieces[getBlankSquare][piecePreviousPosition][0];
 
-      setBlankSquare(piecePreviousPosition);
+      GameProvider.blankSquare = piecePreviousPosition;
     } else {
       pieceToUpdate['gridPosition'] = getBlankSquare;
-      setBlankSquare(piecePreviousPosition);
+      GameProvider.blankSquare = piecePreviousPosition;
     }
     notifyListeners();
 
@@ -164,30 +168,36 @@ class ImagePieceProvider with ChangeNotifier {
     int getBlankSquare,
   }) {
     if (adjacentPiecesToMove.length == 1) {
-      Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
-          (imgPiece) => imgPiece['gridPosition'] == adjacentPiecesToMove[0]);
+      final Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
+          (Map<String, dynamic> imgPiece) =>
+              imgPiece['gridPosition'] == adjacentPiecesToMove[0]);
 
       double leftPosition;
 
       if (xDistance > 0.0) {
-        leftPosition = pieceToUpdate['leftPosition'] + getSinglePieceWidth;
+        leftPosition =
+            pieceToUpdate['leftPosition'] + getSinglePieceWidth as double;
       } else if (xDistance < 0.0) {
-        leftPosition = pieceToUpdate['leftPosition'] - getSinglePieceWidth;
+        leftPosition =
+            pieceToUpdate['leftPosition'] - getSinglePieceWidth as double;
       }
 
       pieceToUpdate['leftPosition'] = leftPosition;
       pieceToUpdate['gridPosition'] = getBlankSquare;
     } else {
-      for (var i = 1; i >= 0; i--) {
-        Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
-            (imgPiece) => imgPiece['gridPosition'] == adjacentPiecesToMove[i]);
+      for (int i = 1; i >= 0; i--) {
+        final Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
+            (Map<String, dynamic> imgPiece) =>
+                imgPiece['gridPosition'] == adjacentPiecesToMove[i]);
 
         double leftPosition;
 
         if (xDistance > 0.0) {
-          leftPosition = pieceToUpdate['leftPosition'] + getSinglePieceWidth;
+          leftPosition =
+              pieceToUpdate['leftPosition'] + getSinglePieceWidth as double;
         } else if (xDistance < 0.0) {
-          leftPosition = pieceToUpdate['leftPosition'] - getSinglePieceWidth;
+          leftPosition =
+              pieceToUpdate['leftPosition'] - getSinglePieceWidth as double;
         }
 
         pieceToUpdate['leftPosition'] = leftPosition;
@@ -207,21 +217,23 @@ class ImagePieceProvider with ChangeNotifier {
     List<Map<String, dynamic>> getPiecePositions,
     double getSinglePieceWidth,
     int getBlankSquare,
-    Function setBlankSquare,
     Function checkComplete,
   }) {
-    Map<String, dynamic> pieceToUpdate = getPiecePositions
-        .firstWhere((imgPiece) => imgPiece['pieceNumber'] == pieceNumber);
+    final Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
+        (Map<String, dynamic> imgPiece) =>
+            imgPiece['pieceNumber'] == pieceNumber);
 
     // Used to set the new blank square.
-    int piecePreviousPosition = pieceToUpdate['gridPosition'];
+    final int piecePreviousPosition = pieceToUpdate['gridPosition'] as int;
 
     double topPosition;
 
     if (yDistance > 0.0) {
-      topPosition = pieceToUpdate['topPosition'] + getSinglePieceWidth;
+      topPosition =
+          pieceToUpdate['topPosition'] + getSinglePieceWidth as double;
     } else if (yDistance < 0.0) {
-      topPosition = pieceToUpdate['topPosition'] - getSinglePieceWidth;
+      topPosition =
+          pieceToUpdate['topPosition'] - getSinglePieceWidth as double;
     }
 
     pieceToUpdate['topPosition'] = topPosition;
@@ -244,10 +256,10 @@ class ImagePieceProvider with ChangeNotifier {
       pieceToUpdate['gridPosition'] = ImagePieceConfig
           .draggablePieces[getBlankSquare][piecePreviousPosition][0];
 
-      setBlankSquare(piecePreviousPosition);
+      GameProvider.blankSquare = piecePreviousPosition;
     } else {
       pieceToUpdate['gridPosition'] = getBlankSquare;
-      setBlankSquare(piecePreviousPosition);
+      GameProvider.blankSquare = piecePreviousPosition;
     }
     notifyListeners();
 
@@ -262,28 +274,34 @@ class ImagePieceProvider with ChangeNotifier {
     int getBlankSquare,
   }) {
     if (adjacentPiecesToMove.length == 1) {
-      Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
-          (imgPiece) => imgPiece['gridPosition'] == adjacentPiecesToMove[0]);
+      final Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
+          (Map<String, dynamic> imgPiece) =>
+              imgPiece['gridPosition'] == adjacentPiecesToMove[0]);
       double topPosition;
       if (yDistance > 0.0) {
-        topPosition = pieceToUpdate['topPosition'] + getSinglePieceWidth;
+        topPosition =
+            pieceToUpdate['topPosition'] + getSinglePieceWidth as double;
       } else if (yDistance < 0.0) {
-        topPosition = pieceToUpdate['topPosition'] - getSinglePieceWidth;
+        topPosition =
+            pieceToUpdate['topPosition'] - getSinglePieceWidth as double;
       }
 
       pieceToUpdate['topPosition'] = topPosition;
       pieceToUpdate['gridPosition'] = getBlankSquare;
     } else {
-      for (var i = 1; i >= 0; i--) {
-        Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
-            (imgPiece) => imgPiece['gridPosition'] == adjacentPiecesToMove[i]);
+      for (int i = 1; i >= 0; i--) {
+        final Map<String, dynamic> pieceToUpdate = getPiecePositions.firstWhere(
+            (Map<String, dynamic> imgPiece) =>
+                imgPiece['gridPosition'] == adjacentPiecesToMove[i]);
 
         double topPosition;
 
         if (yDistance > 0.0) {
-          topPosition = pieceToUpdate['topPosition'] + getSinglePieceWidth;
+          topPosition =
+              pieceToUpdate['topPosition'] + getSinglePieceWidth as double;
         } else if (yDistance < 0.0) {
-          topPosition = pieceToUpdate['topPosition'] - getSinglePieceWidth;
+          topPosition =
+              pieceToUpdate['topPosition'] - getSinglePieceWidth as double;
         }
 
         pieceToUpdate['topPosition'] = topPosition;
