@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
+import '../data/db_provider.dart';
+import '../data/puzzle_record_model.dart';
 
 class GameProvider with ChangeNotifier {
   static bool puzzleComplete = false;
@@ -28,6 +30,37 @@ class GameProvider with ChangeNotifier {
   String get getImageReadableName => _imageReadableName;
   String get getImageReadableFullname => _imageReadableFullname;
   String get getImageTitle => _imageTitle;
+
+  Future<void> puzzleCompleteDb() async {
+    final DBProviderDb dbProvider = DBProviderDb();
+
+    final List<String> currentRecords = await dbProvider.getRecords();
+
+    if (currentRecords.contains(_imageReadableName)) {
+      // Get the existing record best moves.
+      final List<Map<String, dynamic>> existingRecord =
+          await dbProvider.getSingleRecord(puzzleName: _imageReadableName);
+      final int existingRecordBestMoves = existingRecord[0]['bestMoves'] as int;
+
+      setBestMoves(moves: existingRecordBestMoves);
+
+      // Update the record if the current moves is less than existing record best moves.
+      if (_moves < existingRecordBestMoves) {
+        setBestMoves(moves: _moves);
+        dbProvider.updateRecord(moves: _moves, puzzleName: _imageReadableName);
+      }
+    } else {
+      // Create a new entry in puzzle record db.
+      setBestMoves(moves: _moves);
+      final PuzzleRecord record = PuzzleRecord(
+        puzzleName: _imageReadableName,
+        puzzleCategory: _imageCategoryAssetName,
+        complete: 'true',
+        moves: _moves,
+      );
+      dbProvider.insertPuzzleCompleteRecord(record: record);
+    }
+  }
 
   void setSelectedCategory({String assetName, String readableName}) {
     _imageCategoryAssetName = assetName;

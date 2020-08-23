@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/db_provider.dart';
-import '../../data/puzzle_record_model.dart';
 import '../../providers/device_provider.dart';
 import '../../providers/game_provider.dart';
 import '../../providers/image_piece_provider.dart';
@@ -41,40 +39,6 @@ class _ImagePieceState extends State<ImagePiece> with SingleTickerProviderStateM
     );
   }
 
-  Future<void> _puzzleCompleteDb({GameProvider gameProvider}) async {
-    final DBProviderDb dbProvider = DBProviderDb();
-
-    final List<String> currentRecords = await dbProvider.getRecords();
-    print(currentRecords);
-
-    if (currentRecords.contains(gameProvider.getImageReadableName)) {
-      // Get the existing record best moves.
-      final List<Map<String, dynamic>> existingRecord =
-          await dbProvider.getSingleRecord(puzzleName: gameProvider.getImageReadableName);
-      final int existingRecordBestMoves = existingRecord[0]['bestMoves'] as int;
-
-      gameProvider.setBestMoves(moves: existingRecordBestMoves);
-
-      // Update the record if the current moves is less than existing record best moves.
-      if (gameProvider.getMoves < existingRecordBestMoves) {
-        gameProvider.setBestMoves(moves: gameProvider.getMoves);
-        dbProvider.updateRecord(
-            moves: gameProvider.getMoves, puzzleName: gameProvider.getImageReadableName);
-      }
-    } else {
-      // Create a new entry in puzzle record db.
-      gameProvider.setBestMoves(moves: gameProvider.getMoves);
-      final PuzzleRecord record = PuzzleRecord(
-        puzzleName: gameProvider.getImageReadableName,
-        puzzleCategory: gameProvider.getImageCategoryAssetName,
-        complete: 'true',
-        moves: gameProvider.getMoves,
-      );
-      dbProvider.insertPuzzleCompleteRecord(record: record);
-    }
-    _showPuzzleCompleteAlert();
-  }
-
   @override
   void initState() {
     final GameProvider gameProvider = Provider.of<GameProvider>(context, listen: false);
@@ -88,16 +52,16 @@ class _ImagePieceState extends State<ImagePiece> with SingleTickerProviderStateM
       end: 1.0,
     ).animate(_controller);
 
-    _controller.addStatusListener((AnimationStatus status) {
+    _controller.addStatusListener((AnimationStatus status) async {
       if (status == AnimationStatus.completed && widget.lastPiece == true) {
-        _puzzleCompleteDb(gameProvider: gameProvider);
+        await gameProvider.puzzleCompleteDb();
+        _showPuzzleCompleteAlert();
       }
     });
     super.initState();
   }
 
   @override
-  @protected
   void dispose() {
     _controller.dispose();
     super.dispose();
