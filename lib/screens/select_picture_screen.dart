@@ -25,10 +25,6 @@ class SelectPictureScreen extends StatefulWidget {
 }
 
 class _SelectPictureScreenState extends State<SelectPictureScreen> {
-  void _refreshScreen() {
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
@@ -116,7 +112,6 @@ class _SelectPictureScreenState extends State<SelectPictureScreen> {
                           imageReadableFullName: images[i]['readableFullname'].toString(),
                           imageTitle: images[i]['title'].toString(),
                           complete: snapshot.data.contains(images[i]['readableName']),
-                          refreshPictureSelectScreen: _refreshScreen,
                         );
                       },
                     );

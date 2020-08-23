@@ -16,7 +16,6 @@ class ImageButton extends StatefulWidget {
     this.imageReadableFullName,
     this.imageTitle,
     this.complete,
-    this.refreshPictureSelectScreen,
   }) : super(key: key);
 
   final String imageAssetName;
@@ -24,7 +23,6 @@ class ImageButton extends StatefulWidget {
   final String imageReadableFullName;
   final String imageTitle;
   final bool complete;
-  final Function refreshPictureSelectScreen;
 
   @override
   _ImageButtonState createState() => _ImageButtonState();
@@ -52,17 +50,12 @@ class _ImageButtonState extends State<ImageButton> {
           title: widget.imageTitle,
         );
 
-        final bool result = await Navigator.push(
+        Navigator.push(
           context,
           CupertinoPageRoute<bool>(
             builder: (BuildContext context) => const PuzzleScreen(),
           ),
         );
-
-        // Refreshes the pictures to show complete ticks from database
-        if (result) {
-          widget.refreshPictureSelectScreen();
-        }
       },
       child: Card(
         shape: RoundedRectangleBorder(
