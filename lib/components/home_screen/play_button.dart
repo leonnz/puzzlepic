@@ -29,6 +29,29 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   AnimationController _playButtonBounceController;
   Animation<Offset> _playButtonSlideAnimation;
 
+  void _onTapUp(TapUpDetails details) {
+    _playButtonBounceController.forward();
+    widget.playButtonSlideController.reverse();
+    widget.shopButtonSlideController.reverse();
+    widget.puzzlePicSlideController.reverse();
+    widget.polaroidSlideController.reverse().then((_) async {
+      final bool result = await Navigator.push(
+        context,
+        CupertinoPageRoute<bool>(
+          builder: (BuildContext context) => const SelectCategoryScreen(),
+        ),
+      );
+
+      if (result) {
+        widget.polaroidSlideController.forward();
+        widget.playButtonSlideController.forward();
+        widget.shopButtonSlideController.forward();
+        widget.puzzlePicSlideController.forward();
+      }
+    });
+    _playButtonBounceController.reverse();
+  }
+
   @override
   void initState() {
     _playButtonBounceController = AnimationController(
@@ -59,29 +82,6 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   void dispose() {
     _playButtonBounceController.dispose();
     super.dispose();
-  }
-
-  void _onTapUp(TapUpDetails details) {
-    _playButtonBounceController.forward();
-    widget.playButtonSlideController.reverse();
-    widget.shopButtonSlideController.reverse();
-    widget.puzzlePicSlideController.reverse();
-    widget.polaroidSlideController.reverse().then((_) async {
-      final bool result = await Navigator.push(
-        context,
-        CupertinoPageRoute<bool>(
-          builder: (BuildContext context) => const SelectCategoryScreen(),
-        ),
-      );
-
-      if (result) {
-        widget.polaroidSlideController.forward();
-        widget.playButtonSlideController.forward();
-        widget.shopButtonSlideController.forward();
-        widget.puzzlePicSlideController.forward();
-      }
-    });
-    _playButtonBounceController.reverse();
   }
 
   @override
