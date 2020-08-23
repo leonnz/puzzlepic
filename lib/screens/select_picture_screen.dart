@@ -25,6 +25,10 @@ class SelectPictureScreen extends StatefulWidget {
 }
 
 class _SelectPictureScreenState extends State<SelectPictureScreen> {
+  void _refreshScreen() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
@@ -37,10 +41,6 @@ class _SelectPictureScreenState extends State<SelectPictureScreen> {
             (Map<String, dynamic> imageList) =>
                 imageList['categoryName'] == widget.category)['categoryImages']
         as List<Map<String, dynamic>>;
-
-    void refreshScreen() {
-      setState(() {});
-    }
 
     return GestureDetector(
       onPanUpdate: (DragUpdateDetails details) {
@@ -116,7 +116,7 @@ class _SelectPictureScreenState extends State<SelectPictureScreen> {
                           imageReadableFullName: images[i]['readableFullname'].toString(),
                           imageTitle: images[i]['title'].toString(),
                           complete: snapshot.data.contains(images[i]['readableName']),
-                          refreshPictureSelectScreen: refreshScreen,
+                          refreshPictureSelectScreen: _refreshScreen,
                         );
                       },
                     );

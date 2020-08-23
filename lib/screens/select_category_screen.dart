@@ -42,11 +42,6 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
