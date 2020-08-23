@@ -22,10 +22,6 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
   InterstitialAd _interstitialAd;
   bool _isInterstitialAdReady;
 
-  void _loadInterstitialAd() {
-    _interstitialAd.load();
-  }
-
   void _onInterstitialAdEvent(MobileAdEvent event) {
     switch (event) {
       case MobileAdEvent.loaded:
@@ -65,10 +61,7 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
     return imagePieceList;
   }
 
-  @override
-  void initState() {
-    _isInterstitialAdReady = false;
-
+  void checkRemoveAdsPurchased() {
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
     if (shopProvider.getShopAvailable) {
@@ -81,18 +74,21 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
           adUnitId: AdManager.interstitialAdUnitId,
           listener: _onInterstitialAdEvent,
         );
-
-        _loadInterstitialAd();
+        _interstitialAd.load();
       }
     }
+  }
 
+  @override
+  void initState() {
+    _isInterstitialAdReady = false;
+    checkRemoveAdsPurchased();
     super.initState();
   }
 
   @override
   void dispose() {
     _interstitialAd?.dispose();
-
     super.dispose();
   }
 
