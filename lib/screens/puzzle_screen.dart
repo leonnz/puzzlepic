@@ -11,25 +11,10 @@ import '../providers/game_provider.dart';
 import '../providers/shop_provider.dart';
 import '../styles/element_theme.dart';
 
-class PuzzleScreen extends StatefulWidget {
+class PuzzleScreen extends StatelessWidget {
   const PuzzleScreen({
     Key key,
   }) : super(key: key);
-
-  @override
-  _PuzzleScreenState createState() => _PuzzleScreenState();
-}
-
-class _PuzzleScreenState extends State<PuzzleScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +24,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
     gameProvider.setGridPositions();
 
-    Future<bool> quitGameAlert() async {
+    Future<bool> _quitGameAlert() async {
       bool quit = false;
 
       if (gameProvider.getPuzzleComplete || gameProvider.getMoves == 0) {
@@ -61,7 +46,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
     return WillPopScope(
       onWillPop: () async {
-        final bool confirmQuit = await quitGameAlert();
+        final bool confirmQuit = await _quitGameAlert();
         return confirmQuit;
       },
       child: Container(
