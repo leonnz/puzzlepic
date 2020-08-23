@@ -30,10 +30,9 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('and here?');
     final GameProvider gameProvider = Provider.of<GameProvider>(context, listen: false);
-    final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
+    final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
     Future<bool> _quitGameAlert() async {
       bool quit = false;
