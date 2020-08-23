@@ -11,18 +11,29 @@ import '../providers/game_provider.dart';
 import '../providers/shop_provider.dart';
 import '../styles/element_theme.dart';
 
-class PuzzleScreen extends StatelessWidget {
+class PuzzleScreen extends StatefulWidget {
   const PuzzleScreen({
     Key key,
   }) : super(key: key);
 
   @override
+  _PuzzleScreenState createState() => _PuzzleScreenState();
+}
+
+class _PuzzleScreenState extends State<PuzzleScreen> {
+  @override
+  void initState() {
+    final GameProvider gameProvider = Provider.of<GameProvider>(context, listen: false);
+    gameProvider.setGridPositions();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final GameProvider gameProvider = Provider.of<GameProvider>(context);
+    print('and here?');
+    final GameProvider gameProvider = Provider.of<GameProvider>(context, listen: false);
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
-
-    gameProvider.setGridPositions();
 
     Future<bool> _quitGameAlert() async {
       bool quit = false;
