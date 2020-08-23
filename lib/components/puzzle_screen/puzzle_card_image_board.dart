@@ -4,8 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
 import '../../ad_manager.dart';
-import '../../data/db_provider.dart';
-import '../../data/puzzle_record_model.dart';
 import '../../providers/game_provider.dart';
 import '../../providers/image_piece_provider.dart';
 import '../../providers/shop_provider.dart';
@@ -43,6 +41,26 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
     }
   }
 
+  List<ImagePiece> _generateImagePieces(
+      {int numberOfPieces, bool complete, GameProvider gameProvider}) {
+    final List<ImagePiece> imagePieceList = <ImagePiece>[];
+
+    // Always produce 1 less image piece that the grid size
+    for (int i = 1; i <= numberOfPieces; i++) {
+      imagePieceList.add(
+        ImagePiece(
+          pieceNumber: i,
+          lastPiece: complete,
+          interstitialAd: _interstitialAd,
+          isInterstitialAdReady: _isInterstitialAdReady,
+        ),
+      );
+      gameProvider.setInitialPuzzlePiecePosition(i);
+    }
+
+    return imagePieceList;
+  }
+
   @override
   void initState() {
     _isInterstitialAdReady = false;
@@ -78,62 +96,6 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
   Widget build(BuildContext context) {
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
-    Future<void> puzzleCompleteDb() async {
-      GameProvider.puzzleComplete = true;
-
-      final DBProviderDb dbProvider = DBProviderDb();
-
-      final List<String> currentRecords = await dbProvider.getRecords();
-
-      if (currentRecords.contains(gameProvider.getImageReadableName)) {
-        // Get the existing record best moves.
-        final List<Map<String, dynamic>> existingRecord =
-            await dbProvider.getSingleRecord(puzzleName: gameProvider.getImageReadableName);
-        final int existingRecordBestMoves = existingRecord[0]['bestMoves'] as int;
-
-        // Update the record if the current moves is les than existing record best moves.
-        if (gameProvider.getMoves < existingRecordBestMoves) {
-          gameProvider.setBestMoves(moves: gameProvider.getMoves);
-          dbProvider.updateRecord(
-              moves: gameProvider.getMoves, puzzleName: gameProvider.getImageReadableName);
-        }
-      } else {
-        // Create a new entry in puzzle record db.
-        gameProvider.setBestMoves(moves: gameProvider.getMoves);
-        final PuzzleRecord record = PuzzleRecord(
-          puzzleName: gameProvider.getImageReadableName,
-          puzzleCategory: gameProvider.getImageCategoryAssetName,
-          complete: 'true',
-          moves: gameProvider.getMoves,
-        );
-        dbProvider.insertPuzzleCompleteRecord(record: record);
-      }
-    }
-
-    List<ImagePiece> generateImagePieces({int numberOfPieces, bool complete}) {
-      final List<ImagePiece> imagePieceList = <ImagePiece>[];
-
-      // Always produce 1 less image piece that the grid size
-      for (int i = 1; i <= numberOfPieces; i++) {
-        imagePieceList.add(
-          ImagePiece(
-            pieceNumber: i,
-            lastPiece: complete,
-            interstitialAd: _interstitialAd,
-            isInterstitialAdReady: _isInterstitialAdReady,
-          ),
-        );
-        gameProvider.setInitialPuzzlePiecePosition(i);
-      }
-
-      if (complete) {
-        GameProvider.puzzleComplete = complete;
-        puzzleCompleteDb();
-      }
-
-      return imagePieceList;
-    }
-
     return ChangeNotifierProvider<ImagePieceProvider>(
       create: (BuildContext context) => ImagePieceProvider(),
       child: Padding(
@@ -142,19 +104,15 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
           width: gameProvider.getScreenWidth,
           height: gameProvider.getScreenWidth,
           color: Colors.grey,
-          child: gameProvider.getPuzzleComplete
-              ? Stack(
-                  children: generateImagePieces(
-                    numberOfPieces: gameProvider.getTotalGridSize,
-                    complete: true,
-                  ),
-                )
-              : Stack(
-                  children: generateImagePieces(
-                    numberOfPieces: gameProvider.getTotalGridSize - 1,
-                    complete: false,
-                  ),
-                ),
+          child: Stack(
+            children: _generateImagePieces(
+              numberOfPieces: gameProvider.getPuzzleComplete
+                  ? gameProvider.getTotalGridSize
+                  : gameProvider.getTotalGridSize - 1,
+              complete: gameProvider.getPuzzleComplete,
+              gameProvider: gameProvider,
+            ),
+          ),
         ),
       ),
     );
