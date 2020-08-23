@@ -66,7 +66,6 @@ class GameProvider with ChangeNotifier {
 
   void resetMoves() {
     _moves = 0;
-    notifyListeners();
   }
 
   void resetPiecePositions() {
