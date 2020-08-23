@@ -147,9 +147,10 @@ class ShopProvider extends ChangeNotifier {
           final DBProviderDb dbProvider = DBProviderDb();
           _pastPurchases.addAll(purchases);
           dbProvider.insertCategoryPurchasedRecord(purchasedCategory: purchase.productID);
-          addAvailableCategory(category: purchase.productID);
 
-          if (purchase.productID == _removeAdProductId) {
+          if (purchase.productID != _removeAdProductId) {
+            addAvailableCategory(category: purchase.productID);
+          } else {
             disposeBannerAd();
           }
 
