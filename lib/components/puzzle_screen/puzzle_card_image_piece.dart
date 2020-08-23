@@ -69,9 +69,10 @@ class _ImagePieceState extends State<ImagePiece> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    final GameProvider gameProvider = Provider.of<GameProvider>(context);
-    final ImagePieceProvider imagePieceProvider = Provider.of<ImagePieceProvider>(context);
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final GameProvider gameProvider = Provider.of<GameProvider>(context, listen: false);
+    final ImagePieceProvider imagePieceProvider =
+        Provider.of<ImagePieceProvider>(context, listen: false);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
 
     bool dragged = false;
     double initial = 0.0;
