@@ -45,7 +45,6 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
 
   @override
   void initState() {
-    print('here');
     _isInterstitialAdReady = false;
 
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
