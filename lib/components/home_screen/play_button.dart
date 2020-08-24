@@ -88,7 +88,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     _scale = 1 - _playButtonBounceController.value;
 
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
 
     return Align(
       alignment: Alignment.bottomCenter,
