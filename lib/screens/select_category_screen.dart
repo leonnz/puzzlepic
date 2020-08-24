@@ -26,12 +26,10 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
     dbProvider.getPurchasedCategories().then((List<String> listOfCategories) {
-      print('Purchases length ${listOfCategories.length}');
-
       if (listOfCategories.isNotEmpty) {
         for (final String category in listOfCategories) {
-          print(category);
-          if (!shopProvider.getAvailableCategories.contains(category)) {
+          if (!shopProvider.getAvailableCategories.contains(category) &&
+              category != shopProvider.getRemoveAdProductId) {
             shopProvider.addAvailableCategory(category: category);
           }
         }
@@ -43,7 +41,7 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
 
     return WillPopScope(
