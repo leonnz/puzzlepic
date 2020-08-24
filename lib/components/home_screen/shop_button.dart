@@ -65,7 +65,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     _scale = 1 - _shopButtonBounceController.value;
 
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
 
     return Align(
       alignment: Alignment.bottomCenter,

@@ -18,7 +18,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
     return AlertDialog(

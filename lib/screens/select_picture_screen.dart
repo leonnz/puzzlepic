@@ -27,7 +27,7 @@ class SelectPictureScreen extends StatefulWidget {
 class _SelectPictureScreenState extends State<SelectPictureScreen> {
   @override
   Widget build(BuildContext context) {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context);
 

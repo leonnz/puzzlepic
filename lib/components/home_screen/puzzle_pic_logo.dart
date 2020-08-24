@@ -35,7 +35,7 @@ class _PuzzlePicLogoState extends State<PuzzlePicLogo> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
 
     return Align(
       alignment: Alignment.topCenter,

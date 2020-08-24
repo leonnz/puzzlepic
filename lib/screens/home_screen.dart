@@ -125,7 +125,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
 
     DeviceProvider.deviceScreenHeight = MediaQuery.of(context).size.height;
     GameProvider.screenWidth = MediaQuery.of(context).size.width - 20;
