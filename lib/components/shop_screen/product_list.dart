@@ -42,6 +42,14 @@ class ProductList extends StatelessWidget {
         //       title: '$product (Puzzle Pic)'));
         // }
 
+        // for (var i = 0; i < 20; i++) {
+        //   fakeProductsList.add(ProductDetails(
+        //       description: 'test product',
+        //       id: '1',
+        //       price: '\$1.99',
+        //       title: 'test $i (Puzzle Pic)'));
+        // }
+
         // if (fakeProductsList.isNotEmpty) {
         //   productList = Expanded(
         //     child: Container(
