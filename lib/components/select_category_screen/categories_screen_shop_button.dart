@@ -12,7 +12,7 @@ class CategoryShopButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
 
     return GestureDetector(
       onTap: () {
