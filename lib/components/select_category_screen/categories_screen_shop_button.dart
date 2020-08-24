@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
 import '../../screens/shop_screen.dart';
-import '../../styles/element_theme.dart';
+import '../../styles/box_decoration_styes.dart';
 
 class CategoryShopButton extends StatelessWidget {
   const CategoryShopButton({
@@ -29,7 +29,7 @@ class CategoryShopButton extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: Container(
             padding: const EdgeInsets.all(5),
-            decoration: CustomElementTheme.categoryScreenShopButtonBoxDecoration(),
+            decoration: kCategoryScreenShopButtonBoxDecoration,
             child: Icon(
               Icons.add,
               size: deviceProvider.getUseMobileLayout ? 28 : 50,

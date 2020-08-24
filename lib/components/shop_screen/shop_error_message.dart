@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
-import '../../styles/element_theme.dart';
+import '../../styles/box_decoration_styes.dart';
 import '../../styles/text_theme.dart';
 
 class ShopErrorMessage extends StatelessWidget {
@@ -25,7 +25,7 @@ class ShopErrorMessage extends StatelessWidget {
         width: deviceProvider.getUseMobileLayout
             ? double.infinity
             : MediaQuery.of(context).size.width * 2 / 3,
-        decoration: CustomElementTheme.shopButtonBoxDecoration(),
+        decoration: kShopButtonBoxDecoration,
         child: Center(
           child: Text(
             message,

@@ -8,7 +8,7 @@ import '../components/shop_screen/purchase_message.dart';
 import '../components/shop_screen/shop_error_message.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
-import '../styles/element_theme.dart';
+import '../styles/box_decoration_styes.dart';
 import '../styles/text_theme.dart';
 
 class ShopScreen extends StatefulWidget {
@@ -36,14 +36,14 @@ class _ShopScreenState extends State<ShopScreen> {
         return quit;
       },
       child: Container(
-        decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
+        decoration: kScreenBackgroundBoxDecoration,
         child: SafeArea(
           child: Scaffold(
             backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
               child: Container(
-                decoration: CustomElementTheme.shopScreenAppBarBoxDecoration(),
+                decoration: kShopScreenAppBarBoxDecoration,
                 child: Stack(
                   alignment: Alignment.center,
                   children: <Widget>[

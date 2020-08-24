@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../data/images_data.dart';
 import '../../providers/device_provider.dart';
 import '../../providers/shop_provider.dart';
-import '../../styles/element_theme.dart';
+import '../../styles/box_decoration_styes.dart';
 import '../_custom_widgets/custom_expansion_tile.dart';
 import 'purchase_alert.dart';
 import 'shop_buy_button.dart';
@@ -50,7 +50,7 @@ class ProductTile extends StatelessWidget {
             left: 10,
             right: 10,
           ),
-          decoration: CustomElementTheme.shopButtonBoxDecoration(),
+          decoration: kShopButtonBoxDecoration,
           child: CustomExpansionTile(
             trailing: purchased != null
                 ? ShopBuyButton(imagePackProductPrice: imagePackProduct.price)

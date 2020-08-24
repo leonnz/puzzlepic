@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/shop_provider.dart';
-import '../../styles/element_theme.dart';
+import '../../styles/box_decoration_styes.dart';
 
 class PurchaseMessage extends StatefulWidget {
   const PurchaseMessage({
@@ -48,7 +48,7 @@ class _PurchaseMessageState extends State<PurchaseMessage> with SingleTickerProv
     return SlideTransition(
       position: _animation,
       child: Container(
-        decoration: CustomElementTheme.shopSuccessMessageBoxDecoration(),
+        decoration: kShopSuccessMessageBoxDecoration,
         height: 50,
         width: double.infinity,
         child: Row(

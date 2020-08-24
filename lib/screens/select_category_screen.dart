@@ -8,7 +8,7 @@ import '../components/select_category_screen/category_button.dart';
 import '../data/db_provider.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
-import '../styles/element_theme.dart';
+import '../styles/box_decoration_styes.dart';
 import '../styles/text_theme.dart';
 
 class SelectCategoryScreen extends StatefulWidget {
@@ -56,14 +56,14 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
           }
         },
         child: Container(
-          decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
+          decoration: kScreenBackgroundBoxDecoration,
           child: SafeArea(
             child: Scaffold(
               backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(deviceProvider.getDeviceScreenHeight * 0.10),
                 child: Container(
-                  decoration: CustomElementTheme.categoryScreenAppBarBoxDecoration(),
+                  decoration: kCategoryScreenAppBarBoxDecoration,
                   child: Stack(
                     alignment: Alignment.center,
                     children: <Widget>[

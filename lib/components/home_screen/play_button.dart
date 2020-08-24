@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../providers/device_provider.dart';
 import '../../screens/select_category_screen.dart';
-import '../../styles/element_theme.dart';
+import '../../styles/box_decoration_styes.dart';
 import '../../styles/text_theme.dart';
 
 class PlayButton extends StatefulWidget {
@@ -106,7 +106,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
               child: Container(
                 width: deviceProvider.getUseMobileLayout ? 170 : 300,
                 height: deviceProvider.getUseMobileLayout ? 50 : 80,
-                decoration: CustomElementTheme.homeScreenButtonBoxDecoration(),
+                decoration: kHomeScreenButtonBoxDecoration,
                 child: Center(
                   child: Text(
                     'Play!',

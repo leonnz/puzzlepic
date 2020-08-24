@@ -9,7 +9,7 @@ import '../components/puzzle_screen/quit_alert.dart';
 import '../providers/device_provider.dart';
 import '../providers/game_provider.dart';
 import '../providers/shop_provider.dart';
-import '../styles/element_theme.dart';
+import '../styles/box_decoration_styes.dart';
 
 class PuzzleScreen extends StatefulWidget {
   const PuzzleScreen({
@@ -60,7 +60,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         return confirmQuit;
       },
       child: Container(
-        decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
+        decoration: kScreenBackgroundBoxDecoration,
         child: SafeArea(
           child: Scaffold(
             backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),

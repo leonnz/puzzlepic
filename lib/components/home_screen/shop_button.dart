@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../providers/device_provider.dart';
 import '../../screens/shop_screen.dart';
-import '../../styles/element_theme.dart';
+import '../../styles/box_decoration_styes.dart';
 import '../../styles/text_theme.dart';
 
 class ShopButton extends StatefulWidget {
@@ -83,7 +83,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
               child: Container(
                 width: deviceProvider.getUseMobileLayout ? 170 : 300,
                 height: deviceProvider.getUseMobileLayout ? 50 : 80,
-                decoration: CustomElementTheme.homeScreenButtonBoxDecoration(),
+                decoration: kHomeScreenButtonBoxDecoration,
                 child: Center(
                   child: Text(
                     'Shop',

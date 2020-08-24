@@ -16,7 +16,7 @@ import '../data/images_data.dart';
 import '../providers/device_provider.dart';
 import '../providers/game_provider.dart';
 import '../providers/shop_provider.dart';
-import '../styles/element_theme.dart';
+import '../styles/box_decoration_styes.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -134,7 +134,7 @@ class _HomeState extends State<Home> {
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
 
     return Container(
-      decoration: CustomElementTheme.screenBackgroundBoxDecoration(),
+      decoration: kScreenBackgroundBoxDecoration,
       child: SafeArea(
         child: Scaffold(
           backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
