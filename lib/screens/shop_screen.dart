@@ -19,7 +19,6 @@ class ShopScreen extends StatefulWidget {
 class _ShopScreenState extends State<ShopScreen> {
   @override
   void initState() {
-    print('shop screen loaded');
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
     shopProvider.registerSubscription();
 

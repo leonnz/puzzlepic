@@ -24,8 +24,6 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(index);
-    print(lastProduct);
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     Future<void> purchaseCallbackAlert(String title, String message) {
