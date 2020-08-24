@@ -45,10 +45,11 @@ class ProductTile extends StatelessWidget {
 
         return Container(
           margin: EdgeInsets.only(
-              bottom: index == lastProduct - 1 ? 10 : 5,
-              top: index == 0 ? 10 : 5,
-              left: 10,
-              right: 10),
+            bottom: index == lastProduct - 1 ? 10 : 5,
+            top: index == 0 ? 10 : 5,
+            left: 10,
+            right: 10,
+          ),
           decoration: CustomElementTheme.shopButtonBoxDecoration(),
           child: CustomExpansionTile(
             trailing: purchased != null
