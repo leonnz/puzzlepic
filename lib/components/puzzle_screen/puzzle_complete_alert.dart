@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
 import '../../providers/game_provider.dart';
-import '../../styles/text_theme.dart';
+import '../../styles/text_styles.dart';
 
 class PuzzleCompleteAlert extends StatelessWidget {
   const PuzzleCompleteAlert({
@@ -25,7 +25,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
       title: Text(
         'Congratulations!',
         textAlign: TextAlign.center,
-        style: CustomTextTheme.puzzleScreenCompleteAlertTitle(),
+        style: kPuzzleScreenCompleteAlertTitle,
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -38,7 +38,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
             child: Text(
               'You completed ${gameProvider.getImageReadableFullname ?? gameProvider.getImageReadableName} in ${gameProvider.getMoves} moves${gameProvider.getMoves < gameProvider.getBestMoves ? ", a new personal best!" : "."}',
               textAlign: TextAlign.center,
-              style: CustomTextTheme.puzzleScreenCompleteAlertContent(),
+              style: kPuzzleScreenCompleteAlertContent,
             ),
           ),
           Row(
@@ -54,7 +54,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
                 },
                 child: Text(
                   'Close',
-                  style: CustomTextTheme.puzzleScreenCompleteAlertButtonText(),
+                  style: kPuzzleScreenCompleteAlertButtonText,
                 ),
               ),
             ],

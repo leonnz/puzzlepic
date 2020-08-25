@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
-import '../../styles/text_theme.dart';
+import '../../styles/text_styles.dart';
 
 class QuitAlert extends StatelessWidget {
   const QuitAlert({
@@ -18,7 +18,7 @@ class QuitAlert extends StatelessWidget {
         'Leave puzzle',
         textAlign: TextAlign.center,
       ),
-      titleTextStyle: CustomTextTheme.puzzleScreenQuitAlertTitle(),
+      titleTextStyle: kPuzzleScreenQuitAlertTitle,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -43,7 +43,7 @@ class QuitAlert extends StatelessWidget {
                 },
                 child: Text(
                   'No',
-                  style: CustomTextTheme.puzzleScreenQuitAlertButtonText(),
+                  style: kPuzzleScreenQuitAlertButtonText,
                 ),
               ),
               FlatButton(
@@ -54,14 +54,14 @@ class QuitAlert extends StatelessWidget {
                 },
                 child: Text(
                   'Yes',
-                  style: CustomTextTheme.puzzleScreenQuitAlertButtonText(),
+                  style: kPuzzleScreenQuitAlertButtonText,
                 ),
               ),
             ],
           ),
         ],
       ),
-      contentTextStyle: CustomTextTheme.puzzleScreenQuitAlertContent(),
+      contentTextStyle: kPuzzleScreenQuitAlertContent,
     );
   }
 }

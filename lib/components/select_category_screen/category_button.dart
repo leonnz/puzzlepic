@@ -7,7 +7,7 @@ import '../../providers/device_provider.dart';
 import '../../providers/game_provider.dart';
 import '../../screens/select_picture_screen.dart';
 import '../../styles/box_decoration_styes.dart';
-import '../../styles/text_theme.dart';
+import '../../styles/text_styles.dart';
 
 class CategoryButton extends StatelessWidget {
   const CategoryButton({
@@ -67,7 +67,7 @@ class CategoryButton extends StatelessWidget {
                 child: Center(
                   child: Text(
                     getCategoryReadableName(),
-                    style: CustomTextTheme.selectPictureButtonTextStyle(),
+                    style: kSelectPictureButtonTextStyle,
                     textAlign: TextAlign.center,
                   ),
                 ),

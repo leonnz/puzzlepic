@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../providers/device_provider.dart';
 import '../../screens/shop_screen.dart';
 import '../../styles/box_decoration_styes.dart';
-import '../../styles/text_theme.dart';
+import '../../styles/text_styles.dart';
 
 class ShopButton extends StatefulWidget {
   const ShopButton({Key key, this.shopButtonSlideController}) : super(key: key);
@@ -87,7 +87,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
                 child: Center(
                   child: Text(
                     'Shop',
-                    style: CustomTextTheme.playButtonText(),
+                    style: kPlayButtonText,
                   ),
                 ),
               ),

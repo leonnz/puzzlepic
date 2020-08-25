@@ -9,7 +9,7 @@ import '../components/shop_screen/shop_error_message.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
 import '../styles/box_decoration_styes.dart';
-import '../styles/text_theme.dart';
+import '../styles/text_styles.dart';
 
 class ShopScreen extends StatefulWidget {
   @override
@@ -53,7 +53,7 @@ class _ShopScreenState extends State<ShopScreen> {
                     ),
                     Text(
                       'Store',
-                      style: CustomTextTheme.selectScreenTitleTextStyle(context),
+                      style: kSelectScreenTitleTextStyle,
                     ),
                   ],
                 ),

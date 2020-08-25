@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/game_provider.dart';
-import '../../styles/text_theme.dart';
+import '../../styles/text_styles.dart';
 import 'puzzle_card_image_board.dart';
 import 'puzzle_card_moves.dart';
 
@@ -34,7 +34,7 @@ class PuzzleCard extends StatelessWidget {
               child: Text(
                 gameProvider.getImageReadableFullname,
                 textAlign: TextAlign.center,
-                style: CustomTextTheme.puzzleScreenImageTitle(),
+                style: kPuzzleScreenImageTitle,
               ),
             ),
             Padding(
@@ -42,7 +42,7 @@ class PuzzleCard extends StatelessWidget {
               child: Text(
                 gameProvider.getImageTitle,
                 textAlign: TextAlign.center,
-                style: CustomTextTheme.puzzleScreenPictureSubTitle(),
+                style: kPuzzleScreenPictureSubTitle,
               ),
             ),
             const PuzzleCardMoves(),

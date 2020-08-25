@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
 import '../../styles/box_decoration_styes.dart';
-import '../../styles/text_theme.dart';
+import '../../styles/text_styles.dart';
 
 class ShopErrorMessage extends StatelessWidget {
   const ShopErrorMessage({
@@ -29,7 +29,7 @@ class ShopErrorMessage extends StatelessWidget {
         child: Center(
           child: Text(
             message,
-            style: CustomTextTheme.selectPictureButtonTextStyle(),
+            style: kSelectPictureButtonTextStyle,
           ),
         ),
       ),

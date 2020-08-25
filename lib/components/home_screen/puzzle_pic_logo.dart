@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
-import '../../styles/text_theme.dart';
+import '../../styles/text_styles.dart';
 
 class PuzzlePicLogo extends StatefulWidget {
   const PuzzlePicLogo({Key key, this.puzzlePicSlideController}) : super(key: key);
@@ -52,7 +52,7 @@ class _PuzzlePicLogoState extends State<PuzzlePicLogo> with SingleTickerProvider
             child: Text(
               'Puzzle Pic',
               textAlign: TextAlign.center,
-              style: CustomTextTheme.homeScreenAppName(),
+              style: kHomeScreenAppName,
             ),
           ),
         ),

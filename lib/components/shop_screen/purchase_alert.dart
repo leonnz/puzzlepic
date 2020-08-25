@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
-import '../../styles/text_theme.dart';
+import '../../styles/text_styles.dart';
 
 class PurchaseAlert extends StatelessWidget {
   const PurchaseAlert({
@@ -22,7 +22,7 @@ class PurchaseAlert extends StatelessWidget {
       title: Text(
         title,
         textAlign: TextAlign.center,
-        style: CustomTextTheme.puzzleScreenCompleteAlertTitle(),
+        style: kPuzzleScreenCompleteAlertTitle,
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -35,7 +35,7 @@ class PurchaseAlert extends StatelessWidget {
             child: Text(
               message,
               textAlign: TextAlign.center,
-              style: CustomTextTheme.puzzleScreenCompleteAlertContent(),
+              style: kPuzzleScreenCompleteAlertContent,
             ),
           ),
           Row(
@@ -48,7 +48,7 @@ class PurchaseAlert extends StatelessWidget {
                 },
                 child: Text(
                   'Close',
-                  style: CustomTextTheme.puzzleScreenCompleteAlertButtonText(),
+                  style: kPuzzleScreenCompleteAlertButtonText,
                 ),
               ),
             ],

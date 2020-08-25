@@ -6,7 +6,7 @@ import '../../providers/device_provider.dart';
 import '../../providers/game_provider.dart';
 import '../../screens/puzzle_screen.dart';
 import '../../styles/box_decoration_styes.dart';
-import '../../styles/text_theme.dart';
+import '../../styles/text_styles.dart';
 
 class ImageButton extends StatefulWidget {
   const ImageButton({
@@ -90,7 +90,7 @@ class _ImageButtonState extends State<ImageButton> {
                 child: Center(
                   child: Text(
                     widget.imageReadableName,
-                    style: CustomTextTheme.selectPictureButtonTextStyle(),
+                    style: kSelectPictureButtonTextStyle,
                     textAlign: TextAlign.center,
                   ),
                 ),

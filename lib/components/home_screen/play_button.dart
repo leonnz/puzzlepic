@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../providers/device_provider.dart';
 import '../../screens/select_category_screen.dart';
 import '../../styles/box_decoration_styes.dart';
-import '../../styles/text_theme.dart';
+import '../../styles/text_styles.dart';
 
 class PlayButton extends StatefulWidget {
   const PlayButton({
@@ -110,7 +110,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
                 child: Center(
                   child: Text(
                     'Play!',
-                    style: CustomTextTheme.playButtonText(),
+                    style: kPlayButtonText,
                   ),
                 ),
               ),

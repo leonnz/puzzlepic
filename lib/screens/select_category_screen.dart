@@ -9,7 +9,7 @@ import '../data/db_provider.dart';
 import '../providers/device_provider.dart';
 import '../providers/shop_provider.dart';
 import '../styles/box_decoration_styes.dart';
-import '../styles/text_theme.dart';
+import '../styles/text_styles.dart';
 
 class SelectCategoryScreen extends StatefulWidget {
   const SelectCategoryScreen({Key key}) : super(key: key);
@@ -70,7 +70,7 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
                       const AppBarLeadingButton(icon: Icons.arrow_back_ios),
                       Text(
                         'Categories',
-                        style: CustomTextTheme.selectScreenTitleTextStyle(context),
+                        style: kSelectScreenTitleTextStyle,
                       ),
                       const CategoryShopButton(),
                     ],

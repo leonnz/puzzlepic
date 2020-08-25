@@ -10,7 +10,7 @@ import '../providers/device_provider.dart';
 import '../providers/game_provider.dart';
 import '../providers/shop_provider.dart';
 import '../styles/box_decoration_styes.dart';
-import '../styles/text_theme.dart';
+import '../styles/text_styles.dart';
 
 class SelectPictureScreen extends StatefulWidget {
   const SelectPictureScreen({
@@ -60,7 +60,7 @@ class _SelectPictureScreenState extends State<SelectPictureScreen> {
                     const AppBarLeadingButton(icon: Icons.arrow_back_ios),
                     Text(
                       gameProvider.getImageCategoryReadableName,
-                      style: CustomTextTheme.selectScreenTitleTextStyle(context),
+                      style: kSelectScreenTitleTextStyle,
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
@@ -75,7 +75,7 @@ class _SelectPictureScreenState extends State<SelectPictureScreen> {
                               child: Text(
                                 'Completed ${snapshot.data.length} / ${images.length}',
                                 textAlign: TextAlign.center,
-                                style: CustomTextTheme.selectPictureScreenCompletedTextStyle(),
+                                style: kSelectPictureScreenCompletedTextStyle,
                               ),
                             );
                           } else {

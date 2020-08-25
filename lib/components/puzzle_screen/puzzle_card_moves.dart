@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../data/db_provider.dart';
 import '../../providers/game_provider.dart';
-import '../../styles/text_theme.dart';
+import '../../styles/text_styles.dart';
 
 class PuzzleCardMoves extends StatelessWidget {
   const PuzzleCardMoves({
@@ -33,7 +33,7 @@ class PuzzleCardMoves extends StatelessWidget {
         children: <Widget>[
           Text(
             'Moves: ${gameProvider.getMoves}',
-            style: CustomTextTheme.puzzleScreenMovesCounter(),
+            style: kPuzzleScreenMovesCounter,
           ),
           FutureBuilder<int>(
             future: getSingleRecord(),
@@ -45,12 +45,12 @@ class PuzzleCardMoves extends StatelessWidget {
                 final int moves = snapshot.data;
                 bestMoves = Text(
                   'Best moves: $moves',
-                  style: CustomTextTheme.puzzleScreenMovesCounter(),
+                  style: kPuzzleScreenMovesCounter,
                 );
               } else {
                 bestMoves = Text(
                   'Best moves: 0',
-                  style: CustomTextTheme.puzzleScreenMovesCounter(),
+                  style: kPuzzleScreenMovesCounter,
                 );
               }
               return bestMoves;
