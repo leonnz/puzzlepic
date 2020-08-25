@@ -6,7 +6,7 @@ import '../../providers/device_provider.dart';
 class AppBarLeadingButton extends StatelessWidget {
   const AppBarLeadingButton({
     Key key,
-    this.icon,
+    @required this.icon,
     this.customOperation,
   }) : super(key: key);
 
