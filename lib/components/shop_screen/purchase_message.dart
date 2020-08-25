@@ -5,9 +5,7 @@ import '../../providers/shop_provider.dart';
 import '../../styles/box_decoration_styes.dart';
 
 class PurchaseMessage extends StatefulWidget {
-  const PurchaseMessage({
-    Key key,
-  }) : super(key: key);
+  const PurchaseMessage({Key key}) : super(key: key);
 
   @override
   _PurchaseMessageState createState() => _PurchaseMessageState();

@@ -5,9 +5,7 @@ import '../../providers/device_provider.dart';
 import '../../styles/text_styles.dart';
 
 class QuitAlert extends StatelessWidget {
-  const QuitAlert({
-    Key key,
-  }) : super(key: key);
+  const QuitAlert({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

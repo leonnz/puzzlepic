@@ -12,9 +12,7 @@ import '../providers/shop_provider.dart';
 import '../styles/box_decoration_styes.dart';
 
 class PuzzleScreen extends StatefulWidget {
-  const PuzzleScreen({
-    Key key,
-  }) : super(key: key);
+  const PuzzleScreen({Key key}) : super(key: key);
 
   @override
   _PuzzleScreenState createState() => _PuzzleScreenState();

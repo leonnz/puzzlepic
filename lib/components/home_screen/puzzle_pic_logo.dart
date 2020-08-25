@@ -5,7 +5,10 @@ import '../../providers/device_provider.dart';
 import '../../styles/text_styles.dart';
 
 class PuzzlePicLogo extends StatefulWidget {
-  const PuzzlePicLogo({Key key, this.puzzlePicSlideController}) : super(key: key);
+  const PuzzlePicLogo({
+    Key key,
+    @required this.puzzlePicSlideController,
+  }) : super(key: key);
 
   final AnimationController puzzlePicSlideController;
   @override

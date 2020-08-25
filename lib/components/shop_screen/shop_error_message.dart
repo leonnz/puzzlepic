@@ -8,7 +8,7 @@ import '../../styles/text_styles.dart';
 class ShopErrorMessage extends StatelessWidget {
   const ShopErrorMessage({
     Key key,
-    this.message,
+    @required this.message,
   }) : super(key: key);
 
   final String message;

@@ -6,9 +6,7 @@ import '../../providers/game_provider.dart';
 import '../../screens/hint_screen.dart';
 
 class PuzzleScreenHintButton extends StatelessWidget {
-  const PuzzleScreenHintButton({
-    Key key,
-  }) : super(key: key);
+  const PuzzleScreenHintButton({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

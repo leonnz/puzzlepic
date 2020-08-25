@@ -11,10 +11,12 @@ import './screens/home_screen.dart';
 
 void main() {
   InAppPurchaseConnection.enablePendingPurchases();
-  runApp(PuzzlePicApp());
+  runApp(const PuzzlePicApp());
 }
 
 class PuzzlePicApp extends StatefulWidget {
+  const PuzzlePicApp({Key key}) : super(key: key);
+
   @override
   _PuzzlePicAppState createState() => _PuzzlePicAppState();
 }

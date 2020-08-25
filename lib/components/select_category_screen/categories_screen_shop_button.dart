@@ -6,9 +6,7 @@ import '../../screens/shop_screen.dart';
 import '../../styles/box_decoration_styes.dart';
 
 class CategoryShopButton extends StatelessWidget {
-  const CategoryShopButton({
-    Key key,
-  }) : super(key: key);
+  const CategoryShopButton({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,7 @@ class CategoryShopButton extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute<bool>(
-              builder: (BuildContext context) => ShopScreen(),
+              builder: (BuildContext context) => const ShopScreen(),
             ));
       },
       child: Padding(

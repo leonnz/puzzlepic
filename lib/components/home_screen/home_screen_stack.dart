@@ -8,9 +8,7 @@ import '../../components/home_screen/puzzle_pic_logo.dart';
 import '../../components/home_screen/shop_button.dart';
 
 class HomeScreenStack extends StatefulWidget {
-  const HomeScreenStack({
-    Key key,
-  }) : super(key: key);
+  const HomeScreenStack({Key key}) : super(key: key);
 
   @override
   _HomeScreenStackState createState() => _HomeScreenStackState();

@@ -4,16 +4,16 @@ import 'package:provider/provider.dart';
 import '../../providers/game_provider.dart';
 
 class Polaroid extends StatefulWidget {
-  const Polaroid(
-      {Key key,
-      this.alignment,
-      this.angle,
-      this.image,
-      this.startInterval,
-      this.beginPosition,
-      this.endPosition,
-      this.polaroidSlideController})
-      : super(key: key);
+  const Polaroid({
+    Key key,
+    @required this.alignment,
+    @required this.angle,
+    @required this.image,
+    @required this.startInterval,
+    @required this.beginPosition,
+    @required this.endPosition,
+    @required this.polaroidSlideController,
+  }) : super(key: key);
 
   final Alignment alignment;
   final double angle;

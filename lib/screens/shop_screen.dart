@@ -12,6 +12,8 @@ import '../styles/box_decoration_styes.dart';
 import '../styles/text_styles.dart';
 
 class ShopScreen extends StatefulWidget {
+  const ShopScreen({Key key}) : super(key: key);
+
   @override
   _ShopScreenState createState() => _ShopScreenState();
 }

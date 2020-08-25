@@ -10,8 +10,8 @@ import '../puzzle_screen/puzzle_complete_alert.dart';
 class ImagePiece extends StatefulWidget {
   const ImagePiece({
     Key key,
-    this.pieceNumber,
-    this.lastPiece,
+    @required this.pieceNumber,
+    @required this.lastPiece,
     @required this.interstitialAd,
     @required this.isInterstitialAdReady,
   }) : super(key: key);

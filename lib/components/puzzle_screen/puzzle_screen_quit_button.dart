@@ -14,7 +14,7 @@ class PuzzleScreenQuitButton extends StatelessWidget {
 
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
 
-    Future<void> quitGameAlert() async {
+    Future<void> _quitGameAlert() async {
       bool quit = false;
       quit = await showDialog(
         context: context,
@@ -38,7 +38,7 @@ class PuzzleScreenQuitButton extends StatelessWidget {
             gameProvider.resetGameState();
             Navigator.pop(context, true);
           } else {
-            quitGameAlert();
+            _quitGameAlert();
           }
         },
         child: Icon(

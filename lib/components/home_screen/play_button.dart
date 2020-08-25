@@ -10,11 +10,12 @@ import '../../styles/text_styles.dart';
 class PlayButton extends StatefulWidget {
   const PlayButton({
     Key key,
-    this.playButtonSlideController,
-    this.shopButtonSlideController,
-    this.puzzlePicSlideController,
-    this.polaroidSlideController,
+    @required this.playButtonSlideController,
+    @required this.shopButtonSlideController,
+    @required this.puzzlePicSlideController,
+    @required this.polaroidSlideController,
   }) : super(key: key);
+
   final AnimationController playButtonSlideController;
   final AnimationController shopButtonSlideController;
   final AnimationController puzzlePicSlideController;
@@ -58,9 +59,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
       vsync: this,
       duration: const Duration(milliseconds: 200),
       upperBound: 0.08,
-    )..addListener(() {
-        setState(() {});
-      });
+    );
 
     _playButtonSlideAnimation = Tween<Offset>(
       begin: const Offset(10, 0),

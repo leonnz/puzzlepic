@@ -8,9 +8,7 @@ import 'puzzle_card_image_board.dart';
 import 'puzzle_card_moves.dart';
 
 class PuzzleCard extends StatelessWidget {
-  const PuzzleCard({
-    Key key,
-  }) : super(key: key);
+  const PuzzleCard({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

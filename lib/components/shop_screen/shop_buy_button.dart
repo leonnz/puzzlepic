@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ShopBuyButton extends StatelessWidget {
-  const ShopBuyButton({Key key, @required this.imagePackProductPrice, this.onClickAction})
-      : super(key: key);
+  const ShopBuyButton({
+    Key key,
+    @required this.imagePackProductPrice,
+    this.onClickAction,
+  }) : super(key: key);
 
   final String imagePackProductPrice;
   final Function onClickAction;

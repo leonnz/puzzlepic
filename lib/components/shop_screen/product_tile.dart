@@ -13,9 +13,9 @@ import 'shop_buy_button.dart';
 class ProductTile extends StatelessWidget {
   const ProductTile({
     Key key,
-    this.imagePackProduct,
-    this.index,
-    this.lastProduct,
+    @required this.imagePackProduct,
+    @required this.index,
+    @required this.lastProduct,
   }) : super(key: key);
 
   final ProductDetails imagePackProduct;
@@ -26,7 +26,7 @@ class ProductTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
 
-    Future<void> purchaseCallbackAlert(String title, String message) {
+    Future<void> _purchaseCallbackAlert(String title, String message) {
       return showDialog(
         context: context,
         builder: (BuildContext context) => PurchaseAlert(
@@ -58,7 +58,7 @@ class ProductTile extends StatelessWidget {
                     imagePackProductPrice: imagePackProduct.price,
                     onClickAction: () {
                       deviceProvider.playSound(sound: 'fast_click.wav');
-                      shop.buyProduct(product: imagePackProduct, callback: purchaseCallbackAlert);
+                      shop.buyProduct(product: imagePackProduct, callback: _purchaseCallbackAlert);
                     },
                   ),
             title: Text(

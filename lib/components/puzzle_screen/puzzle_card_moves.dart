@@ -6,9 +6,7 @@ import '../../providers/game_provider.dart';
 import '../../styles/text_styles.dart';
 
 class PuzzleCardMoves extends StatelessWidget {
-  const PuzzleCardMoves({
-    Key key,
-  }) : super(key: key);
+  const PuzzleCardMoves({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -10,9 +10,7 @@ import '../../providers/shop_provider.dart';
 import 'puzzle_card_image_piece.dart';
 
 class PuzzleCardImageBoard extends StatefulWidget {
-  const PuzzleCardImageBoard({
-    Key key,
-  }) : super(key: key);
+  const PuzzleCardImageBoard({Key key}) : super(key: key);
 
   @override
   _PuzzleCardImageBoardState createState() => _PuzzleCardImageBoardState();
@@ -29,11 +27,13 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
         break;
       case MobileAdEvent.failedToLoad:
         _isInterstitialAdReady = false;
-        print('Failed to load an interstitial ad.');
         break;
       case MobileAdEvent.closed:
+        _isInterstitialAdReady = false;
         break;
       default:
+        _isInterstitialAdReady = false;
+        break;
     }
   }
 

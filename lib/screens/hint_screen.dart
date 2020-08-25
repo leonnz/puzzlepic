@@ -4,7 +4,11 @@ import 'package:provider/provider.dart';
 import '../providers/device_provider.dart';
 
 class HintScreen extends StatelessWidget {
-  const HintScreen({Key key, this.category, this.imageAssetname}) : super(key: key);
+  const HintScreen({
+    Key key,
+    @required this.category,
+    @required this.imageAssetname,
+  }) : super(key: key);
 
   final String category;
   final String imageAssetname;

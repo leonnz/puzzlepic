@@ -16,7 +16,7 @@ class CategoryButton extends StatelessWidget {
   }) : super(key: key);
   final String categoryName;
 
-  String getCategoryReadableName() {
+  String _getCategoryReadableName() {
     return Images.imageList
         .firstWhere((Map<String, dynamic> category) => category['categoryName'] == categoryName)[
             'categoryReadableName']
@@ -33,7 +33,7 @@ class CategoryButton extends StatelessWidget {
         deviceProvider.playSound(sound: 'fast_click.wav');
 
         gameProvider.setSelectedCategory(
-            assetName: categoryName, readableName: getCategoryReadableName());
+            assetName: categoryName, readableName: _getCategoryReadableName());
 
         Navigator.push(
           context,
@@ -66,7 +66,7 @@ class CategoryButton extends StatelessWidget {
                 decoration: kSelectCategoryImageTextLabelBoxDecoration,
                 child: Center(
                   child: Text(
-                    getCategoryReadableName(),
+                    _getCategoryReadableName(),
                     style: kSelectPictureButtonTextStyle,
                     textAlign: TextAlign.center,
                   ),

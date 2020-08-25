@@ -5,9 +5,7 @@ import '../../providers/device_provider.dart';
 import '../../styles/box_decoration_styes.dart';
 
 class MuteButton extends StatelessWidget {
-  const MuteButton({
-    Key key,
-  }) : super(key: key);
+  const MuteButton({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

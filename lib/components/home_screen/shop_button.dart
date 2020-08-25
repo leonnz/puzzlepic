@@ -8,7 +8,10 @@ import '../../styles/box_decoration_styes.dart';
 import '../../styles/text_styles.dart';
 
 class ShopButton extends StatefulWidget {
-  const ShopButton({Key key, this.shopButtonSlideController}) : super(key: key);
+  const ShopButton({
+    Key key,
+    @required this.shopButtonSlideController,
+  }) : super(key: key);
   final AnimationController shopButtonSlideController;
 
   @override
@@ -24,7 +27,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
     Navigator.push(
       context,
       MaterialPageRoute<bool>(
-        builder: (BuildContext context) => ShopScreen(),
+        builder: (BuildContext context) => const ShopScreen(),
       ),
     );
   }
@@ -35,9 +38,7 @@ class _ShopButtonState extends State<ShopButton> with TickerProviderStateMixin {
       vsync: this,
       duration: const Duration(milliseconds: 200),
       upperBound: 0.08,
-    )..addListener(() {
-        setState(() {});
-      });
+    );
 
     _shopButtonSlideAnimation = Tween<Offset>(
       begin: const Offset(-10, 0),

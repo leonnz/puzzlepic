@@ -11,11 +11,11 @@ import '../../styles/text_styles.dart';
 class ImageButton extends StatefulWidget {
   const ImageButton({
     Key key,
-    this.imageAssetName,
-    this.imageReadableName,
-    this.imageReadableFullName,
-    this.imageTitle,
-    this.complete,
+    @required this.imageAssetName,
+    @required this.imageReadableName,
+    @required this.imageReadableFullName,
+    @required this.imageTitle,
+    @required this.complete,
   }) : super(key: key);
 
   final String imageAssetName;

@@ -7,8 +7,8 @@ import '../../styles/text_styles.dart';
 class PurchaseAlert extends StatelessWidget {
   const PurchaseAlert({
     Key key,
-    this.title,
-    this.message,
+    @required this.title,
+    @required this.message,
   }) : super(key: key);
 
   final String title;
