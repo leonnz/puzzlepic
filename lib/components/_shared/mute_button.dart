@@ -14,16 +14,13 @@ class MuteButton extends StatelessWidget {
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     return GestureDetector(
-      onTap: () {
-        deviceProvider.setMuteSounds();
-      },
+      onTap: () => deviceProvider.setMuteSounds(),
       child: Padding(
         padding: const EdgeInsets.only(top: 20, right: 20),
         child: Align(
           alignment: Alignment.topRight,
           child: Container(
             padding: const EdgeInsets.all(5),
-            // decoration: CustomElementTheme.muteButtonBoxDecoration(),
             decoration: kMuteButtonBoxDecoration,
             child: Icon(
               deviceProvider.getMuteSounds ? Icons.volume_off : Icons.volume_mute,
