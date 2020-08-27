@@ -101,12 +101,6 @@ class Images {
       'categoryReadableName': 'Art World',
       'categoryImages': <Map<String, String>>[
         <String, String>{
-          'assetName': 'claude_monet',
-          'readableName': 'Monet',
-          'readableFullname': 'Claude Monet',
-          'title': 'The Bridge At Argenteuil (1874)',
-        },
-        <String, String>{
           'assetName': 'da_vinci',
           'readableName': 'da Vinci',
           'readableFullname': 'Leonardo da Vinci',
@@ -135,6 +129,12 @@ class Images {
           'readableName': 'Lawrence',
           'readableFullname': 'Thomas Lawrence',
           'title': 'Lady Maria Conyngham (Ca. 1824–25)',
+        },
+        <String, String>{
+          'assetName': 'claude_monet',
+          'readableName': 'Monet',
+          'readableFullname': 'Claude Monet',
+          'title': 'The Bridge At Argenteuil (1874)',
         },
         <String, String>{
           'assetName': 'morland',
