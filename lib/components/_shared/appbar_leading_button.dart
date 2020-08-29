@@ -20,8 +20,8 @@ class AppBarLeadingButton extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: IconButton(
-        padding: EdgeInsets.all(deviceProvider.getUseMobileLayout ? 8 : 20),
-        iconSize: deviceProvider.getUseMobileLayout ? 25 : 50,
+        padding: EdgeInsets.all(DeviceProvider.shortestSide / 45),
+        iconSize: DeviceProvider.shortestSide / 15,
         icon: Icon(icon),
         onPressed: () {
           deviceProvider.playSound(sound: 'fast_click.wav');

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
 import '../../styles/text_styles.dart';
@@ -38,8 +37,6 @@ class _PuzzlePicLogoState extends State<PuzzlePicLogo> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
-
     return Align(
       alignment: Alignment.topCenter,
       child: SlideTransition(
@@ -48,10 +45,10 @@ class _PuzzlePicLogoState extends State<PuzzlePicLogo> with SingleTickerProvider
           width: double.infinity,
           color: const Color.fromRGBO(147, 112, 219, 0.2),
           margin: EdgeInsets.only(
-            top: deviceProvider.getDeviceScreenHeight * 0.2,
+            top: DeviceProvider.longestSide / 4,
           ),
           child: Padding(
-            padding: EdgeInsets.all(deviceProvider.getUseMobileLayout ? 30 : 50),
+            padding: EdgeInsets.all(DeviceProvider.shortestSide / 14.5),
             child: Text(
               'Puzzle Pic',
               textAlign: TextAlign.center,

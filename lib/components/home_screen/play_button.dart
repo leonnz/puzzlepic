@@ -97,14 +97,14 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
         },
         onTapUp: _onTapUp,
         child: Padding(
-          padding: EdgeInsets.only(bottom: deviceProvider.getDeviceScreenHeight * 0.25),
+          padding: EdgeInsets.only(bottom: DeviceProvider.longestSide * 0.25),
           child: SlideTransition(
             position: _playButtonSlideAnimation,
             child: Transform.scale(
               scale: _scale,
               child: Container(
-                width: deviceProvider.getUseMobileLayout ? 170 : 300,
-                height: deviceProvider.getUseMobileLayout ? 50 : 80,
+                width: DeviceProvider.shortestSide / 2.5,
+                height: DeviceProvider.shortestSide / 8,
                 decoration: kHomeScreenButtonBoxDecoration,
                 child: Center(
                   child: Text(

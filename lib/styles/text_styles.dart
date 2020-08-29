@@ -3,10 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../providers/device_provider.dart';
 
-final DeviceProvider deviceProvider = DeviceProvider();
-
 final TextStyle kHomeScreenAppName = GoogleFonts.satisfy(
-  fontSize: deviceProvider.getUseMobileLayout ? 80 : 150,
+  fontSize: DeviceProvider.shortestSide / 5,
   letterSpacing: 0,
   color: Colors.white,
   fontWeight: FontWeight.bold,
@@ -20,14 +18,14 @@ final TextStyle kHomeScreenAppName = GoogleFonts.satisfy(
 );
 
 final TextStyle kPlayButtonText = GoogleFonts.satisfy(
-  fontSize: deviceProvider.getUseMobileLayout ? 24 : 40,
+  fontSize: DeviceProvider.shortestSide / 18,
   letterSpacing: 10,
   fontWeight: FontWeight.bold,
   color: Colors.purple,
 );
 
 final TextStyle kSelectScreenTitleTextStyle = GoogleFonts.solway(
-  fontSize: deviceProvider.getUseMobileLayout ? 24 : 40,
+  fontSize: DeviceProvider.shortestSide / 18,
   letterSpacing: 1,
   color: Colors.black,
   fontWeight: FontWeight.w500,
@@ -43,18 +41,18 @@ final TextStyle kSelectScreenTitleTextStyle = GoogleFonts.solway(
 final TextStyle kButtonTextStyle = GoogleFonts.roboto(letterSpacing: 1);
 
 final TextStyle kSelectPictureButtonTextStyle = GoogleFonts.solway(
-  fontSize: deviceProvider.getUseMobileLayout ? 16 : 25,
+  fontSize: DeviceProvider.shortestSide / 28,
   color: Colors.black,
 );
 
 final TextStyle kPuzzleScreenImageTitle = GoogleFonts.solway(
-  fontSize: deviceProvider.getUseMobileLayout ? 30 : 45,
+  fontSize: DeviceProvider.shortestSide / 15,
   letterSpacing: 1,
   color: Colors.black,
 );
 
 final TextStyle kSelectPictureScreenCompletedTextStyle = GoogleFonts.solway(
-  fontSize: deviceProvider.getUseMobileLayout ? 14 : 22,
+  fontSize: DeviceProvider.shortestSide / 32,
   letterSpacing: 1,
   fontWeight: FontWeight.w700,
   color: Colors.black,
@@ -68,42 +66,42 @@ final TextStyle kSelectPictureScreenCompletedTextStyle = GoogleFonts.solway(
 );
 
 final TextStyle kPuzzleScreenPictureSubTitle = GoogleFonts.roboto(
-  fontSize: deviceProvider.getUseMobileLayout ? 14 : 20,
+  fontSize: DeviceProvider.shortestSide / 34,
   fontStyle: FontStyle.italic,
   letterSpacing: 1,
   color: Colors.black,
 );
 
 final TextStyle kPuzzleScreenMovesCounter = GoogleFonts.roboto(
-  fontSize: deviceProvider.getUseMobileLayout ? 14 : 20,
+  fontSize: DeviceProvider.shortestSide / 34,
   letterSpacing: 1,
   color: Colors.black,
 );
 
 final TextStyle kPuzzleScreenQuitAlertTitle = TextStyle(
-  fontSize: deviceProvider.getUseMobileLayout ? 20 : 25,
+  fontSize: DeviceProvider.shortestSide / 25,
   color: Colors.black,
 );
 
 final TextStyle kPuzzleScreenQuitAlertContent = TextStyle(
-  fontSize: deviceProvider.getUseMobileLayout ? 16 : 20,
+  fontSize: DeviceProvider.shortestSide / 32,
   color: Colors.black,
 );
 
 final TextStyle kPuzzleScreenQuitAlertButtonText = TextStyle(
-  fontSize: deviceProvider.getUseMobileLayout ? 16 : 20,
+  fontSize: DeviceProvider.shortestSide / 32,
 );
 
 final TextStyle kPuzzleScreenCompleteAlertTitle = TextStyle(
-  fontSize: deviceProvider.getUseMobileLayout ? 20 : 25,
+  fontSize: DeviceProvider.shortestSide / 25,
   color: Colors.black,
 );
 
 final TextStyle kPuzzleScreenCompleteAlertContent = TextStyle(
-  fontSize: deviceProvider.getUseMobileLayout ? 16 : 20,
+  fontSize: DeviceProvider.shortestSide / 32,
   color: Colors.black,
 );
 
 final TextStyle kPuzzleScreenCompleteAlertButtonText = TextStyle(
-  fontSize: deviceProvider.getUseMobileLayout ? 16 : 20,
+  fontSize: DeviceProvider.shortestSide / 32,
 );

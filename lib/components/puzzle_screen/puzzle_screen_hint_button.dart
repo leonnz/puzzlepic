@@ -32,8 +32,8 @@ class PuzzleScreenHintButton extends StatelessWidget {
     }
 
     return ButtonTheme(
-      minWidth: deviceProvider.getUseMobileLayout ? 88 : 150,
-      height: deviceProvider.getUseMobileLayout ? 36 : 60,
+      minWidth: DeviceProvider.shortestSide / 4.8,
+      height: DeviceProvider.shortestSide / 12,
       buttonColor: Colors.white,
       child: RaisedButton(
         elevation: 3,
@@ -43,7 +43,7 @@ class PuzzleScreenHintButton extends StatelessWidget {
         },
         child: Icon(
           Icons.search,
-          size: deviceProvider.getUseMobileLayout ? 24 : 40,
+          size: DeviceProvider.shortestSide / 18,
         ),
       ),
     );

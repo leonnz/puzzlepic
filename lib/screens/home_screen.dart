@@ -37,11 +37,11 @@ class _HomeState extends State<Home> {
         orElse: () => null,
       );
       if (adPurchased == null) {
-        shopProvider.showBannerAd(useMobile: deviceProvider.getUseMobileLayout);
+        shopProvider.showBannerAd();
       }
     }
     // Dev only
-    // shopProvider.showBannerAd(useMobile: deviceProvider.getUseMobileLayout);
+    shopProvider.showBannerAd();
   }
 
   Future<void> _checkShopAvailability(
@@ -132,6 +132,9 @@ class _HomeState extends State<Home> {
 
     final bool useMobileLayout = MediaQuery.of(context).size.shortestSide < 600;
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
+    DeviceProvider.shortestSide = MediaQuery.of(context).size.shortestSide;
+    DeviceProvider.longestSide = MediaQuery.of(context).size.longestSide;
+
 
     return Container(
       decoration: kScreenBackgroundBoxDecoration,

@@ -77,14 +77,14 @@ class _ImageButtonState extends State<ImageButton> {
                   ? Icon(
                       Icons.check,
                       color: Colors.lightGreenAccent[400],
-                      size: deviceProvider.getUseMobileLayout ? 40 : 60,
+                      size: DeviceProvider.shortestSide / 12,
                     )
                   : Container(),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: deviceProvider.getUseMobileLayout ? 50 : 70,
+                height: DeviceProvider.shortestSide / 9,
                 width: double.infinity,
                 decoration: kSelectCategoryImageTextLabelBoxDecoration,
                 child: Center(

@@ -21,7 +21,7 @@ class ShopErrorMessage extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(10),
-        height: deviceProvider.getUseMobileLayout ? 50 : 70,
+        height: DeviceProvider.shortestSide / 9.5,
         width: deviceProvider.getUseMobileLayout
             ? double.infinity
             : MediaQuery.of(context).size.width * 2 / 3,

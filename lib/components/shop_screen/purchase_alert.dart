@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../providers/device_provider.dart';
 import '../../styles/text_styles.dart';
@@ -16,8 +15,6 @@ class PurchaseAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
-
     return AlertDialog(
       title: Text(
         title,
@@ -31,7 +28,7 @@ class PurchaseAlert extends StatelessWidget {
             padding: const EdgeInsets.only(
               bottom: 40,
             ),
-            width: deviceProvider.getUseMobileLayout ? null : 300,
+            width: DeviceProvider.shortestSide / 2.3,
             child: Text(
               message,
               textAlign: TextAlign.center,

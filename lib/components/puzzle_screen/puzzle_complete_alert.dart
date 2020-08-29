@@ -18,7 +18,6 @@ class PuzzleCompleteAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
     final GameProvider gameProvider = Provider.of<GameProvider>(context);
 
     return AlertDialog(
@@ -34,7 +33,7 @@ class PuzzleCompleteAlert extends StatelessWidget {
             padding: const EdgeInsets.only(
               bottom: 40,
             ),
-            width: deviceProvider.getUseMobileLayout ? null : 300,
+            width: DeviceProvider.shortestSide / 2.3,
             child: Text(
               'You completed ${gameProvider.getImageReadableFullname ?? gameProvider.getImageReadableName} in ${gameProvider.getMoves} moves${gameProvider.getMoves < gameProvider.getBestMoves ? ", a new personal best!" : "."}',
               textAlign: TextAlign.center,

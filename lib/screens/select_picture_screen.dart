@@ -70,8 +70,7 @@ class _SelectPictureScreenState extends State<SelectPictureScreen> {
                           Widget grid;
                           if (snapshot.hasData) {
                             grid = Padding(
-                              padding: EdgeInsets.only(
-                                  bottom: deviceProvider.getUseMobileLayout ? 4 : 8),
+                              padding: const EdgeInsets.only(bottom: 4),
                               child: Text(
                                 'Completed ${snapshot.data.length} / ${images.length}',
                                 textAlign: TextAlign.center,
@@ -124,7 +123,7 @@ class _SelectPictureScreenState extends State<SelectPictureScreen> {
             ),
             bottomNavigationBar: shopProvider.getBannerAdLoaded
                 ? Container(
-                    height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
+                    height: 60,
                     color: Colors.white,
                   )
                 : null,

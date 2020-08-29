@@ -30,7 +30,7 @@ class HintScreen extends StatelessWidget {
               icon: Icon(
                 Icons.cancel,
                 color: Colors.white,
-                size: deviceProvider.getUseMobileLayout ? 40 : 60,
+                size: DeviceProvider.shortestSide / 11.5,
               ),
               onPressed: () {
                 deviceProvider.playSound(sound: 'fast_click.wav');

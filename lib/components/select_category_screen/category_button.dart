@@ -61,7 +61,7 @@ class CategoryButton extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 padding: const EdgeInsets.all(5),
-                height: deviceProvider.getUseMobileLayout ? 50 : 70,
+                height: DeviceProvider.shortestSide / 9,
                 width: double.infinity,
                 decoration: kSelectCategoryImageTextLabelBoxDecoration,
                 child: Center(

@@ -22,7 +22,7 @@ class CategoryShopButton extends StatelessWidget {
             ));
       },
       child: Padding(
-        padding: EdgeInsets.only(right: deviceProvider.getUseMobileLayout ? 20 : 40),
+        padding: EdgeInsets.only(right: DeviceProvider.shortestSide / 20),
         child: Align(
           alignment: Alignment.centerRight,
           child: Container(
@@ -30,7 +30,7 @@ class CategoryShopButton extends StatelessWidget {
             decoration: kCategoryScreenShopButtonBoxDecoration,
             child: Icon(
               Icons.add,
-              size: deviceProvider.getUseMobileLayout ? 28 : 50,
+              size: DeviceProvider.shortestSide / 15,
               color: Colors.purple[200],
             ),
           ),

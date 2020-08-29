@@ -22,7 +22,7 @@ class MuteButton extends StatelessWidget {
             decoration: kMuteButtonBoxDecoration,
             child: Icon(
               deviceProvider.getMuteSounds ? Icons.volume_off : Icons.volume_mute,
-              size: deviceProvider.getUseMobileLayout ? 35 : 50,
+              size: DeviceProvider.shortestSide / 12,
               color: Colors.purple[200],
             ),
           ),

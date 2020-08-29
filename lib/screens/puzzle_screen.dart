@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../components/_shared/mute_button.dart';
 import '../components/puzzle_screen/puzzle_card.dart';
 import '../components/puzzle_screen/puzzle_screen_hint_button.dart';
 import '../components/puzzle_screen/puzzle_screen_quit_button.dart';
 import '../components/puzzle_screen/quit_alert.dart';
-import '../providers/device_provider.dart';
 import '../providers/game_provider.dart';
 import '../providers/shop_provider.dart';
 import '../styles/box_decoration_styes.dart';
@@ -29,7 +27,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
   @override
   Widget build(BuildContext context) {
     final GameProvider gameProvider = Provider.of<GameProvider>(context, listen: false);
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
     final ShopProvider shopProvider = Provider.of<ShopProvider>(context, listen: false);
 
     Future<bool> _quitGameAlert() async {
@@ -65,7 +62,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                const MuteButton(),
+                // const MuteButton(),
                 const Spacer(),
                 const PuzzleCard(),
                 Padding(
@@ -80,7 +77,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
             ),
             bottomNavigationBar: shopProvider.getBannerAdLoaded
                 ? Container(
-                    height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
+                    height: 60,
                     color: Colors.white,
                   )
                 : null,

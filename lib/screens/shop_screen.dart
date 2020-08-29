@@ -100,7 +100,7 @@ class _ShopScreenState extends State<ShopScreen> {
             ),
             bottomNavigationBar: shopProvider.getBannerAdLoaded
                 ? Container(
-                    height: deviceProvider.getUseMobileLayout ? 60.0 : 90.0,
+                    height: 60,
                     color: Colors.white,
                   )
                 : null,

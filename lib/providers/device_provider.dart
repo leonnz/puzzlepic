@@ -5,6 +5,10 @@ import 'package:audioplayers/audioplayers.dart';
 class DeviceProvider extends ChangeNotifier {
   static bool _hasInternetConnection = false;
   static bool _useMobileLayout;
+
+  static double shortestSide;
+  static double longestSide;
+
   static bool _muteSounds = false;
   static int _gridSize;
   static double deviceScreenHeight;

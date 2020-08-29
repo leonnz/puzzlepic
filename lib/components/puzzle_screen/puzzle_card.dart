@@ -13,7 +13,6 @@ class PuzzleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GameProvider gameProvider = Provider.of<GameProvider>(context, listen: false);
-    final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
 
     return Container(
       width: gameProvider.getScreenWidth + 20,
@@ -24,7 +23,7 @@ class PuzzleCard extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(
-                top: deviceProvider.getUseMobileLayout ? 10 : 20,
+                top: DeviceProvider.shortestSide / 40,
                 bottom: 10,
                 left: 10,
                 right: 10,

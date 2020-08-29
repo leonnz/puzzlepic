@@ -24,7 +24,7 @@ class QuitAlert extends StatelessWidget {
             padding: const EdgeInsets.only(
               bottom: 40,
             ),
-            width: deviceProvider.getUseMobileLayout ? null : 300,
+            width: DeviceProvider.shortestSide / 2.3,
             child: const Text(
               'Progress will be lost, are you sure?',
               textAlign: TextAlign.center,
