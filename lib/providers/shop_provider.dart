@@ -89,7 +89,7 @@ class ShopProvider extends ChangeNotifier {
     if (_shopAvailable) {
       _subscription = _iap.purchaseUpdatedStream.listen(
         (List<PurchaseDetails> purchases) {
-          completePurchase(purchases);
+          completePurchase(purchases: purchases);
         },
       );
     }
@@ -138,7 +138,7 @@ class ShopProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> completePurchase(List<PurchaseDetails> purchases) async {
+  Future<void> completePurchase({List<PurchaseDetails> purchases}) async {
     for (final PurchaseDetails purchase in purchases) {
       if (purchase.status == PurchaseStatus.purchased) {
         final BillingResultWrapper billingResult = await _iap.completePurchase(purchase);
