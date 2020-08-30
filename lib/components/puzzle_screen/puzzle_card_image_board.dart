@@ -55,7 +55,7 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
           isInterstitialAdReady: _isInterstitialAdReady,
         ),
       );
-      gameProvider.setInitialPuzzlePiecePosition(i);
+      gameProvider.setInitialPuzzlePiecePosition(pieceNumber: i);
     }
 
     return imagePieceList;

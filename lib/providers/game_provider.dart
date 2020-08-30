@@ -124,7 +124,7 @@ class GameProvider with ChangeNotifier {
     resetMoves();
   }
 
-  void setInitialPuzzlePiecePosition(int pieceNumber) {
+  void setInitialPuzzlePiecePosition({int pieceNumber}) {
     final Map<String, dynamic> imgPiece = <String, dynamic>{};
 
     int getRandomGridPosition(int min, int max) {
@@ -140,18 +140,19 @@ class GameProvider with ChangeNotifier {
     // DEV ONLY pieces are already in right position
     imgPiece['pieceNumber'] = pieceNumber;
     imgPiece['gridPosition'] = pieceNumber;
-    imgPiece['leftPosition'] = setStartingLeftPosition(imgPiece['gridPosition'] as int);
-    imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition'] as int);
+    imgPiece['leftPosition'] =
+        setStartingLeftPosition(pieceNumber: imgPiece['gridPosition'] as int);
+    imgPiece['topPosition'] = setStartingTopPosition(pieceNumber: imgPiece['gridPosition'] as int);
 
     // imgPiece['pieceNumber'] = pieceNumber;
     // imgPiece['gridPosition'] = getRandomGridPosition(0, _gridPositions.length);
-    // imgPiece['leftPosition'] = setStartingLeftPosition(imgPiece['gridPosition'] as int);
-    // imgPiece['topPosition'] = setStartingTopPosition(imgPiece['gridPosition'] as int);
+    // imgPiece['leftPosition'] = setStartingLeftPosition(pieceNumber: imgPiece['gridPosition'] as int);
+    // imgPiece['topPosition'] = setStartingTopPosition(pieceNumber: imgPiece['gridPosition'] as int);
 
     getPiecePositions.add(imgPiece);
   }
 
-  double setStartingLeftPosition(int pieceNumber) {
+  double setStartingLeftPosition({int pieceNumber}) {
     double leftPosition;
     final int modulo = pieceNumber % getGridColumns;
     if (modulo == 0) {
@@ -169,7 +170,7 @@ class GameProvider with ChangeNotifier {
     return leftPosition;
   }
 
-  double setStartingTopPosition(int pieceNumber) {
+  double setStartingTopPosition({int pieceNumber}) {
     double topPosition;
     if (pieceNumber <= getGridColumns) {
       topPosition = 0;
