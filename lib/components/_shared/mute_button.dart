@@ -22,7 +22,7 @@ class _MuteButtonState extends State<MuteButton> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
 
-    if (prefs.getBool('mute')) {
+    if (prefs.getBool('mute') != null && prefs.getBool('mute')) {
       deviceProvider.setMuteSounds();
     }
   }
