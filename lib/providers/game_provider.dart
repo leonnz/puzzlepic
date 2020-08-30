@@ -138,16 +138,17 @@ class GameProvider with ChangeNotifier {
     }
 
     // DEV ONLY pieces are already in right position
+    // imgPiece['pieceNumber'] = pieceNumber;
+    // imgPiece['gridPosition'] = pieceNumber;
+    // imgPiece['leftPosition'] =
+    //     setStartingLeftPosition(pieceNumber: imgPiece['gridPosition'] as int);
+    // imgPiece['topPosition'] = setStartingTopPosition(pieceNumber: imgPiece['gridPosition'] as int);
+
     imgPiece['pieceNumber'] = pieceNumber;
-    imgPiece['gridPosition'] = pieceNumber;
+    imgPiece['gridPosition'] = getRandomGridPosition(0, _gridPositions.length);
     imgPiece['leftPosition'] =
         setStartingLeftPosition(pieceNumber: imgPiece['gridPosition'] as int);
     imgPiece['topPosition'] = setStartingTopPosition(pieceNumber: imgPiece['gridPosition'] as int);
-
-    // imgPiece['pieceNumber'] = pieceNumber;
-    // imgPiece['gridPosition'] = getRandomGridPosition(0, _gridPositions.length);
-    // imgPiece['leftPosition'] = setStartingLeftPosition(pieceNumber: imgPiece['gridPosition'] as int);
-    // imgPiece['topPosition'] = setStartingTopPosition(pieceNumber: imgPiece['gridPosition'] as int);
 
     getPiecePositions.add(imgPiece);
   }
