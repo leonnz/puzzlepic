@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
       }
     }
     // Dev only
-    shopProvider.showBannerAd();
+    // shopProvider.showBannerAd();
   }
 
   Future<void> _checkShopAvailability(
@@ -134,7 +134,6 @@ class _HomeState extends State<Home> {
     deviceProvider.setUseMobileLayout(useMobileLayout: useMobileLayout);
     DeviceProvider.shortestSide = MediaQuery.of(context).size.shortestSide;
     DeviceProvider.longestSide = MediaQuery.of(context).size.longestSide;
-
 
     return Container(
       decoration: kScreenBackgroundBoxDecoration,
