@@ -5,7 +5,6 @@ import 'package:firebase_admob/firebase_admob.dart';
 
 import '../../ad_manager.dart';
 import '../../providers/game_provider.dart';
-import '../../providers/image_piece_provider.dart';
 import '../../providers/shop_provider.dart';
 import 'puzzle_card_image_piece.dart';
 
@@ -58,6 +57,8 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
       gameProvider.setInitialPuzzlePiecePosition(pieceNumber: i);
     }
 
+    gameProvider.setGridPositions();
+
     return imagePieceList;
   }
 
@@ -96,17 +97,14 @@ class _PuzzleCardImageBoardState extends State<PuzzleCardImageBoard> {
   Widget build(BuildContext context) {
     final GameProvider gameProvider = Provider.of<GameProvider>(context, listen: false);
 
-    return ChangeNotifierProvider<ImagePieceProvider>(
-      create: (BuildContext context) => ImagePieceProvider(),
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Container(
-          width: gameProvider.getScreenWidth,
-          height: gameProvider.getScreenWidth,
-          color: Colors.grey,
-          child: Stack(
-            children: _generateImagePieces(),
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Container(
+        width: gameProvider.getScreenWidth,
+        height: gameProvider.getScreenWidth,
+        color: Colors.grey,
+        child: Stack(
+          children: _generateImagePieces(),
         ),
       ),
     );

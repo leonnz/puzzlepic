@@ -124,18 +124,18 @@ class GameProvider with ChangeNotifier {
     resetMoves();
   }
 
+  int getRandomGridPosition(int min, int max) {
+    final Random _random = Random();
+    final int randomPositionIndex = min + _random.nextInt(max - min);
+    final int randomNumber = _gridPositions[randomPositionIndex];
+
+    _gridPositions.removeAt(randomPositionIndex);
+
+    return randomNumber;
+  }
+
   void setInitialPuzzlePiecePosition({int pieceNumber}) {
     final Map<String, dynamic> imgPiece = <String, dynamic>{};
-
-    int getRandomGridPosition(int min, int max) {
-      final Random _random = Random();
-      final int randomPositionIndex = min + _random.nextInt(max - min);
-      final int randomNumber = _gridPositions[randomPositionIndex];
-
-      _gridPositions.removeAt(randomPositionIndex);
-
-      return randomNumber;
-    }
 
     // DEV ONLY pieces are already in right position
     // imgPiece['pieceNumber'] = pieceNumber;

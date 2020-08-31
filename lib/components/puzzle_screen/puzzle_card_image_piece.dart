@@ -70,8 +70,6 @@ class _ImagePieceState extends State<ImagePiece> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     final GameProvider gameProvider = Provider.of<GameProvider>(context, listen: false);
-    final ImagePieceProvider imagePieceProvider =
-        Provider.of<ImagePieceProvider>(context, listen: false);
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
 
     bool dragged = false;
@@ -80,98 +78,105 @@ class _ImagePieceState extends State<ImagePiece> with SingleTickerProviderStateM
     double yDistance = 0.0;
 
     _controller.forward();
-    return AnimatedPositioned(
-      left: imagePieceProvider.getLeftPosition(
-          pieceNumber: widget.pieceNumber, piecePositions: gameProvider.getPiecePositions),
-      top: imagePieceProvider.getTopPosition(
-        pieceNumber: widget.pieceNumber,
-        piecePositions: gameProvider.getPiecePositions,
-      ),
-      duration: const Duration(milliseconds: 100),
-      child: FadeTransition(
-        opacity: widget.lastPiece
-            ? _animation
-            : Tween<double>(begin: 1.0, end: 1.0).animate(_controller),
-        child: GestureDetector(
-          onHorizontalDragStart: (DragStartDetails details) {
-            initial = details.globalPosition.dx;
-            dragged = true;
-          },
-          onHorizontalDragUpdate: (DragUpdateDetails details) {
-            xDistance = details.globalPosition.dx - initial;
-            if (dragged) {
-              if (imagePieceProvider.draggable(
-                    pieceNumber: widget.pieceNumber,
-                    xDistance: xDistance,
-                    yDistance: 0.0,
-                    piecePositions: gameProvider.getPiecePositions,
-                    blankSquare: gameProvider.getBlankSquare,
-                  ) &&
-                  !gameProvider.getPuzzleComplete) {
-                deviceProvider.playSound(sound: 'image_piece_slide.wav');
-                gameProvider.setMoves();
-                imagePieceProvider.setPieceLeftPosition(
-                  getBlankSquare: gameProvider.getBlankSquare,
-                  getPiecePositions: gameProvider.getPiecePositions,
-                  getSinglePieceWidth: gameProvider.getSinglePieceWidth,
-                  pieceNumber: widget.pieceNumber,
-                  checkComplete: gameProvider.checkComplete,
-                  xDistance: xDistance,
-                );
-              }
-              dragged = false;
-            }
-          },
-          onHorizontalDragEnd: (DragEndDetails details) {
-            initial = 0.0;
-          },
-          onVerticalDragStart: (DragStartDetails details) {
-            initial = details.globalPosition.dy;
-            dragged = true;
-          },
-          onVerticalDragUpdate: (DragUpdateDetails details) {
-            yDistance = details.globalPosition.dy - initial;
-            if (dragged) {
-              if (imagePieceProvider.draggable(
-                    pieceNumber: widget.pieceNumber,
-                    xDistance: 0.0,
-                    yDistance: yDistance,
-                    piecePositions: gameProvider.getPiecePositions,
-                    blankSquare: gameProvider.getBlankSquare,
-                  ) &&
-                  !gameProvider.getPuzzleComplete) {
-                deviceProvider.playSound(sound: 'image_piece_slide.wav');
-                gameProvider.setMoves();
-                imagePieceProvider.setPieceTopPosition(
-                    getBlankSquare: gameProvider.getBlankSquare,
-                    getPiecePositions: gameProvider.getPiecePositions,
-                    getSinglePieceWidth: gameProvider.getSinglePieceWidth,
-                    pieceNumber: widget.pieceNumber,
-                    checkComplete: gameProvider.checkComplete,
-                    yDistance: yDistance);
-              }
-              dragged = false;
-            }
-          },
-          onVerticalDragEnd: (DragEndDetails details) {
-            initial = 0.0;
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              border: gameProvider.getPuzzleComplete
-                  ? null
-                  : Border.all(width: 0.7, color: Colors.grey),
+    return ChangeNotifierProvider<ImagePieceProvider>(
+      create: (BuildContext context) => ImagePieceProvider(),
+      child: Consumer<ImagePieceProvider>(
+        builder: (BuildContext context, ImagePieceProvider image, Widget child) {
+          return AnimatedPositioned(
+            left: image.getLeftPosition(
+                pieceNumber: widget.pieceNumber, piecePositions: gameProvider.getPiecePositions),
+            top: image.getTopPosition(
+              pieceNumber: widget.pieceNumber,
+              piecePositions: gameProvider.getPiecePositions,
             ),
-            width: gameProvider.getSinglePieceWidth,
-            height: gameProvider.getSinglePieceWidth,
-            child: Center(
-              child: Image(
-                image: AssetImage(
-                    'assets/images/${gameProvider.getImageCategoryAssetName}/${gameProvider.getImageAssetName}/${gameProvider.getImageAssetName}_${widget.pieceNumber}.jpg'),
+            duration: const Duration(milliseconds: 100),
+            child: FadeTransition(
+              opacity: widget.lastPiece
+                  ? _animation
+                  : Tween<double>(begin: 1.0, end: 1.0).animate(_controller),
+              child: GestureDetector(
+                onHorizontalDragStart: (DragStartDetails details) {
+                  initial = details.globalPosition.dx;
+                  dragged = true;
+                },
+                onHorizontalDragUpdate: (DragUpdateDetails details) {
+                  xDistance = details.globalPosition.dx - initial;
+                  if (dragged) {
+                    if (image.draggable(
+                          pieceNumber: widget.pieceNumber,
+                          xDistance: xDistance,
+                          yDistance: 0.0,
+                          piecePositions: gameProvider.getPiecePositions,
+                          blankSquare: gameProvider.getBlankSquare,
+                        ) &&
+                        !gameProvider.getPuzzleComplete) {
+                      deviceProvider.playSound(sound: 'image_piece_slide.wav');
+                      gameProvider.setMoves();
+                      image.setPieceLeftPosition(
+                        getBlankSquare: gameProvider.getBlankSquare,
+                        getPiecePositions: gameProvider.getPiecePositions,
+                        getSinglePieceWidth: gameProvider.getSinglePieceWidth,
+                        pieceNumber: widget.pieceNumber,
+                        checkComplete: gameProvider.checkComplete,
+                        xDistance: xDistance,
+                      );
+                    }
+                    dragged = false;
+                  }
+                },
+                onHorizontalDragEnd: (DragEndDetails details) {
+                  initial = 0.0;
+                },
+                onVerticalDragStart: (DragStartDetails details) {
+                  initial = details.globalPosition.dy;
+                  dragged = true;
+                },
+                onVerticalDragUpdate: (DragUpdateDetails details) {
+                  yDistance = details.globalPosition.dy - initial;
+                  if (dragged) {
+                    if (image.draggable(
+                          pieceNumber: widget.pieceNumber,
+                          xDistance: 0.0,
+                          yDistance: yDistance,
+                          piecePositions: gameProvider.getPiecePositions,
+                          blankSquare: gameProvider.getBlankSquare,
+                        ) &&
+                        !gameProvider.getPuzzleComplete) {
+                      deviceProvider.playSound(sound: 'image_piece_slide.wav');
+                      gameProvider.setMoves();
+                      image.setPieceTopPosition(
+                          getBlankSquare: gameProvider.getBlankSquare,
+                          getPiecePositions: gameProvider.getPiecePositions,
+                          getSinglePieceWidth: gameProvider.getSinglePieceWidth,
+                          pieceNumber: widget.pieceNumber,
+                          checkComplete: gameProvider.checkComplete,
+                          yDistance: yDistance);
+                    }
+                    dragged = false;
+                  }
+                },
+                onVerticalDragEnd: (DragEndDetails details) {
+                  initial = 0.0;
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: gameProvider.getPuzzleComplete
+                        ? null
+                        : Border.all(width: 0.7, color: Colors.grey),
+                  ),
+                  width: gameProvider.getSinglePieceWidth,
+                  height: gameProvider.getSinglePieceWidth,
+                  child: Center(
+                    child: Image(
+                      image: AssetImage(
+                          'assets/images/${gameProvider.getImageCategoryAssetName}/${gameProvider.getImageAssetName}/${gameProvider.getImageAssetName}_${widget.pieceNumber}.jpg'),
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
