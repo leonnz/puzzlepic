@@ -11,19 +11,19 @@ class ShopProvider extends ChangeNotifier {
   static final InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> _subscription;
 
-  // final List<String> _availableCategories = <String>['cities', 'under_the_sea'];
+  final List<String> _availableCategories = <String>['cities', 'under_the_sea'];
 
   /// DEV only reveal all products
-  final List<String> _availableCategories = <String>[
-    'animals',
-    'art',
-    'buildings',
-    'cities',
-    'flowers',
-    'foods',
-    'landscapes',
-    'under_the_sea'
-  ];
+  // final List<String> _availableCategories = <String>[
+  //   'animals',
+  //   'art',
+  //   'buildings',
+  //   'cities',
+  //   'flowers',
+  //   'foods',
+  //   'landscapes',
+  //   'under_the_sea'
+  // ];
 
 //DEV ONLY - Test ad product
   // static const String _removeAdProductId = 'test_removeads';
