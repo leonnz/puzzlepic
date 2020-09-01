@@ -66,14 +66,14 @@ final TextStyle kSelectPictureScreenCompletedTextStyle = GoogleFonts.solway(
 );
 
 final TextStyle kPuzzleScreenPictureSubTitle = GoogleFonts.roboto(
-  fontSize: DeviceProvider.shortestSide / 34,
+  fontSize: DeviceProvider.shortestSide / 30,
   fontStyle: FontStyle.italic,
   letterSpacing: 1,
   color: Colors.black,
 );
 
 final TextStyle kPuzzleScreenMovesCounter = GoogleFonts.roboto(
-  fontSize: DeviceProvider.shortestSide / 34,
+  fontSize: DeviceProvider.shortestSide / 30,
   letterSpacing: 1,
   color: Colors.black,
 );
